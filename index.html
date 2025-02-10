@@ -212,7 +212,7 @@
             <label for="date-naissance">Date de naissance :</label>
             <input type="date" id="date-naissance" name="date_naissance" required>
           </div>
-          <!-- Champ Adresse en type search pour mobile -->
+          <!-- Champ Adresse de type search pour encourager une interface adaptée sur mobile -->
           <div class="info-field">
             <label for="adresse">Adresse :</label>
             <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
@@ -410,10 +410,10 @@
         }
       });
     }
-    window.addEventListener('load', initAutocomplete);
     
-    // Charger les données validées depuis localStorage lors du chargement de la page
+    // Combiner l'initialisation et le chargement des données depuis localStorage
     window.addEventListener('load', function() {
+      initAutocomplete();
       const storedData = localStorage.getItem('validatedData');
       if (storedData) {
         const data = JSON.parse(storedData);
