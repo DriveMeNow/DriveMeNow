@@ -76,7 +76,8 @@
     .info-field input[type="text"],
     .info-field input[type="email"],
     .info-field input[type="tel"],
-    .info-field input[type="date"] {
+    .info-field input[type="date"],
+    .info-field input[type="search"] {
       padding: 5px;
       font-size: 1em;
       border: 1px solid #555;
@@ -87,7 +88,7 @@
     .info-field input::placeholder {
       color: #aaa;
     }
-    /* NEPH fields : 12 petits champs alignés horizontalement */
+    /* NEPH fields : 12 petits champs alignés côte à côte */
     .neph-boxes {
       display: flex;
       flex-direction: row;
@@ -211,10 +212,10 @@
             <label for="date-naissance">Date de naissance :</label>
             <input type="date" id="date-naissance" name="date_naissance" required>
           </div>
-          <!-- Champ Adresse (sans autocomplete="off") -->
+          <!-- Champ Adresse en type search pour mobile -->
           <div class="info-field">
             <label for="adresse">Adresse :</label>
-            <input type="text" id="adresse" name="adresse" placeholder="Votre adresse" required>
+            <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
           </div>
           <div class="info-field">
             <label for="code-postal">Code postal :</label>
@@ -268,7 +269,7 @@
       </div>
     </form>
     
-    <!-- Résumé affiché après validation (sans titre "Informations validées") -->
+    <!-- Résumé affiché après validation (sans le titre "Informations validées") -->
     <div id="summaryView" class="summary">
       <p><label>Nom :</label> <span id="sumNom"></span></p>
       <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
@@ -409,7 +410,7 @@
         }
       });
     }
-    google.maps.event.addDomListener(window, 'load', initAutocomplete);
+    window.addEventListener('load', initAutocomplete);
     
     // Charger les données validées depuis localStorage lors du chargement de la page
     window.addEventListener('load', function() {
