@@ -41,6 +41,7 @@
       font-size: 2.2em;
       font-weight: bold;
       text-align: center;
+      color: #fff;
     }
     .subtitle {
       font-size: 1.2em;
@@ -86,7 +87,7 @@
     .info-field input::placeholder {
       color: #aaa;
     }
-    /* NEPH fields : 12 petits champs alignés côte à côte */
+    /* NEPH fields : 12 petits champs alignés horizontalement */
     .neph-boxes {
       display: flex;
       flex-direction: row;
@@ -210,10 +211,10 @@
             <label for="date-naissance">Date de naissance :</label>
             <input type="date" id="date-naissance" name="date_naissance" required>
           </div>
-          <!-- Champ Adresse sans autocomplete="off" -->
+          <!-- Champ adresse avec autocomplete off pour réduire les suggestions natives -->
           <div class="info-field">
             <label for="adresse">Adresse :</label>
-            <input type="text" id="adresse" name="adresse" placeholder="Votre adresse" required>
+            <input type="text" id="adresse" name="adresse" placeholder="Votre adresse" required autocomplete="off">
           </div>
           <div class="info-field">
             <label for="code-postal">Code postal :</label>
@@ -382,7 +383,6 @@
     // Intégration de Google Places Autocomplete pour le champ "Adresse"
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
-      // Laisser le navigateur gérer l'autocomplétion native
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
         componentRestrictions: { country: "fr" },
         fields: ["address_components", "formatted_address", "geometry", "name"]
