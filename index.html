@@ -35,6 +35,12 @@
       color: #FFA500;
       margin-bottom: 10px;
     }
+    /* Texte de bienvenue placé juste en dessous du titre */
+    .welcome-text {
+      margin-bottom: 20px;
+      font-size: 0.95em;
+      color: #ccc;
+    }
     #authPage h2 {
       margin-bottom: 20px;
       color: #FFA500;
@@ -78,6 +84,18 @@
       background: #222;
       color: #fff;
     }
+    /* Style spécifique pour le conteneur du champ mot de passe */
+    .password-container {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #FFA500;
+    }
     .btn { 
       padding: 10px 20px; 
       font-size: 1em; 
@@ -89,11 +107,7 @@
       margin: 10px 0; 
       width: 100%; 
     }
-    .auth-presentation {
-      margin-top: 20px;
-      font-size: 0.9em;
-      color: #ccc;
-    }
+    .auth-presentation { margin-top: 20px; font-size: 0.9em; color: #ccc; }
     /* ---------- Fin Authentification ---------- */
     
     /* ---------- Page principale (après authentification) ---------- */
@@ -178,7 +192,7 @@
       font-size: 0.9em;
     }
     #navBar a i { font-size: 1.5em; }
-    /* Nouveau bouton pour accéder à la page de garde */
+    /* Bouton pour accéder à la page de garde */
     #coverPageBtn {
       color: #fff;
       text-decoration: none;
@@ -217,6 +231,7 @@
   <!-- Page d'authentification -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
+    <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet et à toutes les fonctionnalités pour obtenir votre permis de conduire.</p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">S'inscrire</button>
@@ -229,9 +244,10 @@
           <label for="loginEmail">Email :</label>
           <input type="email" id="loginEmail" name="loginEmail" placeholder="Votre email" required>
         </div>
-        <div class="auth-field">
+        <div class="auth-field password-container">
           <label for="loginPassword">Mot de passe :</label>
           <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
+          <i class="fas fa-eye toggle-password" id="toggleLoginPassword" style="cursor:pointer;"></i>
           <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre." style="color: #FFA500; margin-left: 5px;"></i>
         </div>
         <div class="auth-field">
@@ -273,9 +289,6 @@
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
-    <div class="auth-presentation">
-      <p>Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet, qui vous accompagnera dans toutes vos démarches pour obtenir votre permis de conduire.</p>
-    </div>
   </div>
   
   <!-- Contenu principal du site (après authentification) -->
@@ -286,7 +299,7 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Ici, intégrez le contenu de la page de garde (formulaire candidat et résumé) selon vos versions précédentes -->
+      <!-- Ici, insérez le contenu de la page de garde (formulaire candidat et résumé) tel que précédemment développé -->
     </div>
     
     <!-- Barre de navigation fixe en bas -->
@@ -379,7 +392,7 @@
         code: oneTimeCode
       };
       localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      // En production, vous enverrez le code par email via SendGrid
+      // En production, le code serait envoyé par email via SendGrid
       alert("Un code à usage unique a été envoyé à l'adresse candidatlibre.assistance@gmail.com (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
@@ -536,6 +549,21 @@
       const coverPage = document.querySelector('#mainContent .cover-page');
       if (coverPage) {
         coverPage.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+    
+    // Gestion de l'icône d'œil pour le champ mot de passe dans la connexion
+    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+    toggleLoginPassword.addEventListener('click', function() {
+      const passwordField = document.getElementById('loginPassword');
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        this.classList.remove('fa-eye');
+        this.classList.add('fa-eye-slash');
+      } else {
+        passwordField.type = "password";
+        this.classList.remove('fa-eye-slash');
+        this.classList.add('fa-eye');
       }
     });
   </script>
