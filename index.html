@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DriveMe<i class="fas fa-car"></i>Now - Authentification</title>
+  <title>DriveMeNow - Authentification</title>
   <!-- Favicon (optionnel) -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
@@ -12,14 +12,8 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
     /* Réinitialisation */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       font-family: Arial, sans-serif;
       background-color: #000;
@@ -40,10 +34,6 @@
       font-size: 2em;
       color: #FFA500;
       margin-bottom: 10px;
-    }
-    #authPage h1 i {
-      font-size: 1em;
-      vertical-align: middle;
     }
     #authPage h2 {
       margin-bottom: 20px;
@@ -72,9 +62,7 @@
       display: none;
       text-align: left;
     }
-    .auth-form.active {
-      display: block;
-    }
+    .auth-form.active { display: block; }
     .auth-form .auth-field {
       margin-bottom: 15px;
     }
@@ -90,16 +78,16 @@
       background: #222;
       color: #fff;
     }
-    .btn {
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-      background-color: #FFA500;
-      color: #fff;
-      margin: 10px 0;
-      width: 100%;
+    .btn { 
+      padding: 10px 20px; 
+      font-size: 1em; 
+      cursor: pointer; 
+      border: none; 
+      border-radius: 4px; 
+      background-color: #FFA500; 
+      color: #fff; 
+      margin: 10px 0; 
+      width: 100%; 
     }
     .auth-presentation {
       margin-top: 20px;
@@ -109,9 +97,7 @@
     /* ---------- Fin Authentification ---------- */
     
     /* ---------- Page principale (après authentification) ---------- */
-    #mainContent {
-      display: none;
-    }
+    #mainContent { display: none; }
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -120,30 +106,13 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
     }
-    .title-section {
-      margin-bottom: 40px;
-      text-align: center;
-    }
-    .title-line1, .title-line2 {
-      font-size: 2.2em;
-      font-weight: bold;
-      color: #fff;
-    }
-    .subtitle {
-      font-size: 1.2em;
-      color: #ccc;
-      margin: 20px 0 40px;
-      text-align: center;
-    }
-    /* (Les styles de formulaire et autres éléments de la page de garde restent identiques à la version précédente) */
+    .title-section { margin-bottom: 40px; text-align: center; }
+    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; color: #fff; }
+    .subtitle { font-size: 1.2em; color: #ccc; margin: 20px 0 40px; text-align: center; }
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(1) !important;
     }
-    .neph-boxes {
-      display: flex;
-      flex-direction: row;
-      vertical-align: middle;
-    }
+    .neph-boxes { display: flex; flex-direction: row; vertical-align: middle; }
     .neph-box {
       width: 25px;
       height: 25px;
@@ -189,9 +158,7 @@
       opacity: 0;
       cursor: pointer;
     }
-    .photo-placeholder span {
-      pointer-events: none;
-    }
+    .photo-placeholder span { pointer-events: none; }
     /* Barre de navigation fixe en bas */
     #navBar {
       position: fixed;
@@ -210,9 +177,15 @@
       text-align: center;
       font-size: 0.9em;
     }
-    #navBar a i {
-      font-size: 1.5em;
+    #navBar a i { font-size: 1.5em; }
+    /* Nouveau bouton pour accéder à la page de garde */
+    #coverPageBtn {
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      font-size: 0.9em;
     }
+    #coverPageBtn i { font-size: 1.5em; }
     /* Sections de contenu du livret */
     .section-content {
       background: #222;
@@ -232,27 +205,18 @@
       margin-bottom: 15px;
       line-height: 1.5;
     }
-    .section-content ul {
-      list-style: disc;
-      padding-left: 20px;
-    }
+    .section-content ul { list-style: disc; padding-left: 20px; }
     /* Responsive */
     @media (max-width: 768px) {
-      .info-section {
-        flex-direction: column;
-      }
-      .photo-placeholder {
-        width: 100%;
-        height: auto;
-        padding: 20px;
-      }
+      .info-section { flex-direction: column; }
+      .photo-placeholder { width: 100%; height: auto; padding: 20px; }
     }
   </style>
 </head>
 <body>
   <!-- Page d'authentification -->
   <div id="authPage">
-    <h1>DriveMe<i class="fas fa-car"></i>Now</h1>
+    <h1>DriveMeNow</h1>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">S'inscrire</button>
@@ -322,7 +286,7 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Vous pouvez insérer ici le contenu de la page de garde (formulaire candidat et résumé) tel que précédemment développé -->
+      <!-- Ici, intégrez le contenu de la page de garde (formulaire candidat et résumé) selon vos versions précédentes -->
     </div>
     
     <!-- Barre de navigation fixe en bas -->
@@ -332,6 +296,7 @@
       <a href="#suivi"><i class="fas fa-traffic-light"></i><br>Suivi</a>
       <a href="#examen"><i class="fas fa-laptop"></i><br>Examen</a>
       <a href="#fabrication"><i class="fas fa-microchip"></i><br>Permis</a>
+      <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Page de Garde</a>
     </nav>
     
     <!-- Sections de contenu du livret -->
@@ -408,14 +373,13 @@
       }
       // Génération d'un code à usage unique (6 chiffres)
       const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
-      // Stockage simulé des données d'inscription
       const registeredUser = {
         email: regEmail,
         password: regPassword,
         code: oneTimeCode
       };
       localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      // Simuler l'envoi d'un email (en production, ce sera fait côté serveur)
+      // En production, vous enverrez le code par email via SendGrid
       alert("Un code à usage unique a été envoyé à l'adresse candidatlibre.assistance@gmail.com (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
@@ -563,6 +527,15 @@
         infoForm.style.display = 'none';
         displaySummary(data);
         document.getElementById('summaryView').style.display = 'block';
+      }
+    });
+    
+    // Gestion du bouton "Page de Garde" dans la barre de navigation
+    document.getElementById('coverPageBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const coverPage = document.querySelector('#mainContent .cover-page');
+      if (coverPage) {
+        coverPage.scrollIntoView({ behavior: 'smooth' });
       }
     });
   </script>
