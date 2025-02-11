@@ -90,10 +90,6 @@
     .info-field input::placeholder {
       color: #aaa;
     }
-    /* Modification pour afficher l'icône du calendrier en blanc (Chrome/WebKit) */
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1);
-    }
     /* NEPH fields : 12 petits champs alignés horizontalement */
     .neph-boxes {
       display: flex;
@@ -136,6 +132,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      image-orientation: from-image;  /* Cette propriété aide à respecter l'orientation EXIF */
       display: none;
     }
     .photo-placeholder input[type="file"] {
@@ -377,7 +374,7 @@
       document.getElementById('summaryView').style.display = 'none';
     });
     
-    // Prévisualisation de la photo et affichage du texte "Ajouter une photo" tant qu'aucune image n'est sélectionnée
+    // Prévisualisation de la photo et affichage du texte "Ajouter une photo"
     const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
     const photoPreview = document.getElementById('photoPreview');
     const photoPlaceholderText = document.getElementById('photoPlaceholderText');
@@ -425,6 +422,8 @@
         }
       });
     }
+    
+    // Initialisation à l'événement load
     window.addEventListener('load', function() {
       initAutocomplete();
       const storedData = localStorage.getItem('validatedData');
