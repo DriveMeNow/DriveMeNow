@@ -34,7 +34,7 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
     }
-    /* Titre et sous-titre */
+    /* Titre et sous-titre de la page de garde */
     .title-section {
       margin-bottom: 40px;
       text-align: center;
@@ -52,7 +52,7 @@
       margin-bottom: 40px;
       text-align: center;
     }
-    /* Formulaire et disposition des informations */
+    /* Formulaire de la page de garde */
     form {
       width: 100%;
     }
@@ -90,11 +90,11 @@
     .info-field input::placeholder {
       color: #aaa;
     }
-    /* Pour forcer l'icône du calendrier en blanc */
+    /* Forcer l'icône du calendrier en blanc */
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(1) !important;
     }
-    /* NEPH fields : 12 petits champs alignés horizontalement */
+    /* NEPH fields */
     .neph-boxes {
       display: flex;
       flex-direction: row;
@@ -118,7 +118,7 @@
       background-color: #222;
       color: #fff;
     }
-    /* Zone photo avec prévisualisation */
+    /* Zone photo */
     .photo-placeholder {
       width: 150px;
       height: 200px;
@@ -146,7 +146,6 @@
       opacity: 0;
       cursor: pointer;
     }
-    /* Texte par défaut dans la zone photo */
     .photo-placeholder span {
       pointer-events: none;
     }
@@ -164,7 +163,7 @@
     .btn.edit {
       background-color: #f0ad4e;
     }
-    /* Section résumé (après validation) */
+    /* Section résumé */
     .summary {
       display: none;
       margin-bottom: 40px;
@@ -176,7 +175,7 @@
     .summary label {
       font-weight: bold;
     }
-    /* Footer */
+    /* Footer de la page de garde */
     .footer {
       text-align: center;
       font-size: 1.2em;
@@ -185,7 +184,7 @@
       padding-top: 20px;
       color: #ccc;
     }
-    /* Navigation bar fixe en bas */
+    /* Barre de navigation fixe en bas pour accéder au contenu */
     #navBar {
       position: fixed;
       bottom: 0;
@@ -208,26 +207,48 @@
     }
     /* Sections de contenu */
     .section-content {
+      background: #222;
+      border-radius: 6px;
       padding: 20px;
-      margin-bottom: 80px; /* espace pour éviter le chevauchement avec la nav fixe */
+      margin: 20px auto;
+      max-width: 900px;
+      box-shadow: 0 2px 5px rgba(255,255,255,0.05);
     }
     .section-content h2 {
-      margin-bottom: 10px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
       color: #FFA500;
+    }
+    .section-content p, .section-content ul {
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    .section-content ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .info-section {
+        flex-direction: column;
+      }
+      .photo-placeholder {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
   <!-- Page de garde -->
   <div class="cover-page">
-    <!-- Titre et sous-titre -->
     <div class="title-section">
       <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
       <div class="title-line2">Candidat Libre au Permis B</div>
       <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
     </div>
-    
-    <!-- Formulaire interactif -->
     <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
       <div class="info-section">
         <div class="candidate-info">
@@ -299,8 +320,7 @@
         <button type="submit" class="btn">Envoyer</button>
       </div>
     </form>
-    
-    <!-- Résumé affiché après validation -->
+    <!-- Résumé après validation -->
     <div id="summaryView" class="summary">
       <p><label>Nom :</label> <span id="sumNom"></span></p>
       <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
@@ -333,13 +353,13 @@
   <div id="contentPage">
     <section id="introduction" class="section-content">
       <h2>1. Introduction</h2>
-      <p>Bienvenue dans ce livret d’apprentissage dédié aux candidats libres souhaitant obtenir leur permis de conduire. Ce guide a pour objectif de vous accompagner, étape par étape, depuis les démarches administratives jusqu’à l’obtention du permis de conduire. Il vous permettra de :</p>
+      <p>Bienvenue dans ce livret d’apprentissage dédié aux candidats libres souhaitant obtenir leur permis de conduire. Ce guide vous accompagne, étape par étape, depuis les démarches administratives jusqu’à l’obtention du permis.</p>
       <ul>
         <li>Connaître les prérequis et obligations liés à la formation.</li>
-        <li>Réaliser les démarches d'inscription.</li>
-        <li>Suivre votre progression grâce aux outils de suivi et d'évaluation.</li>
+        <li>Réaliser les démarches d'inscription via les plateformes officielles.</li>
+        <li>Suivre votre progression avec des outils d'évaluation.</li>
         <li>Vous préparer efficacement pour l'examen.</li>
-        <li>Comprendre la fabrication du titre du permis de conduire.</li>
+        <li>Comprendre la fabrication du titre du permis.</li>
       </ul>
     </section>
     
@@ -351,25 +371,25 @@
     
     <section id="suivi" class="section-content">
       <h2>3. Suivre votre parcours de formation</h2>
-      <p>Suivez votre progression à l’aide d’outils de suivi et d’évaluation. Ce livret vous offre des tableaux de bord et des grilles d'évaluation pour mesurer vos progrès.</p>
+      <p>Utilisez les outils de suivi et d'évaluation pour mesurer vos progrès tout au long de votre formation.</p>
       <!-- Ajoutez ici le contenu détaillé relatif au suivi de la formation -->
     </section>
     
     <section id="examen" class="section-content">
       <h2>4. Préparation à l'examen</h2>
-      <p>Préparez-vous efficacement pour le jour de l’examen grâce à des conseils, des simulations et des ressources dédiées.</p>
+      <p>Préparez-vous efficacement pour l'examen grâce à des conseils, simulations et ressources dédiées.</p>
       <!-- Ajoutez ici le contenu détaillé relatif à la préparation à l'examen -->
     </section>
     
     <section id="fabrication" class="section-content">
-      <h2>5. Fabrication du titre du permis</h2>
-      <p>Découvrez toutes les informations concernant la fabrication du titre du permis de conduire et les démarches administratives associées.</p>
+      <h2>5. Fabrication du permis</h2>
+      <p>Découvrez toutes les informations concernant la fabrication du titre du permis et les démarches administratives associées.</p>
       <!-- Ajoutez ici le contenu détaillé relatif à la fabrication du permis -->
     </section>
   </div>
   
   <script>
-    // Auto-focus pour les champs NEPH : passage automatique au suivant dès qu'un chiffre est saisi
+    // Auto-focus pour les champs NEPH
     const nephInputs = document.querySelectorAll('.neph-box input');
     nephInputs.forEach((input, index) => {
       input.addEventListener('input', function() {
@@ -379,7 +399,7 @@
       });
     });
     
-    // Fonction pour formater les dates en jj/mm/aaaa
+    // Fonction de formatage des dates
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
@@ -387,9 +407,9 @@
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
     
-    // Fonction pour collecter les données du formulaire
+    // Collecte des données du formulaire
     function collectFormData() {
-      const data = {
+      return {
         nom: document.getElementById('nom').value,
         prenom: document.getElementById('prenom').value,
         dateNaissance: formatDate(document.getElementById('date-naissance').value),
@@ -403,10 +423,9 @@
         neph: Array.from(nephInputs).map(input => input.value).join(''),
         photo: document.getElementById('photoPreview').src
       };
-      return data;
     }
     
-    // Fonction pour afficher le résumé
+    // Affichage du résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = data.nom;
       document.getElementById('sumPrenom').innerText = data.prenom;
@@ -424,7 +443,7 @@
       }
     }
     
-    // Gestion de la soumission du formulaire
+    // Soumission du formulaire
     const infoForm = document.getElementById('infoForm');
     infoForm.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -435,13 +454,13 @@
       document.getElementById('summaryView').style.display = 'block';
     });
     
-    // Bouton de modification : revenir au formulaire
+    // Bouton de modification
     document.getElementById('editBtn').addEventListener('click', function() {
       infoForm.style.display = 'block';
       document.getElementById('summaryView').style.display = 'none';
     });
     
-    // Prévisualisation de la photo et gestion du texte "Ajouter une photo"
+    // Prévisualisation de la photo et masquage du texte "Ajouter une photo"
     const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
     const photoPreview = document.getElementById('photoPreview');
     const photoPlaceholderText = document.getElementById('photoPlaceholderText');
@@ -460,7 +479,7 @@
       }
     });
     
-    // Intégration de Google Places Autocomplete pour le champ "Adresse"
+    // Initialisation de Google Places Autocomplete pour le champ "Adresse"
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
@@ -489,8 +508,6 @@
         }
       });
     }
-    
-    // Initialisation à l'événement load
     window.addEventListener('load', function() {
       initAutocomplete();
       const storedData = localStorage.getItem('validatedData');
