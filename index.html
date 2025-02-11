@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
+  <title>DriveMe<i class="fas fa-car"></i>Now - Authentification</title>
   <!-- Favicon (optionnel) -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
@@ -26,7 +26,7 @@
       color: #fff;
       line-height: 1.6;
     }
-    /* ---------- Style de la page d'authentification ---------- */
+    /* ---------- Page d'authentification ---------- */
     #authPage {
       max-width: 400px;
       margin: 50px auto;
@@ -35,6 +35,15 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
+    }
+    #authPage h1 {
+      font-size: 2em;
+      color: #FFA500;
+      margin-bottom: 10px;
+    }
+    #authPage h1 i {
+      font-size: 1em;
+      vertical-align: middle;
     }
     #authPage h2 {
       margin-bottom: 20px;
@@ -58,7 +67,6 @@
     }
     .auth-tabs button.active {
       background: #f0ad4e;
-      /* On garde le texte en noir */
     }
     .auth-form {
       display: none;
@@ -69,7 +77,6 @@
     }
     .auth-form .auth-field {
       margin-bottom: 15px;
-      text-align: left;
     }
     .auth-form .auth-field label {
       display: block;
@@ -99,9 +106,9 @@
       font-size: 0.9em;
       color: #ccc;
     }
-    /* ---------- Fin page d'authentification ---------- */
+    /* ---------- Fin Authentification ---------- */
     
-    /* ---------- Style de la page principale (après connexion) ---------- */
+    /* ---------- Page principale (après authentification) ---------- */
     #mainContent {
       display: none;
     }
@@ -128,7 +135,7 @@
       margin: 20px 0 40px;
       text-align: center;
     }
-    /* (Les styles du formulaire initial de la page de garde et autres éléments restent inchangés) */
+    /* (Les styles de formulaire et autres éléments de la page de garde restent identiques à la version précédente) */
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(1) !important;
     }
@@ -245,6 +252,7 @@
 <body>
   <!-- Page d'authentification -->
   <div id="authPage">
+    <h1>DriveMe<i class="fas fa-car"></i>Now</h1>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">S'inscrire</button>
@@ -260,6 +268,7 @@
         <div class="auth-field">
           <label for="loginPassword">Mot de passe :</label>
           <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
+          <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre." style="color: #FFA500; margin-left: 5px;"></i>
         </div>
         <div class="auth-field">
           <label for="loginCode">Code à usage unique :</label>
@@ -287,6 +296,7 @@
         <div class="auth-field">
           <label for="regPassword">Mot de passe :</label>
           <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required>
+          <small style="display:block; color:#ccc; margin-top:5px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         </div>
         <div class="auth-field">
           <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
@@ -312,8 +322,7 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Ici, vous pouvez intégrer le formulaire de saisie d'informations du candidat et son résumé (comme dans vos versions précédentes) -->
-      <!-- ... (Votre code existant pour la page de garde) ... -->
+      <!-- Vous pouvez insérer ici le contenu de la page de garde (formulaire candidat et résumé) tel que précédemment développé -->
     </div>
     
     <!-- Barre de navigation fixe en bas -->
@@ -382,31 +391,36 @@
       loginFormContainer.classList.remove('active');
     });
     
-    // Simulation de l'inscription : génération d'un code à usage unique et stockage dans localStorage
+    // Simulation de l'inscription avec validation du mot de passe
     document.getElementById('registerForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
       const regPassword = document.getElementById('regPassword').value;
       const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
+      if (!passwordRegex.test(regPassword)) {
+        alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
+        return;
+      }
       if (regPassword !== regPasswordConfirm) {
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
-      // Génération d'un code aléatoire à usage unique (6 chiffres)
+      // Génération d'un code à usage unique (6 chiffres)
       const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
-      // Stockage des données d'inscription (simulation)
+      // Stockage simulé des données d'inscription
       const registeredUser = {
         email: regEmail,
         password: regPassword,
         code: oneTimeCode
       };
       localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      alert("Un code à usage unique a été envoyé à votre adresse email (simulation : " + oneTimeCode + ")");
-      // Après inscription, on peut basculer sur l'onglet Connexion
+      // Simuler l'envoi d'un email (en production, ce sera fait côté serveur)
+      alert("Un code à usage unique a été envoyé à l'adresse candidatlibre.assistance@gmail.com (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
     
-    // Simulation de la connexion : vérification des identifiants et du code à usage unique
+    // Simulation de la connexion avec vérification du code à usage unique
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const loginEmail = document.getElementById('loginEmail').value;
@@ -425,7 +439,6 @@
         alert("Code à usage unique incorrect.");
         return;
       }
-      // Si toutes les vérifications passent, on affiche le contenu principal
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
     });
@@ -481,9 +494,21 @@
       }
     }
     
-    // (Code existant pour le formulaire de la page de garde peut être ajouté ici si nécessaire)
+    const infoForm = document.getElementById('infoForm');
+    infoForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = collectFormData();
+      localStorage.setItem('validatedData', JSON.stringify(formData));
+      infoForm.style.display = 'none';
+      displaySummary(formData);
+      document.getElementById('summaryView').style.display = 'block';
+    });
     
-    // Prévisualisation de la photo
+    document.getElementById('editBtn').addEventListener('click', function() {
+      infoForm.style.display = 'block';
+      document.getElementById('summaryView').style.display = 'none';
+    });
+    
     const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
     const photoPreview = document.getElementById('photoPreview');
     const photoPlaceholderText = document.getElementById('photoPlaceholderText');
@@ -502,7 +527,6 @@
       }
     });
     
-    // Initialisation de Google Places Autocomplete pour le champ "Adresse"
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
@@ -533,6 +557,13 @@
     }
     window.addEventListener('load', function() {
       initAutocomplete();
+      const storedData = localStorage.getItem('validatedData');
+      if (storedData) {
+        const data = JSON.parse(storedData);
+        infoForm.style.display = 'none';
+        displaySummary(data);
+        document.getElementById('summaryView').style.display = 'block';
+      }
     });
   </script>
 </body>
