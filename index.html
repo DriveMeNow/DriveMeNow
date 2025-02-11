@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
-  <!-- Favicon (optionnel, à ajouter si vous en disposez) -->
+  <!-- Favicon (optionnel) -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -90,6 +90,10 @@
     .info-field input::placeholder {
       color: #aaa;
     }
+    /* Pour forcer l'icône du calendrier en blanc */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) !important;
+    }
     /* NEPH fields : 12 petits champs alignés horizontalement */
     .neph-boxes {
       display: flex;
@@ -132,7 +136,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      image-orientation: from-image;  /* Cette propriété aide à respecter l'orientation EXIF */
+      image-orientation: from-image;
       display: none;
     }
     .photo-placeholder input[type="file"] {
@@ -219,7 +223,7 @@
             <label for="date-naissance">Date de naissance :</label>
             <input type="date" id="date-naissance" name="date_naissance" required>
           </div>
-          <!-- Champ Adresse de type search pour mobile -->
+          <!-- Champ Adresse de type search pour encourager l'interface mobile -->
           <div class="info-field">
             <label for="adresse">Adresse :</label>
             <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
@@ -277,7 +281,7 @@
       </div>
     </form>
     
-    <!-- Résumé affiché après validation (sans le titre "Informations validées") -->
+    <!-- Résumé affiché après validation (sans titre "Informations validées") -->
     <div id="summaryView" class="summary">
       <p><label>Nom :</label> <span id="sumNom"></span></p>
       <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
@@ -374,7 +378,7 @@
       document.getElementById('summaryView').style.display = 'none';
     });
     
-    // Prévisualisation de la photo et affichage du texte "Ajouter une photo"
+    // Prévisualisation de la photo et gestion du texte "Ajouter une photo"
     const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
     const photoPreview = document.getElementById('photoPreview');
     const photoPlaceholderText = document.getElementById('photoPlaceholderText');
@@ -388,6 +392,10 @@
           if (photoPlaceholderText) {
             photoPlaceholderText.style.display = 'none';
           }
+          console.log("Photo prévisualisée");
+        };
+        reader.onerror = function(e) {
+          console.error("Erreur lors de la lecture du fichier", e);
         };
         reader.readAsDataURL(file);
       }
@@ -422,8 +430,6 @@
         }
       });
     }
-    
-    // Initialisation à l'événement load
     window.addEventListener('load', function() {
       initAutocomplete();
       const storedData = localStorage.getItem('validatedData');
