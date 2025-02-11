@@ -4,12 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
-  <!-- Favicon (assurez-vous d'avoir un fichier favicon.ico ou modifiez le lien) -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Google Maps API avec chargement asynchrone et defer -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
+  <!-- Google Maps API avec votre clé API et la bibliothèque Places -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
     /* Réinitialisation */
     * {
@@ -90,7 +88,7 @@
     .info-field input::placeholder {
       color: #aaa;
     }
-    /* NEPH fields : 12 petits champs alignés horizontalement */
+    /* NEPH fields : 12 petits champs alignés côte à côte */
     .neph-boxes {
       display: flex;
       flex-direction: row;
@@ -214,7 +212,7 @@
             <label for="date-naissance">Date de naissance :</label>
             <input type="date" id="date-naissance" name="date_naissance" required>
           </div>
-          <!-- Champ Adresse de type search pour encourager l'interface mobile -->
+          <!-- Champ Adresse de type search pour encourager une interface adaptée sur mobile -->
           <div class="info-field">
             <label for="adresse">Adresse :</label>
             <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
@@ -412,6 +410,8 @@
         }
       });
     }
+    
+    // Combiner l'initialisation et le chargement des données depuis localStorage
     window.addEventListener('load', function() {
       initAutocomplete();
       const storedData = localStorage.getItem('validatedData');
