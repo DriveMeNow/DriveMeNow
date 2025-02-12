@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DriveMeNow - Développement</title>
+  <title>DriveMeNow - Authentification</title>
   <!-- Favicon (optionnel) -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Google reCAPTCHA Enterprise avec la nouvelle clé -->
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x" async defer></script>
   <!-- Google Maps API avec Places -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
@@ -81,12 +83,7 @@
       color: #FFA500;
     }
     .btn { padding: 10px 20px; font-size: 1em; cursor: pointer; border: none; border-radius: 4px; background-color: #FFA500; color: #fff; margin: 10px 0; width: 100%; }
-    .skip-btn {
-      background-color: #ccc;
-      color: #000;
-      margin-top: 10px;
-      font-size: 0.9em;
-    }
+    .skip-btn { background-color: #ccc; color: #000; margin-top: 10px; font-size: 0.9em; }
     .auth-presentation { margin-top: 20px; font-size: 0.9em; color: #ccc; }
     /* ---------- Fin Authentification ---------- */
     
@@ -199,10 +196,10 @@
   </style>
 </head>
 <body>
-  <!-- Page d'authentification (mode développement : CAPTCHA et OTP désactivés) -->
+  <!-- Page d'authentification -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
-    <p class="welcome-text">Bienvenue sur DriveMeNow ! Pour vos tests, cliquez sur "Passer l’authentification" afin d’accéder directement au contenu.</p>
+    <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet et à toutes les fonctionnalités pour obtenir votre permis de conduire.</p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">S'inscrire</button>
@@ -221,7 +218,7 @@
           <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
           <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre." style="color: #FFA500; margin-left: 5px;"></i>
         </div>
-        <!-- OTP et CAPTCHA supprimés pour simplifier -->
+        <!-- OTP et CAPTCHA désactivés pour faciliter les tests -->
         <button type="submit" class="btn">Se connecter</button>
       </form>
     </div>
@@ -248,7 +245,7 @@
           <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required>
           <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
         </div>
-        <!-- CAPTCHA supprimé pour simplifier -->
+        <!-- CAPTCHA désactivé pour faciliter les tests -->
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
@@ -348,178 +345,4 @@
     <div id="contentPage">
       <section id="introduction" class="section-content">
         <h2>1. Introduction</h2>
-        <p>Bienvenue dans ce livret d’apprentissage dédié aux candidats libres souhaitant obtenir leur permis de conduire. Ce guide vous accompagne, étape par étape, depuis les démarches administratives jusqu’à l’obtention du permis.</p>
-        <ul>
-          <li>Connaître les prérequis et obligations liés à la formation.</li>
-          <li>Réaliser les démarches d'inscription via les plateformes officielles.</li>
-          <li>Suivre votre progression avec des outils d'évaluation.</li>
-          <li>Vous préparer efficacement pour l'examen.</li>
-          <li>Comprendre la fabrication du titre du permis.</li>
-        </ul>
-      </section>
-      
-      <section id="inscription" class="section-content">
-        <h2>2. Démarches d'inscription</h2>
-        <p>Réalisez les démarches d’inscription via les plateformes officielles. Suivez les instructions et téléchargez les documents requis pour compléter votre inscription.</p>
-      </section>
-      
-      <section id="suivi" class="section-content">
-        <h2>3. Suivre votre parcours de formation</h2>
-        <p>Utilisez les outils de suivi et d'évaluation pour mesurer vos progrès tout au long de votre formation.</p>
-      </section>
-      
-      <section id="examen" class="section-content">
-        <h2>4. Préparation à l'examen</h2>
-        <p>Préparez-vous efficacement pour l'examen grâce à des conseils, des simulations et des ressources dédiées.</p>
-      </section>
-      
-      <section id="fabrication" class="section-content">
-        <h2>5. Fabrication du permis</h2>
-        <p>Découvrez toutes les informations concernant la fabrication du titre du permis et les démarches administratives associées.</p>
-      </section>
-    </div>
-  </div>
-  
-  <script>
-    // Gestion des onglets de connexion/inscription
-    const loginTab = document.getElementById('loginTab');
-    const registerTab = document.getElementById('registerTab');
-    const loginFormContainer = document.getElementById('loginFormContainer');
-    const registerFormContainer = document.getElementById('registerFormContainer');
-    
-    loginTab.addEventListener('click', () => {
-      loginTab.classList.add('active');
-      registerTab.classList.remove('active');
-      loginFormContainer.classList.add('active');
-      registerFormContainer.classList.remove('active');
-    });
-    
-    registerTab.addEventListener('click', () => {
-      registerTab.classList.add('active');
-      loginTab.classList.remove('active');
-      registerFormContainer.classList.add('active');
-      loginFormContainer.classList.remove('active');
-    });
-    
-    // Simulation de l'inscription avec validation du mot de passe
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const regEmail = document.getElementById('regEmail').value;
-      const regPassword = document.getElementById('regPassword').value;
-      const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
-      if (!passwordRegex.test(regPassword)) {
-        alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
-        return;
-      }
-      if (regPassword !== regPasswordConfirm) {
-        alert("Les mots de passe ne correspondent pas.");
-        return;
-      }
-      // Génération d'un code à usage unique (6 chiffres)
-      const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
-      const registeredUser = {
-        email: regEmail,
-        password: regPassword,
-        code: oneTimeCode
-      };
-      localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
-      loginTab.click();
-    });
-    
-    // Simulation de la connexion (aucune vérification OTP ici)
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Pour simplifier, on passe directement en mode connecté
-      document.getElementById('authPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      localStorage.setItem('authenticated', 'true');
-    });
-    
-    // Bouton pour passer l'authentification directement (mode développement)
-    document.getElementById('skipAuth').addEventListener('click', function() {
-      document.getElementById('authPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      localStorage.setItem('authenticated', 'true');
-    });
-    
-    // Gestion des icônes "œil" pour afficher/masquer le mot de passe
-    function setupTogglePassword(toggleElement, targetInput) {
-      toggleElement.addEventListener('click', function() {
-        if (targetInput.type === "password") {
-          targetInput.type = "text";
-          toggleElement.classList.remove('fa-eye');
-          toggleElement.classList.add('fa-eye-slash');
-        } else {
-          targetInput.type = "password";
-          toggleElement.classList.remove('fa-eye-slash');
-          toggleElement.classList.add('fa-eye');
-        }
-      });
-    }
-    // Pour le formulaire de connexion
-    const toggleLogin = document.getElementById('toggleLoginPassword');
-    setupTogglePassword(toggleLogin, document.getElementById('loginPassword'));
-    // Pour le formulaire d'inscription
-    document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
-      const targetId = icon.getAttribute('data-target');
-      const targetInput = document.getElementById(targetId);
-      setupTogglePassword(icon, targetInput);
-    });
-    function addToggleIcon(inputId) {
-      const input = document.getElementById(inputId);
-      if (!input) return;
-      const icon = document.createElement('i');
-      icon.classList.add('fas', 'fa-eye', 'toggle-password');
-      input.parentNode.appendChild(icon);
-      setupTogglePassword(icon, input);
-    }
-    addToggleIcon('regPassword');
-    addToggleIcon('regPasswordConfirm');
-    
-    // Auto-focus pour les champs NEPH
-    const nephInputs = document.querySelectorAll('.neph-box input');
-    nephInputs.forEach((input, index) => {
-      input.addEventListener('input', function() {
-        if (this.value.length >= this.maxLength && index + 1 < nephInputs.length) {
-          nephInputs[index + 1].focus();
-        }
-      });
-    });
-    
-    function formatDate(dateStr) {
-      if (!dateStr) return "";
-      const parts = dateStr.split("-");
-      if (parts.length !== 3) return dateStr;
-      return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-    
-    function collectFormData() {
-      return {
-        nom: document.getElementById('nom').value,
-        prenom: document.getElementById('prenom').value,
-        dateNaissance: formatDate(document.getElementById('date-naissance').value),
-        adresse: document.getElementById('adresse').value,
-        codePostal: document.getElementById('code-postal').value,
-        commune: document.getElementById('commune').value,
-        telephone: document.getElementById('telephone').value,
-        email: document.getElementById('email').value,
-        responsable: document.getElementById('responsable').value,
-        dateDebut: formatDate(document.getElementById('date-debut').value),
-        neph: Array.from(nephInputs).map(input => input.value).join(''),
-        photo: document.getElementById('photoPreview').src
-      };
-    }
-    
-    function displaySummary(data) {
-      document.getElementById('sumNom').innerText = data.nom;
-      document.getElementById('sumPrenom').innerText = data.prenom;
-      document.getElementById('sumDateNaissance').innerText = data.dateNaissance;
-      document.getElementById('sumAdresse').innerText = data.adresse;
-      document.getElementById('sumCodePostal').innerText = data.codePostal;
-      document.getElementById('sumCommune').innerText = data.commune;
-      document.getElementById('sumTelephone').innerText = data.telephone;
-      document.getElementById('sumEmail').innerText = data.email;
-      document.getElementById('sumResponsable').innerText = data.responsable;
-      document.getElementById('s
+        <p>Bienvenue dans ce livret d’apprentissage dédié aux candidats libres souhaitant obtenir leur permis de conduire.
