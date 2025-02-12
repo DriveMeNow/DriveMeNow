@@ -54,7 +54,7 @@
       flex: 1;
       padding: 10px;
       background: #FFA500;
-      color: #000; /* Texte en noir */
+      color: #000;
       border: none;
       cursor: pointer;
       font-size: 1em;
@@ -107,6 +107,12 @@
       margin: 10px 0; 
       width: 100%; 
     }
+    .skip-btn {
+      background-color: #ccc;
+      color: #000;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
     .auth-presentation { margin-top: 20px; font-size: 0.9em; color: #ccc; }
     /* ---------- Fin Authentification ---------- */
     
@@ -134,7 +140,7 @@
       text-align: center;
       line-height: 25px;
       vertical-align: middle;
-      margin-right: 0;
+      margin-right: 3px;
     }
     .neph-box input {
       width: 100%;
@@ -190,6 +196,7 @@
       text-decoration: none;
       text-align: center;
       font-size: 0.9em;
+      padding: 0 10px;
     }
     #navBar a i { font-size: 1.5em; }
     /* Bouton pour accéder à la page de garde */
@@ -208,6 +215,7 @@
       margin: 20px auto;
       max-width: 900px;
       box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+      padding-bottom: 80px; /* Pour éviter que la nav masque le contenu */
     }
     .section-content h2 {
       border-bottom: 1px solid #444;
@@ -220,6 +228,32 @@
       line-height: 1.5;
     }
     .section-content ul { list-style: disc; padding-left: 20px; }
+    /* ---------- Fin Page principale ---------- */
+    
+    /* ---------- Page de garde (Formulaire candidat complet) ---------- */
+    .candidate-form {
+      text-align: left;
+      margin-top: 20px;
+    }
+    .candidate-form .info-field { margin-bottom: 15px; }
+    .candidate-form .info-field label { display: block; margin-bottom: 5px; }
+    .candidate-form .info-field input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: #222;
+      color: #fff;
+    }
+    .candidate-form .neph-boxes { display: flex; flex-direction: row; }
+    .candidate-form .neph-box {
+      width: 25px; height: 25px;
+      border: 1px solid #777;
+      text-align: center; line-height: 25px;
+      margin-right: 3px;
+    }
+    /* ---------- Fin Page de garde ---------- */
+    
     /* Responsive */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -247,7 +281,7 @@
         <div class="auth-field password-container">
           <label for="loginPassword">Mot de passe :</label>
           <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
-          <i class="fas fa-eye toggle-password" id="toggleLoginPassword" style="cursor:pointer;"></i>
+          <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
           <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre." style="color: #FFA500; margin-left: 5px;"></i>
         </div>
         <div class="auth-field">
@@ -289,6 +323,8 @@
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
+    <!-- Bouton pour passer l'authentification (mode développement) -->
+    <button class="btn skip-btn" id="skipAuth">Passer l’authentification</button>
   </div>
   
   <!-- Contenu principal du site (après authentification) -->
@@ -299,7 +335,7 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Ici, insérez le contenu de la page de garde (formulaire candidat et résumé) tel que précédemment développé -->
+      <!-- Ici, vous pouvez insérer le contenu de la page de garde et du livret -->
     </div>
     
     <!-- Barre de navigation fixe en bas -->
@@ -384,7 +420,7 @@
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
-      // Génération d'un code à usage unique (6 chiffres)
+      // Génération d'un code à usage unique (6 chiffres) simulé
       const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
       const registeredUser = {
         email: regEmail,
@@ -392,32 +428,38 @@
         code: oneTimeCode
       };
       localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      // En production, le code serait envoyé par email via SendGrid
-      alert("Un code à usage unique a été envoyé à l'adresse candidatlibre.assistance@gmail.com (simulation : " + oneTimeCode + ")");
+      alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
     
-    // Simulation de la connexion avec vérification du code à usage unique
+    // Simulation de la connexion (OTP désactivé)
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const loginEmail = document.getElementById('loginEmail').value;
-      const loginPassword = document.getElementById('loginPassword').value;
-      const loginCode = document.getElementById('loginCode').value;
-      const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
-      if (!registeredUser) {
-        alert("Aucun utilisateur inscrit. Veuillez vous inscrire.");
-        return;
-      }
-      if (loginEmail !== registeredUser.email || loginPassword !== registeredUser.password) {
-        alert("Email ou mot de passe incorrect.");
-        return;
-      }
-      if (loginCode !== registeredUser.code) {
-        alert("Code à usage unique incorrect.");
-        return;
-      }
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
+      localStorage.setItem('authenticated', 'true');
+    });
+    
+    // Bouton pour passer l'authentification directement (mode développement)
+    document.getElementById('skipAuth').addEventListener('click', function() {
+      document.getElementById('authPage').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      localStorage.setItem('authenticated', 'true');
+    });
+    
+    // Gestion des icônes "œil" pour afficher/masquer le mot de passe dans la connexion
+    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+    toggleLoginPassword.addEventListener('click', function() {
+      const passwordField = document.getElementById('loginPassword');
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        this.classList.remove('fa-eye');
+        this.classList.add('fa-eye-slash');
+      } else {
+        passwordField.type = "password";
+        this.classList.remove('fa-eye-slash');
+        this.classList.add('fa-eye');
+      }
     });
     
     // Auto-focus pour les champs NEPH
@@ -471,36 +513,19 @@
       }
     }
     
-    const infoForm = document.getElementById('infoForm');
-    infoForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const formData = collectFormData();
-      localStorage.setItem('validatedData', JSON.stringify(formData));
-      infoForm.style.display = 'none';
-      displaySummary(formData);
-      document.getElementById('summaryView').style.display = 'block';
-    });
-    
-    document.getElementById('editBtn').addEventListener('click', function() {
-      infoForm.style.display = 'block';
-      document.getElementById('summaryView').style.display = 'none';
-    });
-    
-    const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
-    const photoPreview = document.getElementById('photoPreview');
-    const photoPlaceholderText = document.getElementById('photoPlaceholderText');
-    photoInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          photoPreview.src = e.target.result;
-          photoPreview.style.display = 'block';
-          if (photoPlaceholderText) {
-            photoPlaceholderText.style.display = 'none';
-          }
-        };
-        reader.readAsDataURL(file);
+    // Vérifier si l'utilisateur est déjà authentifié pour éviter de remplir les champs à chaque fois
+    window.addEventListener('load', function() {
+      if (localStorage.getItem('authenticated') === 'true') {
+        document.getElementById('authPage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+      }
+      initAutocomplete();
+      const storedData = localStorage.getItem('validatedData');
+      if (storedData) {
+        const data = JSON.parse(storedData);
+        document.getElementById('infoForm').style.display = 'none';
+        displaySummary(data);
+        document.getElementById('summaryView').style.display = 'block';
       }
     });
     
@@ -517,54 +542,26 @@
         let commune = "";
         place.address_components.forEach(component => {
           const types = component.types;
-          if (types.indexOf("postal_code") !== -1) {
-            postalCode = component.long_name;
-          }
-          if (types.indexOf("locality") !== -1) {
-            commune = component.long_name;
-          }
+          if (types.indexOf("postal_code") !== -1) { postalCode = component.long_name; }
+          if (types.indexOf("locality") !== -1) { commune = component.long_name; }
         });
-        if (postalCode) {
-          document.getElementById('code-postal').value = postalCode;
-        }
-        if (commune) {
-          document.getElementById('commune').value = commune;
-        }
+        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
+        if (commune) { document.getElementById('commune').value = commune; }
       });
     }
-    window.addEventListener('load', function() {
-      initAutocomplete();
-      const storedData = localStorage.getItem('validatedData');
-      if (storedData) {
-        const data = JSON.parse(storedData);
-        infoForm.style.display = 'none';
-        displaySummary(data);
-        document.getElementById('summaryView').style.display = 'block';
-      }
-    });
     
-    // Gestion du bouton "Page de Garde" dans la barre de navigation
+    // Bouton "Page de Garde" dans la barre de navigation pour revenir à la page de garde
     document.getElementById('coverPageBtn').addEventListener('click', function(e) {
       e.preventDefault();
       const coverPage = document.querySelector('#mainContent .cover-page');
-      if (coverPage) {
-        coverPage.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (coverPage) { coverPage.scrollIntoView({ behavior: 'smooth' }); }
     });
     
-    // Gestion de l'icône d'œil pour le champ mot de passe dans la connexion
-    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
-    toggleLoginPassword.addEventListener('click', function() {
-      const passwordField = document.getElementById('loginPassword');
-      if (passwordField.type === "password") {
-        passwordField.type = "text";
-        this.classList.remove('fa-eye');
-        this.classList.add('fa-eye-slash');
-      } else {
-        passwordField.type = "password";
-        this.classList.remove('fa-eye-slash');
-        this.classList.add('fa-eye');
-      }
+    // Demande de token reCAPTCHA Enterprise pour l'interaction LOGIN (à titre informatif)
+    grecaptcha.enterprise.ready(function() {
+      grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
+        console.log("reCAPTCHA token obtenu :", token);
+      });
     });
   </script>
 </body>
