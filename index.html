@@ -35,16 +35,12 @@
       color: #FFA500;
       margin-bottom: 10px;
     }
-    /* Texte de bienvenue placé juste en dessous du titre */
     .welcome-text {
       margin-bottom: 20px;
       font-size: 0.95em;
       color: #ccc;
     }
-    #authPage h2 {
-      margin-bottom: 20px;
-      color: #FFA500;
-    }
+    #authPage h2 { margin-bottom: 20px; color: #FFA500; }
     .auth-tabs {
       display: flex;
       justify-content: space-around;
@@ -54,16 +50,14 @@
       flex: 1;
       padding: 10px;
       background: #FFA500;
-      color: #000;
+      color: #000; /* Texte en noir */
       border: none;
       cursor: pointer;
       font-size: 1em;
       border-radius: 8px;
       margin: 0 5px;
     }
-    .auth-tabs button.active {
-      background: #f0ad4e;
-    }
+    .auth-tabs button.active { background: #f0ad4e; }
     .auth-form {
       display: none;
       text-align: left;
@@ -84,10 +78,8 @@
       background: #222;
       color: #fff;
     }
-    /* Style spécifique pour le conteneur du champ mot de passe */
-    .password-container {
-      position: relative;
-    }
+    /* Conteneur pour les champs de mot de passe avec icône œil */
+    .password-container { position: relative; }
     .toggle-password {
       position: absolute;
       right: 10px;
@@ -129,54 +121,30 @@
     .title-section { margin-bottom: 40px; text-align: center; }
     .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; color: #fff; }
     .subtitle { font-size: 1.2em; color: #ccc; margin: 20px 0 40px; text-align: center; }
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1) !important;
-    }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
     .neph-boxes { display: flex; flex-direction: row; vertical-align: middle; }
     .neph-box {
-      width: 25px;
-      height: 25px;
+      width: 25px; height: 25px;
       border: 1px solid #777;
-      text-align: center;
-      line-height: 25px;
-      vertical-align: middle;
-      margin-right: 3px;
+      text-align: center; line-height: 25px;
+      vertical-align: middle; margin-right: 3px;
     }
     .neph-box input {
-      width: 100%;
-      border: none;
-      outline: none;
-      text-align: center;
-      font-size: 1em;
-      background-color: #222;
-      color: #fff;
+      width: 100%; border: none; outline: none; text-align: center; font-size: 1em;
+      background-color: #222; color: #fff;
     }
     .photo-placeholder {
-      width: 150px;
-      height: 200px;
-      border: 2px dashed #555;
-      border-radius: 5px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      color: #aaa;
-      font-size: 0.9em;
+      width: 150px; height: 200px;
+      border: 2px dashed #555; border-radius: 5px;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      position: relative; color: #aaa; font-size: 0.9em;
     }
     .photo-placeholder img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      image-orientation: from-image;
+      width: 100%; height: 100%; object-fit: cover; image-orientation: from-image;
       display: none;
     }
     .photo-placeholder input[type="file"] {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
+      position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;
     }
     .photo-placeholder span { pointer-events: none; }
     /* Barre de navigation fixe en bas */
@@ -192,52 +160,29 @@
       z-index: 1000;
     }
     #navBar a {
-      color: #fff;
+      color: #000; /* Texte en noir */
       text-decoration: none;
       text-align: center;
       font-size: 0.9em;
       padding: 0 10px;
+      border-right: 1px solid #000;
     }
+    #navBar a:last-child { border-right: none; }
     #navBar a i { font-size: 1.5em; }
-    /* Bouton pour accéder à la page de garde */
-    #coverPageBtn {
-      color: #fff;
-      text-decoration: none;
-      text-align: center;
-      font-size: 0.9em;
-    }
-    #coverPageBtn i { font-size: 1.5em; }
-    /* Sections de contenu du livret */
-    .section-content {
-      background: #222;
-      border-radius: 6px;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 900px;
-      box-shadow: 0 2px 5px rgba(255,255,255,0.05);
-      padding-bottom: 80px; /* Pour éviter que la nav masque le contenu */
-    }
-    .section-content h2 {
-      border-bottom: 1px solid #444;
-      padding-bottom: 10px;
-      margin-bottom: 15px;
-      color: #FFA500;
-    }
-    .section-content p, .section-content ul {
-      margin-bottom: 15px;
-      line-height: 1.5;
-    }
-    .section-content ul { list-style: disc; padding-left: 20px; }
-    /* ---------- Fin Page principale ---------- */
+    /* Ordre des boutons dans la barre de navigation */
+    #coverPageBtn { order: -1; }  /* "Candidat" sera affiché en premier */
+    /* ---------- Fin Barre de navigation ---------- */
     
     /* ---------- Page de garde (Formulaire candidat complet) ---------- */
-    .candidate-form {
-      text-align: left;
+    #infoContainer {
       margin-top: 20px;
     }
-    .candidate-form .info-field { margin-bottom: 15px; }
-    .candidate-form .info-field label { display: block; margin-bottom: 5px; }
-    .candidate-form .info-field input {
+    #infoForm, #summaryView {
+      text-align: left;
+    }
+    #infoForm .info-field, #summaryView .info-field { margin-bottom: 15px; }
+    #infoForm .info-field label, #summaryView .info-field label { display: block; margin-bottom: 5px; }
+    #infoForm .info-field input {
       width: 100%;
       padding: 8px;
       border: 1px solid #555;
@@ -254,6 +199,29 @@
     }
     /* ---------- Fin Page de garde ---------- */
     
+    /* ---------- Sections de contenu du livret ---------- */
+    .section-content {
+      background: #222;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 900px;
+      box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+      padding-bottom: 80px;
+    }
+    .section-content h2 {
+      border-bottom: 1px solid #444;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      color: #FFA500;
+    }
+    .section-content p, .section-content ul {
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    .section-content ul { list-style: disc; padding-left: 20px; }
+    /* ---------- Fin Sections ---------- */
+    
     /* Responsive */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -265,7 +233,7 @@
   <!-- Page d'authentification -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
-    <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet et à toutes les fonctionnalités pour obtenir votre permis de conduire.</p>
+    <p class="welcome-text">Bienvenue sur DriveMeNow ! Pour vos tests, cliquez sur "Passer l’authentification" afin d’accéder directement au contenu.</p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">S'inscrire</button>
@@ -327,7 +295,7 @@
     <button class="btn skip-btn" id="skipAuth">Passer l’authentification</button>
   </div>
   
-  <!-- Contenu principal du site (après authentification) -->
+  <!-- Contenu principal du site (Page de garde et livret) après authentification -->
   <div id="mainContent" style="display:none;">
     <div class="cover-page">
       <div class="title-section">
@@ -335,54 +303,106 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Ici, vous pouvez insérer le contenu de la page de garde et du livret -->
+      <!-- Formulaire candidat complet (Page de garde) -->
+      <div id="infoContainer">
+        <form id="infoForm">
+          <div class="info-field">
+            <label for="nom">Nom du candidat :</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+          </div>
+          <div class="info-field">
+            <label for="prenom">Prénom du candidat :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+          </div>
+          <div class="info-field">
+            <label for="date-naissance">Date de naissance :</label>
+            <input type="date" id="date-naissance" name="date_naissance" required>
+          </div>
+          <div class="info-field">
+            <label for="adresse">Adresse :</label>
+            <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
+          </div>
+          <div class="info-field">
+            <label for="code-postal">Code postal :</label>
+            <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
+          </div>
+          <div class="info-field">
+            <label for="commune">Commune :</label>
+            <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
+          </div>
+          <div class="info-field">
+            <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
+          </div>
+          <div class="info-field">
+            <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+            <input type="email" id="email" name="email" placeholder="Votre email" required>
+          </div>
+          <div class="info-field">
+            <label for="responsable">Responsable de la formation :</label>
+            <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
+          </div>
+          <div class="info-field">
+            <label>Numéro d'inscription NEPH :</label>
+            <div class="neph-boxes">
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+            </div>
+          </div>
+          <div class="info-field">
+            <label for="date-debut">Date de début de formation :</label>
+            <input type="date" id="date-debut" name="date_debut" required>
+          </div>
+          <div class="info-field">
+            <label>Photo :</label>
+            <div class="photo-placeholder">
+              <span id="photoPlaceholderText">Ajouter une photo</span>
+              <img id="photoPreview" alt="Prévisualisation de la photo">
+              <input type="file" name="photo" accept="image/*" required>
+            </div>
+          </div>
+          <button type="submit" class="btn">Valider les informations</button>
+        </form>
+        <!-- Vue résumé (initialement masquée) -->
+        <div id="summaryView" style="display: none;">
+          <h2>Informations validées</h2>
+          <p><strong>Nom :</strong> <span id="sumNom"></span></p>
+          <p><strong>Prénom :</strong> <span id="sumPrenom"></span></p>
+          <p><strong>Date de naissance :</strong> <span id="sumDateNaissance"></span></p>
+          <p><strong>Adresse :</strong> <span id="sumAdresse"></span></p>
+          <p><strong>Code postal :</strong> <span id="sumCodePostal"></span></p>
+          <p><strong>Commune :</strong> <span id="sumCommune"></span></p>
+          <p><strong>Téléphone :</strong> <span id="sumTelephone"></span></p>
+          <p><strong>Email :</strong> <span id="sumEmail"></span></p>
+          <p><strong>Responsable :</strong> <span id="sumResponsable"></span></p>
+          <p><strong>NEPH :</strong> <span id="sumNeph"></span></p>
+          <p><strong>Date de début :</strong> <span id="sumDateDebut"></span></p>
+          <p><strong>Photo :</strong><br><img id="sumPhoto" style="max-width:150px; border: 1px solid #ccc;"></p>
+          <button class="btn" id="editBtn">Modifier les informations</button>
+        </div>
+      </div>
     </div>
     
     <!-- Barre de navigation fixe en bas -->
     <nav id="navBar">
+      <!-- Bouton "Candidat" en premier -->
+      <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
       <a href="#introduction"><i class="fas fa-home"></i><br>Accueil</a>
       <a href="#inscription"><i class="fas fa-file-alt"></i><br>Inscription</a>
       <a href="#suivi"><i class="fas fa-traffic-light"></i><br>Suivi</a>
       <a href="#examen"><i class="fas fa-laptop"></i><br>Examen</a>
-      <a href="#fabrication"><i class="fas fa-microchip"></i><br>Permis</a>
-      <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Page de Garde</a>
+      <a href="#fabrication"><i class="fas fa-id-card"></i><br>Permis</a>
     </nav>
-    
-    <!-- Sections de contenu du livret -->
-    <div id="contentPage">
-      <section id="introduction" class="section-content">
-        <h2>1. Introduction</h2>
-        <p>Bienvenue dans ce livret d’apprentissage dédié aux candidats libres souhaitant obtenir leur permis de conduire. Ce guide vous accompagne, étape par étape, depuis les démarches administratives jusqu’à l’obtention du permis.</p>
-        <ul>
-          <li>Connaître les prérequis et obligations liés à la formation.</li>
-          <li>Réaliser les démarches d'inscription via les plateformes officielles.</li>
-          <li>Suivre votre progression avec des outils d'évaluation.</li>
-          <li>Vous préparer efficacement pour l'examen.</li>
-          <li>Comprendre la fabrication du titre du permis.</li>
-        </ul>
-      </section>
-      
-      <section id="inscription" class="section-content">
-        <h2>2. Démarches d'inscription</h2>
-        <p>Réalisez les démarches d’inscription via les plateformes officielles. Suivez les instructions et téléchargez les documents requis pour compléter votre inscription.</p>
-      </section>
-      
-      <section id="suivi" class="section-content">
-        <h2>3. Suivre votre parcours de formation</h2>
-        <p>Utilisez les outils de suivi et d'évaluation pour mesurer vos progrès tout au long de votre formation.</p>
-      </section>
-      
-      <section id="examen" class="section-content">
-        <h2>4. Préparation à l'examen</h2>
-        <p>Préparez-vous efficacement pour l'examen grâce à des conseils, des simulations et des ressources dédiées.</p>
-      </section>
-      
-      <section id="fabrication" class="section-content">
-        <h2>5. Fabrication du permis</h2>
-        <p>Découvrez toutes les informations concernant la fabrication du titre du permis et les démarches administratives associées.</p>
-      </section>
-    </div>
-  </div>
   
   <script>
     // Gestion des onglets de connexion/inscription
@@ -447,7 +467,27 @@
       localStorage.setItem('authenticated', 'true');
     });
     
-    // Gestion des icônes "œil" pour afficher/masquer le mot de passe dans la connexion
+    // Gestion du bouton "Candidat" dans la barre de navigation pour basculer l'affichage du formulaire candidat
+    document.getElementById('coverPageBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const infoForm = document.getElementById('infoForm');
+      const summaryView = document.getElementById('summaryView');
+      // Si le formulaire est caché (i.e. résumé visible), afficher le formulaire pour modification
+      if (summaryView.style.display === 'block') {
+        summaryView.style.display = 'none';
+        infoForm.style.display = 'block';
+      } else {
+        // Sinon, si le formulaire est visible, valider et passer au résumé
+        // On simule ici la validation en collectant les données et en affichant le résumé
+        const formData = collectFormData();
+        localStorage.setItem('validatedData', JSON.stringify(formData));
+        infoForm.style.display = 'none';
+        displaySummary(formData);
+        summaryView.style.display = 'block';
+      }
+    });
+    
+    // Gestion de l'icône d'œil pour afficher/masquer le mot de passe dans la connexion
     const toggleLoginPassword = document.getElementById('toggleLoginPassword');
     toggleLoginPassword.addEventListener('click', function() {
       const passwordField = document.getElementById('loginPassword');
@@ -462,24 +502,9 @@
       }
     });
     
-    // Auto-focus pour les champs NEPH
-    const nephInputs = document.querySelectorAll('.neph-box input');
-    nephInputs.forEach((input, index) => {
-      input.addEventListener('input', function() {
-        if (this.value.length >= this.maxLength && index + 1 < nephInputs.length) {
-          nephInputs[index + 1].focus();
-        }
-      });
-    });
-    
-    function formatDate(dateStr) {
-      if (!dateStr) return "";
-      const parts = dateStr.split("-");
-      if (parts.length !== 3) return dateStr;
-      return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-    
+    // Fonction pour la validation du formulaire candidat
     function collectFormData() {
+      const nephInputs = document.querySelectorAll('.neph-box input');
       return {
         nom: document.getElementById('nom').value,
         prenom: document.getElementById('prenom').value,
@@ -494,6 +519,13 @@
         neph: Array.from(nephInputs).map(input => input.value).join(''),
         photo: document.getElementById('photoPreview').src
       };
+    }
+    
+    function formatDate(dateStr) {
+      if (!dateStr) return "";
+      const parts = dateStr.split("-");
+      if (parts.length !== 3) return dateStr;
+      return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
     
     function displaySummary(data) {
@@ -513,19 +545,20 @@
       }
     }
     
-    // Vérifier si l'utilisateur est déjà authentifié pour éviter de remplir les champs à chaque fois
-    window.addEventListener('load', function() {
-      if (localStorage.getItem('authenticated') === 'true') {
-        document.getElementById('authPage').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-      }
-      initAutocomplete();
-      const storedData = localStorage.getItem('validatedData');
-      if (storedData) {
-        const data = JSON.parse(storedData);
-        document.getElementById('infoForm').style.display = 'none';
-        displaySummary(data);
-        document.getElementById('summaryView').style.display = 'block';
+    // Gestion de la prévisualisation de la photo
+    const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
+    const photoPreview = document.getElementById('photoPreview');
+    const photoPlaceholderText = document.getElementById('photoPlaceholderText');
+    photoInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          photoPreview.src = e.target.result;
+          photoPreview.style.display = 'block';
+          if (photoPlaceholderText) { photoPlaceholderText.style.display = 'none'; }
+        };
+        reader.readAsDataURL(file);
       }
     });
     
@@ -550,11 +583,21 @@
       });
     }
     
-    // Bouton "Page de Garde" dans la barre de navigation pour revenir à la page de garde
-    document.getElementById('coverPageBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const coverPage = document.querySelector('#mainContent .cover-page');
-      if (coverPage) { coverPage.scrollIntoView({ behavior: 'smooth' }); }
+    window.addEventListener('load', function() {
+      initAutocomplete();
+      // Si des données validées existent déjà, afficher le résumé
+      const storedData = localStorage.getItem('validatedData');
+      if (storedData) {
+        const data = JSON.parse(storedData);
+        document.getElementById('infoForm').style.display = 'none';
+        displaySummary(data);
+        document.getElementById('summaryView').style.display = 'block';
+      }
+      // Vérifier si l'utilisateur est déjà authentifié
+      if (localStorage.getItem('authenticated') === 'true') {
+        document.getElementById('authPage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+      }
     });
     
     // Demande de token reCAPTCHA Enterprise pour l'interaction LOGIN (à titre informatif)
@@ -562,6 +605,23 @@
       grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
         console.log("reCAPTCHA token obtenu :", token);
       });
+    });
+    
+    // Gestion de la soumission du formulaire candidat
+    const infoForm = document.getElementById('infoForm');
+    infoForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = collectFormData();
+      localStorage.setItem('validatedData', JSON.stringify(formData));
+      infoForm.style.display = 'none';
+      displaySummary(formData);
+      document.getElementById('summaryView').style.display = 'block';
+    });
+    
+    // Bouton "Modifier" dans le résumé pour réafficher le formulaire
+    document.getElementById('editBtn') && document.getElementById('editBtn').addEventListener('click', function() {
+      document.getElementById('summaryView').style.display = 'none';
+      infoForm.style.display = 'block';
     });
   </script>
 </body>
