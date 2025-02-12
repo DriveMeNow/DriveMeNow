@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DriveMeNow - Authentification</title>
+  <title>DriveMeNow - Développement</title>
   <!-- Favicon (optionnel) -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Google reCAPTCHA Enterprise avec la nouvelle clé -->
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x" async defer></script>
   <!-- Google Maps API avec Places -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
@@ -83,6 +81,12 @@
       color: #FFA500;
     }
     .btn { padding: 10px 20px; font-size: 1em; cursor: pointer; border: none; border-radius: 4px; background-color: #FFA500; color: #fff; margin: 10px 0; width: 100%; }
+    .skip-btn {
+      background-color: #ccc;
+      color: #000;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
     .auth-presentation { margin-top: 20px; font-size: 0.9em; color: #ccc; }
     /* ---------- Fin Authentification ---------- */
     
@@ -195,10 +199,10 @@
   </style>
 </head>
 <body>
-  <!-- Page d'authentification -->
+  <!-- Page d'authentification (mode développement : CAPTCHA et OTP désactivés) -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
-    <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet et à toutes les fonctionnalités pour obtenir votre permis de conduire.</p>
+    <p class="welcome-text">Bienvenue sur DriveMeNow ! Pour vos tests, cliquez sur "Passer l’authentification" afin d’accéder directement au contenu.</p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">S'inscrire</button>
@@ -217,16 +221,7 @@
           <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
           <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre." style="color: #FFA500; margin-left: 5px;"></i>
         </div>
-        <div class="auth-field">
-          <label for="loginCode">Code à usage unique :</label>
-          <input type="text" id="loginCode" name="loginCode" placeholder="Code reçu par email" required>
-        </div>
-        <div class="auth-field">
-          <label>Captcha :</label>
-          <div id="captchaPlaceholder" style="padding: 10px; background-color: #222; color: #fff; text-align: center;">
-            <div class="g-recaptcha" data-sitekey="6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x"></div>
-          </div>
-        </div>
+        <!-- OTP et CAPTCHA supprimés pour simplifier -->
         <button type="submit" class="btn">Se connecter</button>
       </form>
     </div>
@@ -253,15 +248,12 @@
           <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required>
           <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
         </div>
-        <div class="auth-field">
-          <label>Captcha :</label>
-          <div id="captchaPlaceholderRegister" style="padding: 10px; background-color: #222; color: #fff; text-align: center;">
-            <div class="g-recaptcha" data-sitekey="6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x"></div>
-          </div>
-        </div>
+        <!-- CAPTCHA supprimé pour simplifier -->
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
+    <!-- Bouton pour passer l'authentification (mode développement) -->
+    <button class="btn skip-btn" id="skipAuth">Passer l’authentification</button>
   </div>
   
   <!-- Contenu principal (Page de garde et livret) après authentification -->
@@ -432,32 +424,24 @@
         code: oneTimeCode
       };
       localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      // En production, le code serait envoyé par email via SendGrid
-      alert("Un code à usage unique a été envoyé à l'adresse candidatlibre.assistance@gmail.com (simulation : " + oneTimeCode + ")");
+      alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
     
-    // Simulation de la connexion avec vérification du code à usage unique
+    // Simulation de la connexion (aucune vérification OTP ici)
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const loginEmail = document.getElementById('loginEmail').value;
-      const loginPassword = document.getElementById('loginPassword').value;
-      const loginCode = document.getElementById('loginCode').value;
-      const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
-      if (!registeredUser) {
-        alert("Aucun utilisateur inscrit. Veuillez vous inscrire.");
-        return;
-      }
-      if (loginEmail !== registeredUser.email || loginPassword !== registeredUser.password) {
-        alert("Email ou mot de passe incorrect.");
-        return;
-      }
-      if (loginCode !== registeredUser.code) {
-        alert("Code à usage unique incorrect.");
-        return;
-      }
+      // Pour simplifier, on passe directement en mode connecté
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
+      localStorage.setItem('authenticated', 'true');
+    });
+    
+    // Bouton pour passer l'authentification directement (mode développement)
+    document.getElementById('skipAuth').addEventListener('click', function() {
+      document.getElementById('authPage').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      localStorage.setItem('authenticated', 'true');
     });
     
     // Gestion des icônes "œil" pour afficher/masquer le mot de passe
@@ -477,7 +461,12 @@
     // Pour le formulaire de connexion
     const toggleLogin = document.getElementById('toggleLoginPassword');
     setupTogglePassword(toggleLogin, document.getElementById('loginPassword'));
-    // Pour le formulaire d'inscription (si les icônes ne sont pas déjà présentes, on les ajoute)
+    // Pour le formulaire d'inscription
+    document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
+      const targetId = icon.getAttribute('data-target');
+      const targetInput = document.getElementById(targetId);
+      setupTogglePassword(icon, targetInput);
+    });
     function addToggleIcon(inputId) {
       const input = document.getElementById(inputId);
       if (!input) return;
@@ -533,89 +522,4 @@
       document.getElementById('sumTelephone').innerText = data.telephone;
       document.getElementById('sumEmail').innerText = data.email;
       document.getElementById('sumResponsable').innerText = data.responsable;
-      document.getElementById('sumNeph').innerText = data.neph;
-      document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo && data.photo !== "") {
-        document.getElementById('sumPhoto').src = data.photo;
-      }
-    }
-    
-    const infoForm = document.getElementById('infoForm');
-    infoForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const formData = collectFormData();
-      localStorage.setItem('validatedData', JSON.stringify(formData));
-      infoForm.style.display = 'none';
-      displaySummary(formData);
-      document.getElementById('summaryView').style.display = 'block';
-    });
-    
-    document.getElementById('editBtn') && document.getElementById('editBtn').addEventListener('click', function() {
-      infoForm.style.display = 'block';
-      document.getElementById('summaryView').style.display = 'none';
-    });
-    
-    const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
-    const photoPreview = document.getElementById('photoPreview');
-    const photoPlaceholderText = document.getElementById('photoPlaceholderText');
-    photoInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          photoPreview.src = e.target.result;
-          photoPreview.style.display = 'block';
-          if (photoPlaceholderText) { photoPlaceholderText.style.display = 'none'; }
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-    
-    function initAutocomplete() {
-      const addressInput = document.getElementById('adresse');
-      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        componentRestrictions: { country: "fr" },
-        fields: ["address_components", "formatted_address", "geometry", "name"]
-      });
-      autocomplete.addListener('place_changed', function() {
-        const place = autocomplete.getPlace();
-        if (!place.address_components) return;
-        let postalCode = "";
-        let commune = "";
-        place.address_components.forEach(component => {
-          const types = component.types;
-          if (types.indexOf("postal_code") !== -1) { postalCode = component.long_name; }
-          if (types.indexOf("locality") !== -1) { commune = component.long_name; }
-        });
-        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
-        if (commune) { document.getElementById('commune').value = commune; }
-      });
-    }
-    window.addEventListener('load', function() {
-      initAutocomplete();
-      const storedData = localStorage.getItem('validatedData');
-      if (storedData) {
-        const data = JSON.parse(storedData);
-        infoForm.style.display = 'none';
-        displaySummary(data);
-        document.getElementById('summaryView').style.display = 'block';
-      }
-    });
-    
-    // Gestion du bouton "Candidat" dans la barre de navigation pour revenir à la page de garde
-    document.getElementById('coverPageBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const coverPage = document.querySelector('#mainContent .cover-page');
-      if (coverPage) { coverPage.scrollIntoView({ behavior: 'smooth' }); }
-    });
-    
-    // Demande de token reCAPTCHA Enterprise pour l'interaction LOGIN
-    grecaptcha.enterprise.ready(function() {
-      grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
-        console.log("reCAPTCHA token obtenu :", token);
-        // Vous pouvez stocker ce token dans un champ caché si besoin
-      });
-    });
-  </script>
-</body>
-</html>
+      document.getElementById('s
