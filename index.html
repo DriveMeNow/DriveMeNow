@@ -8,8 +8,8 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Google reCAPTCHA Enterprise -->
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LftQdQqAAAAAEaefQyW8sq_FzTvTNekEkVOrxlI" async defer></script>
+  <!-- Google reCAPTCHA Enterprise avec la nouvelle clé -->
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x" async defer></script>
   <!-- Google Maps API avec Places -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
@@ -224,7 +224,7 @@
         <div class="auth-field">
           <label>Captcha :</label>
           <div id="captchaPlaceholder" style="padding: 10px; background-color: #222; color: #fff; text-align: center;">
-            <div class="g-recaptcha" data-sitekey="6LftQdQqAAAAAEaefQyW8sq_FzTvTNekEkVOrxlI"></div>
+            <div class="g-recaptcha" data-sitekey="6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x"></div>
           </div>
         </div>
         <button type="submit" class="btn">Se connecter</button>
@@ -256,7 +256,7 @@
         <div class="auth-field">
           <label>Captcha :</label>
           <div id="captchaPlaceholderRegister" style="padding: 10px; background-color: #222; color: #fff; text-align: center;">
-            <div class="g-recaptcha" data-sitekey="6LftQdQqAAAAAEaefQyW8sq_FzTvTNekEkVOrxlI"></div>
+            <div class="g-recaptcha" data-sitekey="6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x"></div>
           </div>
         </div>
         <button type="submit" class="btn">S'inscrire</button>
@@ -432,7 +432,7 @@
         code: oneTimeCode
       };
       localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      // En production, vous enverriez le code par email via SendGrid
+      // En production, le code serait envoyé par email via SendGrid
       alert("Un code à usage unique a été envoyé à l'adresse candidatlibre.assistance@gmail.com (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
@@ -477,13 +477,7 @@
     // Pour le formulaire de connexion
     const toggleLogin = document.getElementById('toggleLoginPassword');
     setupTogglePassword(toggleLogin, document.getElementById('loginPassword'));
-    // Pour le formulaire d'inscription (ajout dynamique des icônes si elles ne sont pas déjà présentes)
-    document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
-      const targetId = icon.getAttribute('data-target');
-      const targetInput = document.getElementById(targetId);
-      setupTogglePassword(icon, targetInput);
-    });
-    // Si les icônes pour l'inscription ne sont pas déjà dans le HTML, on les ajoute
+    // Pour le formulaire d'inscription (si les icônes ne sont pas déjà présentes, on les ajoute)
     function addToggleIcon(inputId) {
       const input = document.getElementById(inputId);
       if (!input) return;
@@ -615,9 +609,9 @@
       if (coverPage) { coverPage.scrollIntoView({ behavior: 'smooth' }); }
     });
     
-    // Intégration de reCAPTCHA Enterprise (demande de token)
+    // Demande de token reCAPTCHA Enterprise pour l'interaction LOGIN
     grecaptcha.enterprise.ready(function() {
-      grecaptcha.enterprise.execute('6LftQdQqAAAAAEaefQyW8sq_FzTvTNekEkVOrxlI', {action: 'LOGIN'}).then(function(token) {
+      grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
         console.log("reCAPTCHA token obtenu :", token);
         // Vous pouvez stocker ce token dans un champ caché si besoin
       });
