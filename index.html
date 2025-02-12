@@ -19,11 +19,57 @@
       background-color: #000;
       color: #fff;
       line-height: 1.6;
+      position: relative;
+      padding-left: 0; /* On laissera la sidebar se superposer lorsqu'elle est ouverte */
+    }
+    /* ---------- Bouton Hamburger ---------- */
+    #menuButton {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      background-color: #FFA500;
+      border: none;
+      cursor: pointer;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #menuButton i {
+      font-size: 1.5em;
+      color: #000;
+    }
+    /* ---------- Sidebar Navigation ---------- */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px; /* Masquée initialement */
+      width: 250px;
+      height: 100%;
+      background-color: #FFA500;
+      color: #000;
+      padding: 20px 0;
+      transition: left 0.3s ease;
+      z-index: 2500;
+    }
+    #sidebar.active {
+      left: 0;
+    }
+    #sidebar a {
+      display: block;
+      padding: 10px 20px;
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid #000;
+      text-align: center;
+      font-size: 1em;
     }
     /* ---------- Page d'authentification ---------- */
     #authPage {
       max-width: 400px;
-      margin: 50px auto;
+      margin: 70px auto; /* Laisser de la place pour le bouton hamburger */
       background: #111;
       padding: 20px;
       border-radius: 8px;
@@ -50,7 +96,7 @@
       flex: 1;
       padding: 10px;
       background: #FFA500;
-      color: #000; /* Texte en noir */
+      color: #000;
       border: none;
       cursor: pointer;
       font-size: 1em;
@@ -78,7 +124,6 @@
       background: #222;
       color: #fff;
     }
-    /* Conteneur pour les champs de mot de passe avec icône œil */
     .password-container { position: relative; }
     .toggle-password {
       position: absolute;
@@ -109,7 +154,7 @@
     /* ---------- Fin Authentification ---------- */
     
     /* ---------- Page principale (après authentification) ---------- */
-    #mainContent { display: none; }
+    #mainContent { display: none; margin-left: 0; }
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -147,31 +192,7 @@
       position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;
     }
     .photo-placeholder span { pointer-events: none; }
-    /* Barre de navigation fixe en bas */
-    #navBar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #FFA500;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      z-index: 1000;
-    }
-    #navBar a {
-      color: #000; /* Texte en noir */
-      text-decoration: none;
-      text-align: center;
-      font-size: 0.9em;
-      padding: 0 10px;
-      border-right: 1px solid #000;
-    }
-    #navBar a:last-child { border-right: none; }
-    #navBar a i { font-size: 1.5em; }
-    /* Ordre des boutons dans la barre de navigation */
-    #coverPageBtn { order: -1; }  /* "Candidat" sera affiché en premier */
-    /* ---------- Fin Barre de navigation ---------- */
+    /* ---------- Fin Page principale ---------- */
     
     /* ---------- Page de garde (Formulaire candidat complet) ---------- */
     #infoContainer {
@@ -222,7 +243,7 @@
     .section-content ul { list-style: disc; padding-left: 20px; }
     /* ---------- Fin Sections ---------- */
     
-    /* Responsive */
+    /* ---------- Responsive ---------- */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; height: auto; padding: 20px; }
@@ -230,6 +251,19 @@
   </style>
 </head>
 <body>
+  <!-- Bouton Hamburger (en haut à gauche) -->
+  <button id="menuButton"><i class="fas fa-bars"></i></button>
+  
+  <!-- Sidebar Navigation -->
+  <div id="sidebar">
+    <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
+    <a href="#introduction"><i class="fas fa-home"></i><br>Accueil</a>
+    <a href="#inscription"><i class="fas fa-file-alt"></i><br>Inscription</a>
+    <a href="#suivi"><i class="fas fa-traffic-light"></i><br>Suivi</a>
+    <a href="#examen"><i class="fas fa-laptop"></i><br>Examen</a>
+    <a href="#fabrication"><i class="fas fa-id-card"></i><br>Permis</a>
+  </div>
+  
   <!-- Page d'authentification -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
@@ -387,242 +421,199 @@
           <p><strong>Responsable :</strong> <span id="sumResponsable"></span></p>
           <p><strong>NEPH :</strong> <span id="sumNeph"></span></p>
           <p><strong>Date de début :</strong> <span id="sumDateDebut"></span></p>
-          <p><strong>Photo :</strong><br><img id="sumPhoto" style="max-width:150px; border: 1px solid #ccc;"></p>
+          <p><strong>Photo :</strong><br>
+            <img id="sumPhoto" style="max-width:150px; border: 1px solid #ccc;">
+          </p>
           <button class="btn" id="editBtn">Modifier les informations</button>
         </div>
       </div>
     </div>
     
-    <!-- Barre de navigation fixe en bas -->
-    <nav id="navBar">
-      <!-- Bouton "Candidat" en premier -->
-      <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
-      <a href="#introduction"><i class="fas fa-home"></i><br>Accueil</a>
-      <a href="#inscription"><i class="fas fa-file-alt"></i><br>Inscription</a>
-      <a href="#suivi"><i class="fas fa-traffic-light"></i><br>Suivi</a>
-      <a href="#examen"><i class="fas fa-laptop"></i><br>Examen</a>
-      <a href="#fabrication"><i class="fas fa-id-card"></i><br>Permis</a>
-    </nav>
-  
-  <script>
-    // Gestion des onglets de connexion/inscription
-    const loginTab = document.getElementById('loginTab');
-    const registerTab = document.getElementById('registerTab');
-    const loginFormContainer = document.getElementById('loginFormContainer');
-    const registerFormContainer = document.getElementById('registerFormContainer');
-    
-    loginTab.addEventListener('click', () => {
-      loginTab.classList.add('active');
-      registerTab.classList.remove('active');
-      loginFormContainer.classList.add('active');
-      registerFormContainer.classList.remove('active');
-    });
-    
-    registerTab.addEventListener('click', () => {
-      registerTab.classList.add('active');
-      loginTab.classList.remove('active');
-      registerFormContainer.classList.add('active');
-      loginFormContainer.classList.remove('active');
-    });
-    
-    // Simulation de l'inscription avec validation du mot de passe
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const regEmail = document.getElementById('regEmail').value;
-      const regPassword = document.getElementById('regPassword').value;
-      const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
-      if (!passwordRegex.test(regPassword)) {
-        alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
-        return;
-      }
-      if (regPassword !== regPasswordConfirm) {
-        alert("Les mots de passe ne correspondent pas.");
-        return;
-      }
-      // Génération d'un code à usage unique (6 chiffres) simulé
-      const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
-      const registeredUser = {
-        email: regEmail,
-        password: regPassword,
-        code: oneTimeCode
-      };
-      localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
-      loginTab.click();
-    });
-    
-    // Simulation de la connexion (OTP désactivé)
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.getElementById('authPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      localStorage.setItem('authenticated', 'true');
-    });
-    
-    // Bouton pour passer l'authentification directement (mode développement)
-    document.getElementById('skipAuth').addEventListener('click', function() {
-      document.getElementById('authPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      localStorage.setItem('authenticated', 'true');
-    });
-    
-    // Gestion du bouton "Candidat" dans la barre de navigation pour basculer l'affichage du formulaire candidat
-    document.getElementById('coverPageBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const infoForm = document.getElementById('infoForm');
-      const summaryView = document.getElementById('summaryView');
-      // Si le formulaire est caché (i.e. résumé visible), afficher le formulaire pour modification
-      if (summaryView.style.display === 'block') {
-        summaryView.style.display = 'none';
-        infoForm.style.display = 'block';
-      } else {
-        // Sinon, si le formulaire est visible, valider et passer au résumé
-        // On simule ici la validation en collectant les données et en affichant le résumé
-        const formData = collectFormData();
-        localStorage.setItem('validatedData', JSON.stringify(formData));
-        infoForm.style.display = 'none';
-        displaySummary(formData);
-        summaryView.style.display = 'block';
-      }
-    });
-    
-    // Gestion de l'icône d'œil pour afficher/masquer le mot de passe dans la connexion
-    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
-    toggleLoginPassword.addEventListener('click', function() {
-      const passwordField = document.getElementById('loginPassword');
-      if (passwordField.type === "password") {
-        passwordField.type = "text";
-        this.classList.remove('fa-eye');
-        this.classList.add('fa-eye-slash');
-      } else {
-        passwordField.type = "password";
-        this.classList.remove('fa-eye-slash');
-        this.classList.add('fa-eye');
-      }
-    });
-    
-    // Fonction pour la validation du formulaire candidat
-    function collectFormData() {
-      const nephInputs = document.querySelectorAll('.neph-box input');
-      return {
-        nom: document.getElementById('nom').value,
-        prenom: document.getElementById('prenom').value,
-        dateNaissance: formatDate(document.getElementById('date-naissance').value),
-        adresse: document.getElementById('adresse').value,
-        codePostal: document.getElementById('code-postal').value,
-        commune: document.getElementById('commune').value,
-        telephone: document.getElementById('telephone').value,
-        email: document.getElementById('email').value,
-        responsable: document.getElementById('responsable').value,
-        dateDebut: formatDate(document.getElementById('date-debut').value),
-        neph: Array.from(nephInputs).map(input => input.value).join(''),
-        photo: document.getElementById('photoPreview').src
-      };
-    }
-    
-    function formatDate(dateStr) {
-      if (!dateStr) return "";
-      const parts = dateStr.split("-");
-      if (parts.length !== 3) return dateStr;
-      return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-    
-    function displaySummary(data) {
-      document.getElementById('sumNom').innerText = data.nom;
-      document.getElementById('sumPrenom').innerText = data.prenom;
-      document.getElementById('sumDateNaissance').innerText = data.dateNaissance;
-      document.getElementById('sumAdresse').innerText = data.adresse;
-      document.getElementById('sumCodePostal').innerText = data.codePostal;
-      document.getElementById('sumCommune').innerText = data.commune;
-      document.getElementById('sumTelephone').innerText = data.telephone;
-      document.getElementById('sumEmail').innerText = data.email;
-      document.getElementById('sumResponsable').innerText = data.responsable;
-      document.getElementById('sumNeph').innerText = data.neph;
-      document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo && data.photo !== "") {
-        document.getElementById('sumPhoto').src = data.photo;
-      }
-    }
-    
-    // Gestion de la prévisualisation de la photo
-    const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
-    const photoPreview = document.getElementById('photoPreview');
-    const photoPlaceholderText = document.getElementById('photoPlaceholderText');
-    photoInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          photoPreview.src = e.target.result;
-          photoPreview.style.display = 'block';
-          if (photoPlaceholderText) { photoPlaceholderText.style.display = 'none'; }
+    <script>
+      // Gestion des onglets de connexion/inscription
+      const loginTab = document.getElementById('loginTab');
+      const registerTab = document.getElementById('registerTab');
+      const loginFormContainer = document.getElementById('loginFormContainer');
+      const registerFormContainer = document.getElementById('registerFormContainer');
+      
+      loginTab.addEventListener('click', () => {
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+        loginFormContainer.classList.add('active');
+        registerFormContainer.classList.remove('active');
+      });
+      
+      registerTab.addEventListener('click', () => {
+        registerTab.classList.add('active');
+        loginTab.classList.remove('active');
+        registerFormContainer.classList.add('active');
+        loginFormContainer.classList.remove('active');
+      });
+      
+      // Simulation de l'inscription avec validation du mot de passe
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const regEmail = document.getElementById('regEmail').value;
+        const regPassword = document.getElementById('regPassword').value;
+        const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
+        if (!passwordRegex.test(regPassword)) {
+          alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
+          return;
+        }
+        if (regPassword !== regPasswordConfirm) {
+          alert("Les mots de passe ne correspondent pas.");
+          return;
+        }
+        // Génération d'un code à usage unique (6 chiffres) simulé
+        const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const registeredUser = {
+          email: regEmail,
+          password: regPassword,
+          code: oneTimeCode
         };
-        reader.readAsDataURL(file);
-      }
-    });
-    
-    function initAutocomplete() {
-      const addressInput = document.getElementById('adresse');
-      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        componentRestrictions: { country: "fr" },
-        fields: ["address_components", "formatted_address", "geometry", "name"]
+        localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
+        alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
+        loginTab.click();
       });
-      autocomplete.addListener('place_changed', function() {
-        const place = autocomplete.getPlace();
-        if (!place.address_components) return;
-        let postalCode = "";
-        let commune = "";
-        place.address_components.forEach(component => {
-          const types = component.types;
-          if (types.indexOf("postal_code") !== -1) { postalCode = component.long_name; }
-          if (types.indexOf("locality") !== -1) { commune = component.long_name; }
-        });
-        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
-        if (commune) { document.getElementById('commune').value = commune; }
-      });
-    }
-    
-    window.addEventListener('load', function() {
-      initAutocomplete();
-      // Si des données validées existent déjà, afficher le résumé
-      const storedData = localStorage.getItem('validatedData');
-      if (storedData) {
-        const data = JSON.parse(storedData);
-        document.getElementById('infoForm').style.display = 'none';
-        displaySummary(data);
-        document.getElementById('summaryView').style.display = 'block';
-      }
-      // Vérifier si l'utilisateur est déjà authentifié
-      if (localStorage.getItem('authenticated') === 'true') {
+      
+      // Simulation de la connexion (OTP désactivé)
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
         document.getElementById('authPage').style.display = 'none';
         document.getElementById('mainContent').style.display = 'block';
-      }
-    });
-    
-    // Demande de token reCAPTCHA Enterprise pour l'interaction LOGIN (à titre informatif)
-    grecaptcha.enterprise.ready(function() {
-      grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
-        console.log("reCAPTCHA token obtenu :", token);
+        localStorage.setItem('authenticated', 'true');
       });
-    });
-    
-    // Gestion de la soumission du formulaire candidat
-    const infoForm = document.getElementById('infoForm');
-    infoForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const formData = collectFormData();
-      localStorage.setItem('validatedData', JSON.stringify(formData));
-      infoForm.style.display = 'none';
-      displaySummary(formData);
-      document.getElementById('summaryView').style.display = 'block';
-    });
-    
-    // Bouton "Modifier" dans le résumé pour réafficher le formulaire
-    document.getElementById('editBtn') && document.getElementById('editBtn').addEventListener('click', function() {
-      document.getElementById('summaryView').style.display = 'none';
-      infoForm.style.display = 'block';
-    });
-  </script>
+      
+      // Bouton pour passer l'authentification directement (mode développement)
+      document.getElementById('skipAuth').addEventListener('click', function() {
+        document.getElementById('authPage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        localStorage.setItem('authenticated', 'true');
+      });
+      
+      // Gestion de la prévisualisation de la photo
+      const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
+      const photoPreview = document.getElementById('photoPreview');
+      const photoPlaceholderText = document.getElementById('photoPlaceholderText');
+      photoInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            photoPreview.src = e.target.result;
+            photoPreview.style.display = 'block';
+            if (photoPlaceholderText) { photoPlaceholderText.style.display = 'none'; }
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      
+      function initAutocomplete() {
+        const addressInput = document.getElementById('adresse');
+        const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+          componentRestrictions: { country: "fr" },
+          fields: ["address_components", "formatted_address", "geometry", "name"]
+        });
+        autocomplete.addListener('place_changed', function() {
+          const place = autocomplete.getPlace();
+          if (!place.address_components) return;
+          let postalCode = "";
+          let commune = "";
+          place.address_components.forEach(component => {
+            const types = component.types;
+            if (types.indexOf("postal_code") !== -1) { postalCode = component.long_name; }
+            if (types.indexOf("locality") !== -1) { commune = component.long_name; }
+          });
+          if (postalCode) { document.getElementById('code-postal').value = postalCode; }
+          if (commune) { document.getElementById('commune').value = commune; }
+        });
+      }
+      
+      window.addEventListener('load', function() {
+        initAutocomplete();
+        // Si des données validées existent déjà, afficher le résumé
+        const storedData = localStorage.getItem('validatedData');
+        if (storedData) {
+          const data = JSON.parse(storedData);
+          document.getElementById('infoForm').style.display = 'none';
+          displaySummary(data);
+          document.getElementById('summaryView').style.display = 'block';
+        }
+        // Vérifier si l'utilisateur est déjà authentifié
+        if (localStorage.getItem('authenticated') === 'true') {
+          document.getElementById('authPage').style.display = 'none';
+          document.getElementById('mainContent').style.display = 'block';
+        }
+      });
+      
+      function collectFormData() {
+        const nephInputs = document.querySelectorAll('.neph-box input');
+        return {
+          nom: document.getElementById('nom').value,
+          prenom: document.getElementById('prenom').value,
+          dateNaissance: formatDate(document.getElementById('date-naissance').value),
+          adresse: document.getElementById('adresse').value,
+          codePostal: document.getElementById('code-postal').value,
+          commune: document.getElementById('commune').value,
+          telephone: document.getElementById('telephone').value,
+          email: document.getElementById('email').value,
+          responsable: document.getElementById('responsable').value,
+          dateDebut: formatDate(document.getElementById('date-debut').value),
+          neph: Array.from(nephInputs).map(input => input.value).join(''),
+          photo: document.getElementById('photoPreview').src
+        };
+      }
+      
+      function formatDate(dateStr) {
+        if (!dateStr) return "";
+        const parts = dateStr.split("-");
+        if (parts.length !== 3) return dateStr;
+        return parts[2] + "/" + parts[1] + "/" + parts[0];
+      }
+      
+      function displaySummary(data) {
+        document.getElementById('sumNom').innerText = data.nom;
+        document.getElementById('sumPrenom').innerText = data.prenom;
+        document.getElementById('sumDateNaissance').innerText = data.dateNaissance;
+        document.getElementById('sumAdresse').innerText = data.adresse;
+        document.getElementById('sumCodePostal').innerText = data.codePostal;
+        document.getElementById('sumCommune').innerText = data.commune;
+        document.getElementById('sumTelephone').innerText = data.telephone;
+        document.getElementById('sumEmail').innerText = data.email;
+        document.getElementById('sumResponsable').innerText = data.responsable;
+        document.getElementById('sumNeph').innerText = data.neph;
+        document.getElementById('sumDateDebut').innerText = data.dateDebut;
+        if (data.photo && data.photo !== "") {
+          document.getElementById('sumPhoto').src = data.photo;
+        }
+      }
+      
+      // Gestion du bouton "Candidat" dans la sidebar pour basculer l'affichage du formulaire candidat / résumé
+      document.getElementById('coverPageBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const infoForm = document.getElementById('infoForm');
+        const summaryView = document.getElementById('summaryView');
+        // Si le résumé est visible, afficher le formulaire pour modification
+        if (summaryView.style.display === 'block') {
+          summaryView.style.display = 'none';
+          infoForm.style.display = 'block';
+        } else {
+          // Sinon, si le formulaire est visible, simuler la validation et afficher le résumé
+          const formData = collectFormData();
+          localStorage.setItem('validatedData', JSON.stringify(formData));
+          infoForm.style.display = 'none';
+          displaySummary(formData);
+          summaryView.style.display = 'block';
+        }
+      });
+      
+      // Demande de token reCAPTCHA Enterprise pour l'interaction LOGIN (à titre informatif)
+      grecaptcha.enterprise.ready(function() {
+        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
+          console.log("reCAPTCHA token obtenu :", token);
+        });
+      });
+    </script>
 </body>
 </html>
