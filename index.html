@@ -71,6 +71,10 @@
       cursor: pointer;
       color: #FFA500;
     }
+    /* Ajustement spécifique pour la confirmation du mot de passe dans l'inscription */
+    #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
+      top: calc(50% + 3px);
+    }
 
     /* --- Boutons (fond orange, texte noir) --- */
     .btn, .action-btn {
@@ -81,7 +85,6 @@
       border-radius: 4px;
       background-color: #FFA500;
       color: #000;
-      /* Utilisation de margin auto pour centrer */
       margin: 10px auto;
       display: block;
       text-align: center;
@@ -301,7 +304,7 @@
         <div class="auth-field password-container">
           <label for="loginPassword">Mot de passe :</label>
           <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
-          <!-- Critères de mot de passe déplacés sous le champ -->
+          <!-- Critères déplacés sous le champ -->
           <small style="display:block; color:#ccc; margin-top:5px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
           <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
         </div>
