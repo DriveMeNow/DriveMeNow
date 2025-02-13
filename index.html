@@ -3,45 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DriveMeNow</title>
-  <!-- Favicon -->
+  <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Google Maps API avec Places, chargé en async/defer -->
+  <!-- Google Maps API avec Places -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
-    /* ---------- Réinitialisation ---------- */
+    /* Réinitialisation globale */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-      line-height: 1.6;
-    }
-    /* ---------- Boutons génériques ---------- */
-    .btn, .action-btn {
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-      background-color: #FFA500;
-      color: #000; /* Texte noir */
-      margin: 10px;
-      display: block;
-      text-align: center;
-    }
-    .action-btn {
-      max-width: 200px;
-      margin: 10px auto;
-      border: 1px solid #fff;
-    }
-    /* ---------- Page d'authentification ---------- */
+    body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
+
+    /* Page d'authentification (Connexion / Inscription) */
     #authPage {
       max-width: 400px;
-      margin: 10px auto; /* Réduction de la marge en haut */
+      margin: 20px auto;
       background: #111;
       padding: 20px;
       border-radius: 8px;
@@ -51,14 +28,10 @@
     #authPage h1 {
       font-size: 2em;
       color: #FFA500;
-      margin-bottom: 10px;
+      /* Suppression de la marge inutile en haut */
+      margin: 0 auto;
     }
-    .welcome-text {
-      margin-bottom: 20px;
-      font-size: 0.95em;
-      color: #ccc;
-    }
-    /* Centrage des titres Connexion/Inscription */
+    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
     .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
     .auth-tabs button {
       flex: 1;
@@ -84,13 +57,12 @@
       background: #222;
       color: #fff;
     }
-    /* Pour le champ mot de passe en Connexion, afficher les critères sous le label */
+    /* Critères de mot de passe sur la page de connexion */
     #loginForm label[for="loginPassword"]::after {
       content: " (Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre)";
       font-size: 0.8em;
       color: #ccc;
     }
-    /* Icônes œil pour afficher/masquer les mots de passe */
     .password-container { position: relative; }
     .toggle-password {
       position: absolute;
@@ -100,8 +72,144 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* ---------- Sidebar et Hamburger ---------- */
-    /* Bouton hamburger arrondi, affiché uniquement sur la page principale */
+
+    /* Boutons – Tous en fond orange avec texte en noir */
+    .btn, .action-btn {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #FFA500;
+      color: #000;
+      margin: 10px;
+      display: block;
+      text-align: center;
+    }
+
+    /* Formulaire candidat – version validée */
+    .cover-page {
+      max-width: 900px;
+      background: #111;
+      margin: 30px auto;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+    }
+    .title-section { margin-bottom: 40px; text-align: center; }
+    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; color: #fff; }
+    .subtitle { font-size: 1.2em; color: #ccc; margin: 20px 0 40px; text-align: center; }
+    form { width: 100%; }
+    .info-section {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .candidate-info {
+      flex: 1;
+      min-width: 300px;
+      margin-right: 20px;
+    }
+    .info-field {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .info-field label {
+      font-weight: bold;
+      margin-right: 8px;
+      color: #fff;
+    }
+    .info-field input[type="text"],
+    .info-field input[type="email"],
+    .info-field input[type="tel"],
+    .info-field input[type="date"],
+    .info-field input[type="search"] {
+      padding: 5px;
+      font-size: 1em;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background-color: #222;
+      color: #fff;
+      width: 100%;
+    }
+    .info-field input::placeholder { color: #aaa; }
+    /* Forcer l'icône du calendrier en blanc */
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
+    /* Les 12 champs NEPH */
+    .neph-boxes {
+      display: flex;
+      flex-direction: row;
+      vertical-align: middle;
+    }
+    .neph-box {
+      width: 25px;
+      height: 25px;
+      border: 1px solid #777;
+      text-align: center;
+      line-height: 25px;
+      vertical-align: middle;
+      margin-right: 3px;
+    }
+    .neph-box input {
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 1em;
+      background-color: #222;
+      color: #fff;
+    }
+    /* Zone photo avec prévisualisation adaptable */
+    .photo-placeholder {
+      width: 150px;
+      height: auto;
+      min-height: 200px;
+      border: 2px dashed #555;
+      border-radius: 5px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: #aaa;
+      font-size: 0.9em;
+      overflow: hidden;
+    }
+    .photo-placeholder img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: none;
+    }
+    .photo-placeholder input[type="file"] {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .photo-placeholder span { pointer-events: none; }
+
+    /* Vue résumé (après validation) */
+    .summary {
+      display: none;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    .summary p { margin-bottom: 10px; }
+    .summary label { font-weight: bold; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 1.2em;
+      font-style: italic;
+      border-top: 1px solid #444;
+      padding-top: 20px;
+      color: #ccc;
+    }
+
+    /* Sidebar et bouton hamburger */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -118,7 +226,6 @@
       justify-content: center;
     }
     #menuButton i { font-size: 1.5em; color: #000; }
-    /* Sidebar verticale, fond noir, liens en fond orange avec texte noir et séparation */
     #sidebar {
       position: fixed;
       top: 0;
@@ -140,95 +247,11 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Masquer automatiquement la sidebar quand le curseur la quitte */
-    #sidebar.addEventListener('mouseleave', function() {
-      this.classList.remove('active');
-    });
-    /* ---------- Fin Sidebar ---------- */
-    
-    /* ---------- Page principale (après authentification) ---------- */
-    #mainContent { display: none; padding-top: 60px; }
-    .cover-page {
-      max-width: 900px;
-      background: #111;
-      margin: 30px auto;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
-    }
-    .title-section { margin-bottom: 40px; text-align: center; }
-    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; color: #fff; }
-    .subtitle { font-size: 1.2em; color: #ccc; margin: 20px 0 40px; text-align: center; }
-    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
-    /* Configurer le champ Date de naissance : max = (année en cours - 17) */
-    #date-naissance { 
-      max: calc( (100 * 1px) ); /* On mettra la valeur via JS */
-    }
-    .info-section {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-      gap: 20px;
-    }
-    .candidate-info { flex: 1; min-width: 300px; }
-    .photo-container {
-      width: 250px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    /* Prévisualisation de la photo : s'adapte aux formats portrait et paysage */
-    .photo-placeholder {
-      width: 100%;
-      max-width: 250px;
-      height: auto;
-      border: 2px dashed #555;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      color: #aaa;
-      font-size: 0.9em;
-      margin-top: 20px;
-    }
-    .photo-placeholder img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
+    /* Page d'accueil interactive */
+    #contentPage {
       display: none;
+      padding: 20px;
     }
-    .photo-placeholder input[type="file"] {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-    /* ---------- Formulaire candidat (Page de garde) ---------- */
-    #infoContainer { margin-top: 20px; }
-    #infoForm, #summaryView { text-align: left; }
-    #infoForm .info-field, #summaryView .info-field { margin-bottom: 15px; }
-    #infoForm .info-field label, #summaryView .info-field label { display: block; margin-bottom: 5px; }
-    #infoForm .info-field input {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #555;
-      border-radius: 4px;
-      background: #222;
-      color: #fff;
-    }
-    .neph-boxes { display: flex; flex-direction: row; }
-    .neph-box {
-      width: 25px;
-      height: 25px;
-      border: 1px solid #777;
-      text-align: center;
-      line-height: 25px;
-      margin-right: 3px;
-      font-size: 0.9em;
-    }
-    /* ---------- Sections de contenu interactif (Accueil, etc.) ---------- */
     .section-content {
       background: #222;
       border-radius: 6px;
@@ -236,30 +259,41 @@
       margin: 20px auto;
       max-width: 900px;
       box-shadow: 0 2px 5px rgba(255,255,255,0.05);
-      padding-bottom: 80px;
     }
     .section-content h2 {
       border-bottom: 1px solid #444;
       padding-bottom: 10px;
       margin-bottom: 15px;
       color: #FFA500;
+      text-align: center;
     }
-    .section-content p, .section-content ul {
-      margin-bottom: 15px;
-      line-height: 1.5;
+    .progress-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 5px solid #FFA500;
+      margin: 0 auto;
+      position: relative;
     }
-    .section-content ul { list-style: disc; padding-left: 20px; }
-    /* ---------- Responsive ---------- */
+    .progress-circle span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      color: #fff;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
-      .photo-container { order: 2; width: 100%; }
+      .photo-placeholder { width: 100%; }
     }
   </style>
 </head>
 <body>
   <!-- Page d'authentification -->
   <div id="authPage">
-    <h1 style="margin-top:10px;">DriveMeNow</h1>
+    <h1>DriveMeNow</h1>
     <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet.</p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
@@ -319,156 +353,149 @@
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
-    <!-- Bouton pour passer l'authentification (mode développement) -->
-    <button class="btn skip-btn" id="skipAuth">Passer l’authentification</button>
+    <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
-  
+
   <!-- Page principale (après authentification) -->
   <div id="mainContent" style="display:none;">
-    <!-- Bouton hamburger en haut à gauche -->
+    <!-- Bouton hamburger -->
     <button id="menuButton"><i class="fas fa-bars"></i></button>
-    <!-- Sidebar verticale -->
+    <!-- Sidebar -->
     <div id="sidebar">
       <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
-      <a href="#accueil"><i class="fas fa-home"></i><br>Accueil</a>
+      <a href="#accueil" id="accueilBtn"><i class="fas fa-home"></i><br>Accueil</a>
       <a href="#inscriptionSection"><i class="fas fa-file-alt"></i><br>Inscription</a>
       <a href="#suiviSection"><i class="fas fa-traffic-light"></i><br>Suivi</a>
       <a href="#examenSection"><i class="fas fa-laptop"></i><br>Examen</a>
       <a href="#fabricationSection"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
-    
     <!-- Page de garde : Formulaire candidat -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
-        <div class="title-line1" style="text-align:center;">LIVRET D'APPRENTISSAGE</div>
-        <div class="title-line2" style="text-align:center;">Candidat Libre au Permis B</div>
-        <div class="subtitle" style="text-align:center;">Votre guide complet pour réussir le permis B en candidat libre.</div>
+        <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
+        <div class="title-line2">Candidat Libre au Permis B</div>
+        <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Boutons d'action "Démarrer" (en haut) et "C'est parti !" (en bas) : apparaissent après validation -->
-      <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
-      
-      <div id="infoContainer">
-        <form id="infoForm">
-          <div class="info-section">
-            <div class="candidate-info">
-              <div class="info-field">
-                <label for="nom">Nom du candidat :</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
-              </div>
-              <div class="info-field">
-                <label for="prenom">Prénom du candidat :</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
-              </div>
-              <div class="info-field">
-                <label for="date-naissance">Date de naissance :</label>
-                <input type="date" id="date-naissance" name="date_naissance" required>
-              </div>
-              <div class="info-field">
-                <label for="adresse">Adresse :</label>
-                <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
-              </div>
-              <div class="info-field">
-                <label for="code-postal">Code postal :</label>
-                <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
-              </div>
-              <div class="info-field">
-                <label for="commune">Commune :</label>
-                <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
-              </div>
-              <div class="info-field">
-                <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
-                <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
-              </div>
-              <div class="info-field">
-                <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-                <input type="email" id="email" name="email" placeholder="Votre email" required>
-              </div>
-              <div class="info-field">
-                <label for="responsable">Responsable de la formation :</label>
-                <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
-              </div>
-              <div class="info-field">
-                <label>Numéro d'inscription NEPH :</label>
-                <div class="neph-boxes">
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                </div>
-              </div>
-              <div class="info-field">
-                <label for="date-debut">Date de début de formation :</label>
-                <input type="date" id="date-debut" name="date_debut" required>
+      <!-- Bouton d'action en haut (apparaît après validation) -->
+      <button id="startBtn" class="action-btn" style="display:none; margin: 0 auto;">Démarrer</button>
+      <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
+        <div class="info-section">
+          <div class="candidate-info">
+            <div class="info-field">
+              <label for="nom">Nom du candidat :</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            </div>
+            <div class="info-field">
+              <label for="prenom">Prénom du candidat :</label>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+            </div>
+            <div class="info-field">
+              <label for="date-naissance">Date de naissance :</label>
+              <!-- La date max est fixée pour proposer 2008 -->
+              <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
+            </div>
+            <div class="info-field">
+              <label for="adresse">Adresse :</label>
+              <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
+            </div>
+            <div class="info-field">
+              <label for="code-postal">Code postal :</label>
+              <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
+            </div>
+            <div class="info-field">
+              <label for="commune">Commune :</label>
+              <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
+            </div>
+            <div class="info-field">
+              <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
+              <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
+            </div>
+            <div class="info-field">
+              <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+              <input type="email" id="email" name="email" placeholder="Votre email" required>
+            </div>
+            <div class="info-field">
+              <label for="responsable">Responsable de la formation :</label>
+              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
+            </div>
+            <div class="info-field">
+              <label>Numéro d'inscription NEPH :</label>
+              <div class="neph-boxes">
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
               </div>
             </div>
-            <div class="photo-container">
-              <div class="photo-placeholder">
-                <span id="photoPlaceholderText">Ajouter une photo</span>
-                <img id="photoPreview" alt="Prévisualisation de la photo">
-                <input type="file" name="photo" accept="image/*" required>
-              </div>
+            <div class="info-field">
+              <label for="date-debut">Date de début de formation :</label>
+              <input type="date" id="date-debut" name="date_debut" required>
             </div>
           </div>
-          <button type="submit" class="btn">Envoyer</button>
-        </form>
-        <!-- Vue résumé (initialement masquée) -->
-        <div id="summaryView" class="summary" style="display:none;">
-          <p><strong>Nom :</strong> <span id="sumNom"></span></p>
-          <p><strong>Prénom :</strong> <span id="sumPrenom"></span></p>
-          <p><strong>Date de naissance :</strong> <span id="sumDateNaissance"></span></p>
-          <p><strong>Adresse :</strong> <span id="sumAdresse"></span></p>
-          <p><strong>Code postal :</strong> <span id="sumCodePostal"></span></p>
-          <p><strong>Commune :</strong> <span id="sumCommune"></span></p>
-          <p><strong>Téléphone :</strong> <span id="sumTelephone"></span></p>
-          <p><strong>Email :</strong> <span id="sumEmail"></span></p>
-          <p><strong>Responsable :</strong> <span id="sumResponsable"></span></p>
-          <p><strong>NEPH :</strong> <span id="sumNeph"></span></p>
-          <p><strong>Date de début :</strong> <span id="sumDateDebut"></span></p>
-          <p><strong>Photo :</strong><br>
-            <img id="sumPhoto" style="max-width:150px; border: 1px solid #ccc;">
-          </p>
-          <button class="btn edit" id="editBtn" style="max-width:200px; margin:20px auto;">Modifier</button>
+          <div class="photo-placeholder">
+            <span id="photoPlaceholderText">Ajouter une photo</span>
+            <img id="photoPreview" alt="Prévisualisation de la photo">
+            <input type="file" name="photo" accept="image/*" required>
+          </div>
         </div>
+        <div style="text-align: center;">
+          <button type="submit" class="btn">Envoyer</button>
+        </div>
+      </form>
+      <!-- Vue résumé (après validation) -->
+      <div id="summaryView" class="summary">
+        <p><label>Nom :</label> <span id="sumNom"></span></p>
+        <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
+        <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
+        <p><label>Adresse :</label> <span id="sumAdresse"></span></p>
+        <p><label>Code postal :</label> <span id="sumCodePostal"></span></p>
+        <p><label>Commune :</label> <span id="sumCommune"></span></p>
+        <p><label>Téléphone :</label> <span id="sumTelephone"></span></p>
+        <p><label>Email :</label> <span id="sumEmail"></span></p>
+        <p><label>Responsable :</label> <span id="sumResponsable"></span></p>
+        <p><label>NEPH :</label> <span id="sumNeph"></span></p>
+        <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
+        <p><label>Photo :</label><br>
+          <img id="sumPhoto" style="max-width:150px; border: 1px solid #ccc;">
+        </p>
+        <button class="btn edit" id="editBtn" style="margin: 0 auto; display: block; max-width: 200px;">Modifier</button>
       </div>
-      <!-- Boutons d'action (apparus après validation) -->
-      <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
-      <button id="cestPartiBtn" class="action-btn" style="display:none;">C'est parti !</button>
+      <!-- Bouton d'action en bas (apparaît après validation) -->
+      <button id="cestPartiBtn" class="action-btn" style="display:none; margin: 0 auto;">C'est parti !</button>
     </div>
-    
-    <!-- Section interactive "Accueil" (exemple de progression) -->
+    <!-- Section interactive "Accueil" -->
     <div id="contentPage">
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
-        <p>Progression Administrative :</p>
-        <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px;">
+        <p style="text-align:center;">Progression Administrative :</p>
+        <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
           <p><strong>Progression Administrative</strong></p>
-          <div style="width:100px; height:100px; border-radius:50%; border: 5px solid #FFA500; margin:0 auto; position:relative;">
-            <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff;">75%</span>
+          <div class="progress-circle">
+            <span>75%</span>
           </div>
         </div>
-        <p style="margin-top:20px;">Progression Formation Pratique :</p>
-        <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px;">
+        <p style="text-align:center; margin-top:20px;">Progression Formation Pratique :</p>
+        <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
           <p><strong>Progression Formation Pratique</strong></p>
-          <div style="width:100px; height:100px; border-radius:50%; border: 5px solid #FFA500; margin:0 auto; position:relative;">
-            <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff;">50%</span>
+          <div class="progress-circle">
+            <span>50%</span>
           </div>
           <p style="margin-top:10px;">Dernière compétence : Changement de vitesse (En progression)</p>
         </div>
       </section>
     </div>
-    
     <!-- Footer -->
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
-  
+
   <script>
     /* ----------------- Sidebar & Hamburger ----------------- */
     const menuButton = document.getElementById('menuButton');
@@ -483,11 +510,11 @@
     menuButton.addEventListener('click', function() {
       sidebar.classList.toggle('active');
     });
-    // Masquer la sidebar quand le curseur la quitte
+    // Masquer la sidebar lorsque le curseur la quitte
     sidebar.addEventListener('mouseleave', function() {
       sidebar.classList.remove('active');
     });
-    
+
     /* ----------------- Authentification ----------------- */
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
@@ -505,8 +532,7 @@
       registerFormContainer.classList.add('active');
       loginFormContainer.classList.remove('active');
     });
-    
-    // Inscription : validation du mot de passe et simulation d'envoi OTP
+    // Inscription : validation du mot de passe et simulation d'envoi d'OTP
     document.getElementById('registerForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -527,8 +553,7 @@
       alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
-    
-    // Connexion simulée (OTP désactivé)
+    // Connexion simulée
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -542,8 +567,8 @@
       localStorage.setItem('authenticated', 'true');
       updateMenuVisibility();
     });
-    
-    /* ----------------- Icônes œil pour mots de passe ----------------- */
+
+    /* ----------------- Icônes œil pour afficher/masquer les mots de passe ----------------- */
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', function() {
         if (targetInput.type === "password") {
@@ -566,7 +591,7 @@
         setupTogglePassword(icon, targetInput);
       }
     });
-    
+
     /* ----------------- Prévisualisation de la photo ----------------- */
     const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
     const photoPreview = document.getElementById('photoPreview');
@@ -585,7 +610,7 @@
         reader.readAsDataURL(file);
       }
     });
-    
+
     /* ----------------- Autocomplétion de l'adresse ----------------- */
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
@@ -607,18 +632,14 @@
         if (commune) { document.getElementById('commune').value = commune; }
       });
     }
-    
-    /* ----------------- Configuration du champ Date de naissance ----------------- */
-    function setMaxBirthDate() {
-      const dateInput = document.getElementById('date-naissance');
-      const today = new Date();
-      const maxYear = today.getFullYear() - 17;
-      const month = (today.getMonth() + 1).toString().padStart(2, '0');
-      const day = today.getDate().toString().padStart(2, '0');
-      dateInput.max = `${maxYear}-${month}-${day}`;
+    // Fonction pour formater les dates en jj/mm/aaaa
+    function formatDate(dateStr) {
+      if (!dateStr) return "";
+      const parts = dateStr.split("-");
+      if (parts.length !== 3) return dateStr;
+      return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    
-    /* ----------------- Gestion du formulaire candidat ----------------- */
+    // Fonction pour collecter les données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -636,14 +657,7 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    
-    function formatDate(dateStr) {
-      if (!dateStr) return "";
-      const parts = dateStr.split("-");
-      if (parts.length !== 3) return dateStr;
-      return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-    
+    // Fonction pour afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = data.nom;
       document.getElementById('sumPrenom').innerText = data.prenom;
@@ -660,7 +674,6 @@
         document.getElementById('sumPhoto').src = data.photo;
       }
     }
-    
     // Gestion de la soumission du formulaire candidat
     const infoForm = document.getElementById('infoForm');
     infoForm.addEventListener('submit', function(e) {
@@ -674,30 +687,50 @@
       document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
     });
-    
-    // Bouton "Modifier" dans le résumé pour réafficher le formulaire sans supprimer les données
+    // Bouton "Modifier" dans le résumé
     document.getElementById('editBtn').addEventListener('click', function() {
       document.getElementById('summaryView').style.display = 'none';
       infoForm.style.display = 'block';
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    
-    // Boutons "Démarrer" et "C'est parti !" pour quitter le formulaire et aller sur la section Accueil
+    // Boutons "Démarrer" et "C'est parti !" pour accéder à l'accueil
     document.getElementById('startBtn').addEventListener('click', function() {
       alert("Redirection vers la page d'accueil interactive...");
-      // Masquer le formulaire de la page de garde
       document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
     });
     document.getElementById('cestPartiBtn').addEventListener('click', function() {
       alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
     });
-    
-    // Lors du chargement, initialiser autocompletion, date max et vérifier les données validées
+    // Bouton "Candidat" dans la sidebar pour afficher le formulaire (résumé ou modification)
+    document.getElementById('coverPageBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('contentPage').style.display = 'none';
+      const infoFormElem = document.getElementById('infoForm');
+      const summaryView = document.getElementById('summaryView');
+      if (summaryView.style.display === 'block') {
+        summaryView.style.display = 'none';
+        infoFormElem.style.display = 'block';
+      } else {
+        const formData = collectFormData();
+        localStorage.setItem('validatedData', JSON.stringify(formData));
+        infoFormElem.style.display = 'none';
+        displaySummary(formData);
+        summaryView.style.display = 'block';
+      }
+    });
+    // Bouton "Accueil" dans la sidebar
+    document.getElementById('accueilBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+    });
+    // Initialisations au chargement
     window.addEventListener('load', function() {
       initAutocomplete();
-      setMaxBirthDate();
       const storedData = localStorage.getItem('validatedData');
       if (storedData) {
         const data = JSON.parse(storedData);
@@ -713,30 +746,14 @@
         updateMenuVisibility();
       }
     });
-    
-    // Gestion du bouton "Candidat" dans la sidebar : bascule entre formulaire et résumé
-    document.getElementById('coverPageBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const infoForm = document.getElementById('infoForm');
-      const summaryView = document.getElementById('summaryView');
-      if (summaryView.style.display === 'block') {
-        summaryView.style.display = 'none';
-        infoForm.style.display = 'block';
-      } else {
-        const formData = collectFormData();
-        localStorage.setItem('validatedData', JSON.stringify(formData));
-        infoForm.style.display = 'none';
-        displaySummary(formData);
-        summaryView.style.display = 'block';
-      }
-    });
-    
-    /* ----------------- Demande de token reCAPTCHA Enterprise (à titre informatif) ----------------- */
-    grecaptcha.enterprise.ready(function() {
-      grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
-        console.log("reCAPTCHA token obtenu :", token);
+    // Demande de token reCAPTCHA Enterprise (à titre informatif)
+    if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
+      grecaptcha.enterprise.ready(function() {
+        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
+          console.log("reCAPTCHA token obtenu :", token);
+        });
       });
-    });
+    }
   </script>
 </body>
 </html>
