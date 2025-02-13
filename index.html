@@ -15,7 +15,7 @@
     html, body { height: 100%; }
     body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
 
-    /* Page d'authentification (Connexion / Inscription) */
+    /* --- Page d'authentification --- */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -28,7 +28,6 @@
     #authPage h1 {
       font-size: 2em;
       color: #FFA500;
-      /* Suppression de la marge inutile en haut */
       margin: 0 auto;
     }
     .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
@@ -57,7 +56,7 @@
       background: #222;
       color: #fff;
     }
-    /* Critères de mot de passe sur la page de connexion */
+    /* Affichage des critères de mot de passe sur la page de connexion */
     #loginForm label[for="loginPassword"]::after {
       content: " (Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre)";
       font-size: 0.8em;
@@ -73,7 +72,7 @@
       color: #FFA500;
     }
 
-    /* Boutons – Tous en fond orange avec texte en noir */
+    /* --- Boutons (fond orange, texte noir) --- */
     .btn, .action-btn {
       padding: 10px 20px;
       font-size: 1em;
@@ -87,7 +86,7 @@
       text-align: center;
     }
 
-    /* Formulaire candidat – version validée */
+    /* --- Formulaire candidat (version validée) --- */
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -135,7 +134,7 @@
     .info-field input::placeholder { color: #aaa; }
     /* Forcer l'icône du calendrier en blanc */
     input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
-    /* Les 12 champs NEPH */
+    /* Champs NEPH (12 petits champs) */
     .neph-boxes {
       display: flex;
       flex-direction: row;
@@ -199,17 +198,7 @@
     .summary p { margin-bottom: 10px; }
     .summary label { font-weight: bold; }
 
-    /* Footer */
-    .footer {
-      text-align: center;
-      font-size: 1.2em;
-      font-style: italic;
-      border-top: 1px solid #444;
-      padding-top: 20px;
-      color: #ccc;
-    }
-
-    /* Sidebar et bouton hamburger */
+    /* --- Sidebar et bouton hamburger --- */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -247,7 +236,8 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Page d'accueil interactive */
+
+    /* --- Page d'accueil interactive --- */
     #contentPage {
       display: none;
       padding: 20px;
@@ -283,7 +273,7 @@
       color: #fff;
     }
 
-    /* Responsive */
+    /* --- Responsive --- */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
@@ -353,6 +343,7 @@
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
+    <!-- Bouton pour passer l'authentification (toujours actif) -->
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
 
@@ -391,7 +382,7 @@
             </div>
             <div class="info-field">
               <label for="date-naissance">Date de naissance :</label>
-              <!-- La date max est fixée pour proposer 2008 -->
+              <!-- Date max fixée pour proposer 2008 -->
               <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
             </div>
             <div class="info-field">
@@ -556,15 +547,21 @@
     // Connexion simulée
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      // Affichage de la page candidate et réinitialisation du formulaire
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      localStorage.setItem('authenticated', 'true');
+      document.getElementById('infoForm').reset();
+      document.getElementById('summaryView').style.display = 'none';
+      localStorage.removeItem('validatedData');
       updateMenuVisibility();
     });
+    // Bouton "Passer l'authentification" : idem
     document.getElementById('skipAuth').addEventListener('click', function() {
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      localStorage.setItem('authenticated', 'true');
+      document.getElementById('infoForm').reset();
+      document.getElementById('summaryView').style.display = 'none';
+      localStorage.removeItem('validatedData');
       updateMenuVisibility();
     });
 
@@ -679,6 +676,7 @@
     infoForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const formData = collectFormData();
+      // Stockage éventuel (pour le bouton "Candidat" dans la sidebar) mais pas rechargé au démarrage
       localStorage.setItem('validatedData', JSON.stringify(formData));
       infoForm.style.display = 'none';
       displaySummary(formData);
@@ -686,6 +684,8 @@
       // Afficher les boutons d'action "Démarrer" et "C'est parti !"
       document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
+      // Positionner la page sur le résumé (scroll fluide)
+      document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
     });
     // Bouton "Modifier" dans le résumé
     document.getElementById('editBtn').addEventListener('click', function() {
@@ -705,7 +705,7 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar pour afficher le formulaire (résumé ou modification)
+    // Bouton "Candidat" dans la sidebar pour afficher le formulaire ou le résumé
     document.getElementById('coverPageBtn').addEventListener('click', function(e) {
       e.preventDefault();
       document.getElementById('contentPage').style.display = 'none';
@@ -728,23 +728,9 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Initialisations au chargement
+    // Initialisation au chargement (uniquement autocomplétion)
     window.addEventListener('load', function() {
       initAutocomplete();
-      const storedData = localStorage.getItem('validatedData');
-      if (storedData) {
-        const data = JSON.parse(storedData);
-        infoForm.style.display = 'none';
-        displaySummary(data);
-        document.getElementById('summaryView').style.display = 'block';
-        document.getElementById('startBtn').style.display = 'block';
-        document.getElementById('cestPartiBtn').style.display = 'block';
-      }
-      if (localStorage.getItem('authenticated') === 'true') {
-        document.getElementById('authPage').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-        updateMenuVisibility();
-      }
     });
     // Demande de token reCAPTCHA Enterprise (à titre informatif)
     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
