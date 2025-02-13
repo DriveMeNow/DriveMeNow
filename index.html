@@ -71,9 +71,9 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* Ajustement spécifique pour la confirmation du mot de passe dans l'inscription */
+    /* Ajustement pour le champ de confirmation du mot de passe : l'icône est placée encore plus bas */
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
-      top: 28px;
+      top: 34px;
       transform: translateY(-50%);
     }
 
@@ -740,13 +740,4 @@
       initAutocomplete();
     });
     // Demande de token reCAPTCHA Enterprise (à titre informatif)
-    if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
-      grecaptcha.enterprise.ready(function() {
-        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
-          console.log("reCAPTCHA token obtenu :", token);
-        });
-      });
-    }
-  </script>
-</body>
-</html>
+    if (type
