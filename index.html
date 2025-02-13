@@ -56,11 +56,11 @@
       background: #222;
       color: #fff;
     }
-    /* Affichage des critères de mot de passe sur la page de connexion */
-    #loginForm label[for="loginPassword"]::after {
-      content: " (Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre)";
-      font-size: 0.8em;
-      color: #ccc;
+    /* Pour assurer que les icônes "œil" soient bien centrées */
+    #loginForm .password-container input,
+    #registerForm .password-container input {
+      padding-right: 30px;
+      height: 40px;
     }
     .password-container { position: relative; }
     .toggle-password {
@@ -81,7 +81,8 @@
       border-radius: 4px;
       background-color: #FFA500;
       color: #000;
-      margin: 10px;
+      /* Utilisation de margin auto pour centrer */
+      margin: 10px auto;
       display: block;
       text-align: center;
     }
@@ -300,6 +301,8 @@
         <div class="auth-field password-container">
           <label for="loginPassword">Mot de passe :</label>
           <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
+          <!-- Critères de mot de passe déplacés sous le champ -->
+          <small style="display:block; color:#ccc; margin-top:5px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
           <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
         </div>
         <div class="auth-field">
@@ -308,9 +311,9 @@
         </div>
         <div class="auth-field">
           <label>Captcha :</label>
-          <div id="captchaPlaceholder" style="padding: 10px; background-color: #222; text-align:center;">[Captcha ici]</div>
+          <div id="captchaPlaceholder" style="padding: 10px; background-color: #222; text-align:center;">Captcha non actif</div>
         </div>
-        <button type="submit" class="btn">Se connecter</button>
+        <button type="submit" class="btn" style="margin: 10px auto;">Se connecter</button>
       </form>
     </div>
     <!-- Formulaire d'inscription -->
@@ -338,13 +341,13 @@
         </div>
         <div class="auth-field">
           <label>Captcha :</label>
-          <div id="captchaPlaceholderRegister" style="padding: 10px; background-color: #222; text-align:center;">[Captcha ici]</div>
+          <div id="captchaPlaceholderRegister" style="padding: 10px; background-color: #222; text-align:center;">Captcha non actif</div>
         </div>
-        <button type="submit" class="btn">S'inscrire</button>
+        <button type="submit" class="btn" style="margin: 10px auto;">S'inscrire</button>
       </form>
     </div>
     <!-- Bouton pour passer l'authentification (toujours actif) -->
-    <button class="btn" id="skipAuth">Passer l’authentification</button>
+    <button class="btn" id="skipAuth" style="margin: 10px auto;">Passer l’authentification</button>
   </div>
 
   <!-- Page principale (après authentification) -->
@@ -676,7 +679,7 @@
     infoForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const formData = collectFormData();
-      // Stockage éventuel (pour le bouton "Candidat" dans la sidebar) mais pas rechargé au démarrage
+      // Stockage éventuel (pour le bouton "Candidat" dans la sidebar) mais non réutilisé au démarrage
       localStorage.setItem('validatedData', JSON.stringify(formData));
       infoForm.style.display = 'none';
       displaySummary(formData);
