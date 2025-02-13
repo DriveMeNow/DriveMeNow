@@ -6,12 +6,12 @@
   <title>DriveMeNow</title>
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Font Awesome -->
+  <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Google Maps API with Places (async/defer) -->
+  <!-- Google Maps API avec Places, chargé en async/defer -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
-    /* Réinitialisation */
+    /* ---------- Réinitialisation ---------- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
     body {
@@ -20,8 +20,8 @@
       color: #fff;
       line-height: 1.6;
     }
-    /* Boutons génériques */
-    .btn { 
+    /* ---------- Boutons génériques ---------- */
+    .btn, .action-btn {
       padding: 10px 20px;
       font-size: 1em;
       cursor: pointer;
@@ -33,21 +33,32 @@
       display: block;
       text-align: center;
     }
-    .btn.edit { background-color: #f0ad4e; }
-    
+    .action-btn {
+      max-width: 200px;
+      margin: 10px auto;
+      border: 1px solid #fff;
+    }
     /* ---------- Page d'authentification ---------- */
     #authPage {
       max-width: 400px;
-      margin: 10px auto; /* Supprimé marge inutile en haut */
+      margin: 10px auto; /* Réduction de la marge en haut */
       background: #111;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
     }
-    #authPage h1 { font-size: 2em; color: #FFA500; margin-bottom: 10px; }
-    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
-    /* Centrer les titres des onglets */
+    #authPage h1 {
+      font-size: 2em;
+      color: #FFA500;
+      margin-bottom: 10px;
+    }
+    .welcome-text {
+      margin-bottom: 20px;
+      font-size: 0.95em;
+      color: #ccc;
+    }
+    /* Centrage des titres Connexion/Inscription */
     .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
     .auth-tabs button {
       flex: 1;
@@ -73,13 +84,13 @@
       background: #222;
       color: #fff;
     }
-    /* Pour le champ mot de passe en Connexion : affichage des critères */
-    #loginForm .auth-field label[for="loginPassword"]::after {
+    /* Pour le champ mot de passe en Connexion, afficher les critères sous le label */
+    #loginForm label[for="loginPassword"]::after {
       content: " (Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre)";
       font-size: 0.8em;
       color: #ccc;
     }
-    /* Icônes œil pour les champs mot de passe */
+    /* Icônes œil pour afficher/masquer les mots de passe */
     .password-container { position: relative; }
     .toggle-password {
       position: absolute;
@@ -89,8 +100,8 @@
       cursor: pointer;
       color: #FFA500;
     }
-    
     /* ---------- Sidebar et Hamburger ---------- */
+    /* Bouton hamburger arrondi, affiché uniquement sur la page principale */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -102,12 +113,12 @@
       border-radius: 8px;
       cursor: pointer;
       z-index: 3000;
-      display: none; /* Affiché sur la page principale */
+      display: none;
       align-items: center;
       justify-content: center;
     }
     #menuButton i { font-size: 1.5em; color: #000; }
-    /* Sidebar verticale, fond noir, boutons orange avec séparation */
+    /* Sidebar verticale, fond noir, liens en fond orange avec texte noir et séparation */
     #sidebar {
       position: fixed;
       top: 0;
@@ -129,11 +140,11 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Masquer la sidebar lorsque la souris la quitte */
-    #sidebar:hover {} 
-    #sidebar:not(:hover) {
-      left: -250px;
-    }
+    /* Masquer automatiquement la sidebar quand le curseur la quitte */
+    #sidebar.addEventListener('mouseleave', function() {
+      this.classList.remove('active');
+    });
+    /* ---------- Fin Sidebar ---------- */
     
     /* ---------- Page principale (après authentification) ---------- */
     #mainContent { display: none; padding-top: 60px; }
@@ -149,8 +160,10 @@
     .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; color: #fff; }
     .subtitle { font-size: 1.2em; color: #ccc; margin: 20px 0 40px; text-align: center; }
     input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
-    /* Date de naissance : année maximale forcée à 2008 */
-    #date-naissance { max: 2008-12-31; }
+    /* Configurer le champ Date de naissance : max = (année en cours - 17) */
+    #date-naissance { 
+      max: calc( (100 * 1px) ); /* On mettra la valeur via JS */
+    }
     .info-section {
       display: flex;
       flex-wrap: wrap;
@@ -164,7 +177,7 @@
       flex-direction: column;
       align-items: center;
     }
-    /* Photo : ajustement pour portrait et paysage */
+    /* Prévisualisation de la photo : s'adapte aux formats portrait et paysage */
     .photo-placeholder {
       width: 100%;
       max-width: 250px;
@@ -192,11 +205,8 @@
       opacity: 0;
       cursor: pointer;
     }
-    
     /* ---------- Formulaire candidat (Page de garde) ---------- */
-    #infoContainer {
-      margin-top: 20px;
-    }
+    #infoContainer { margin-top: 20px; }
     #infoForm, #summaryView { text-align: left; }
     #infoForm .info-field, #summaryView .info-field { margin-bottom: 15px; }
     #infoForm .info-field label, #summaryView .info-field label { display: block; margin-bottom: 5px; }
@@ -218,8 +228,7 @@
       margin-right: 3px;
       font-size: 0.9em;
     }
-    
-    /* ---------- Sections de contenu du livret (Accueil, Inscription, Suivi, etc.) ---------- */
+    /* ---------- Sections de contenu interactif (Accueil, etc.) ---------- */
     .section-content {
       background: #222;
       border-radius: 6px;
@@ -240,20 +249,6 @@
       line-height: 1.5;
     }
     .section-content ul { list-style: disc; padding-left: 20px; }
-    
-    /* ---------- Boutons Démarrer / C'est parti ! (apparus uniquement après validation) ---------- */
-    .action-btn {
-      padding: 8px 16px;
-      font-size: 1em;
-      border: 1px solid #fff;
-      border-radius: 4px;
-      background-color: #FFA500;
-      color: #000;
-      margin: 10px auto;
-      display: block;
-      max-width: 200px;
-    }
-    
     /* ---------- Responsive ---------- */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -264,7 +259,7 @@
 <body>
   <!-- Page d'authentification -->
   <div id="authPage">
-    <h1>DriveMeNow</h1>
+    <h1 style="margin-top:10px;">DriveMeNow</h1>
     <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet.</p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
@@ -342,16 +337,16 @@
       <a href="#fabricationSection"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
     
-    <!-- Contenu principal : Page de garde (formulaire candidat) -->
+    <!-- Page de garde : Formulaire candidat -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
         <div class="title-line1" style="text-align:center;">LIVRET D'APPRENTISSAGE</div>
         <div class="title-line2" style="text-align:center;">Candidat Libre au Permis B</div>
         <div class="subtitle" style="text-align:center;">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Bouton "Démarrer" (en haut, visible uniquement après validation) -->
+      <!-- Boutons d'action "Démarrer" (en haut) et "C'est parti !" (en bas) : apparaissent après validation -->
       <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
-      <!-- Formulaire candidat (Page de garde) -->
+      
       <div id="infoContainer">
         <form id="infoForm">
           <div class="info-section">
@@ -366,7 +361,7 @@
               </div>
               <div class="info-field">
                 <label for="date-naissance">Date de naissance :</label>
-                <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
+                <input type="date" id="date-naissance" name="date_naissance" required>
               </div>
               <div class="info-field">
                 <label for="adresse">Adresse :</label>
@@ -440,28 +435,26 @@
           <p><strong>Photo :</strong><br>
             <img id="sumPhoto" style="max-width:150px; border: 1px solid #ccc;">
           </p>
-          <button class="btn edit" id="editBtn" style="max-width:200px; margin: 20px auto;">Modifier</button>
+          <button class="btn edit" id="editBtn" style="max-width:200px; margin:20px auto;">Modifier</button>
         </div>
       </div>
-      <!-- Boutons "Démarrer" (en haut) et "C'est parti !" (en bas) apparaissant après validation -->
+      <!-- Boutons d'action (apparus après validation) -->
       <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
       <button id="cestPartiBtn" class="action-btn" style="display:none;">C'est parti !</button>
     </div>
     
-    <!-- Sections de contenu interactif (Accueil, etc.) -->
+    <!-- Section interactive "Accueil" (exemple de progression) -->
     <div id="contentPage">
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
-        <p>Ici se trouve un tableau interactif résumant votre progression administrative :</p>
-        <!-- Placeholder pour tableau interactif administratif -->
+        <p>Progression Administrative :</p>
         <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px;">
           <p><strong>Progression Administrative</strong></p>
           <div style="width:100px; height:100px; border-radius:50%; border: 5px solid #FFA500; margin:0 auto; position:relative;">
             <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff;">75%</span>
           </div>
         </div>
-        <p style="margin-top:20px;">Et un tableau pour suivre votre progression en formation pratique :</p>
-        <!-- Placeholder pour tableau interactif pratique -->
+        <p style="margin-top:20px;">Progression Formation Pratique :</p>
         <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px;">
           <p><strong>Progression Formation Pratique</strong></p>
           <div style="width:100px; height:100px; border-radius:50%; border: 5px solid #FFA500; margin:0 auto; position:relative;">
@@ -470,8 +463,6 @@
           <p style="margin-top:10px;">Dernière compétence : Changement de vitesse (En progression)</p>
         </div>
       </section>
-      
-      <!-- Vous pouvez ajouter d'autres sections si nécessaire -->
     </div>
     
     <!-- Footer -->
@@ -482,7 +473,6 @@
     /* ----------------- Sidebar & Hamburger ----------------- */
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
-    // Afficher le bouton hamburger uniquement sur la page principale
     function updateMenuVisibility() {
       if (document.getElementById('mainContent').style.display === 'block') {
         menuButton.style.display = 'flex';
@@ -493,7 +483,7 @@
     menuButton.addEventListener('click', function() {
       sidebar.classList.toggle('active');
     });
-    // Masquer la sidebar dès que le curseur la quitte
+    // Masquer la sidebar quand le curseur la quitte
     sidebar.addEventListener('mouseleave', function() {
       sidebar.classList.remove('active');
     });
@@ -503,14 +493,12 @@
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
     const registerFormContainer = document.getElementById('registerFormContainer');
-    
     loginTab.addEventListener('click', () => {
       loginTab.classList.add('active');
       registerTab.classList.remove('active');
       loginFormContainer.classList.add('active');
       registerFormContainer.classList.remove('active');
     });
-    
     registerTab.addEventListener('click', () => {
       registerTab.classList.add('active');
       loginTab.classList.remove('active');
@@ -518,7 +506,7 @@
       loginFormContainer.classList.remove('active');
     });
     
-    // Simulation de l'inscription avec validation du mot de passe
+    // Inscription : validation du mot de passe et simulation d'envoi OTP
     document.getElementById('registerForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -533,7 +521,6 @@
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
-      // Génération d'un code à usage unique (6 chiffres) simulé
       const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
       const registeredUser = { email: regEmail, password: regPassword, code: oneTimeCode };
       localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
@@ -541,7 +528,7 @@
       loginTab.click();
     });
     
-    // Simulation de la connexion (OTP désactivé)
+    // Connexion simulée (OTP désactivé)
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -549,8 +536,6 @@
       localStorage.setItem('authenticated', 'true');
       updateMenuVisibility();
     });
-    
-    // Bouton pour passer l'authentification directement (mode développement)
     document.getElementById('skipAuth').addEventListener('click', function() {
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
@@ -558,7 +543,7 @@
       updateMenuVisibility();
     });
     
-    /* ----------------- Gestion des icônes œil ----------------- */
+    /* ----------------- Icônes œil pour mots de passe ----------------- */
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', function() {
         if (targetInput.type === "password") {
@@ -572,14 +557,14 @@
         }
       });
     }
-    // Pour le formulaire de connexion
     const toggleLoginPassword = document.getElementById('toggleLoginPassword');
     setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'));
-    // Pour le formulaire d'inscription
     document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
       const targetId = icon.getAttribute('data-target');
-      const targetInput = document.getElementById(targetId);
-      setupTogglePassword(icon, targetInput);
+      if(targetId) {
+        const targetInput = document.getElementById(targetId);
+        setupTogglePassword(icon, targetInput);
+      }
     });
     
     /* ----------------- Prévisualisation de la photo ----------------- */
@@ -593,7 +578,9 @@
         reader.onload = function(e) {
           photoPreview.src = e.target.result;
           photoPreview.style.display = 'block';
-          if (photoPlaceholderText) { photoPlaceholderText.style.display = 'none'; }
+          if (photoPlaceholderText) {
+            photoPlaceholderText.style.display = 'none';
+          }
         };
         reader.readAsDataURL(file);
       }
@@ -621,10 +608,14 @@
       });
     }
     
-    /* ----------------- Date de naissance : max fixé à 2008 ----------------- */
+    /* ----------------- Configuration du champ Date de naissance ----------------- */
     function setMaxBirthDate() {
       const dateInput = document.getElementById('date-naissance');
-      dateInput.max = "2008-12-31";
+      const today = new Date();
+      const maxYear = today.getFullYear() - 17;
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const day = today.getDate().toString().padStart(2, '0');
+      dateInput.max = `${maxYear}-${month}-${day}`;
     }
     
     /* ----------------- Gestion du formulaire candidat ----------------- */
@@ -684,28 +675,26 @@
       document.getElementById('cestPartiBtn').style.display = 'block';
     });
     
-    // Bouton "Modifier" dans le résumé pour réafficher le formulaire
+    // Bouton "Modifier" dans le résumé pour réafficher le formulaire sans supprimer les données
     document.getElementById('editBtn').addEventListener('click', function() {
       document.getElementById('summaryView').style.display = 'none';
       infoForm.style.display = 'block';
-      // Masquer les boutons d'action
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
     
     // Boutons "Démarrer" et "C'est parti !" pour quitter le formulaire et aller sur la section Accueil
     document.getElementById('startBtn').addEventListener('click', function() {
-      // Ici, on peut simuler la redirection vers la page d'accueil interactive
-      alert("Redirection vers la page d'accueil (progression)...");
-      // Masquer le formulaire (il restera accessible via "Candidat" dans la sidebar)
+      alert("Redirection vers la page d'accueil interactive...");
+      // Masquer le formulaire de la page de garde
       document.getElementById('coverPage').style.display = 'none';
     });
     document.getElementById('cestPartiBtn').addEventListener('click', function() {
-      alert("Redirection vers la page d'accueil (progression)...");
+      alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
     });
     
-    // Vérifier si l'utilisateur est déjà authentifié
+    // Lors du chargement, initialiser autocompletion, date max et vérifier les données validées
     window.addEventListener('load', function() {
       initAutocomplete();
       setMaxBirthDate();
@@ -725,7 +714,7 @@
       }
     });
     
-    // Gestion du bouton "Candidat" dans la sidebar pour afficher le formulaire validé avec possibilité de modification
+    // Gestion du bouton "Candidat" dans la sidebar : bascule entre formulaire et résumé
     document.getElementById('coverPageBtn').addEventListener('click', function(e) {
       e.preventDefault();
       const infoForm = document.getElementById('infoForm');
