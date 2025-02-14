@@ -29,7 +29,17 @@
       font-size: 2em;
       color: #FFA500;
     }
-    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
+    /* Texte de bienvenue modifié */
+    .welcome-text {
+      margin-bottom: 20px;
+      font-size: 0.95em;
+      color: #ccc;
+    }
+    .welcome-text::before {
+      content: "Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis B en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.";
+      display: block;
+      margin-bottom: 10px;
+    }
     .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
     .auth-tabs button {
       flex: 1;
@@ -215,7 +225,7 @@
   <!-- Page d'authentification -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
-    <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet.</p>
+    <p class="welcome-text"></p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">Inscription</button>
