@@ -68,7 +68,7 @@
       background: #222;
       color: #fff;
     }
-    /* Champs de mot de passe */
+    /* Pour les champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
     .toggle-password {
@@ -79,7 +79,7 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* Pour le champ confirmation d'inscription, positionner l'icône plus bas */
+    /* Réglage spécifique pour le champ de confirmation de l'inscription */
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
       transform: translateY(-50%);
@@ -97,7 +97,7 @@
       display: block;
       text-align: center;
     }
-    
+
     /* --- Formulaire candidat (page de garde) --- */
     .cover-page {
       max-width: 900px;
@@ -108,8 +108,8 @@
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
     }
     .title-section { margin-bottom: 40px; text-align: center; }
-    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
-    .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
+    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; color: #fff; }
+    .subtitle { font-size: 1.2em; color: #ccc; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
     .info-section {
       display: flex;
@@ -125,7 +125,7 @@
       margin-bottom: 15px;
       text-align: left;
     }
-    .info-field label { font-weight: bold; margin-right: 8px; }
+    .info-field label { font-weight: bold; margin-right: 8px; color: #fff; }
     .info-field input {
       padding: 5px;
       font-size: 1em;
@@ -148,7 +148,9 @@
     .neph-box input {
       width: 100%;
       border: none;
+      outline: none;
       text-align: center;
+      font-size: 1em;
       background: #222;
       color: #fff;
     }
@@ -219,7 +221,7 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Positionnement pour éviter que le bouton hamburger ne recouvre le titre "Accueil" */
+    /* Pour éviter que le bouton hamburger ne recouvre le titre "Accueil" */
     #contentPage {
       display: none;
       padding: 20px;
@@ -446,7 +448,7 @@
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
 
-    // Onglets Connexion / Inscription
+    // Gestion des onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -504,7 +506,7 @@
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
-      // Enregistrement des données d'inscription (sans fonction de copie automatique)
+      // Stockage des données d'inscription (ici uniquement pour la connexion OTP)
       localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: Math.floor(100000 + Math.random()*900000).toString() }));
       alert("Un code à usage unique a été envoyé (simulation).");
       loginTab.click();
@@ -527,6 +529,34 @@
       document.getElementById('summaryView').style.display = 'none';
       localStorage.removeItem('validatedData');
       updateMenuVisibility();
+    });
+
+    // Prévisualisation de la photo
+    const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
+    const photoPreview = document.getElementById('photoPreview');
+    const photoPlaceholderText = document.getElementById('photoPlaceholderText');
+    photoInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          photoPreview.src = e.target.result;
+          photoPreview.style.display = 'block';
+          if (photoPlaceholderText) {
+            photoPlaceholderText.style.display = 'none';
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Auto-tabulation pour les champs NEPH
+    document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
+      input.addEventListener('input', () => {
+        if (input.value.length >= input.maxLength && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
     });
 
     // Collecte des données du formulaire candidat
@@ -564,15 +594,19 @@
       document.getElementById('sumResponsable').innerText = data.responsable;
       document.getElementById('sumNeph').innerText = data.neph;
       document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo) document.getElementById('sumPhoto').src = data.photo;
+      if (data.photo) {
+        document.getElementById('sumPhoto').src = data.photo;
+      }
     }
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
+      // Afficher le résumé dès le haut de la page
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
+      // Afficher les boutons d'action
       document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
       document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
@@ -583,16 +617,16 @@
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
+    // Boutons "Démarrer" et "C'est parti !" : passage direct à la page d'accueil
     document.getElementById('startBtn').addEventListener('click', () => {
-      alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
     document.getElementById('cestPartiBtn').addEventListener('click', () => {
-      alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
+    // Bouton "Candidat" dans la sidebar pour accéder au formulaire résumé
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('contentPage').style.display = 'none';
