@@ -8,14 +8,14 @@
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <!-- Google Maps API avec Places -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
   <style>
     /* Réinitialisation globale */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
     body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
 
-    /* --- Page d'authentification --- */
+    /* Page d'authentification */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -29,7 +29,6 @@
       font-size: 2em;
       color: #FFA500;
     }
-    /* Texte de bienvenue modifié */
     .welcome-text {
       margin-bottom: 20px;
       font-size: 0.95em;
@@ -40,7 +39,11 @@
       display: block;
       margin-bottom: 10px;
     }
-    .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
+    .auth-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
     .auth-tabs button {
       flex: 1;
       padding: 10px;
@@ -76,12 +79,12 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* Nouveau réglage pour le champ de confirmation dans l'inscription */
+    /* Pour le champ confirmation d'inscription, on positionne l'icône plus bas */
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
       transform: translateY(-50%);
     }
-    /* Boutons (fond orange, texte noir) */
+    /* Boutons */
     .btn, .action-btn {
       padding: 10px 20px;
       font-size: 1em;
@@ -94,8 +97,8 @@
       display: block;
       text-align: center;
     }
-
-    /* --- Formulaire candidat (page de garde) --- */
+    
+    /* Formulaire candidat (page de garde) */
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -177,7 +180,8 @@
     }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
-    /* --- Sidebar et bouton hamburger --- */
+    
+    /* Sidebar et bouton hamburger */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -215,7 +219,7 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Ajout d'un margin-top pour éviter que le titre "Accueil" ne soit recouvert par le bouton hamburger */
+    /* Contenu de la page Accueil : ajout d'un margin-top pour éviter que le bouton hamburger ne le recouvre */
     #contentPage {
       display: none;
       padding: 20px;
@@ -225,7 +229,7 @@
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
     }
-    /* Centrage du footer */
+    /* Footer centré */
     .footer {
       text-align: center;
       font-style: italic;
@@ -267,7 +271,6 @@
     <div id="registerFormContainer" class="auth-form">
       <h2 style="text-align:center;">Inscription</h2>
       <form id="registerForm">
-        <!-- Remplacement de "Nom complet" par "Nom" et ajout de "Prénom" -->
         <div class="auth-field">
           <label for="regNom">Nom :</label>
           <input type="text" id="regNom" name="regNom" placeholder="Votre nom" required>
@@ -461,7 +464,7 @@
       loginFormContainer.classList.remove('active');
     });
 
-    // Transformation automatique des champs Nom et Prénom lors de l'inscription et copie dans le formulaire candidat
+    // Transformation automatique des champs Nom et Prénom et copie dans le formulaire candidat
     function capitalizeAndStore(sourceId, targetId, storageKey, fieldKey) {
       const sourceInput = document.getElementById(sourceId);
       sourceInput.addEventListener('input', () => {
@@ -470,19 +473,19 @@
           value = value.charAt(0).toUpperCase() + value.slice(1);
           sourceInput.value = value;
         }
-        // Stocker dans localStorage
         let storedData = localStorage.getItem(storageKey);
         storedData = storedData ? JSON.parse(storedData) : {};
         storedData[fieldKey] = value;
         localStorage.setItem(storageKey, JSON.stringify(storedData));
-        // Copier dans le formulaire candidat
         document.getElementById(targetId).value = value;
       });
     }
+    // Pour le champ "Nom"
     capitalizeAndStore("regNom", "nom", "registeredData", "nom");
+    // Pour le champ "Prénom"
     capitalizeAndStore("regPrenom", "prenom", "registeredData", "prenom");
 
-    // Au chargement du formulaire candidat, préremplir avec les données enregistrées
+    // Préremplissage du formulaire candidat au chargement
     window.addEventListener('load', () => {
       const regData = localStorage.getItem("registeredData");
       if (regData) {
@@ -541,7 +544,7 @@
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
-      // Stocker les données Nom et Prénom pour préremplir le formulaire candidat
+      // Stocker les données de Nom et Prénom pour préremplir le formulaire candidat
       localStorage.setItem("registeredData", JSON.stringify({ nom: regNom, prenom: regPrenom }));
       // Simuler l'envoi d'un code OTP
       const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
@@ -679,9 +682,8 @@
     }
     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
       grecaptcha.enterprise.ready(() => {
-        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(token => {
-          console.log("reCAPTCHA token obtenu :", token);
-        });
+        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'})
+          .then(token => console.log("reCAPTCHA token obtenu :", token));
       });
     }
   </script>
