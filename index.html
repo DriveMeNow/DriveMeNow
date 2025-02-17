@@ -76,7 +76,7 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* Réglage pour le champ de confirmation (inscription) : position plus basse */
+    /* Nouveau réglage pour le champ de confirmation dans l'inscription */
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
       transform: translateY(-50%);
@@ -94,6 +94,7 @@
       display: block;
       text-align: center;
     }
+
     /* --- Formulaire candidat (page de garde) --- */
     .cover-page {
       max-width: 900px;
@@ -214,10 +215,21 @@
       text-align: center;
       font-size: 1em;
     }
-    #contentPage { display: none; padding: 20px; }
+    /* Ajout d'un margin-top pour éviter que le titre "Accueil" ne soit recouvert par le bouton hamburger */
+    #contentPage {
+      display: none;
+      padding: 20px;
+      margin-top: 60px;
+    }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
+    }
+    /* Centrage du footer */
+    .footer {
+      text-align: center;
+      font-style: italic;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -230,7 +242,7 @@
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">Inscription</button>
     </div>
-    <!-- Formulaire de connexion -->
+    <!-- Formulaire de connexion (sans CAPTCHA) -->
     <div id="loginFormContainer" class="auth-form active">
       <h2 style="text-align:center;">Connexion</h2>
       <form id="loginForm">
@@ -248,18 +260,14 @@
           <label for="loginCode">Code à usage unique :</label>
           <input type="text" id="loginCode" name="loginCode" placeholder="Code reçu par email" required>
         </div>
-        <div class="auth-field">
-          <label>Captcha :</label>
-          <div id="captchaPlaceholder" style="padding:10px; background:#222; text-align:center;">Captcha non actif</div>
-        </div>
         <button type="submit" class="btn">Se connecter</button>
       </form>
     </div>
-    <!-- Formulaire d'inscription -->
+    <!-- Formulaire d'inscription (sans CAPTCHA) -->
     <div id="registerFormContainer" class="auth-form">
       <h2 style="text-align:center;">Inscription</h2>
       <form id="registerForm">
-        <!-- Remplacement du champ "Nom complet" par deux champs : Nom et Prénom -->
+        <!-- Remplacement de "Nom complet" par "Nom" et ajout de "Prénom" -->
         <div class="auth-field">
           <label for="regNom">Nom :</label>
           <input type="text" id="regNom" name="regNom" placeholder="Votre nom" required>
@@ -283,7 +291,6 @@
           <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required>
           <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
         </div>
-        <!-- Suppression des champs CAPTCHA -->
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
@@ -423,7 +430,7 @@
   </div>
 
   <script>
-    // Mise à jour de la visibilité du bouton hamburger
+    // Gestion du bouton hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -454,23 +461,45 @@
       loginFormContainer.classList.remove('active');
     });
 
-    // Transformation automatique du nom/prénom et copie dans le formulaire candidat
-    function capitalizeAndCopy(sourceId, targetId) {
+    // Transformation automatique des champs Nom et Prénom lors de l'inscription et copie dans le formulaire candidat
+    function capitalizeAndStore(sourceId, targetId, storageKey, fieldKey) {
       const sourceInput = document.getElementById(sourceId);
-      const targetInput = document.getElementById(targetId);
       sourceInput.addEventListener('input', () => {
         let value = sourceInput.value;
         if (value.length > 0) {
           value = value.charAt(0).toUpperCase() + value.slice(1);
           sourceInput.value = value;
         }
-        targetInput.value = value;
+        // Stocker dans localStorage
+        let storedData = localStorage.getItem(storageKey);
+        storedData = storedData ? JSON.parse(storedData) : {};
+        storedData[fieldKey] = value;
+        localStorage.setItem(storageKey, JSON.stringify(storedData));
+        // Copier dans le formulaire candidat
+        document.getElementById(targetId).value = value;
       });
     }
-    // Pour le champ "Nom" (inscription -> candidat)
-    capitalizeAndCopy("regNom", "nom");
-    // Pour le champ "Prénom"
-    capitalizeAndCopy("regPrenom", "prenom");
+    capitalizeAndStore("regNom", "nom", "registeredData", "nom");
+    capitalizeAndStore("regPrenom", "prenom", "registeredData", "prenom");
+
+    // Au chargement du formulaire candidat, préremplir avec les données enregistrées
+    window.addEventListener('load', () => {
+      const regData = localStorage.getItem("registeredData");
+      if (regData) {
+        const data = JSON.parse(regData);
+        if (data.nom) document.getElementById("nom").value = data.nom;
+        if (data.prenom) document.getElementById("prenom").value = data.prenom;
+      }
+      initAutocomplete();
+      // Auto-tabulation pour les champs NEPH
+      document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
+        input.addEventListener('input', () => {
+          if (input.value.length >= input.maxLength && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        });
+      });
+    });
 
     // Fonction toggle pour afficher/masquer le mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
@@ -498,6 +527,8 @@
     // Soumission du formulaire d'inscription
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
+      const regNom = document.getElementById('regNom').value;
+      const regPrenom = document.getElementById('regPrenom').value;
       const regEmail = document.getElementById('regEmail').value;
       const regPassword = document.getElementById('regPassword').value;
       const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
@@ -510,6 +541,9 @@
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
+      // Stocker les données Nom et Prénom pour préremplir le formulaire candidat
+      localStorage.setItem("registeredData", JSON.stringify({ nom: regNom, prenom: regPrenom }));
+      // Simuler l'envoi d'un code OTP
       const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
       localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: oneTimeCode }));
       alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
@@ -535,7 +569,7 @@
       updateMenuVisibility();
     });
 
-    // Collecte et affichage des données du formulaire candidat
+    // Collecte des données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -620,9 +654,6 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    window.addEventListener('load', () => {
-      initAutocomplete();
-    });
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
@@ -648,8 +679,9 @@
     }
     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
       grecaptcha.enterprise.ready(() => {
-        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'})
-          .then(token => console.log("reCAPTCHA token obtenu :", token));
+        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(token => {
+          console.log("reCAPTCHA token obtenu :", token);
+        });
       });
     }
   </script>
