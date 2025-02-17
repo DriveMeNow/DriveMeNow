@@ -76,7 +76,7 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* Nouveau réglage pour le champ de confirmation */
+    /* Réglage pour le champ de confirmation (inscription) : position plus basse */
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
       transform: translateY(-50%);
@@ -259,9 +259,14 @@
     <div id="registerFormContainer" class="auth-form">
       <h2 style="text-align:center;">Inscription</h2>
       <form id="registerForm">
+        <!-- Remplacement du champ "Nom complet" par deux champs : Nom et Prénom -->
         <div class="auth-field">
-          <label for="regName">Nom complet :</label>
-          <input type="text" id="regName" name="regName" placeholder="Votre nom complet" required>
+          <label for="regNom">Nom :</label>
+          <input type="text" id="regNom" name="regNom" placeholder="Votre nom" required>
+        </div>
+        <div class="auth-field">
+          <label for="regPrenom">Prénom :</label>
+          <input type="text" id="regPrenom" name="regPrenom" placeholder="Votre prénom" required>
         </div>
         <div class="auth-field">
           <label for="regEmail">Email :</label>
@@ -278,10 +283,7 @@
           <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required>
           <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
         </div>
-        <div class="auth-field">
-          <label>Captcha :</label>
-          <div id="captchaPlaceholderRegister" style="padding:10px; background:#222; text-align:center;">Captcha non actif</div>
-        </div>
+        <!-- Suppression des champs CAPTCHA -->
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
@@ -421,7 +423,7 @@
   </div>
 
   <script>
-    // Gestion du bouton hamburger et de la sidebar
+    // Mise à jour de la visibilité du bouton hamburger
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -451,6 +453,24 @@
       registerFormContainer.classList.add('active');
       loginFormContainer.classList.remove('active');
     });
+
+    // Transformation automatique du nom/prénom et copie dans le formulaire candidat
+    function capitalizeAndCopy(sourceId, targetId) {
+      const sourceInput = document.getElementById(sourceId);
+      const targetInput = document.getElementById(targetId);
+      sourceInput.addEventListener('input', () => {
+        let value = sourceInput.value;
+        if (value.length > 0) {
+          value = value.charAt(0).toUpperCase() + value.slice(1);
+          sourceInput.value = value;
+        }
+        targetInput.value = value;
+      });
+    }
+    // Pour le champ "Nom" (inscription -> candidat)
+    capitalizeAndCopy("regNom", "nom");
+    // Pour le champ "Prénom"
+    capitalizeAndCopy("regPrenom", "prenom");
 
     // Fonction toggle pour afficher/masquer le mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
@@ -515,7 +535,7 @@
       updateMenuVisibility();
     });
 
-    // Collecte des données du formulaire candidat
+    // Collecte et affichage des données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -533,13 +553,11 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Format de la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Affichage du résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = data.nom;
       document.getElementById('sumPrenom').innerText = data.prenom;
@@ -554,7 +572,6 @@
       document.getElementById('sumDateDebut').innerText = data.dateDebut;
       if (data.photo) document.getElementById('sumPhoto').src = data.photo;
     }
-    // Soumission du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
@@ -566,14 +583,12 @@
       document.getElementById('cestPartiBtn').style.display = 'block';
       document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
     });
-    // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    // Boutons "Démarrer" et "C'est parti !"
     document.getElementById('startBtn').addEventListener('click', () => {
       alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
@@ -584,7 +599,6 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('contentPage').style.display = 'none';
@@ -601,7 +615,6 @@
         summaryView.style.display = 'block';
       }
     });
-    // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
@@ -635,9 +648,8 @@
     }
     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
       grecaptcha.enterprise.ready(() => {
-        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(token => {
-          console.log("reCAPTCHA token obtenu :", token);
-        });
+        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'})
+          .then(token => console.log("reCAPTCHA token obtenu :", token));
       });
     }
   </script>
