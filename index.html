@@ -15,7 +15,7 @@
     html, body { height: 100%; }
     body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
 
-    /* Page d'authentification */
+    /* --- Page d'authentification --- */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -68,7 +68,7 @@
       background: #222;
       color: #fff;
     }
-    /* Pour les champs de mot de passe */
+    /* Champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
     .toggle-password {
@@ -79,7 +79,7 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* Pour le champ confirmation d'inscription, on positionne l'icône plus bas */
+    /* Pour le champ confirmation d'inscription, positionner l'icône plus bas */
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
       transform: translateY(-50%);
@@ -98,7 +98,7 @@
       text-align: center;
     }
     
-    /* Formulaire candidat (page de garde) */
+    /* --- Formulaire candidat (page de garde) --- */
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -181,7 +181,7 @@
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
     
-    /* Sidebar et bouton hamburger */
+    /* --- Sidebar et bouton hamburger --- */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -219,7 +219,7 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Contenu de la page Accueil : ajout d'un margin-top pour éviter que le bouton hamburger ne le recouvre */
+    /* Positionnement pour éviter que le bouton hamburger ne recouvre le titre "Accueil" */
     #contentPage {
       display: none;
       padding: 20px;
@@ -433,7 +433,7 @@
   </div>
 
   <script>
-    // Gestion du bouton hamburger et de la sidebar
+    // Mise à jour de la visibilité du bouton hamburger
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -446,7 +446,7 @@
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
 
-    // Gestion des onglets Connexion / Inscription
+    // Onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -462,46 +462,6 @@
       loginTab.classList.remove('active');
       registerFormContainer.classList.add('active');
       loginFormContainer.classList.remove('active');
-    });
-
-    // Transformation automatique des champs Nom et Prénom et copie dans le formulaire candidat
-    function capitalizeAndStore(sourceId, targetId, storageKey, fieldKey) {
-      const sourceInput = document.getElementById(sourceId);
-      sourceInput.addEventListener('input', () => {
-        let value = sourceInput.value;
-        if (value.length > 0) {
-          value = value.charAt(0).toUpperCase() + value.slice(1);
-          sourceInput.value = value;
-        }
-        let storedData = localStorage.getItem(storageKey);
-        storedData = storedData ? JSON.parse(storedData) : {};
-        storedData[fieldKey] = value;
-        localStorage.setItem(storageKey, JSON.stringify(storedData));
-        document.getElementById(targetId).value = value;
-      });
-    }
-    // Pour le champ "Nom"
-    capitalizeAndStore("regNom", "nom", "registeredData", "nom");
-    // Pour le champ "Prénom"
-    capitalizeAndStore("regPrenom", "prenom", "registeredData", "prenom");
-
-    // Préremplissage du formulaire candidat au chargement
-    window.addEventListener('load', () => {
-      const regData = localStorage.getItem("registeredData");
-      if (regData) {
-        const data = JSON.parse(regData);
-        if (data.nom) document.getElementById("nom").value = data.nom;
-        if (data.prenom) document.getElementById("prenom").value = data.prenom;
-      }
-      initAutocomplete();
-      // Auto-tabulation pour les champs NEPH
-      document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
-        input.addEventListener('input', () => {
-          if (input.value.length >= input.maxLength && index < inputs.length - 1) {
-            inputs[index + 1].focus();
-          }
-        });
-      });
     });
 
     // Fonction toggle pour afficher/masquer le mot de passe
@@ -544,12 +504,9 @@
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
-      // Stocker les données de Nom et Prénom pour préremplir le formulaire candidat
-      localStorage.setItem("registeredData", JSON.stringify({ nom: regNom, prenom: regPrenom }));
-      // Simuler l'envoi d'un code OTP
-      const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
-      localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: oneTimeCode }));
-      alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
+      // Enregistrement des données d'inscription (sans fonction de copie automatique)
+      localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: Math.floor(100000 + Math.random()*900000).toString() }));
+      alert("Un code à usage unique a été envoyé (simulation).");
       loginTab.click();
     });
 
@@ -656,6 +613,9 @@
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
+    });
+    window.addEventListener('load', () => {
+      initAutocomplete();
     });
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
