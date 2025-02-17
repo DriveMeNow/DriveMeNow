@@ -79,7 +79,7 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* Réglage spécifique pour le champ de confirmation de l'inscription */
+    /* Pour le champ confirmation d'inscription, positionner l'icône plus bas */
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
       transform: translateY(-50%);
@@ -97,7 +97,7 @@
       display: block;
       text-align: center;
     }
-
+    
     /* --- Formulaire candidat (page de garde) --- */
     .cover-page {
       max-width: 900px;
@@ -111,15 +111,15 @@
     .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; color: #fff; }
     .subtitle { font-size: 1.2em; color: #ccc; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
-    .info-section {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
+    /* On force la disposition en colonne pour que la photo soit en dessous des champs */
+    .info-section { 
+      display: flex; 
+      flex-direction: column; 
+      margin-bottom: 40px; 
     }
-    .candidate-info {
-      flex: 1;
-      min-width: 300px;
-      margin-right: 20px;
+    .candidate-info { 
+      width: 100%; 
+      margin-bottom: 20px;
     }
     .info-field {
       margin-bottom: 15px;
@@ -166,6 +166,7 @@
       color: #aaa;
       font-size: 0.9em;
       overflow: hidden;
+      margin: 20px auto 0;
     }
     .photo-placeholder img {
       width: 100%;
@@ -229,7 +230,6 @@
     }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
-      .photo-placeholder { width: 100%; }
     }
     /* Footer centré */
     .footer {
@@ -307,12 +307,12 @@
   <div id="mainContent" style="display:none;">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
     <div id="sidebar">
-      <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
-      <a href="#accueil" id="accueilBtn"><i class="fas fa-home"></i><br>Accueil</a>
-      <a href="#inscriptionSection"><i class="fas fa-file-alt"></i><br>Inscription</a>
-      <a href="#suiviSection"><i class="fas fa-traffic-light"></i><br>Suivi</a>
-      <a href="#examenSection"><i class="fas fa-laptop"></i><br>Examen</a>
-      <a href="#fabricationSection"><i class="fas fa-id-card"></i><br>Permis</a>
+      <a href="#" id="coverPageBtn">Candidat</a>
+      <a href="#accueil" id="accueilBtn">Accueil</a>
+      <a href="#inscriptionSection">Inscription</a>
+      <a href="#suiviSection">Suivi</a>
+      <a href="#examenSection">Examen</a>
+      <a href="#fabricationSection">Permis</a>
     </div>
     <div class="cover-page" id="coverPage">
       <div class="title-section">
@@ -338,7 +338,8 @@
             </div>
             <div class="info-field">
               <label for="adresse">Adresse :</label>
-              <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
+              <!-- Utiliser type="text" pour l'autocomplétion -->
+              <input type="text" id="adresse" name="adresse" placeholder="Votre adresse" required>
             </div>
             <div class="info-field">
               <label for="code-postal">Code postal :</label>
@@ -382,6 +383,7 @@
               <input type="date" id="date-debut" name="date_debut" required>
             </div>
           </div>
+          <!-- La photo est placée sous les champs -->
           <div class="photo-placeholder">
             <span id="photoPlaceholderText">Ajouter une photo</span>
             <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -435,7 +437,7 @@
   </div>
 
   <script>
-    // Mise à jour de la visibilité du bouton hamburger
+    // Visibilité du bouton hamburger
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -448,7 +450,7 @@
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
 
-    // Gestion des onglets Connexion / Inscription
+    // Onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -506,7 +508,7 @@
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
-      // Stockage des données d'inscription (ici uniquement pour la connexion OTP)
+      // Stockage des données d'inscription pour OTP (sans copie automatique des noms)
       localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: Math.floor(100000 + Math.random()*900000).toString() }));
       alert("Un code à usage unique a été envoyé (simulation).");
       loginTab.click();
@@ -559,6 +561,34 @@
       });
     });
 
+    // Autocomplétion de l'adresse (champ type="text")
+    function initAutocomplete() {
+      const addressInput = document.getElementById('adresse');
+      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+        componentRestrictions: { country: "fr" },
+        fields: ["address_components", "formatted_address", "geometry", "name"]
+      });
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.address_components) return;
+        let postalCode = "";
+        let commune = "";
+        place.address_components.forEach(component => {
+          if (component.types.indexOf("postal_code") !== -1) {
+            postalCode = component.long_name;
+          }
+          if (component.types.indexOf("locality") !== -1) {
+            commune = component.long_name;
+          }
+        });
+        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
+        if (commune) { document.getElementById('commune').value = commune; }
+      });
+    }
+    window.addEventListener('load', () => {
+      initAutocomplete();
+    });
+
     // Collecte des données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
@@ -602,11 +632,11 @@
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
-      // Afficher le résumé dès le haut de la page
+      // Affichage du résumé dès le haut de la page
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Afficher les boutons d'action
+      // Affichage des boutons d'action
       document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
       document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
@@ -617,8 +647,9 @@
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    // Boutons "Démarrer" et "C'est parti !" : passage direct à la page d'accueil
+    // Lorsque l'utilisateur clique sur "Démarrer" ou "C'est parti !", on affiche la page d'accueil interactive.
     document.getElementById('startBtn').addEventListener('click', () => {
+      // Ne pas afficher de message d'alerte ici
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
@@ -626,54 +657,19 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar pour accéder au formulaire résumé
+    // Bouton "Candidat" dans la sidebar : afficher la section candidat (le formulaire résumé)
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
+      // Afficher la section candidat et masquer la page d'accueil interactive
+      document.getElementById('coverPage').style.display = 'block';
       document.getElementById('contentPage').style.display = 'none';
-      const infoFormElem = document.getElementById('infoForm');
-      const summaryView = document.getElementById('summaryView');
-      if (summaryView.style.display === 'block') {
-        summaryView.style.display = 'none';
-        infoFormElem.style.display = 'block';
-      } else {
-        const formData = collectFormData();
-        localStorage.setItem('validatedData', JSON.stringify(formData));
-        infoFormElem.style.display = 'none';
-        displaySummary(formData);
-        summaryView.style.display = 'block';
-      }
     });
+    // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    window.addEventListener('load', () => {
-      initAutocomplete();
-    });
-    function initAutocomplete() {
-      const addressInput = document.getElementById('adresse');
-      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        componentRestrictions: { country: "fr" },
-        fields: ["address_components", "formatted_address", "geometry", "name"]
-      });
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.address_components) return;
-        let postalCode = "";
-        let commune = "";
-        place.address_components.forEach(component => {
-          if (component.types.indexOf("postal_code") !== -1) {
-            postalCode = component.long_name;
-          }
-          if (component.types.indexOf("locality") !== -1) {
-            commune = component.long_name;
-          }
-        });
-        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
-        if (commune) { document.getElementById('commune').value = commune; }
-      });
-    }
     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
       grecaptcha.enterprise.ready(() => {
         grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'})
