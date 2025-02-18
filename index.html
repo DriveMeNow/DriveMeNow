@@ -112,7 +112,7 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Supprimer la bordure en pointillé une fois l'image chargée */
+    /* Supprimer les pointillés une fois l'image chargée */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -166,7 +166,7 @@
       text-transform: capitalize;
     }
     
-    /* Sidebar et bouton hamburger */
+    /* Sidebar */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -204,10 +204,8 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Ajout d'une marge pour le lien "Accueil" afin d'éviter le chevauchement avec le bouton hamburger */
-    #accueilBtn { margin-top: 60px; }
-    
-    #contentPage { display: none; padding: 20px; }
+    /* Ajout d'une marge pour que le texte "Accueil" sur la page d'accueil ne chevauche pas le bouton hamburger */
+    #contentPage { display: none; padding: 20px; padding-top: 60px; }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
@@ -643,4 +641,11 @@
     document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
-          const nextInput
+          const nextInput = inputs[index + 1];
+          if (nextInput) { nextInput.focus(); }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
