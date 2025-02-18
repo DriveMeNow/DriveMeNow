@@ -114,10 +114,10 @@
     .candidate-info {
       width: 100%;
     }
-    /* La zone photo est maintenant positionnée sous le formulaire avec un espacement */
+    /* La zone photo avec taille fixe par défaut */
     .photo-placeholder {
       width: 150px;
-      min-height: 200px;
+      height: 200px;
       border: 2px dashed #555;
       border-radius: 5px;
       display: flex;
@@ -129,21 +129,26 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* La prévisualisation de la photo sera adaptée selon son orientation */
+    /* Dès qu'une image est chargée, on supprime les dimensions fixes pour que le cadre s'adapte à l'image */
+    .photo-placeholder.loaded {
+      width: auto;
+      height: auto;
+      display: inline-block;
+      padding: 0;
+    }
+    /* Styles de l'image selon son orientation */
     .photo-placeholder img {
-      display: none;
+      display: block;
     }
     .photo-placeholder img.landscape {
       width: 100%;
       height: auto;
       object-fit: cover;
-      display: block;
     }
     .photo-placeholder img.portrait {
       width: auto;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
     .photo-placeholder input[type="file"] {
       position: absolute;
@@ -186,7 +191,6 @@
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
     /* --- Transformation automatique en majuscule pour certains champs --- */
-    /* Ces règles s'appliquent au formulaire candidat (page de garde) */
     .info-field input#nom,
     .info-field input#prenom,
     .info-field input#responsable {
@@ -218,7 +222,7 @@
       background: #000;
       transition: left 0.3s;
       z-index: 2500;
-      padding-top: 60px; /* Séparation en haut pour ne pas chevaucher le bouton */
+      padding-top: 60px;
     }
     #sidebar a {
       display: block;
@@ -231,7 +235,7 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; }
-    /* Adaptation responsive : en dessous de 768px, la disposition reste en colonne */
+    /* Responsive */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
     }
@@ -385,7 +389,7 @@
               <input type="date" id="date-debut" name="date_debut" required>
             </div>
           </div>
-          <!-- La zone photo est désormais positionnée en dessous -->
+          <!-- Zone photo -->
           <div class="photo-placeholder">
             <span id="photoPlaceholderText">Ajouter une photo</span>
             <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -628,7 +632,7 @@
     // Initialisation de l'autocomplete pour l'adresse et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
-      // Mise en place de la prévisualisation de la photo
+      // Prévisualisation de la photo
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
       if (fileInput) {
         fileInput.addEventListener('change', function(e) {
@@ -637,7 +641,7 @@
             const reader = new FileReader();
             reader.onload = function(e) {
               const photoPreview = document.getElementById('photoPreview');
-              // Dès que l'image est chargée, on vérifie ses dimensions pour définir l'orientation
+              // Vérification de l'orientation lors du chargement
               photoPreview.onload = function() {
                 if (photoPreview.naturalWidth > photoPreview.naturalHeight) {
                   photoPreview.classList.add("landscape");
@@ -653,6 +657,8 @@
               if (placeholderText) {
                 placeholderText.style.display = 'none';
               }
+              // Ajout de la classe 'loaded' pour adapter le cadre à l'image
+              document.querySelector('.photo-placeholder').classList.add('loaded');
             }
             reader.readAsDataURL(file);
           }
