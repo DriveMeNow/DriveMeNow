@@ -420,8 +420,8 @@
       }
     }
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
-    sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
-
+    // (L'écouteur "mouseleave" a été retiré pour éviter la fermeture automatique)
+    
     // Gestion des onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
