@@ -15,7 +15,7 @@
     html, body { height: 100%; }
     body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
 
-    /* Page d'authentification (Connexion / Inscription) */
+    /* --- Page d'authentification --- */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -28,8 +28,6 @@
     #authPage h1 {
       font-size: 2em;
       color: #FFA500;
-      /* Suppression de la marge inutile en haut */
-      margin: 0 auto;
     }
     .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
     .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
@@ -47,9 +45,9 @@
     .auth-tabs button.active { background: #f0ad4e; }
     .auth-form { display: none; text-align: left; }
     .auth-form.active { display: block; }
-    .auth-form .auth-field { margin-bottom: 15px; }
-    .auth-form .auth-field label { display: block; margin-bottom: 5px; color: #fff; }
-    .auth-form .auth-field input {
+    .auth-field { margin-bottom: 15px; }
+    .auth-field label { display: block; margin-bottom: 5px; }
+    .auth-field input {
       width: 100%;
       padding: 8px;
       border: 1px solid #555;
@@ -57,13 +55,9 @@
       background: #222;
       color: #fff;
     }
-    /* Critères de mot de passe sur la page de connexion */
-    #loginForm label[for="loginPassword"]::after {
-      content: " (Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre)";
-      font-size: 0.8em;
-      color: #ccc;
-    }
+    /* Pour les champs de mot de passe */
     .password-container { position: relative; }
+    .password-container input { padding-right: 30px; height: 40px; }
     .toggle-password {
       position: absolute;
       right: 10px;
@@ -72,8 +66,12 @@
       cursor: pointer;
       color: #FFA500;
     }
-
-    /* Boutons – Tous en fond orange avec texte en noir */
+    /* Nouveau réglage pour le champ de confirmation */
+    #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
+      top: 50px;
+      transform: translateY(-50%);
+    }
+    /* Boutons (fond orange, texte noir) */
     .btn, .action-btn {
       padding: 10px 20px;
       font-size: 1em;
@@ -82,12 +80,11 @@
       border-radius: 4px;
       background-color: #FFA500;
       color: #000;
-      margin: 10px;
+      margin: 10px auto;
       display: block;
       text-align: center;
     }
-
-    /* Formulaire candidat – version validée */
+    /* --- Formulaire candidat (page de garde) --- */
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -97,8 +94,8 @@
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
     }
     .title-section { margin-bottom: 40px; text-align: center; }
-    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; color: #fff; }
-    .subtitle { font-size: 1.2em; color: #ccc; margin: 20px 0 40px; text-align: center; }
+    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
+    .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
     .info-section {
       display: flex;
@@ -114,59 +111,38 @@
       margin-bottom: 15px;
       text-align: left;
     }
-    .info-field label {
-      font-weight: bold;
-      margin-right: 8px;
-      color: #fff;
-    }
-    .info-field input[type="text"],
-    .info-field input[type="email"],
-    .info-field input[type="tel"],
-    .info-field input[type="date"],
-    .info-field input[type="search"] {
+    .info-field label { font-weight: bold; margin-right: 8px; }
+    .info-field input {
       padding: 5px;
       font-size: 1em;
       border: 1px solid #555;
       border-radius: 4px;
-      background-color: #222;
+      background: #222;
       color: #fff;
       width: 100%;
     }
-    .info-field input::placeholder { color: #aaa; }
-    /* Forcer l'icône du calendrier en blanc */
     input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
-    /* Les 12 champs NEPH */
-    .neph-boxes {
-      display: flex;
-      flex-direction: row;
-      vertical-align: middle;
-    }
+    .neph-boxes { display: flex; flex-direction: row; }
     .neph-box {
       width: 25px;
       height: 25px;
       border: 1px solid #777;
       text-align: center;
       line-height: 25px;
-      vertical-align: middle;
       margin-right: 3px;
     }
     .neph-box input {
       width: 100%;
       border: none;
-      outline: none;
       text-align: center;
-      font-size: 1em;
-      background-color: #222;
+      background: #222;
       color: #fff;
     }
-    /* Zone photo avec prévisualisation adaptable */
     .photo-placeholder {
       width: 150px;
-      height: auto;
       min-height: 200px;
       border: 2px dashed #555;
       border-radius: 5px;
-      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -188,35 +164,16 @@
       opacity: 0;
       cursor: pointer;
     }
-    .photo-placeholder span { pointer-events: none; }
-
-    /* Vue résumé (après validation) */
-    .summary {
-      display: none;
-      margin-bottom: 40px;
-      text-align: left;
-    }
+    .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
-    .summary label { font-weight: bold; }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      font-size: 1.2em;
-      font-style: italic;
-      border-top: 1px solid #444;
-      padding-top: 20px;
-      color: #ccc;
-    }
-
-    /* Sidebar et bouton hamburger */
+    /* --- Sidebar et bouton hamburger --- */
     #menuButton {
       position: fixed;
       top: 10px;
       left: 10px;
       width: 40px;
       height: 40px;
-      background-color: #FFA500;
+      background: #FFA500;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -232,58 +189,22 @@
       left: -250px;
       width: 250px;
       height: 100%;
-      background-color: #000;
-      transition: left 0.3s ease;
+      background: #000;
+      transition: left 0.3s;
       z-index: 2500;
     }
     #sidebar.active { left: 0; }
     #sidebar a {
       display: block;
       padding: 15px;
-      background-color: #FFA500;
+      background: #FFA500;
       color: #000;
       text-decoration: none;
       border-bottom: 1px solid #000;
       text-align: center;
       font-size: 1em;
     }
-    /* Page d'accueil interactive */
-    #contentPage {
-      display: none;
-      padding: 20px;
-    }
-    .section-content {
-      background: #222;
-      border-radius: 6px;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 900px;
-      box-shadow: 0 2px 5px rgba(255,255,255,0.05);
-    }
-    .section-content h2 {
-      border-bottom: 1px solid #444;
-      padding-bottom: 10px;
-      margin-bottom: 15px;
-      color: #FFA500;
-      text-align: center;
-    }
-    .progress-circle {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 5px solid #FFA500;
-      margin: 0 auto;
-      position: relative;
-    }
-    .progress-circle span {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      color: #fff;
-    }
-
-    /* Responsive */
+    #contentPage { display: none; padding: 20px; }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
@@ -294,7 +215,7 @@
   <!-- Page d'authentification -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
-    <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet.</p>
+    <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet.</p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">Inscription</button>
@@ -310,6 +231,7 @@
         <div class="auth-field password-container">
           <label for="loginPassword">Mot de passe :</label>
           <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
+          <small style="display:block; color:#ccc; margin-top:7px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
           <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
         </div>
         <div class="auth-field">
@@ -318,7 +240,7 @@
         </div>
         <div class="auth-field">
           <label>Captcha :</label>
-          <div id="captchaPlaceholder" style="padding: 10px; background-color: #222; text-align:center;">[Captcha ici]</div>
+          <div id="captchaPlaceholder" style="padding:10px; background:#222; text-align:center;">Captcha non actif</div>
         </div>
         <button type="submit" class="btn">Se connecter</button>
       </form>
@@ -339,7 +261,7 @@
           <label for="regPassword">Mot de passe :</label>
           <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required>
           <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
-          <small style="display:block; color:#ccc; margin-top:5px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
+          <small style="display:block; color:#ccc; margin-top:10px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         </div>
         <div class="auth-field password-container">
           <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
@@ -348,19 +270,18 @@
         </div>
         <div class="auth-field">
           <label>Captcha :</label>
-          <div id="captchaPlaceholderRegister" style="padding: 10px; background-color: #222; text-align:center;">[Captcha ici]</div>
+          <div id="captchaPlaceholderRegister" style="padding:10px; background:#222; text-align:center;">Captcha non actif</div>
         </div>
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
+    <!-- Bouton pour passer l'authentification -->
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
 
   <!-- Page principale (après authentification) -->
   <div id="mainContent" style="display:none;">
-    <!-- Bouton hamburger -->
     <button id="menuButton"><i class="fas fa-bars"></i></button>
-    <!-- Sidebar -->
     <div id="sidebar">
       <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
       <a href="#accueil" id="accueilBtn"><i class="fas fa-home"></i><br>Accueil</a>
@@ -369,15 +290,13 @@
       <a href="#examenSection"><i class="fas fa-laptop"></i><br>Examen</a>
       <a href="#fabricationSection"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
-    <!-- Page de garde : Formulaire candidat -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
         <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Bouton d'action en haut (apparaît après validation) -->
-      <button id="startBtn" class="action-btn" style="display:none; margin: 0 auto;">Démarrer</button>
+      <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
       <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
         <div class="info-section">
           <div class="candidate-info">
@@ -391,7 +310,6 @@
             </div>
             <div class="info-field">
               <label for="date-naissance">Date de naissance :</label>
-              <!-- La date max est fixée pour proposer 2008 -->
               <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
             </div>
             <div class="info-field">
@@ -446,11 +364,10 @@
             <input type="file" name="photo" accept="image/*" required>
           </div>
         </div>
-        <div style="text-align: center;">
+        <div style="text-align:center;">
           <button type="submit" class="btn">Envoyer</button>
         </div>
       </form>
-      <!-- Vue résumé (après validation) -->
       <div id="summaryView" class="summary">
         <p><label>Nom :</label> <span id="sumNom"></span></p>
         <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
@@ -464,14 +381,12 @@
         <p><label>NEPH :</label> <span id="sumNeph"></span></p>
         <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
         <p><label>Photo :</label><br>
-          <img id="sumPhoto" style="max-width:150px; border: 1px solid #ccc;">
+          <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
         </p>
-        <button class="btn edit" id="editBtn" style="margin: 0 auto; display: block; max-width: 200px;">Modifier</button>
+        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
       </div>
-      <!-- Bouton d'action en bas (apparaît après validation) -->
-      <button id="cestPartiBtn" class="action-btn" style="display:none; margin: 0 auto;">C'est parti !</button>
+      <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
     </div>
-    <!-- Section interactive "Accueil" -->
     <div id="contentPage">
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
@@ -492,12 +407,11 @@
         </div>
       </section>
     </div>
-    <!-- Footer -->
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
 
   <script>
-    /* ----------------- Sidebar & Hamburger ----------------- */
+    // Gestion du bouton hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -507,15 +421,10 @@
         menuButton.style.display = 'none';
       }
     }
-    menuButton.addEventListener('click', function() {
-      sidebar.classList.toggle('active');
-    });
-    // Masquer la sidebar lorsque le curseur la quitte
-    sidebar.addEventListener('mouseleave', function() {
-      sidebar.classList.remove('active');
-    });
+    menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
+    sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
 
-    /* ----------------- Authentification ----------------- */
+    // Gestion des onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -532,45 +441,10 @@
       registerFormContainer.classList.add('active');
       loginFormContainer.classList.remove('active');
     });
-    // Inscription : validation du mot de passe et simulation d'envoi d'OTP
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const regEmail = document.getElementById('regEmail').value;
-      const regPassword = document.getElementById('regPassword').value;
-      const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
-      if (!passwordRegex.test(regPassword)) {
-        alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
-        return;
-      }
-      if (regPassword !== regPasswordConfirm) {
-        alert("Les mots de passe ne correspondent pas.");
-        return;
-      }
-      const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
-      const registeredUser = { email: regEmail, password: regPassword, code: oneTimeCode };
-      localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-      alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
-      loginTab.click();
-    });
-    // Connexion simulée
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.getElementById('authPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      localStorage.setItem('authenticated', 'true');
-      updateMenuVisibility();
-    });
-    document.getElementById('skipAuth').addEventListener('click', function() {
-      document.getElementById('authPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      localStorage.setItem('authenticated', 'true');
-      updateMenuVisibility();
-    });
 
-    /* ----------------- Icônes œil pour afficher/masquer les mots de passe ----------------- */
+    // Fonction toggle pour afficher/masquer le mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
-      toggleElement.addEventListener('click', function() {
+      toggleElement.addEventListener('click', () => {
         if (targetInput.type === "password") {
           targetInput.type = "text";
           toggleElement.classList.remove('fa-eye');
@@ -586,60 +460,52 @@
     setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'));
     document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
       const targetId = icon.getAttribute('data-target');
-      if(targetId) {
-        const targetInput = document.getElementById(targetId);
-        setupTogglePassword(icon, targetInput);
+      if (targetId) {
+        setupTogglePassword(icon, document.getElementById(targetId));
       }
     });
 
-    /* ----------------- Prévisualisation de la photo ----------------- */
-    const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
-    const photoPreview = document.getElementById('photoPreview');
-    const photoPlaceholderText = document.getElementById('photoPlaceholderText');
-    photoInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          photoPreview.src = e.target.result;
-          photoPreview.style.display = 'block';
-          if (photoPlaceholderText) {
-            photoPlaceholderText.style.display = 'none';
-          }
-        };
-        reader.readAsDataURL(file);
+    // Soumission du formulaire d'inscription
+    document.getElementById('registerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const regEmail = document.getElementById('regEmail').value;
+      const regPassword = document.getElementById('regPassword').value;
+      const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
+      if (!passwordRegex.test(regPassword)) {
+        alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
+        return;
       }
+      if (regPassword !== regPasswordConfirm) {
+        alert("Les mots de passe ne correspondent pas.");
+        return;
+      }
+      const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
+      localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: oneTimeCode }));
+      alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
+      loginTab.click();
     });
 
-    /* ----------------- Autocomplétion de l'adresse ----------------- */
-    function initAutocomplete() {
-      const addressInput = document.getElementById('adresse');
-      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        componentRestrictions: { country: "fr" },
-        fields: ["address_components", "formatted_address", "geometry", "name"]
-      });
-      autocomplete.addListener('place_changed', function() {
-        const place = autocomplete.getPlace();
-        if (!place.address_components) return;
-        let postalCode = "";
-        let commune = "";
-        place.address_components.forEach(component => {
-          const types = component.types;
-          if (types.indexOf("postal_code") !== -1) { postalCode = component.long_name; }
-          if (types.indexOf("locality") !== -1) { commune = component.long_name; }
-        });
-        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
-        if (commune) { document.getElementById('commune').value = commune; }
-      });
-    }
-    // Fonction pour formater les dates en jj/mm/aaaa
-    function formatDate(dateStr) {
-      if (!dateStr) return "";
-      const parts = dateStr.split("-");
-      if (parts.length !== 3) return dateStr;
-      return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-    // Fonction pour collecter les données du formulaire candidat
+    // Soumission du formulaire de connexion
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('authPage').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      document.getElementById('infoForm').reset();
+      document.getElementById('summaryView').style.display = 'none';
+      localStorage.removeItem('validatedData');
+      updateMenuVisibility();
+    });
+    document.getElementById('skipAuth').addEventListener('click', () => {
+      document.getElementById('authPage').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      document.getElementById('infoForm').reset();
+      document.getElementById('summaryView').style.display = 'none';
+      localStorage.removeItem('validatedData');
+      updateMenuVisibility();
+    });
+
+    // Collecte des données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -657,7 +523,13 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Fonction pour afficher le résumé
+    // Format de la date
+    function formatDate(dateStr) {
+      if (!dateStr) return "";
+      const parts = dateStr.split("-");
+      return parts[2] + "/" + parts[1] + "/" + parts[0];
+    }
+    // Affichage du résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = data.nom;
       document.getElementById('sumPrenom').innerText = data.prenom;
@@ -670,43 +542,40 @@
       document.getElementById('sumResponsable').innerText = data.responsable;
       document.getElementById('sumNeph').innerText = data.neph;
       document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo && data.photo !== "") {
-        document.getElementById('sumPhoto').src = data.photo;
-      }
+      if (data.photo) document.getElementById('sumPhoto').src = data.photo;
     }
-    // Gestion de la soumission du formulaire candidat
-    const infoForm = document.getElementById('infoForm');
-    infoForm.addEventListener('submit', function(e) {
+    // Soumission du formulaire candidat
+    document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
-      infoForm.style.display = 'none';
+      document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Afficher les boutons d'action "Démarrer" et "C'est parti !"
       document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
+      document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
     });
-    // Bouton "Modifier" dans le résumé
-    document.getElementById('editBtn').addEventListener('click', function() {
+    // Bouton "Modifier"
+    document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
-      infoForm.style.display = 'block';
+      document.getElementById('infoForm').style.display = 'block';
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    // Boutons "Démarrer" et "C'est parti !" pour accéder à l'accueil
-    document.getElementById('startBtn').addEventListener('click', function() {
+    // Boutons "Démarrer" et "C'est parti !"
+    document.getElementById('startBtn').addEventListener('click', () => {
       alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    document.getElementById('cestPartiBtn').addEventListener('click', function() {
+    document.getElementById('cestPartiBtn').addEventListener('click', () => {
       alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar pour afficher le formulaire (résumé ou modification)
-    document.getElementById('coverPageBtn').addEventListener('click', function(e) {
+    // Bouton "Candidat" dans la sidebar
+    document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('contentPage').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
@@ -723,33 +592,40 @@
       }
     });
     // Bouton "Accueil" dans la sidebar
-    document.getElementById('accueilBtn').addEventListener('click', function(e) {
+    document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Initialisations au chargement
-    window.addEventListener('load', function() {
+    window.addEventListener('load', () => {
       initAutocomplete();
-      const storedData = localStorage.getItem('validatedData');
-      if (storedData) {
-        const data = JSON.parse(storedData);
-        infoForm.style.display = 'none';
-        displaySummary(data);
-        document.getElementById('summaryView').style.display = 'block';
-        document.getElementById('startBtn').style.display = 'block';
-        document.getElementById('cestPartiBtn').style.display = 'block';
-      }
-      if (localStorage.getItem('authenticated') === 'true') {
-        document.getElementById('authPage').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-        updateMenuVisibility();
-      }
     });
-    // Demande de token reCAPTCHA Enterprise (à titre informatif)
+    function initAutocomplete() {
+      const addressInput = document.getElementById('adresse');
+      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+        componentRestrictions: { country: "fr" },
+        fields: ["address_components", "formatted_address", "geometry", "name"]
+      });
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.address_components) return;
+        let postalCode = "";
+        let commune = "";
+        place.address_components.forEach(component => {
+          if (component.types.indexOf("postal_code") !== -1) {
+            postalCode = component.long_name;
+          }
+          if (component.types.indexOf("locality") !== -1) {
+            commune = component.long_name;
+          }
+        });
+        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
+        if (commune) { document.getElementById('commune').value = commune; }
+      });
+    }
     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
-      grecaptcha.enterprise.ready(function() {
-        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(function(token) {
+      grecaptcha.enterprise.ready(() => {
+        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(token => {
           console.log("reCAPTCHA token obtenu :", token);
         });
       });
