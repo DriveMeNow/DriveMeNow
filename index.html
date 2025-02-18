@@ -105,7 +105,7 @@
     .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
     .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
-    /* Pour cet ajustement, on force la disposition en colonne de la section contenant les informations du candidat et la photo */
+    /* On force une disposition en colonne pour que la zone photo apparaisse sous le formulaire */
     .info-section {
       display: flex;
       flex-direction: column;
@@ -114,7 +114,7 @@
     .candidate-info {
       width: 100%;
     }
-    /* La zone photo est maintenant positionnée sous le formulaire avec un espacement */
+    /* Réajustement de la zone photo positionnée sous le formulaire */
     .photo-placeholder {
       width: 150px;
       min-height: 200px;
@@ -201,7 +201,7 @@
       background: #000;
       transition: left 0.3s;
       z-index: 2500;
-      padding-top: 60px; /* Séparation en haut pour ne pas chevaucher le bouton */
+      padding-top: 60px; /* Pour éviter le chevauchement du bouton */
     }
     #sidebar a {
       display: block;
@@ -214,6 +214,11 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; }
+    /* Lorsqu'on active la sidebar, le contenu se décale pour ne rien cacher */
+    #mainContent.shifted {
+      margin-left: 250px;
+      transition: margin-left 0.3s ease;
+    }
     /* Adaptation responsive : en dessous de 768px, la disposition reste en colonne */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -290,7 +295,7 @@
   </div>
 
   <!-- Page principale (après authentification) -->
-  <div id="mainContent" style="display:none;">
+  <div id="mainContent">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
     <div id="sidebar">
       <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
@@ -312,11 +317,11 @@
           <div class="candidate-info">
             <div class="info-field">
               <label for="nom">Nom du candidat :</label>
-              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" style="text-transform: capitalize;" required>
             </div>
             <div class="info-field">
               <label for="prenom">Prénom du candidat :</label>
-              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" style="text-transform: capitalize;" required>
             </div>
             <div class="info-field">
               <label for="date-naissance">Date de naissance :</label>
@@ -344,7 +349,7 @@
             </div>
             <div class="info-field">
               <label for="responsable">Responsable de la formation :</label>
-              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
+              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" style="text-transform: capitalize;" required>
             </div>
             <div class="info-field">
               <label>Numéro d'inscription NEPH :</label>
@@ -368,7 +373,7 @@
               <input type="date" id="date-debut" name="date_debut" required>
             </div>
           </div>
-          <!-- La zone photo est désormais positionnée en dessous -->
+          <!-- La zone photo est positionnée sous le formulaire -->
           <div class="photo-placeholder">
             <span id="photoPlaceholderText">Ajouter une photo</span>
             <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -426,14 +431,21 @@
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
-      if (document.getElementById('mainContent').style.display === 'block') {
+      if (document.getElementById('mainContent').style.display !== 'none') {
         menuButton.style.display = 'flex';
       } else {
         menuButton.style.display = 'none';
       }
     }
-    menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
-    sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
+    // Lors du clic, on active/désactive la sidebar ET on décale le contenu
+    menuButton.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      document.getElementById('mainContent').classList.toggle('shifted');
+    });
+    sidebar.addEventListener('mouseleave', () => {
+      sidebar.classList.remove('active');
+      document.getElementById('mainContent').classList.remove('shifted');
+    });
 
     // Gestion des onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
