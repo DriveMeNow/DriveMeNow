@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Font Awesome pour les icônes -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <!-- Google Maps API avec Places -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
@@ -14,8 +14,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
     body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
-
-    /* --- Page d'authentification --- */
+    
+    /* Page d'authentification */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -25,20 +25,9 @@
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
     }
-    #authPage h1 {
-      font-size: 2em;
-      color: #FFA500;
-    }
-    .welcome-text {
-      margin-bottom: 20px;
-      font-size: 0.95em;
-      color: #ccc;
-    }
-    .auth-tabs {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
+    #authPage h1 { font-size: 2em; color: #FFA500; }
+    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
+    .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
     .auth-tabs button {
       flex: 1;
       padding: 10px;
@@ -63,7 +52,7 @@
       background: #222;
       color: #fff;
     }
-    /* Pour les champs de mot de passe */
+    /* Champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
     .toggle-password {
@@ -74,12 +63,11 @@
       cursor: pointer;
       color: #FFA500;
     }
-    /* Nouveau réglage pour le champ de confirmation */
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
       transform: translateY(-50%);
     }
-    /* Boutons (fond orange, texte noir) */
+    /* Boutons */
     .btn, .action-btn {
       padding: 10px 20px;
       font-size: 1em;
@@ -92,7 +80,8 @@
       display: block;
       text-align: center;
     }
-    /* --- Formulaire candidat (page de garde) --- */
+    
+    /* Formulaire candidat (page de garde) */
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -105,16 +94,10 @@
     .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
     .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
-    /* Pour cet ajustement, on force la disposition en colonne de la section contenant les informations du candidat et la photo */
-    .info-section {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 40px;
-    }
-    .candidate-info {
-      width: 100%;
-    }
-    /* La zone photo avec taille fixe par défaut */
+    .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
+    .candidate-info { width: 100%; }
+    
+    /* Zone photo */
     .photo-placeholder {
       width: 150px;
       height: 200px;
@@ -129,7 +112,7 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Dès qu'une image est chargée, on supprime les dimensions fixes pour que le cadre s'adapte à l'image */
+    /* Lorsque l'image est chargée, le conteneur s'ajuste */
     .photo-placeholder.loaded {
       width: auto;
       height: auto;
@@ -137,9 +120,7 @@
       padding: 0;
     }
     /* Styles de l'image selon son orientation */
-    .photo-placeholder img {
-      display: block;
-    }
+    .photo-placeholder img { display: block; }
     .photo-placeholder img.landscape {
       width: 100%;
       height: auto;
@@ -150,6 +131,10 @@
       height: 100%;
       object-fit: cover;
     }
+    /* Masquer l'image tant qu'aucun src n'est défini */
+    #photoPreview:not([src]) {
+      display: none;
+    }
     .photo-placeholder input[type="file"] {
       position: absolute;
       width: 100%;
@@ -157,10 +142,7 @@
       opacity: 0;
       cursor: pointer;
     }
-    .info-field {
-      margin-bottom: 15px;
-      text-align: left;
-    }
+    .info-field { margin-bottom: 15px; text-align: left; }
     .info-field label { font-weight: bold; margin-right: 8px; }
     .info-field input {
       padding: 5px;
@@ -190,13 +172,14 @@
     }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
-    /* --- Transformation automatique en majuscule pour certains champs --- */
+    /* Transformation automatique en majuscule pour certains champs */
     .info-field input#nom,
     .info-field input#prenom,
     .info-field input#responsable {
       text-transform: capitalize;
     }
-    /* --- Sidebar et bouton hamburger --- */
+    
+    /* Sidebar */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -235,22 +218,17 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; }
-    /* Responsive */
-    @media (max-width: 768px) {
-      .info-section { flex-direction: column; }
-    }
-    /* Pied de page centré */
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-    }
+    @media (max-width: 768px) { .info-section { flex-direction: column; } }
+    .footer { text-align: center; margin-top: 20px; }
   </style>
 </head>
 <body>
   <!-- Page d'authentification -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
-    <p class="welcome-text">Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis B en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.</p>
+    <p class="welcome-text">
+      Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis B en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.
+    </p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">Inscription</button>
@@ -389,7 +367,7 @@
               <input type="date" id="date-debut" name="date_debut" required>
             </div>
           </div>
-          <!-- Zone photo -->
+          <!-- Zone photo avec le texte "Ajouter une photo" -->
           <div class="photo-placeholder">
             <span id="photoPlaceholderText">Ajouter une photo</span>
             <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -425,16 +403,12 @@
         <p style="text-align:center;">Progression Administrative :</p>
         <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
           <p><strong>Progression Administrative</strong></p>
-          <div class="progress-circle">
-            <span>75%</span>
-          </div>
+          <div class="progress-circle"><span>75%</span></div>
         </div>
         <p style="text-align:center; margin-top:20px;">Progression Formation Pratique :</p>
         <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
           <p><strong>Progression Formation Pratique</strong></p>
-          <div class="progress-circle">
-            <span>50%</span>
-          </div>
+          <div class="progress-circle"><span>50%</span></div>
           <p style="margin-top:10px;">Dernière compétence : Changement de vitesse (En progression)</p>
         </div>
       </section>
@@ -629,10 +603,9 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Initialisation de l'autocomplete pour l'adresse et de la prévisualisation de l'image
+    // Initialisation de l'autocomplete et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
-      // Prévisualisation de la photo
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
       if (fileInput) {
         fileInput.addEventListener('change', function(e) {
@@ -641,7 +614,6 @@
             const reader = new FileReader();
             reader.onload = function(e) {
               const photoPreview = document.getElementById('photoPreview');
-              // Vérification de l'orientation lors du chargement
               photoPreview.onload = function() {
                 if (photoPreview.naturalWidth > photoPreview.naturalHeight) {
                   photoPreview.classList.add("landscape");
@@ -653,11 +625,9 @@
               }
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
-              const placeholderText = document.getElementById('photoPlaceholderText');
-              if (placeholderText) {
-                placeholderText.style.display = 'none';
-              }
-              // Ajout de la classe 'loaded' pour adapter le cadre à l'image
+              // Masquer le texte du placeholder
+              document.getElementById('photoPlaceholderText').style.display = 'none';
+              // Ajouter la classe 'loaded' pour adapter le cadre à l'image
               document.querySelector('.photo-placeholder').classList.add('loaded');
             }
             reader.readAsDataURL(file);
@@ -693,9 +663,7 @@
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
           const nextInput = inputs[index + 1];
-          if (nextInput) {
-            nextInput.focus();
-          }
+          if (nextInput) { nextInput.focus(); }
         }
       });
     });
