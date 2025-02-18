@@ -41,7 +41,7 @@
       width: 100%; padding: 8px; border: 1px solid #555; border-radius: 4px;
       background: #222; color: #fff;
     }
-    /* Champs mot de passe */
+    /* Pour les champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
     .toggle-password {
@@ -54,7 +54,7 @@
       border-radius: 4px; background-color: #FFA500; color: #000;
       margin: 10px auto; display: block; text-align: center;
     }
-    /* --- Formulaire candidat --- */
+    /* --- Formulaire candidat (page de garde) --- */
     .cover-page {
       max-width: 900px; background: #111; margin: 30px auto; padding: 40px;
       border-radius: 8px; box-shadow: 0 4px 12px rgba(255,255,255,0.1);
@@ -63,19 +63,11 @@
     .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
     .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
-    /* Disposition en colonne pour le formulaire et la photo */
-    .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
-    .candidate-info { width: 100%; }
-    .photo-placeholder {
-      width: 150px; min-height: 200px; border: 2px dashed #555; border-radius: 5px;
-      display: flex; align-items: center; justify-content: center; position: relative;
-      color: #aaa; font-size: 0.9em; overflow: hidden; margin: 20px auto 0 auto;
+    .info-section {
+      display: flex; flex-wrap: wrap; margin-bottom: 40px;
     }
-    .photo-placeholder img {
-      width: 100%; height: auto; object-fit: cover; display: none;
-    }
-    .photo-placeholder input[type="file"] {
-      position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;
+    .candidate-info {
+      flex: 1; min-width: 300px; margin-right: 20px;
     }
     .info-field { margin-bottom: 15px; text-align: left; }
     .info-field label { font-weight: bold; margin-right: 8px; }
@@ -92,9 +84,20 @@
     .neph-box input {
       width: 100%; border: none; text-align: center; background: #222; color: #fff;
     }
+    .photo-placeholder {
+      width: 150px; min-height: 200px; border: 2px dashed #555; border-radius: 5px;
+      display: flex; align-items: center; justify-content: center; position: relative;
+      color: #aaa; font-size: 0.9em; overflow: hidden;
+    }
+    .photo-placeholder img {
+      width: 100%; height: auto; object-fit: cover; display: none;
+    }
+    .photo-placeholder input[type="file"] {
+      position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;
+    }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
-    /* --- Sidebar et menu hamburger --- */
+    /* --- Sidebar et menu hamburger (structure initiale) --- */
     #menuButton {
       position: fixed; top: 10px; left: 10px; width: 40px; height: 40px;
       background: #FFA500; border: none; border-radius: 8px; cursor: pointer;
@@ -103,21 +106,19 @@
     #menuButton i { font-size: 1.5em; color: #000; }
     #sidebar {
       position: fixed; top: 0; left: -250px; width: 250px; height: 100%;
-      background: #000; transition: left 0.3s; z-index: 2500; padding-top: 60px;
+      background: #000; transition: left 0.3s; z-index: 2500;
     }
-    /* La sidebar s'ouvre à gauche */
+    /* Lorsque la sidebar est active, elle se déplace à gauche */
     #sidebar.active { left: 0; }
     #sidebar a {
       display: block; padding: 15px; background: #FFA500; color: #000;
-      text-decoration: none; border-bottom: 1px solid #000;
-      text-align: center; font-size: 1em;
+      text-decoration: none; border-bottom: 1px solid #000; text-align: center; font-size: 1em;
     }
-    /* Le contenu se décale pour laisser la place à la sidebar */
-    #mainContent.shifted { margin-left: 250px; transition: margin-left 0.3s ease; }
-    /* Responsive */
-    @media (max-width: 768px) { .info-section { flex-direction: column; } }
-    /* Pied de page */
+    /* Pied de page centré */
     .footer { text-align: center; margin-top: 20px; }
+
+    /* Affichage du bouton hamburger sur tous supports une fois l'authentification faite */
+    #mainContent { display: none; }
   </style>
 </head>
 <body>
@@ -187,7 +188,7 @@
   </div>
 
   <!-- Page principale (après authentification) -->
-  <div id="mainContent" style="display:none;">
+  <div id="mainContent">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
     <div id="sidebar">
       <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
@@ -265,7 +266,7 @@
               <input type="date" id="date-debut" name="date_debut" required>
             </div>
           </div>
-          <!-- Zone photo positionnée sous le formulaire -->
+          <!-- Zone photo positionnée sous le formulaire (identique à l'original) -->
           <div class="photo-placeholder">
             <span id="photoPlaceholderText">Ajouter une photo</span>
             <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -319,9 +320,11 @@
   </div>
 
   <script>
-    // Menu hamburger : ouvre la sidebar à la demande et la ferme dès que le curseur la quitte
+    // Gestion du menu hamburger
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
+
+    // Affiche le bouton hamburger lorsque la page principale est affichée
     function updateMenuVisibility() {
       if (document.getElementById('mainContent').style.display !== 'none') {
         menuButton.style.display = 'flex';
@@ -329,16 +332,20 @@
         menuButton.style.display = 'none';
       }
     }
+
+    // Au clic sur le bouton hamburger, on ouvre la sidebar et on cache le bouton
     menuButton.addEventListener('click', () => {
       sidebar.classList.add('active');
-      document.getElementById('mainContent').classList.add('shifted');
-    });
-    sidebar.addEventListener('mouseleave', () => {
-      sidebar.classList.remove('active');
-      document.getElementById('mainContent').classList.remove('shifted');
+      menuButton.style.display = 'none';
     });
 
-    // Gestion des onglets Connexion / Inscription
+    // Dès que le curseur quitte la sidebar, on la ferme et on réaffiche le bouton hamburger
+    sidebar.addEventListener('mouseleave', () => {
+      sidebar.classList.remove('active');
+      menuButton.style.display = 'flex';
+    });
+
+    // Gestion des onglets Connexion / Inscription (inchangée)
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -379,7 +386,7 @@
       }
     });
 
-    // Soumission du formulaire d'inscription
+    // Soumission des formulaires (inchangée)
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -400,7 +407,6 @@
       loginTab.click();
     });
 
-    // Soumission du formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -419,7 +425,7 @@
       updateMenuVisibility();
     });
 
-    // Collecte des données du formulaire candidat
+    // Collecte et affichage des données du formulaire candidat (inchangées)
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -437,13 +443,11 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Format de la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Affichage du résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = data.nom;
       document.getElementById('sumPrenom').innerText = data.prenom;
@@ -458,7 +462,6 @@
       document.getElementById('sumDateDebut').innerText = data.dateDebut;
       if (data.photo) document.getElementById('sumPhoto').src = data.photo;
     }
-    // Soumission du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
@@ -470,14 +473,12 @@
       document.getElementById('cestPartiBtn').style.display = 'block';
       document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
     });
-    // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    // Boutons "Démarrer" et "C'est parti !"
     document.getElementById('startBtn').addEventListener('click', () => {
       alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
@@ -488,7 +489,6 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('contentPage').style.display = 'none';
@@ -505,16 +505,13 @@
         summaryView.style.display = 'block';
       }
     });
-    // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Initialisation de l'autocomplete pour l'adresse et prévisualisation de la photo
     window.addEventListener('load', () => {
       initAutocomplete();
-      // Prévisualisation de la photo
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
       if (fileInput) {
         fileInput.addEventListener('change', function(e) {
@@ -526,7 +523,9 @@
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
               const placeholderText = document.getElementById('photoPlaceholderText');
-              if (placeholderText) { placeholderText.style.display = 'none'; }
+              if (placeholderText) {
+                placeholderText.style.display = 'none';
+              }
             }
             reader.readAsDataURL(file);
           }
@@ -556,7 +555,6 @@
         if (commune) { document.getElementById('commune').value = commune; }
       });
     }
-    // Passage automatique au champ NEPH suivant dès saisie
     document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
