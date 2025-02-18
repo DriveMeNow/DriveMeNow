@@ -112,17 +112,16 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* L'image s'ajuste dans le conteneur tout en conservant ses proportions */
+    /* Supprime la bordure lorsque la classe "loaded" est présente */
+    .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       display: block;
     }
-    /* Masquer l'image tant qu'aucun src n'est défini */
-    #photoPreview:not([src]) {
-      display: none;
-    }
+    /* Masquer l'image si aucun src n'est défini */
+    #photoPreview:not([src]) { display: none; }
     .photo-placeholder input[type="file"] {
       position: absolute;
       width: 100%;
@@ -206,8 +205,12 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; }
-    @media (max-width: 768px) { .info-section { flex-direction: column; } }
+    @media (max-width: 768px) {
+      .info-section { flex-direction: column; }
+      .photo-placeholder { width: 100%; }
+    }
     .footer { text-align: center; margin-top: 20px; }
+    #mainContent { display: none; }
   </style>
 </head>
 <body>
@@ -277,7 +280,7 @@
   </div>
 
   <!-- Page principale (après authentification) -->
-  <div id="mainContent" style="display:none;">
+  <div id="mainContent">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
     <div id="sidebar">
       <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
@@ -355,7 +358,7 @@
               <input type="date" id="date-debut" name="date_debut" required>
             </div>
           </div>
-          <!-- Zone photo avec le texte "Ajouter une photo" -->
+          <!-- Zone photo identique à l'original -->
           <div class="photo-placeholder">
             <span id="photoPlaceholderText">Ajouter une photo</span>
             <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -405,7 +408,7 @@
   </div>
 
   <script>
-    // Gestion du bouton hamburger et de la sidebar
+    // Gestion du menu hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -602,13 +605,11 @@
             const reader = new FileReader();
             reader.onload = function(e) {
               const photoPreview = document.getElementById('photoPreview');
-              photoPreview.onload = function() {
-                // Aucune modification dynamique n'est nécessaire puisque la taille est fixe
-              }
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
-              // Masquer le texte du placeholder une fois l'image chargée
               document.getElementById('photoPlaceholderText').style.display = 'none';
+              // Ajout de la classe "loaded" pour supprimer les pointillés
+              document.querySelector('.photo-placeholder').classList.add('loaded');
             }
             reader.readAsDataURL(file);
           }
@@ -638,7 +639,6 @@
         if (commune) { document.getElementById('commune').value = commune; }
       });
     }
-    // Passage automatique au champ NEPH suivant dès saisie
     document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
