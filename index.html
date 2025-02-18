@@ -4,22 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
-  <!-- Favicon (optionnel) -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Chargement asynchrone et defer de Google Maps API avec la bibliothèque Places -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
+  <!-- Google Maps API avec Places -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
   <style>
     /* Réinitialisation */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       font-family: Arial, sans-serif;
       background-color: #000;
@@ -52,19 +45,17 @@
       margin-bottom: 40px;
       text-align: center;
     }
-    /* Formulaire et disposition des informations */
-    form {
-      width: 100%;
-    }
+    /* Formulaire et disposition des informations (tel que fourni) */
+    form { width: 100%; }
     .info-section {
       display: flex;
       flex-wrap: wrap;
       margin-bottom: 40px;
+      flex-direction: column; /* Pour placer la photo en dessous */
     }
     .candidate-info {
-      flex: 1;
-      min-width: 300px;
-      margin-right: 20px;
+      width: 100%;
+      margin-bottom: 20px;
     }
     .info-field {
       margin-bottom: 15px;
@@ -86,15 +77,13 @@
       border-radius: 4px;
       background-color: #222;
       color: #fff;
+      width: 100%;
     }
-    .info-field input::placeholder {
-      color: #aaa;
-    }
-    /* Pour forcer l'icône du calendrier en blanc */
+    .info-field input::placeholder { color: #aaa; }
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(1) !important;
     }
-    /* NEPH fields : 12 petits champs alignés horizontalement */
+    /* NEPH fields */
     .neph-boxes {
       display: flex;
       flex-direction: row;
@@ -118,7 +107,7 @@
       background-color: #222;
       color: #fff;
     }
-    /* Zone photo avec prévisualisation */
+    /* Zone photo (inchangée) */
     .photo-placeholder {
       width: 150px;
       height: 200px;
@@ -131,6 +120,7 @@
       position: relative;
       color: #aaa;
       font-size: 0.9em;
+      margin: 0 auto;
     }
     .photo-placeholder img {
       width: 100%;
@@ -146,10 +136,7 @@
       opacity: 0;
       cursor: pointer;
     }
-    /* Texte par défaut dans la zone photo */
-    .photo-placeholder span {
-      pointer-events: none;
-    }
+    .photo-placeholder span { pointer-events: none; }
     /* Boutons */
     .btn {
       padding: 10px 20px;
@@ -161,21 +148,15 @@
       color: #fff;
       margin: 10px;
     }
-    .btn.edit {
-      background-color: #f0ad4e;
-    }
-    /* Section résumé (après validation) */
+    .btn.edit { background-color: #f0ad4e; }
+    /* Section résumé */
     .summary {
       display: none;
       margin-bottom: 40px;
       text-align: left;
     }
-    .summary p {
-      margin-bottom: 10px;
-    }
-    .summary label {
-      font-weight: bold;
-    }
+    .summary p { margin-bottom: 10px; }
+    .summary label { font-weight: bold; }
     /* Footer */
     .footer {
       text-align: center;
@@ -185,29 +166,64 @@
       padding-top: 20px;
       color: #ccc;
     }
-    /* Responsive : adaptation pour petits écrans */
+    /* Sidebar et bouton hamburger */
+    #menuButton {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      background: #FFA500;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    #menuButton i { font-size: 1.5em; color: #000; }
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: #000;
+      transition: left 0.3s;
+      z-index: 2500;
+    }
+    #sidebar.active { left: 0; }
+    #sidebar a {
+      display: block;
+      padding: 15px;
+      background: #FFA500;
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid #000;
+      text-align: center;
+      font-size: 1em;
+    }
+    /* Section Accueil */
+    #contentPage {
+      display: none;
+      padding: 20px;
+      margin-top: 60px;
+    }
     @media (max-width: 768px) {
-      .info-section {
-        flex-direction: column;
-      }
-      .photo-placeholder {
-        width: 100%;
-        height: auto;
-        padding: 20px;
-      }
+      .info-section { flex-direction: column; }
+      .photo-placeholder { width: 100%; height: auto; padding: 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="cover-page">
-    <!-- Titre et sous-titre -->
+  <!-- FORMULAIRE CANDIDAT (PAGE DE FORMULAIRE) -->
+  <div class="cover-page" id="coverPage">
     <div class="title-section">
       <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
       <div class="title-line2">Candidat Libre au Permis B</div>
       <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
     </div>
-    
-    <!-- Formulaire interactif -->
     <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
       <div class="info-section">
         <div class="candidate-info">
@@ -223,7 +239,6 @@
             <label for="date-naissance">Date de naissance :</label>
             <input type="date" id="date-naissance" name="date_naissance" required>
           </div>
-          <!-- Champ Adresse de type search pour encourager l'interface mobile -->
           <div class="info-field">
             <label for="adresse">Adresse :</label>
             <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
@@ -270,6 +285,7 @@
             <input type="date" id="date-debut" name="date_debut" required>
           </div>
         </div>
+        <!-- Zone photo placée en dessous des champs -->
         <div class="photo-placeholder">
           <span id="photoPlaceholderText">Ajouter une photo</span>
           <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -281,7 +297,7 @@
       </div>
     </form>
     
-    <!-- Résumé affiché après validation (sans titre "Informations validées") -->
+    <!-- Vue résumé (après validation) -->
     <div id="summaryView" class="summary">
       <p><label>Nom :</label> <span id="sumNom"></span></p>
       <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
@@ -303,20 +319,68 @@
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
   
+  <!-- Navigation Sidebar et Sections -->
+  <div id="mainContent" style="display:none;">
+    <button id="menuButton"><i class="fas fa-bars"></i></button>
+    <div id="sidebar">
+      <a href="#" id="coverPageBtn">Candidat</a>
+      <a href="#accueil" id="accueilBtn">Accueil</a>
+      <a href="#inscriptionSection">Inscription</a>
+      <a href="#suiviSection">Suivi</a>
+      <a href="#examenSection">Examen</a>
+      <a href="#fabricationSection">Permis</a>
+    </div>
+    <!-- Section Candidat (résumé du formulaire) -->
+    <div class="cover-page" id="coverPageSidebar">
+      <div class="title-section">
+        <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
+        <div class="title-line2">Candidat Libre au Permis B</div>
+        <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
+      </div>
+      <!-- Boutons de redirection vers la page d'accueil interactive -->
+      <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
+      <button id="cestPartiBtn" class="action-btn" style="display:none;">C'est parti !</button>
+      <!-- Résumé affiché dans la section Candidat -->
+      <div id="summaryViewSidebar" class="summary"></div>
+    </div>
+    
+    <!-- Section Accueil -->
+    <div id="contentPage">
+      <section id="accueil" class="section-content">
+        <h2>Accueil</h2>
+        <p style="text-align:center;">Progression Administrative :</p>
+        <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
+          <p><strong>Progression Administrative</strong></p>
+          <div class="progress-circle">
+            <span>75%</span>
+          </div>
+        </div>
+        <p style="text-align:center; margin-top:20px;">Progression Formation Pratique :</p>
+        <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
+          <p><strong>Progression Formation Pratique</strong></p>
+          <div class="progress-circle">
+            <span>50%</span>
+          </div>
+          <p style="margin-top:10px;">Dernière compétence : Changement de vitesse (En progression)</p>
+        </div>
+      </section>
+    </div>
+    
+    <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
+  </div>
+  
   <script>
-    // Auto-focus pour les champs NEPH : passage automatique au suivant dès qu'un chiffre est saisi
+    // Auto-tabulation pour les champs NEPH
     const nephInputs = document.querySelectorAll('.neph-box input');
     nephInputs.forEach((input, index) => {
       input.addEventListener('input', function() {
-        if (this.value.length >= this.maxLength) {
-          if (index + 1 < nephInputs.length) {
-            nephInputs[index + 1].focus();
-          }
+        if (this.value.length >= this.maxLength && index < nephInputs.length - 1) {
+          nephInputs[index + 1].focus();
         }
       });
     });
     
-    // Fonction pour formater les dates en jj/mm/aaaa
+    // Fonction de formatage de date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
@@ -324,9 +388,10 @@
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
     
-    // Fonction pour collecter les données du formulaire
+    // Collecte des données du formulaire candidat
     function collectFormData() {
-      const data = {
+      const nephInputs = document.querySelectorAll('.neph-box input');
+      return {
         nom: document.getElementById('nom').value,
         prenom: document.getElementById('prenom').value,
         dateNaissance: formatDate(document.getElementById('date-naissance').value),
@@ -340,28 +405,31 @@
         neph: Array.from(nephInputs).map(input => input.value).join(''),
         photo: document.getElementById('photoPreview').src
       };
-      return data;
     }
     
-    // Fonction pour afficher le résumé
+    // Affichage du résumé dans la page et dans la sidebar
     function displaySummary(data) {
-      document.getElementById('sumNom').innerText = data.nom;
-      document.getElementById('sumPrenom').innerText = data.prenom;
-      document.getElementById('sumDateNaissance').innerText = data.dateNaissance;
-      document.getElementById('sumAdresse').innerText = data.adresse;
-      document.getElementById('sumCodePostal').innerText = data.codePostal;
-      document.getElementById('sumCommune').innerText = data.commune;
-      document.getElementById('sumTelephone').innerText = data.telephone;
-      document.getElementById('sumEmail').innerText = data.email;
-      document.getElementById('sumResponsable').innerText = data.responsable;
-      document.getElementById('sumNeph').innerText = data.neph;
-      document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo && data.photo !== "") {
-        document.getElementById('sumPhoto').src = data.photo;
-      }
+      const summaryHTML = `
+        <p><label>Nom :</label> <span id="sumNom">${data.nom}</span></p>
+        <p><label>Prénom :</label> <span id="sumPrenom">${data.prenom}</span></p>
+        <p><label>Date de naissance :</label> <span id="sumDateNaissance">${data.dateNaissance}</span></p>
+        <p><label>Adresse :</label> <span id="sumAdresse">${data.adresse}</span></p>
+        <p><label>Code postal :</label> <span id="sumCodePostal">${data.codePostal}</span></p>
+        <p><label>Commune :</label> <span id="sumCommune">${data.commune}</span></p>
+        <p><label>Téléphone :</label> <span id="sumTelephone">${data.telephone}</span></p>
+        <p><label>Email :</label> <span id="sumEmail">${data.email}</span></p>
+        <p><label>Responsable :</label> <span id="sumResponsable">${data.responsable}</span></p>
+        <p><label>NEPH :</label> <span id="sumNeph">${data.neph}</span></p>
+        <p><label>Date de début :</label> <span id="sumDateDebut">${data.dateDebut}</span></p>
+        <p><label>Photo :</label><br>
+           <img id="sumPhoto" style="max-width: 150px; border: 1px solid #ccc;" src="${data.photo}">
+        </p>
+      `;
+      document.getElementById('summaryView').innerHTML = summaryHTML;
+      document.getElementById('summaryViewSidebar').innerHTML = summaryHTML;
     }
     
-    // Gestion de la soumission du formulaire
+    // Soumission du formulaire candidat
     const infoForm = document.getElementById('infoForm');
     infoForm.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -370,15 +438,19 @@
       infoForm.style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
+      // Affichage des boutons "Démarrer" et "C'est parti !" pour passer à l'accueil
+      document.getElementById('startBtn').style.display = 'block';
+      document.getElementById('cestPartiBtn').style.display = 'block';
+      document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
     });
     
-    // Bouton de modification : revenir au formulaire
-    document.getElementById('editBtn').addEventListener('click', function() {
-      infoForm.style.display = 'block';
+    // Bouton "Modifier" pour revenir au formulaire
+    document.getElementById('editBtn')?.addEventListener('click', function() {
       document.getElementById('summaryView').style.display = 'none';
+      infoForm.style.display = 'block';
     });
     
-    // Prévisualisation de la photo et gestion du texte "Ajouter une photo"
+    // Prévisualisation de la photo (inchangée)
     const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
     const photoPreview = document.getElementById('photoPreview');
     const photoPlaceholderText = document.getElementById('photoPlaceholderText');
@@ -392,45 +464,36 @@
           if (photoPlaceholderText) {
             photoPlaceholderText.style.display = 'none';
           }
-          console.log("Photo prévisualisée");
-        };
-        reader.onerror = function(e) {
-          console.error("Erreur lors de la lecture du fichier", e);
         };
         reader.readAsDataURL(file);
       }
     });
     
-    // Intégration de Google Places Autocomplete pour le champ "Adresse"
+    // Autocomplétion de l'adresse (inchangée)
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
         componentRestrictions: { country: "fr" },
         fields: ["address_components", "formatted_address", "geometry", "name"]
       });
-      autocomplete.addListener('place_changed', function() {
+      autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
         if (!place.address_components) return;
         let postalCode = "";
         let commune = "";
         place.address_components.forEach(component => {
-          const types = component.types;
-          if (types.indexOf("postal_code") !== -1) {
+          if (component.types.indexOf("postal_code") !== -1) {
             postalCode = component.long_name;
           }
-          if (types.indexOf("locality") !== -1) {
+          if (component.types.indexOf("locality") !== -1) {
             commune = component.long_name;
           }
         });
-        if (postalCode) {
-          document.getElementById('code-postal').value = postalCode;
-        }
-        if (commune) {
-          document.getElementById('commune').value = commune;
-        }
+        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
+        if (commune) { document.getElementById('commune').value = commune; }
       });
     }
-    window.addEventListener('load', function() {
+    window.addEventListener('load', () => {
       initAutocomplete();
       const storedData = localStorage.getItem('validatedData');
       if (storedData) {
@@ -439,6 +502,29 @@
         displaySummary(data);
         document.getElementById('summaryView').style.display = 'block';
       }
+    });
+    
+    // Navigation
+    // Boutons "Démarrer" et "C'est parti !" : passage direct vers la page d'accueil interactive
+    document.getElementById('startBtn').addEventListener('click', () => {
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+    });
+    document.getElementById('cestPartiBtn').addEventListener('click', () => {
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+    });
+    // Bouton "Candidat" dans la sidebar affiche la section contenant le résumé
+    document.getElementById('coverPageBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'block';
+      document.getElementById('contentPage').style.display = 'none';
+    });
+    // Bouton "Accueil" dans la sidebar
+    document.getElementById('accueilBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
     });
   </script>
 </body>
