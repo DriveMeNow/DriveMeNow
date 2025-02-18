@@ -7,8 +7,8 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Font Awesome pour les icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Google Maps API avec Places -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+  <!-- Google Maps API avec Places (clé intégrée) -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
     /* Réinitialisation */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,13 +45,13 @@
       margin-bottom: 40px;
       text-align: center;
     }
-    /* Formulaire et disposition des informations (tel que fourni) */
+    /* Formulaire et disposition des informations */
     form { width: 100%; }
     .info-section {
       display: flex;
       flex-wrap: wrap;
       margin-bottom: 40px;
-      flex-direction: column; /* Pour placer la photo en dessous */
+      flex-direction: column; /* Placer la photo en dessous */
     }
     .candidate-info {
       width: 100%;
@@ -83,7 +83,7 @@
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(1) !important;
     }
-    /* NEPH fields */
+    /* NEPH fields : 12 petits champs alignés horizontalement */
     .neph-boxes {
       display: flex;
       flex-direction: row;
@@ -107,7 +107,7 @@
       background-color: #222;
       color: #fff;
     }
-    /* Zone photo (inchangée) */
+    /* Zone photo avec prévisualisation (inchangée) */
     .photo-placeholder {
       width: 150px;
       height: 200px;
@@ -217,8 +217,75 @@
   </style>
 </head>
 <body>
-  <!-- FORMULAIRE CANDIDAT (PAGE DE FORMULAIRE) -->
-  <div class="cover-page" id="coverPage">
+  <!-- ==============================
+       Page d'Authentification
+  =============================== -->
+  <div id="authPage">
+    <h1>DriveMeNow</h1>
+    <p class="welcome-text"></p>
+    <div class="auth-tabs">
+      <button id="loginTab" class="active">Connexion</button>
+      <button id="registerTab">Inscription</button>
+    </div>
+    <!-- Formulaire de Connexion (sans CAPTCHA) -->
+    <div id="loginFormContainer" class="auth-form active">
+      <h2 style="text-align:center;">Connexion</h2>
+      <form id="loginForm">
+        <div class="auth-field">
+          <label for="loginEmail">Email :</label>
+          <input type="email" id="loginEmail" name="loginEmail" placeholder="Votre email" required>
+        </div>
+        <div class="auth-field">
+          <label for="loginPassword">Mot de passe :</label>
+          <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
+          <small style="display:block; color:#ccc; margin-top:7px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
+          <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
+        </div>
+        <div class="auth-field">
+          <label for="loginCode">Code à usage unique :</label>
+          <input type="text" id="loginCode" name="loginCode" placeholder="Code reçu par email" required>
+        </div>
+        <button type="submit" class="btn">Se connecter</button>
+      </form>
+    </div>
+    <!-- Formulaire d'Inscription (sans CAPTCHA) -->
+    <div id="registerFormContainer" class="auth-form">
+      <h2 style="text-align:center;">Inscription</h2>
+      <form id="registerForm">
+        <div class="auth-field">
+          <label for="regNom">Nom :</label>
+          <input type="text" id="regNom" name="regNom" placeholder="Votre nom" required>
+        </div>
+        <div class="auth-field">
+          <label for="regPrenom">Prénom :</label>
+          <input type="text" id="regPrenom" name="regPrenom" placeholder="Votre prénom" required>
+        </div>
+        <div class="auth-field">
+          <label for="regEmail">Email :</label>
+          <input type="email" id="regEmail" name="regEmail" placeholder="Votre email" required>
+        </div>
+        <div class="auth-field">
+          <label for="regPassword">Mot de passe :</label>
+          <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required>
+          <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
+          <small style="display:block; color:#ccc; margin-top:10px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
+        </div>
+        <div class="auth-field">
+          <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
+          <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required>
+          <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
+        </div>
+        <button type="submit" class="btn">S'inscrire</button>
+      </form>
+    </div>
+    <!-- Bouton pour passer l'authentification -->
+    <button class="btn" id="skipAuth">Passer l’authentification</button>
+  </div>
+  
+  <!-- ==============================
+       Formulaire Candidat (Page de Formulaire)
+  =============================== -->
+  <div class="cover-page" id="coverPage" style="display:none;">
     <div class="title-section">
       <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
       <div class="title-line2">Candidat Libre au Permis B</div>
@@ -285,7 +352,7 @@
             <input type="date" id="date-debut" name="date_debut" required>
           </div>
         </div>
-        <!-- Zone photo placée en dessous des champs -->
+        <!-- Zone photo (inchangée) -->
         <div class="photo-placeholder">
           <span id="photoPlaceholderText">Ajouter une photo</span>
           <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -319,7 +386,9 @@
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
   
-  <!-- Navigation Sidebar et Sections -->
+  <!-- ==============================
+       Navigation Sidebar et Sections
+  =============================== -->
   <div id="mainContent" style="display:none;">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
     <div id="sidebar">
@@ -330,21 +399,21 @@
       <a href="#examenSection">Examen</a>
       <a href="#fabricationSection">Permis</a>
     </div>
-    <!-- Section Candidat (résumé du formulaire) -->
+    <!-- Section Candidat (résumé du formulaire) dans la sidebar -->
     <div class="cover-page" id="coverPageSidebar">
       <div class="title-section">
         <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Boutons de redirection vers la page d'accueil interactive -->
+      <!-- Boutons pour lancer le parcours -->
       <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
       <button id="cestPartiBtn" class="action-btn" style="display:none;">C'est parti !</button>
       <!-- Résumé affiché dans la section Candidat -->
       <div id="summaryViewSidebar" class="summary"></div>
     </div>
     
-    <!-- Section Accueil -->
+    <!-- Section Accueil (page d'accueil interactive) -->
     <div id="contentPage">
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
@@ -380,7 +449,7 @@
       });
     });
     
-    // Fonction de formatage de date
+    // Fonction pour formater les dates en jj/mm/aaaa
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
@@ -388,7 +457,7 @@
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
     
-    // Collecte des données du formulaire candidat
+    // Fonction pour collecter les données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -407,7 +476,7 @@
       };
     }
     
-    // Affichage du résumé dans la page et dans la sidebar
+    // Fonction pour afficher le résumé dans la page et dans la sidebar
     function displaySummary(data) {
       const summaryHTML = `
         <p><label>Nom :</label> <span id="sumNom">${data.nom}</span></p>
@@ -429,7 +498,7 @@
       document.getElementById('summaryViewSidebar').innerHTML = summaryHTML;
     }
     
-    // Soumission du formulaire candidat
+    // Gestion de la soumission du formulaire candidat
     const infoForm = document.getElementById('infoForm');
     infoForm.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -438,7 +507,7 @@
       infoForm.style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Affichage des boutons "Démarrer" et "C'est parti !" pour passer à l'accueil
+      // Affichage des boutons pour rediriger vers la page d'accueil interactive
       document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
       document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
@@ -452,17 +521,15 @@
     
     // Prévisualisation de la photo (inchangée)
     const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
-    const photoPreview = document.getElementById('photoPreview');
-    const photoPlaceholderText = document.getElementById('photoPlaceholderText');
     photoInput.addEventListener('change', function() {
       const file = this.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          photoPreview.src = e.target.result;
-          photoPreview.style.display = 'block';
-          if (photoPlaceholderText) {
-            photoPlaceholderText.style.display = 'none';
+          document.getElementById('photoPreview').src = e.target.result;
+          document.getElementById('photoPreview').style.display = 'block';
+          if (document.getElementById('photoPlaceholderText')) {
+            document.getElementById('photoPlaceholderText').style.display = 'none';
           }
         };
         reader.readAsDataURL(file);
@@ -504,8 +571,10 @@
       }
     });
     
+    // ==============================
     // Navigation
-    // Boutons "Démarrer" et "C'est parti !" : passage direct vers la page d'accueil interactive
+    // ==============================
+    // Boutons "Démarrer" et "C'est parti !" redirigent vers la page d'accueil interactive
     document.getElementById('startBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -514,7 +583,7 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar affiche la section contenant le résumé
+    // Bouton "Candidat" dans la sidebar affiche la section "cover-page" (formulaire résumé)
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
