@@ -420,8 +420,13 @@
       }
     }
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
-    // (L'écouteur "mouseleave" a été retiré pour éviter la fermeture automatique)
-    
+    // Conserver l'événement mouseleave avec un délai pour éviter une fermeture trop rapide
+    sidebar.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        sidebar.classList.remove('active');
+      }, 200);
+    });
+
     // Gestion des onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
@@ -552,7 +557,7 @@
       document.getElementById('summaryView').style.display = 'block';
       document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
-      // Remonter en haut de la page
+      // Remonter tout en haut de la page
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     // Bouton "Modifier"
