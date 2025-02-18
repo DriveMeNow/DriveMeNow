@@ -97,10 +97,10 @@
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
     
-    /* Zone photo */
+    /* Zone photo à taille fixe */
     .photo-placeholder {
-      width: 150px;
-      height: 200px;
+      width: 200px;
+      height: 250px;
       border: 2px dashed #555;
       border-radius: 5px;
       display: flex;
@@ -112,24 +112,12 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Lorsque l'image est chargée, le conteneur s'ajuste */
-    .photo-placeholder.loaded {
-      width: auto;
-      height: auto;
-      display: inline-block;
-      padding: 0;
-    }
-    /* Styles de l'image selon son orientation */
-    .photo-placeholder img { display: block; }
-    .photo-placeholder img.landscape {
+    /* L'image s'ajuste dans le conteneur tout en conservant ses proportions */
+    .photo-placeholder img {
       width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
-    .photo-placeholder img.portrait {
-      width: auto;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      display: block;
     }
     /* Masquer l'image tant qu'aucun src n'est défini */
     #photoPreview:not([src]) {
@@ -615,20 +603,12 @@
             reader.onload = function(e) {
               const photoPreview = document.getElementById('photoPreview');
               photoPreview.onload = function() {
-                if (photoPreview.naturalWidth > photoPreview.naturalHeight) {
-                  photoPreview.classList.add("landscape");
-                  photoPreview.classList.remove("portrait");
-                } else {
-                  photoPreview.classList.add("portrait");
-                  photoPreview.classList.remove("landscape");
-                }
+                // Aucune modification dynamique n'est nécessaire puisque la taille est fixe
               }
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
-              // Masquer le texte du placeholder
+              // Masquer le texte du placeholder une fois l'image chargée
               document.getElementById('photoPlaceholderText').style.display = 'none';
-              // Ajouter la classe 'loaded' pour adapter le cadre à l'image
-              document.querySelector('.photo-placeholder').classList.add('loaded');
             }
             reader.readAsDataURL(file);
           }
