@@ -100,10 +100,9 @@
       display: block;
       text-align: center;
     }
-    
     /* ==============================
        Formulaire Candidat (Page de Formulaire)
-       (Ce bloc reste inchangé tel que fourni)
+       (Formulaire fourni inchangé)
     =============================== */
     .cover-page {
       max-width: 900px;
@@ -170,10 +169,12 @@
       position: relative;
       color: #aaa;
       font-size: 0.9em;
+      /* IMPORTANT : NE PAS MODIFIER CETTE ZONE */
+      margin: 0 auto;
     }
     .photo-placeholder img {
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: cover;
       image-orientation: from-image;
       display: none;
@@ -185,8 +186,6 @@
       opacity: 0;
       cursor: pointer;
     }
-    /* Pas de modification de la zone photo */
-    
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
     .summary label { font-weight: bold; }
@@ -230,6 +229,7 @@
       text-align: center;
       font-size: 1em;
     }
+    /* Section Accueil */
     #contentPage {
       display: none;
       padding: 20px;
@@ -313,111 +313,10 @@
   </div>
   
   <!-- ==============================
-       Formulaire Candidat (Page de Formulaire)
-  =============================== -->
-  <div class="cover-page" id="coverPage" style="display:none;">
-    <div class="title-section">
-      <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
-      <div class="title-line2">Candidat Libre au Permis B</div>
-      <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
-    </div>
-    <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
-      <div class="info-section">
-        <div class="candidate-info">
-          <div class="info-field">
-            <label for="nom">Nom du candidat :</label>
-            <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
-          </div>
-          <div class="info-field">
-            <label for="prenom">Prénom du candidat :</label>
-            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
-          </div>
-          <div class="info-field">
-            <label for="date-naissance">Date de naissance :</label>
-            <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
-          </div>
-          <div class="info-field">
-            <label for="adresse">Adresse :</label>
-            <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
-          </div>
-          <div class="info-field">
-            <label for="code-postal">Code postal :</label>
-            <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
-          </div>
-          <div class="info-field">
-            <label for="commune">Commune :</label>
-            <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
-          </div>
-          <div class="info-field">
-            <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
-            <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
-          </div>
-          <div class="info-field">
-            <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-            <input type="email" id="email" name="email" placeholder="Votre email" required>
-          </div>
-          <div class="info-field">
-            <label for="responsable">Responsable de la formation :</label>
-            <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
-          </div>
-          <div class="info-field">
-            <label>Numéro d'inscription NEPH :</label>
-            <span class="neph-boxes">
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-              <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
-            </span>
-          </div>
-          <div class="info-field">
-            <label for="date-debut">Date de début de formation :</label>
-            <input type="date" id="date-debut" name="date_debut" required>
-          </div>
-        </div>
-        <!-- Zone photo (inchangée) -->
-        <div class="photo-placeholder">
-          <span id="photoPlaceholderText">Ajouter une photo</span>
-          <img id="photoPreview" alt="Prévisualisation de la photo">
-          <input type="file" name="photo" accept="image/*" required>
-        </div>
-      </div>
-      <div style="text-align: center;">
-        <button type="submit" class="btn">Envoyer</button>
-      </div>
-    </form>
-    
-    <!-- Vue résumé (après validation) -->
-    <div id="summaryView" class="summary">
-      <p><label>Nom :</label> <span id="sumNom"></span></p>
-      <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
-      <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
-      <p><label>Adresse :</label> <span id="sumAdresse"></span></p>
-      <p><label>Code postal :</label> <span id="sumCodePostal"></span></p>
-      <p><label>Commune :</label> <span id="sumCommune"></span></p>
-      <p><label>Téléphone :</label> <span id="sumTelephone"></span></p>
-      <p><label>Email :</label> <span id="sumEmail"></span></p>
-      <p><label>Responsable :</label> <span id="sumResponsable"></span></p>
-      <p><label>NEPH :</label> <span id="sumNeph"></span></p>
-      <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
-      <p><label>Photo :</label><br>
-         <img id="sumPhoto" style="max-width: 150px; border: 1px solid #ccc;">
-      </p>
-      <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
-    </div>
-    
-    <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
-  </div>
-  
-  <!-- ==============================
-       Navigation Sidebar et Sections
+       Page Principale (après Authentification)
+       Contient la sidebar et deux sections : 
+         - Le formulaire candidat (avec résumé) (id="coverPage")
+         - La page d'accueil interactive (id="contentPage")
   =============================== -->
   <div id="mainContent" style="display:none;">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
@@ -429,21 +328,117 @@
       <a href="#examenSection"><i class="fas fa-laptop"></i><br>Examen</a>
       <a href="#fabricationSection"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
-    <!-- Section Candidat (résumé du formulaire) dans la sidebar -->
-    <div class="cover-page" id="coverPageSidebar">
+    <!-- Section Candidat (formulaire résumé) -->
+    <div class="cover-page" id="coverPage" style="display:none;">
       <div class="title-section">
         <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Boutons pour lancer le parcours -->
+      <!-- Boutons pour passer à la page d'accueil interactive -->
       <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
       <button id="cestPartiBtn" class="action-btn" style="display:none;">C'est parti !</button>
-      <!-- Résumé affiché dans la section Candidat -->
-      <div id="summaryViewSidebar" class="summary"></div>
+      <!-- Formulaire candidat (inchangé) -->
+      <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
+        <div class="info-section">
+          <div class="candidate-info">
+            <div class="info-field">
+              <label for="nom">Nom du candidat :</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            </div>
+            <div class="info-field">
+              <label for="prenom">Prénom du candidat :</label>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+            </div>
+            <div class="info-field">
+              <label for="date-naissance">Date de naissance :</label>
+              <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
+            </div>
+            <div class="info-field">
+              <label for="adresse">Adresse :</label>
+              <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
+            </div>
+            <div class="info-field">
+              <label for="code-postal">Code postal :</label>
+              <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
+            </div>
+            <div class="info-field">
+              <label for="commune">Commune :</label>
+              <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
+            </div>
+            <div class="info-field">
+              <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
+              <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
+            </div>
+            <div class="info-field">
+              <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+              <input type="email" id="email" name="email" placeholder="Votre email" required>
+            </div>
+            <div class="info-field">
+              <label for="responsable">Responsable de la formation :</label>
+              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
+            </div>
+            <div class="info-field">
+              <label>Numéro d'inscription NEPH :</label>
+              <div class="neph-boxes">
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+                <span class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></span>
+              </div>
+            </div>
+            <div class="info-field">
+              <label for="date-debut">Date de début de formation :</label>
+              <input type="date" id="date-debut" name="date_debut" required>
+            </div>
+          </div>
+          <!-- Zone photo (inchangée) -->
+          <div class="photo-placeholder">
+            <span id="photoPlaceholderText">Ajouter une photo</span>
+            <img id="photoPreview" alt="Prévisualisation de la photo">
+            <input type="file" name="photo" accept="image/*" required>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <button type="submit" class="btn">Envoyer</button>
+        </div>
+      </form>
+      
+      <!-- Vue résumé (après validation) -->
+      <div id="summaryView" class="summary">
+        <p><label>Nom :</label> <span id="sumNom"></span></p>
+        <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
+        <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
+        <p><label>Adresse :</label> <span id="sumAdresse"></span></p>
+        <p><label>Code postal :</label> <span id="sumCodePostal"></span></p>
+        <p><label>Commune :</label> <span id="sumCommune"></span></p>
+        <p><label>Téléphone :</label> <span id="sumTelephone"></span></p>
+        <p><label>Email :</label> <span id="sumEmail"></span></p>
+        <p><label>Responsable :</label> <span id="sumResponsable"></span></p>
+        <p><label>NEPH :</label> <span id="sumNeph"></span></p>
+        <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
+        <p><label>Photo :</label><br>
+           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
+        </p>
+        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
+      </div>
+      
+      <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
+      
+      <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
     </div>
     
-    <!-- Section Accueil (page d'accueil interactive) -->
+    <!-- ==============================
+         Section Accueil (Page d'accueil interactive)
+    =============================== -->
     <div id="contentPage">
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
@@ -463,169 +458,170 @@
           <p style="margin-top:10px;">Dernière compétence : Changement de vitesse (En progression)</p>
         </div>
       </section>
+      <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
     </div>
     
-    <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
-  </div>
-  
-  <script>
-    // Auto-tabulation pour les champs NEPH
-    const nephInputs = document.querySelectorAll('.neph-box input');
-    nephInputs.forEach((input, index) => {
-      input.addEventListener('input', function() {
-        if (this.value.length >= this.maxLength && index < nephInputs.length - 1) {
-          nephInputs[index + 1].focus();
-        }
-      });
-    });
-    
-    // Fonction pour formater les dates en jj/mm/aaaa
-    function formatDate(dateStr) {
-      if (!dateStr) return "";
-      const parts = dateStr.split("-");
-      if (parts.length !== 3) return dateStr;
-      return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-    
-    // Fonction pour collecter les données du formulaire candidat
-    function collectFormData() {
+    <!-- ==============================
+         Script JavaScript
+    =============================== -->
+    <script>
+      // Auto-tabulation pour les champs NEPH
       const nephInputs = document.querySelectorAll('.neph-box input');
-      return {
-        nom: document.getElementById('nom').value,
-        prenom: document.getElementById('prenom').value,
-        dateNaissance: formatDate(document.getElementById('date-naissance').value),
-        adresse: document.getElementById('adresse').value,
-        codePostal: document.getElementById('code-postal').value,
-        commune: document.getElementById('commune').value,
-        telephone: document.getElementById('telephone').value,
-        email: document.getElementById('email').value,
-        responsable: document.getElementById('responsable').value,
-        dateDebut: formatDate(document.getElementById('date-debut').value),
-        neph: Array.from(nephInputs).map(input => input.value).join(''),
-        photo: document.getElementById('photoPreview').src
-      };
-    }
-    
-    // Fonction pour afficher le résumé dans la page et dans la sidebar
-    function displaySummary(data) {
-      const summaryHTML = `
-        <p><label>Nom :</label> <span id="sumNom">${data.nom}</span></p>
-        <p><label>Prénom :</label> <span id="sumPrenom">${data.prenom}</span></p>
-        <p><label>Date de naissance :</label> <span id="sumDateNaissance">${data.dateNaissance}</span></p>
-        <p><label>Adresse :</label> <span id="sumAdresse">${data.adresse}</span></p>
-        <p><label>Code postal :</label> <span id="sumCodePostal">${data.codePostal}</span></p>
-        <p><label>Commune :</label> <span id="sumCommune">${data.commune}</span></p>
-        <p><label>Téléphone :</label> <span id="sumTelephone">${data.telephone}</span></p>
-        <p><label>Email :</label> <span id="sumEmail">${data.email}</span></p>
-        <p><label>Responsable :</label> <span id="sumResponsable">${data.responsable}</span></p>
-        <p><label>NEPH :</label> <span id="sumNeph">${data.neph}</span></p>
-        <p><label>Date de début :</label> <span id="sumDateDebut">${data.dateDebut}</span></p>
-        <p><label>Photo :</label><br>
-           <img id="sumPhoto" style="max-width: 150px; border: 1px solid #ccc;" src="${data.photo}">
-        </p>
-      `;
-      document.getElementById('summaryView').innerHTML = summaryHTML;
-      document.getElementById('summaryViewSidebar').innerHTML = summaryHTML;
-    }
-    
-    // Gestion de la soumission du formulaire candidat
-    const infoForm = document.getElementById('infoForm');
-    infoForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const formData = collectFormData();
-      localStorage.setItem('validatedData', JSON.stringify(formData));
-      infoForm.style.display = 'none';
-      displaySummary(formData);
-      document.getElementById('summaryView').style.display = 'block';
-      // Affichage des boutons pour rediriger vers la page d'accueil interactive
-      document.getElementById('startBtn').style.display = 'block';
-      document.getElementById('cestPartiBtn').style.display = 'block';
-      document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
-    });
-    
-    // Bouton "Modifier" pour revenir au formulaire
-    document.getElementById('editBtn').addEventListener('click', function() {
-      infoForm.style.display = 'block';
-      document.getElementById('summaryView').style.display = 'none';
-    });
-    
-    // Prévisualisation de la photo (inchangée)
-    const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
-    photoInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('photoPreview').src = e.target.result;
-          document.getElementById('photoPreview').style.display = 'block';
-          if (document.getElementById('photoPlaceholderText')) {
-            document.getElementById('photoPlaceholderText').style.display = 'none';
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-    
-    // Intégration de Google Places Autocomplete pour le champ "Adresse"
-    function initAutocomplete() {
-      const addressInput = document.getElementById('adresse');
-      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        componentRestrictions: { country: "fr" },
-        fields: ["address_components", "formatted_address", "geometry", "name"]
-      });
-      autocomplete.addListener('place_changed', function() {
-        const place = autocomplete.getPlace();
-        if (!place.address_components) return;
-        let postalCode = "";
-        let commune = "";
-        place.address_components.forEach(component => {
-          const types = component.types;
-          if (types.indexOf("postal_code") !== -1) {
-            postalCode = component.long_name;
-          }
-          if (types.indexOf("locality") !== -1) {
-            commune = component.long_name;
+      nephInputs.forEach((input, index) => {
+        input.addEventListener('input', function() {
+          if (this.value.length >= this.maxLength && index < nephInputs.length - 1) {
+            nephInputs[index + 1].focus();
           }
         });
-        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
-        if (commune) { document.getElementById('commune').value = commune; }
       });
-    }
-    window.addEventListener('load', function() {
-      initAutocomplete();
-      const storedData = localStorage.getItem('validatedData');
-      if (storedData) {
-        const data = JSON.parse(storedData);
-        infoForm.style.display = 'none';
-        displaySummary(data);
-        document.getElementById('summaryView').style.display = 'block';
+      
+      // Fonction pour formater la date en jj/mm/aaaa
+      function formatDate(dateStr) {
+        if (!dateStr) return "";
+        const parts = dateStr.split("-");
+        return parts[2] + "/" + parts[1] + "/" + parts[0];
       }
-    });
-    
-    // ==============================
-    // Navigation
-    // ==============================
-    // Boutons "Démarrer" et "C'est parti !" redirigent vers la page d'accueil interactive
-    document.getElementById('startBtn').addEventListener('click', () => {
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'block';
-    });
-    document.getElementById('cestPartiBtn').addEventListener('click', () => {
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'block';
-    });
-    // Bouton "Candidat" dans la sidebar affiche la section "cover-page" (le résumé)
-    document.getElementById('coverPageBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('coverPage').style.display = 'block';
-      document.getElementById('contentPage').style.display = 'none';
-    });
-    // Bouton "Accueil" dans la sidebar
-    document.getElementById('accueilBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'block';
-    });
-  </script>
+      
+      // Fonction pour collecter les données du formulaire candidat
+      function collectFormData() {
+        const nephInputs = document.querySelectorAll('.neph-box input');
+        return {
+          nom: document.getElementById('nom').value,
+          prenom: document.getElementById('prenom').value,
+          dateNaissance: formatDate(document.getElementById('date-naissance').value),
+          adresse: document.getElementById('adresse').value,
+          codePostal: document.getElementById('code-postal').value,
+          commune: document.getElementById('commune').value,
+          telephone: document.getElementById('telephone').value,
+          email: document.getElementById('email').value,
+          responsable: document.getElementById('responsable').value,
+          dateDebut: formatDate(document.getElementById('date-debut').value),
+          neph: Array.from(nephInputs).map(input => input.value).join(''),
+          photo: document.getElementById('photoPreview').src
+        };
+      }
+      
+      // Fonction pour afficher le résumé dans la page et dans la sidebar
+      function displaySummary(data) {
+        const summaryHTML = `
+          <p><label>Nom :</label> <span id="sumNom">${data.nom}</span></p>
+          <p><label>Prénom :</label> <span id="sumPrenom">${data.prenom}</span></p>
+          <p><label>Date de naissance :</label> <span id="sumDateNaissance">${data.dateNaissance}</span></p>
+          <p><label>Adresse :</label> <span id="sumAdresse">${data.adresse}</span></p>
+          <p><label>Code postal :</label> <span id="sumCodePostal">${data.codePostal}</span></p>
+          <p><label>Commune :</label> <span id="sumCommune">${data.commune}</span></p>
+          <p><label>Téléphone :</label> <span id="sumTelephone">${data.telephone}</span></p>
+          <p><label>Email :</label> <span id="sumEmail">${data.email}</span></p>
+          <p><label>Responsable :</label> <span id="sumResponsable">${data.responsable}</span></p>
+          <p><label>NEPH :</label> <span id="sumNeph">${data.neph}</span></p>
+          <p><label>Date de début :</label> <span id="sumDateDebut">${data.dateDebut}</span></p>
+          <p><label>Photo :</label><br>
+             <img id="sumPhoto" style="max-width: 150px; border: 1px solid #ccc;" src="${data.photo}">
+          </p>
+        `;
+        document.getElementById('summaryView').innerHTML = summaryHTML;
+        document.getElementById('summaryViewSidebar').innerHTML = summaryHTML;
+      }
+      
+      // Gestion de la soumission du formulaire candidat
+      const infoForm = document.getElementById('infoForm');
+      infoForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = collectFormData();
+        localStorage.setItem('validatedData', JSON.stringify(formData));
+        infoForm.style.display = 'none';
+        displaySummary(formData);
+        document.getElementById('summaryView').style.display = 'block';
+        // Affichage des boutons pour passer à la page d'accueil interactive
+        document.getElementById('startBtn').style.display = 'block';
+        document.getElementById('cestPartiBtn').style.display = 'block';
+        document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
+      });
+      
+      // Bouton "Modifier" pour revenir au formulaire
+      document.getElementById('editBtn').addEventListener('click', function() {
+        infoForm.style.display = 'block';
+        document.getElementById('summaryView').style.display = 'none';
+      });
+      
+      // Prévisualisation de la photo (inchangée)
+      const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
+      photoInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            document.getElementById('photoPreview').src = e.target.result;
+            document.getElementById('photoPreview').style.display = 'block';
+            if (document.getElementById('photoPlaceholderText')) {
+              document.getElementById('photoPlaceholderText').style.display = 'none';
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      
+      // Intégration de Google Places Autocomplete pour le champ "Adresse"
+      function initAutocomplete() {
+        const addressInput = document.getElementById('adresse');
+        const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+          componentRestrictions: { country: "fr" },
+          fields: ["address_components", "formatted_address", "geometry", "name"]
+        });
+        autocomplete.addListener('place_changed', function() {
+          const place = autocomplete.getPlace();
+          if (!place.address_components) return;
+          let postalCode = "";
+          let commune = "";
+          place.address_components.forEach(component => {
+            const types = component.types;
+            if (types.indexOf("postal_code") !== -1) {
+              postalCode = component.long_name;
+            }
+            if (types.indexOf("locality") !== -1) {
+              commune = component.long_name;
+            }
+          });
+          if (postalCode) { document.getElementById('code-postal').value = postalCode; }
+          if (commune) { document.getElementById('commune').value = commune; }
+        });
+      }
+      window.addEventListener('load', function() {
+        initAutocomplete();
+        const storedData = localStorage.getItem('validatedData');
+        if (storedData) {
+          const data = JSON.parse(storedData);
+          infoForm.style.display = 'none';
+          displaySummary(data);
+          document.getElementById('summaryView').style.display = 'block';
+        }
+      });
+      
+      // ==============================
+      // Navigation
+      // ==============================
+      // Boutons "Démarrer" et "C'est parti !" redirigent vers la page d'accueil interactive
+      document.getElementById('startBtn').addEventListener('click', () => {
+        // Redirection immédiate vers Accueil
+        document.getElementById('coverPage').style.display = 'none';
+        document.getElementById('contentPage').style.display = 'block';
+      });
+      document.getElementById('cestPartiBtn').addEventListener('click', () => {
+        document.getElementById('coverPage').style.display = 'none';
+        document.getElementById('contentPage').style.display = 'block';
+      });
+      // Bouton "Candidat" dans la sidebar affiche la section "coverPage" (formulaire résumé)
+      document.getElementById('coverPageBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('coverPage').style.display = 'block';
+        document.getElementById('contentPage').style.display = 'none';
+      });
+      // Bouton "Accueil" dans la sidebar
+      document.getElementById('accueilBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('coverPage').style.display = 'none';
+        document.getElementById('contentPage').style.display = 'block';
+      });
+    </script>
 </body>
 </html>
