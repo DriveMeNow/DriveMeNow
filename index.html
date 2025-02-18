@@ -29,8 +29,16 @@
       font-size: 2em;
       color: #FFA500;
     }
-    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
-    .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
+    .welcome-text {
+      margin-bottom: 20px;
+      font-size: 0.95em;
+      color: #ccc;
+    }
+    .auth-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
     .auth-tabs button {
       flex: 1;
       padding: 10px;
@@ -192,8 +200,8 @@
       background: #000;
       transition: left 0.3s;
       z-index: 2500;
+      padding-top: 60px; /* Séparation en haut pour ne pas chevaucher le bouton */
     }
-    #sidebar.active { left: 0; }
     #sidebar a {
       display: block;
       padding: 15px;
@@ -209,13 +217,18 @@
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
     }
+    /* Pied de page centré */
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <!-- Page d'authentification -->
   <div id="authPage">
     <h1>DriveMeNow</h1>
-    <p class="welcome-text">Bienvenue sur DriveMeNow ! Connectez-vous ou inscrivez-vous pour accéder à votre livret d'apprentissage complet.</p>
+    <p class="welcome-text">Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis B en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.</p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
       <button id="registerTab">Inscription</button>
@@ -238,10 +251,6 @@
           <label for="loginCode">Code à usage unique :</label>
           <input type="text" id="loginCode" name="loginCode" placeholder="Code reçu par email" required>
         </div>
-        <div class="auth-field">
-          <label>Captcha :</label>
-          <div id="captchaPlaceholder" style="padding:10px; background:#222; text-align:center;">Captcha non actif</div>
-        </div>
         <button type="submit" class="btn">Se connecter</button>
       </form>
     </div>
@@ -250,8 +259,12 @@
       <h2 style="text-align:center;">Inscription</h2>
       <form id="registerForm">
         <div class="auth-field">
-          <label for="regName">Nom complet :</label>
-          <input type="text" id="regName" name="regName" placeholder="Votre nom complet" required>
+          <label for="regName">Nom :</label>
+          <input type="text" id="regName" name="regName" placeholder="Votre nom" style="text-transform: capitalize;" required>
+        </div>
+        <div class="auth-field">
+          <label for="regPrenom">Prénom :</label>
+          <input type="text" id="regPrenom" name="regPrenom" placeholder="Votre prénom" style="text-transform: capitalize;" required>
         </div>
         <div class="auth-field">
           <label for="regEmail">Email :</label>
@@ -268,14 +281,10 @@
           <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required>
           <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
         </div>
-        <div class="auth-field">
-          <label>Captcha :</label>
-          <div id="captchaPlaceholderRegister" style="padding:10px; background:#222; text-align:center;">Captcha non actif</div>
-        </div>
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
-    <!-- Bouton pour passer l'authentification -->
+    <!-- Bouton pour passer l’authentification -->
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
 
@@ -623,6 +632,17 @@
         if (commune) { document.getElementById('commune').value = commune; }
       });
     }
+    // Passage automatique au champ NEPH suivant dès saisie
+    document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
+      input.addEventListener('input', function() {
+        if (this.value.length === this.maxLength) {
+          const nextInput = inputs[index + 1];
+          if (nextInput) {
+            nextInput.focus();
+          }
+        }
+      });
+    });
     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
       grecaptcha.enterprise.ready(() => {
         grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(token => {
