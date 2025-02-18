@@ -129,11 +129,21 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
+    /* La prévisualisation de la photo sera adaptée selon son orientation */
     .photo-placeholder img {
+      display: none;
+    }
+    .photo-placeholder img.landscape {
       width: 100%;
       height: auto;
       object-fit: cover;
-      display: none;
+      display: block;
+    }
+    .photo-placeholder img.portrait {
+      width: auto;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .photo-placeholder input[type="file"] {
       position: absolute;
@@ -175,6 +185,13 @@
     }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
+    /* --- Transformation automatique en majuscule pour certains champs --- */
+    /* Ces règles s'appliquent au formulaire candidat (page de garde) */
+    .info-field input#nom,
+    .info-field input#prenom,
+    .info-field input#responsable {
+      text-transform: capitalize;
+    }
     /* --- Sidebar et bouton hamburger --- */
     #menuButton {
       position: fixed;
@@ -620,6 +637,16 @@
             const reader = new FileReader();
             reader.onload = function(e) {
               const photoPreview = document.getElementById('photoPreview');
+              // Dès que l'image est chargée, on vérifie ses dimensions pour définir l'orientation
+              photoPreview.onload = function() {
+                if (photoPreview.naturalWidth > photoPreview.naturalHeight) {
+                  photoPreview.classList.add("landscape");
+                  photoPreview.classList.remove("portrait");
+                } else {
+                  photoPreview.classList.add("portrait");
+                  photoPreview.classList.remove("landscape");
+                }
+              }
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
               const placeholderText = document.getElementById('photoPlaceholderText');
