@@ -606,8 +606,29 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
+    // Initialisation de l'autocomplete pour l'adresse et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
+      // Mise en place de la prévisualisation de la photo
+      const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
+      if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const photoPreview = document.getElementById('photoPreview');
+              photoPreview.src = e.target.result;
+              photoPreview.style.display = 'block';
+              const placeholderText = document.getElementById('photoPlaceholderText');
+              if (placeholderText) {
+                placeholderText.style.display = 'none';
+              }
+            }
+            reader.readAsDataURL(file);
+          }
+        });
+      }
     });
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
@@ -643,13 +664,6 @@
         }
       });
     });
-    if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
-      grecaptcha.enterprise.ready(() => {
-        grecaptcha.enterprise.execute('6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x', {action: 'LOGIN'}).then(token => {
-          console.log("reCAPTCHA token obtenu :", token);
-        });
-      });
-    }
   </script>
 </body>
 </html>
