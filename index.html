@@ -112,7 +112,7 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Supprimer les pointillés une fois l'image chargée */
+    /* Supprimer la bordure en pointillé une fois l'image chargée */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -166,7 +166,7 @@
       text-transform: capitalize;
     }
     
-    /* Sidebar */
+    /* Sidebar et bouton hamburger */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -204,6 +204,9 @@
       text-align: center;
       font-size: 1em;
     }
+    /* Ajout d'une marge pour le lien "Accueil" afin d'éviter le chevauchement avec le bouton hamburger */
+    #accueilBtn { margin-top: 60px; }
+    
     #contentPage { display: none; padding: 20px; }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -606,7 +609,7 @@
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
               document.getElementById('photoPlaceholderText').style.display = 'none';
-              // Ajout de la classe "loaded" pour supprimer l'encadrement
+              // Ajout de la classe "loaded" pour supprimer les pointillés
               document.querySelector('.photo-placeholder').classList.add('loaded');
             }
             reader.readAsDataURL(file);
@@ -640,11 +643,4 @@
     document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
-          const nextInput = inputs[index + 1];
-          if (nextInput) { nextInput.focus(); }
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+          const nextInput
