@@ -204,7 +204,7 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Ajout d'une marge pour que le texte "Accueil" sur la page d'accueil ne chevauche pas le bouton hamburger */
+    /* Ajout d'un padding-top pour que le contenu de la page d'accueil ne soit pas caché par le bouton hamburger */
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -552,7 +552,8 @@
       document.getElementById('summaryView').style.display = 'block';
       document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
-      document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth' });
+      // Défilement du résumé en haut de la page
+      document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
@@ -637,15 +638,4 @@
         if (postalCode) { document.getElementById('code-postal').value = postalCode; }
         if (commune) { document.getElementById('commune').value = commune; }
       });
-    }
-    document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
-      input.addEventListener('input', function() {
-        if (this.value.length === this.maxLength) {
-          const nextInput = inputs[index + 1];
-          if (nextInput) { nextInput.focus(); }
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+ 
