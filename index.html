@@ -112,7 +112,7 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Supprime la bordure lorsque la classe "loaded" est présente */
+    /* Supprimer les pointillés une fois l'image chargée */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -560,14 +560,12 @@
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    // Boutons "Démarrer" et "C'est parti !"
+    // Boutons "Démarrer" et "C'est parti !" sans message d'alerte
     document.getElementById('startBtn').addEventListener('click', () => {
-      alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
     document.getElementById('cestPartiBtn').addEventListener('click', () => {
-      alert("Redirection vers la page d'accueil interactive...");
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
@@ -608,7 +606,7 @@
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
               document.getElementById('photoPlaceholderText').style.display = 'none';
-              // Ajout de la classe "loaded" pour supprimer les pointillés
+              // Ajout de la classe "loaded" pour supprimer l'encadrement
               document.querySelector('.photo-placeholder').classList.add('loaded');
             }
             reader.readAsDataURL(file);
