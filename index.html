@@ -194,7 +194,7 @@
       z-index: 2500;
       padding-top: 60px;
     }
-    /* Affichage de la sidebar lorsque la classe "active" est présente */
+    /* Affichage de la sidebar lorsqu'elle a la classe "active" */
     #sidebar.active { left: 0; }
     
     #sidebar a {
@@ -496,19 +496,19 @@
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // On laisse le formulaire tel quel (non réinitialisé) pour permettre sa réutilisation si besoin
+      // Ne pas réinitialiser le formulaire pour conserver les données en cas de modification
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
     document.getElementById('skipAuth').addEventListener('click', () => {
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // On laisse le formulaire intact
+      // Ne pas réinitialiser le formulaire pour conserver les données en cas de modification
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
 
-    // Fonction pour collecter les données du formulaire
+    // Collecte des données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -526,13 +526,13 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Fonction pour formater la date
+    // Format de la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Fonction pour afficher le résumé
+    // Affichage du résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = data.nom;
       document.getElementById('sumPrenom').innerText = data.prenom;
@@ -562,17 +562,16 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Bouton "Modifier" : affiche le formulaire pré-rempli (pour modification)
+    // Bouton "Modifier" : affiche le formulaire pré-rempli pour modification
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
     });
 
-    // Bouton "Nouveau formulaire" : réinitialise le formulaire vierge
-    document.getElementById('resetBtn')?.addEventListener('click', () => {
+    // Bouton "Nouveau formulaire" : réinitialise le formulaire vierge et supprime les données validées
+    document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
-      // Réinitialiser le formulaire pour obtenir des champs vierges
       document.getElementById('infoForm').reset();
       document.getElementById('infoForm').style.display = 'block';
     });
@@ -586,9 +585,13 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar : affiche soit le résumé validé, soit le formulaire vierge si aucune donnée n'est validée
+
+    // Bouton "Candidat" dans la sidebar : affiche la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
+      // Afficher la coverPage
+      document.getElementById('coverPage').style.display = 'block';
+      // Masquer la page de contenu
       document.getElementById('contentPage').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
       const summaryView = document.getElementById('summaryView');
@@ -603,6 +606,7 @@
         infoFormElem.style.display = 'block';
       }
     });
+
     // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
@@ -632,6 +636,7 @@
         });
       }
     });
+
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
@@ -655,6 +660,7 @@
         if (commune) { document.getElementById('commune').value = commune; }
       });
     }
+
     document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
