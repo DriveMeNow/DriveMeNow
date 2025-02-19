@@ -194,7 +194,7 @@
       z-index: 2500;
       padding-top: 60px;
     }
-    /* Ajout de la règle pour afficher la sidebar lorsqu'elle a la classe active */
+    /* Règle pour afficher la sidebar lorsqu'elle a la classe "active" */
     #sidebar.active { left: 0; }
     
     #sidebar a {
@@ -581,15 +581,17 @@
       document.getElementById('contentPage').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
       const summaryView = document.getElementById('summaryView');
-      if (summaryView.style.display === 'block') {
-        summaryView.style.display = 'none';
-        infoFormElem.style.display = 'block';
-      } else {
-        const formData = collectFormData();
-        localStorage.setItem('validatedData', JSON.stringify(formData));
-        infoFormElem.style.display = 'none';
+      // Vérifier si des données validées existent dans le localStorage
+      let validatedData = localStorage.getItem('validatedData');
+      if (validatedData) {
+        let formData = JSON.parse(validatedData);
         displaySummary(formData);
         summaryView.style.display = 'block';
+        infoFormElem.style.display = 'none';
+      } else {
+        // Sinon, afficher le formulaire pour saisir les informations
+        summaryView.style.display = 'none';
+        infoFormElem.style.display = 'block';
       }
     });
     // Bouton "Accueil" dans la sidebar
