@@ -373,7 +373,7 @@
           <button type="submit" class="btn">Envoyer</button>
         </div>
       </form>
-      <!-- Vue résumé -->
+      <!-- Vue résumé : désormais le bouton "C'est parti !" est intégré ici -->
       <div id="summaryView" class="summary">
         <p><label>Nom :</label> <span id="sumNom"></span></p>
         <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
@@ -389,11 +389,13 @@
         <p><label>Photo :</label><br>
           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
         </p>
-        <!-- Boutons pour modifier ou réinitialiser le formulaire -->
-        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
-        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
+        <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
       </div>
-      <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
+      <!-- Nouveaux boutons (Modifier et Nouveau formulaire) placés sous la vue résumé -->
+      <div id="formButtons">
+        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:none;">Modifier</button>
+        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:none;">Nouveau formulaire</button>
+      </div>
     </div>
     <div id="contentPage">
       <section id="accueil" class="section-content">
@@ -496,19 +498,19 @@
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // Ne pas réinitialiser le formulaire pour conserver les données en cas de modification
+      // Laisser le formulaire intact pour modification éventuelle
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
     document.getElementById('skipAuth').addEventListener('click', () => {
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // Ne pas réinitialiser le formulaire pour conserver les données en cas de modification
+      // Laisser le formulaire intact
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
 
-    // Collecte des données du formulaire candidat
+    // Fonction pour collecter les données du formulaire
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -526,13 +528,13 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Format de la date
+    // Fonction pour formater la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Affichage du résumé
+    // Fonction pour afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = data.nom;
       document.getElementById('sumPrenom').innerText = data.prenom;
@@ -552,12 +554,14 @@
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
-      // Affichage du résumé
+      // Affichage du résumé sans réinitialiser le formulaire
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
+      // Afficher la vue résumé et activer le bouton "C'est parti !"
       document.getElementById('summaryView').style.display = 'block';
-      document.getElementById('startBtn').style.display = 'block';
       document.getElementById('cestPartiBtn').style.display = 'block';
+      // Afficher les boutons "Modifier" et "Nouveau formulaire" dans leur nouveau conteneur
+      document.getElementById('formButtons').style.display = 'block';
       // Remonter tout en haut de la page
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -565,13 +569,15 @@
     // Bouton "Modifier" : affiche le formulaire pré-rempli pour modification
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
+      document.getElementById('formButtons').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
     });
 
-    // Bouton "Nouveau formulaire" : réinitialise le formulaire vierge et supprime les données validées
+    // Bouton "Nouveau formulaire" : réinitialise le formulaire et supprime les données validées
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
+      document.getElementById('formButtons').style.display = 'none';
       document.getElementById('infoForm').reset();
       document.getElementById('infoForm').style.display = 'block';
     });
@@ -589,9 +595,8 @@
     // Bouton "Candidat" dans la sidebar : affiche la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
-      // Afficher la coverPage
+      // Afficher la zone coverPage et masquer la page de contenu
       document.getElementById('coverPage').style.display = 'block';
-      // Masquer la page de contenu
       document.getElementById('contentPage').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
       const summaryView = document.getElementById('summaryView');
@@ -601,9 +606,14 @@
         displaySummary(formData);
         summaryView.style.display = 'block';
         infoFormElem.style.display = 'none';
+        // Afficher le bouton "C'est parti !" et les boutons "Modifier" et "Nouveau formulaire"
+        document.getElementById('cestPartiBtn').style.display = 'block';
+        document.getElementById('formButtons').style.display = 'block';
       } else {
         summaryView.style.display = 'none';
         infoFormElem.style.display = 'block';
+        document.getElementById('cestPartiBtn').style.display = 'none';
+        document.getElementById('formButtons').style.display = 'none';
       }
     });
 
