@@ -373,6 +373,7 @@
           <button type="submit" class="btn">Envoyer</button>
         </div>
       </form>
+      <!-- Vue résumé -->
       <div id="summaryView" class="summary">
         <p><label>Nom :</label> <span id="sumNom"></span></p>
         <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
@@ -388,7 +389,9 @@
         <p><label>Photo :</label><br>
           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
         </p>
+        <!-- Boutons pour modifier ou réinitialiser le formulaire -->
         <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
+        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
       <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
     </div>
@@ -493,21 +496,19 @@
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // Ne pas réinitialiser le formulaire afin de conserver les données validées
-      // document.getElementById('infoForm').reset();
+      // On laisse le formulaire tel quel (non réinitialisé) pour permettre sa réutilisation si besoin
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
     document.getElementById('skipAuth').addEventListener('click', () => {
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // Ne pas réinitialiser le formulaire afin de conserver les données validées
-      // document.getElementById('infoForm').reset();
+      // On laisse le formulaire intact
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
 
-    // Collecte des données du formulaire candidat
+    // Fonction pour collecter les données du formulaire
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -525,13 +526,13 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Format de la date
+    // Fonction pour formater la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Affichage du résumé
+    // Fonction pour afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = data.nom;
       document.getElementById('sumPrenom').innerText = data.prenom;
@@ -551,7 +552,7 @@
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
-      // Afficher le résumé sans réinitialiser le formulaire afin de conserver les données
+      // Affichage du résumé
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
@@ -560,14 +561,23 @@
       // Remonter tout en haut de la page
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    // Bouton "Modifier"
+
+    // Bouton "Modifier" : affiche le formulaire pré-rempli (pour modification)
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
-      document.getElementById('startBtn').style.display = 'none';
-      document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    // Boutons "Démarrer" et "C'est parti !" qui basculent la vue vers la page de contenu
+
+    // Bouton "Nouveau formulaire" : réinitialise le formulaire vierge
+    document.getElementById('resetBtn')?.addEventListener('click', () => {
+      localStorage.removeItem('validatedData');
+      document.getElementById('summaryView').style.display = 'none';
+      // Réinitialiser le formulaire pour obtenir des champs vierges
+      document.getElementById('infoForm').reset();
+      document.getElementById('infoForm').style.display = 'block';
+    });
+
+    // Boutons "Démarrer" et "C'est parti !" qui basculent vers la page de contenu
     document.getElementById('startBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -576,7 +586,7 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar : afficher le résumé validé sans nécessiter de nouvelle saisie
+    // Bouton "Candidat" dans la sidebar : affiche soit le résumé validé, soit le formulaire vierge si aucune donnée n'est validée
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('contentPage').style.display = 'none';
@@ -599,6 +609,7 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
+
     // Initialisation de l'autocomplete et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
