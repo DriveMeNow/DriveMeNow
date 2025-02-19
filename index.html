@@ -194,7 +194,7 @@
       z-index: 2500;
       padding-top: 60px;
     }
-    /* Règle pour afficher la sidebar lorsqu'elle a la classe "active" */
+    /* Affichage de la sidebar lorsque la classe "active" est présente */
     #sidebar.active { left: 0; }
     
     #sidebar a {
@@ -207,7 +207,7 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Ajout d'un padding-top pour que le contenu de la page d'accueil ne soit pas caché par le bouton hamburger */
+    /* Pour que le contenu de la page d'accueil ne soit pas caché par le bouton hamburger */
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -493,17 +493,17 @@
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      document.getElementById('infoForm').reset();
+      // Ne pas réinitialiser le formulaire afin de conserver les données validées
+      // document.getElementById('infoForm').reset();
       document.getElementById('summaryView').style.display = 'none';
-      localStorage.removeItem('validatedData');
       updateMenuVisibility();
     });
     document.getElementById('skipAuth').addEventListener('click', () => {
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      document.getElementById('infoForm').reset();
+      // Ne pas réinitialiser le formulaire afin de conserver les données validées
+      // document.getElementById('infoForm').reset();
       document.getElementById('summaryView').style.display = 'none';
-      localStorage.removeItem('validatedData');
       updateMenuVisibility();
     });
 
@@ -551,6 +551,7 @@
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
+      // Afficher le résumé et conserver les données validées (sans réinitialiser le formulaire)
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
@@ -566,7 +567,7 @@
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    // Boutons "Démarrer" et "C'est parti !" sans message d'alerte
+    // Boutons "Démarrer" et "C'est parti !" (ces boutons passent directement à la page de contenu)
     document.getElementById('startBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -575,13 +576,12 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar
+    // Bouton "Candidat" dans la sidebar : toujours afficher les données validées (résumé)
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('contentPage').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
       const summaryView = document.getElementById('summaryView');
-      // Vérifier si des données validées existent dans le localStorage
       let validatedData = localStorage.getItem('validatedData');
       if (validatedData) {
         let formData = JSON.parse(validatedData);
@@ -589,7 +589,6 @@
         summaryView.style.display = 'block';
         infoFormElem.style.display = 'none';
       } else {
-        // Sinon, afficher le formulaire pour saisir les informations
         summaryView.style.display = 'none';
         infoFormElem.style.display = 'block';
       }
