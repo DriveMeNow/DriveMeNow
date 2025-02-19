@@ -112,7 +112,7 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Supprimer les pointillés une fois l'image chargée */
+    /* Dans la version d'origine, l'encadrement disparaît après le chargement */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -123,6 +123,8 @@
     /* Masquer l'image si aucun src n'est défini */
     #photoPreview:not([src]) { display: none; }
     .photo-placeholder input[type="file"] {
+      -webkit-appearance: none;
+      appearance: none;
       position: absolute;
       width: 100%;
       height: 100%;
@@ -160,7 +162,7 @@
     }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
-    /* Transformation manuelle pour les majuscules dans la vue résumé */
+    /* Transformation pour majuscules */
     .capitalized { text-transform: capitalize; }
     
     /* Sidebar */
@@ -191,9 +193,7 @@
       z-index: 2500;
       padding-top: 60px;
     }
-    /* Affichage de la sidebar lorsqu'elle a la classe "active" */
     #sidebar.active { left: 0; }
-    
     #sidebar a {
       display: block;
       padding: 15px;
@@ -204,7 +204,7 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Pour que le contenu de la page d'accueil ne soit pas caché par le bouton hamburger */
+    /* Pour que le contenu ne soit pas caché par le bouton hamburger */
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -297,81 +297,10 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
-      <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
-        <div class="info-section">
-          <div class="candidate-info">
-            <div class="info-field">
-              <label for="nom">Nom du candidat :</label>
-              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
-            </div>
-            <div class="info-field">
-              <label for="prenom">Prénom du candidat :</label>
-              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
-            </div>
-            <div class="info-field">
-              <label for="date-naissance">Date de naissance :</label>
-              <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
-            </div>
-            <div class="info-field">
-              <label for="adresse">Adresse :</label>
-              <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
-            </div>
-            <div class="info-field">
-              <label for="code-postal">Code postal :</label>
-              <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
-            </div>
-            <div class="info-field">
-              <label for="commune">Commune :</label>
-              <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
-            </div>
-            <div class="info-field">
-              <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
-              <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
-            </div>
-            <div class="info-field">
-              <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-              <input type="email" id="email" name="email" placeholder="Votre email" required>
-            </div>
-            <div class="info-field">
-              <label for="responsable">Responsable de la formation :</label>
-              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
-            </div>
-            <div class="info-field">
-              <label>Numéro d'inscription NEPH :</label>
-              <div class="neph-boxes">
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-              </div>
-            </div>
-            <div class="info-field">
-              <label for="date-debut">Date de début de formation :</label>
-              <input type="date" id="date-debut" name="date_debut" required>
-            </div>
-          </div>
-          <!-- Zone photo -->
-          <div class="photo-placeholder">
-            <span id="photoPlaceholderText">Ajouter une photo</span>
-            <img id="photoPreview" alt="Prévisualisation de la photo">
-            <input type="file" name="photo" accept="image/*" required>
-          </div>
-        </div>
-        <div style="text-align:center;">
-          <button type="submit" class="btn">Envoyer</button>
-        </div>
-      </form>
-      <!-- Vue résumé -->
+      <!-- Ajout des boutons dans la vue résumé -->
       <div id="summaryView" class="summary">
+        <!-- Bouton "Démarrer" en haut -->
+        <button id="startBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
         <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
         <p><label>Prénom :</label> <span id="sumPrenom" class="capitalized"></span></p>
         <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
@@ -386,12 +315,86 @@
         <p><label>Photo :</label><br>
           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
         </p>
-        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
-        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
+        <!-- Bouton "C'est parti !" en dessous des infos -->
+        <button id="cestPartiBtn" class="action-btn" style="display:none; margin-top:10px;">C'est parti !</button>
+        <!-- Ajout d'un espace supplémentaire avant les boutons "Modifier" et "Nouveau formulaire" -->
+        <button class="btn edit" id="editBtn" style="max-width:200px; margin:30px auto 0 auto; display:block;">Modifier</button>
+        <button class="btn" id="resetBtn" style="max-width:200px; margin:30px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
-      <!-- Bouton "C'est parti !" -->
-      <div id="goBtnContainer">
-        <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
+      <!-- Conteneur du formulaire vierge -->
+      <div id="formContainer">
+        <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
+          <div class="info-section">
+            <div class="candidate-info">
+              <div class="info-field">
+                <label for="nom">Nom du candidat :</label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+              </div>
+              <div class="info-field">
+                <label for="prenom">Prénom du candidat :</label>
+                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+              </div>
+              <div class="info-field">
+                <label for="date-naissance">Date de naissance :</label>
+                <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
+              </div>
+              <div class="info-field">
+                <label for="adresse">Adresse :</label>
+                <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
+              </div>
+              <div class="info-field">
+                <label for="code-postal">Code postal :</label>
+                <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
+              </div>
+              <div class="info-field">
+                <label for="commune">Commune :</label>
+                <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
+              </div>
+              <div class="info-field">
+                <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
+                <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
+              </div>
+              <div class="info-field">
+                <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+                <input type="email" id="email" name="email" placeholder="Votre email" required>
+              </div>
+              <div class="info-field">
+                <label for="responsable">Responsable de la formation :</label>
+                <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
+              </div>
+              <div class="info-field">
+                <label>Numéro d'inscription NEPH :</label>
+                <div class="neph-boxes">
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                </div>
+              </div>
+              <div class="info-field">
+                <label for="date-debut">Date de début de formation :</label>
+                <input type="date" id="date-debut" name="date_debut" required>
+              </div>
+            </div>
+            <!-- Zone photo identique à l'original -->
+            <div class="photo-placeholder">
+              <span id="photoPlaceholderText">Ajouter une photo</span>
+              <img id="photoPreview" alt="Prévisualisation de la photo">
+              <input type="file" name="photo" accept="image/*" required>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <button type="submit" class="btn">Envoyer</button>
+          </div>
+        </form>
       </div>
     </div>
     <div id="contentPage">
@@ -414,229 +417,233 @@
   </div>
   
   <script>
-    // Fonction de capitalisation
-    function capitalize(str) {
-      return str.replace(/\b\w/g, char => char.toUpperCase());
-    }
-    
-    // Mise à jour de la visibilité du bouton hamburger
-    const menuButton = document.getElementById('menuButton');
-    const sidebar = document.getElementById('sidebar');
-    function updateMenuVisibility() {
-      const mainContentStyle = window.getComputedStyle(document.getElementById('mainContent'));
-      if (mainContentStyle.display === 'block') {
-        menuButton.style.display = 'flex';
-      } else {
-        menuButton.style.display = 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fonction de capitalisation pour retranscrire les majuscules dans la vue résumé
+      function capitalize(str) {
+        return str.replace(/\b\w/g, c => c.toUpperCase());
       }
-    }
-    menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
-    sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
-    
-    // Gestion des onglets Connexion / Inscription
-    const loginTab = document.getElementById('loginTab');
-    const registerTab = document.getElementById('registerTab');
-    const loginFormContainer = document.getElementById('loginFormContainer');
-    const registerFormContainer = document.getElementById('registerFormContainer');
-    loginTab.addEventListener('click', () => {
-      loginTab.classList.add('active');
-      registerTab.classList.remove('active');
-      loginFormContainer.classList.add('active');
-      registerFormContainer.classList.remove('active');
-    });
-    registerTab.addEventListener('click', () => {
-      registerTab.classList.add('active');
-      loginTab.classList.remove('active');
-      registerFormContainer.classList.add('active');
-      loginFormContainer.classList.remove('active');
-    });
-    
-    // Fonction toggle pour afficher/masquer le mot de passe
-    function setupTogglePassword(toggleElement, targetInput) {
-      toggleElement.addEventListener('click', () => {
-        if (targetInput.type === "password") {
-          targetInput.type = "text";
-          toggleElement.classList.remove('fa-eye');
-          toggleElement.classList.add('fa-eye-slash');
+      
+      // Gestion du menu hamburger et de la sidebar
+      const menuButton = document.getElementById('menuButton');
+      const sidebar = document.getElementById('sidebar');
+      function updateMenuVisibility() {
+        const mainContentStyle = window.getComputedStyle(document.getElementById('mainContent'));
+        if (mainContentStyle.display === 'block') {
+          menuButton.style.display = 'flex';
         } else {
-          targetInput.type = "password";
-          toggleElement.classList.remove('fa-eye-slash');
-          toggleElement.classList.add('fa-eye');
+          menuButton.style.display = 'none';
+        }
+      }
+      menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
+      sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
+      
+      // Gestion des onglets Connexion / Inscription
+      const loginTab = document.getElementById('loginTab');
+      const registerTab = document.getElementById('registerTab');
+      const loginFormContainer = document.getElementById('loginFormContainer');
+      const registerFormContainer = document.getElementById('registerFormContainer');
+      loginTab.addEventListener('click', () => {
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+        loginFormContainer.classList.add('active');
+        registerFormContainer.classList.remove('active');
+      });
+      registerTab.addEventListener('click', () => {
+        registerTab.classList.add('active');
+        loginTab.classList.remove('active');
+        registerFormContainer.classList.add('active');
+        loginFormContainer.classList.remove('active');
+      });
+      
+      // Fonction toggle pour afficher/masquer le mot de passe
+      function setupTogglePassword(toggleElement, targetInput) {
+        toggleElement.addEventListener('click', () => {
+          if (targetInput.type === "password") {
+            targetInput.type = "text";
+            toggleElement.classList.remove('fa-eye');
+            toggleElement.classList.add('fa-eye-slash');
+          } else {
+            targetInput.type = "password";
+            toggleElement.classList.remove('fa-eye-slash');
+            toggleElement.classList.add('fa-eye');
+          }
+        });
+      }
+      const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+      setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'));
+      document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
+        const targetId = icon.getAttribute('data-target');
+        if (targetId) {
+          setupTogglePassword(icon, document.getElementById(targetId));
         }
       });
-    }
-    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
-    setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'));
-    document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
-      const targetId = icon.getAttribute('data-target');
-      if (targetId) {
-        setupTogglePassword(icon, document.getElementById(targetId));
+      
+      // Soumission du formulaire d'inscription
+      document.getElementById('registerForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const regEmail = document.getElementById('regEmail').value;
+        const regPassword = document.getElementById('regPassword').value;
+        const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
+        if (!passwordRegex.test(regPassword)) {
+          alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
+          return;
+        }
+        if (regPassword !== regPasswordConfirm) {
+          alert("Les mots de passe ne correspondent pas.");
+          return;
+        }
+        const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
+        localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: oneTimeCode }));
+        alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
+        loginTab.click();
+      });
+      
+      // Soumission du formulaire de connexion
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('authPage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('summaryView').style.display = 'none';
+        updateMenuVisibility();
+      });
+      document.getElementById('skipAuth').addEventListener('click', () => {
+        document.getElementById('authPage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('summaryView').style.display = 'none';
+        updateMenuVisibility();
+      });
+      
+      // Fonction pour collecter les données du formulaire candidat
+      function collectFormData() {
+        const nephInputs = document.querySelectorAll('.neph-box input');
+        return {
+          nom: document.getElementById('nom').value,
+          prenom: document.getElementById('prenom').value,
+          dateNaissance: formatDate(document.getElementById('date-naissance').value),
+          adresse: document.getElementById('adresse').value,
+          codePostal: document.getElementById('code-postal').value,
+          commune: document.getElementById('commune').value,
+          telephone: document.getElementById('telephone').value,
+          email: document.getElementById('email').value,
+          responsable: document.getElementById('responsable').value,
+          dateDebut: formatDate(document.getElementById('date-debut').value),
+          neph: Array.from(nephInputs).map(input => input.value).join(''),
+          photo: document.getElementById('photoPreview').src
+        };
       }
-    });
-    
-    // Soumission du formulaire d'inscription
-    document.getElementById('registerForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const regEmail = document.getElementById('regEmail').value;
-      const regPassword = document.getElementById('regPassword').value;
-      const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
-      if (!passwordRegex.test(regPassword)) {
-        alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
-        return;
+      // Fonction pour formater la date
+      function formatDate(dateStr) {
+        if (!dateStr) return "";
+        const parts = dateStr.split("-");
+        return parts[2] + "/" + parts[1] + "/" + parts[0];
       }
-      if (regPassword !== regPasswordConfirm) {
-        alert("Les mots de passe ne correspondent pas.");
-        return;
+      // Fonction pour afficher le résumé avec transformation pour majuscules
+      function displaySummary(data) {
+        document.getElementById('sumNom').innerText = capitalize(data.nom);
+        document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
+        document.getElementById('sumDateNaissance').innerText = data.dateNaissance;
+        document.getElementById('sumAdresse').innerText = data.adresse;
+        document.getElementById('sumCodePostal').innerText = data.codePostal;
+        document.getElementById('sumCommune').innerText = data.commune;
+        document.getElementById('sumTelephone').innerText = data.telephone;
+        document.getElementById('sumEmail').innerText = data.email;
+        document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
+        document.getElementById('sumNeph').innerText = data.neph;
+        document.getElementById('sumDateDebut').innerText = data.dateDebut;
+        if (data.photo) {
+          document.getElementById('sumPhoto').src = data.photo;
+        } else {
+          document.getElementById('sumPhoto').src = "";
+        }
       }
-      const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
-      localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: oneTimeCode }));
-      alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
-      loginTab.click();
-    });
-    
-    // Soumission du formulaire de connexion
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      document.getElementById('authPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      // On conserve le formulaire pour permettre modification
-      document.getElementById('summaryView').style.display = 'none';
-      updateMenuVisibility();
-    });
-    document.getElementById('skipAuth').addEventListener('click', () => {
-      document.getElementById('authPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      // On conserve le formulaire pour modification éventuelle
-      document.getElementById('summaryView').style.display = 'none';
-      updateMenuVisibility();
-    });
-    
-    // Fonction pour collecter les données du formulaire candidat
-    function collectFormData() {
-      const nephInputs = document.querySelectorAll('.neph-box input');
-      return {
-        nom: document.getElementById('nom').value,
-        prenom: document.getElementById('prenom').value,
-        dateNaissance: formatDate(document.getElementById('date-naissance').value),
-        adresse: document.getElementById('adresse').value,
-        codePostal: document.getElementById('code-postal').value,
-        commune: document.getElementById('commune').value,
-        telephone: document.getElementById('telephone').value,
-        email: document.getElementById('email').value,
-        responsable: document.getElementById('responsable').value,
-        dateDebut: formatDate(document.getElementById('date-debut').value),
-        neph: Array.from(nephInputs).map(input => input.value).join(''),
-        photo: document.getElementById('photoPreview').src
-      };
-    }
-    // Fonction pour formater la date
-    function formatDate(dateStr) {
-      if (!dateStr) return "";
-      const parts = dateStr.split("-");
-      return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-    // Fonction pour afficher le résumé
-    function displaySummary(data) {
-      document.getElementById('sumNom').innerText = capitalize(data.nom);
-      document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
-      document.getElementById('sumDateNaissance').innerText = data.dateNaissance;
-      document.getElementById('sumAdresse').innerText = data.adresse;
-      document.getElementById('sumCodePostal').innerText = data.codePostal;
-      document.getElementById('sumCommune').innerText = data.commune;
-      document.getElementById('sumTelephone').innerText = data.telephone;
-      document.getElementById('sumEmail').innerText = data.email;
-      document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
-      document.getElementById('sumNeph').innerText = data.neph;
-      document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo) {
-        document.getElementById('sumPhoto').src = data.photo;
-      } else {
-        document.getElementById('sumPhoto').src = "";
+      // Fonction de capitalisation (première lettre de chaque mot en majuscule)
+      function capitalize(str) {
+        return str.replace(/\b\w/g, char => char.toUpperCase());
       }
-    }
-    // Fonction de capitalisation (première lettre de chaque mot en majuscule)
-    function capitalize(str) {
-      return str.replace(/\b\w/g, char => char.toUpperCase());
-    }
-    
-    // Soumission du formulaire candidat
-    document.getElementById('infoForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const formData = collectFormData();
-      localStorage.setItem('validatedData', JSON.stringify(formData));
-      // Masquer le formulaire et afficher le résumé
-      document.getElementById('infoForm').style.display = 'none';
-      displaySummary(formData);
-      document.getElementById('summaryView').style.display = 'block';
-      document.getElementById('cestPartiBtn').style.display = 'none';
-      // Afficher les boutons "Modifier" et "Nouveau formulaire"
-      document.getElementById('editBtn').style.display = 'block';
-      document.getElementById('resetBtn').style.display = 'block';
-      // Remonter tout en haut de la page
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
-    document.getElementById('editBtn').addEventListener('click', () => {
-      document.getElementById('summaryView').style.display = 'none';
-      document.getElementById('editBtn').style.display = 'none';
-      document.getElementById('resetBtn').style.display = 'none';
-      document.getElementById('infoForm').style.display = 'block';
-    });
-    
-    // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      localStorage.removeItem('validatedData');
-      document.getElementById('summaryView').style.display = 'none';
-      document.getElementById('editBtn').style.display = 'none';
-      document.getElementById('resetBtn').style.display = 'none';
-      document.getElementById('infoForm').reset();
-      document.getElementById('infoForm').style.display = 'block';
-    });
-    
-    // Boutons "Démarrer" et "C'est parti !" qui basculent vers la page de contenu
-    document.getElementById('startBtn').addEventListener('click', () => {
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'block';
-    });
-    document.getElementById('cestPartiBtn').addEventListener('click', () => {
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'block';
-    });
-    
-    // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
-    document.getElementById('coverPageBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('coverPage').style.display = 'block';
-      document.getElementById('contentPage').style.display = 'none';
-      const infoFormElem = document.getElementById('infoForm');
-      const summaryView = document.getElementById('summaryView');
-      let validatedData = localStorage.getItem('validatedData');
-      if (validatedData) {
-        let formData = JSON.parse(validatedData);
+      
+      // Soumission du formulaire candidat
+      document.getElementById('infoForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = collectFormData();
+        localStorage.setItem('validatedData', JSON.stringify(formData));
+        // Masquer le formulaire et afficher le résumé
+        document.getElementById('infoForm').style.display = 'none';
         displaySummary(formData);
-        summaryView.style.display = 'block';
-        infoFormElem.style.display = 'none';
-        // Afficher le bouton "C'est parti !"
+        document.getElementById('summaryView').style.display = 'block';
+        // Afficher les boutons "Démarrer" et "C'est parti !", ainsi que "Modifier" et "Nouveau formulaire"
+        document.getElementById('startBtn').style.display = 'block';
         document.getElementById('cestPartiBtn').style.display = 'block';
-      } else {
-        summaryView.style.display = 'none';
-        infoFormElem.style.display = 'block';
-        document.getElementById('cestPartiBtn').style.display = 'none';
-      }
-    });
-    
-    // Bouton "Accueil" dans la sidebar
-    document.getElementById('accueilBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'block';
-    });
-    
-    // Initialisation de l'autocomplete et de la prévisualisation de l'image
-    window.addEventListener('load', () => {
-      initAutocomplete();
+        document.getElementById('editBtn').style.display = 'block';
+        document.getElementById('resetBtn').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
+      document.getElementById('editBtn').addEventListener('click', () => {
+        document.getElementById('summaryView').style.display = 'none';
+        document.getElementById('editBtn').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'none';
+        document.getElementById('infoForm').style.display = 'block';
+      });
+      
+      // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire (et la prévisualisation)
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        localStorage.removeItem('validatedData');
+        document.getElementById('summaryView').style.display = 'none';
+        document.getElementById('editBtn').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'none';
+        document.getElementById('infoForm').reset();
+        document.getElementById('infoForm').style.display = 'block';
+        const photoPreview = document.getElementById('photoPreview');
+        photoPreview.src = "";
+        photoPreview.style.display = 'none';
+        document.getElementById('photoPlaceholderText').style.display = 'block';
+      });
+      
+      // Boutons "Démarrer" et "C'est parti !" pour basculer vers la page de contenu
+      document.getElementById('startBtn').addEventListener('click', () => {
+        document.getElementById('coverPage').style.display = 'none';
+        document.getElementById('contentPage').style.display = 'block';
+      });
+      document.getElementById('cestPartiBtn').addEventListener('click', () => {
+        document.getElementById('coverPage').style.display = 'none';
+        document.getElementById('contentPage').style.display = 'block';
+      });
+      
+      // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
+      document.getElementById('coverPageBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('coverPage').style.display = 'block';
+        document.getElementById('contentPage').style.display = 'none';
+        const infoFormElem = document.getElementById('infoForm');
+        const summaryView = document.getElementById('summaryView');
+        let validatedData = localStorage.getItem('validatedData');
+        if (validatedData) {
+          let formData = JSON.parse(validatedData);
+          displaySummary(formData);
+          summaryView.style.display = 'block';
+          infoFormElem.style.display = 'none';
+          document.getElementById('startBtn').style.display = 'block';
+          document.getElementById('cestPartiBtn').style.display = 'block';
+          document.getElementById('editBtn').style.display = 'block';
+          document.getElementById('resetBtn').style.display = 'block';
+        } else {
+          summaryView.style.display = 'none';
+          infoFormElem.style.display = 'block';
+          document.getElementById('startBtn').style.display = 'none';
+          document.getElementById('cestPartiBtn').style.display = 'none';
+        }
+      });
+      
+      // Bouton "Accueil" dans la sidebar
+      document.getElementById('accueilBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('coverPage').style.display = 'none';
+        document.getElementById('contentPage').style.display = 'block';
+      });
+      
+      // Initialisation de l'autocomplete et de la prévisualisation de l'image (sans modification sur la photo)
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
       if (fileInput) {
         fileInput.addEventListener('change', function(e) {
@@ -653,38 +660,38 @@
           }
         });
       }
-    });
-    
-    function initAutocomplete() {
-      const addressInput = document.getElementById('adresse');
-      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        componentRestrictions: { country: "fr" },
-        fields: ["address_components", "formatted_address", "geometry", "name"]
-      });
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.address_components) return;
-        let postalCode = "";
-        let commune = "";
-        place.address_components.forEach(component => {
-          if (component.types.indexOf("postal_code") !== -1) {
-            postalCode = component.long_name;
-          }
-          if (component.types.indexOf("locality") !== -1) {
-            commune = component.long_name;
+      
+      function initAutocomplete() {
+        const addressInput = document.getElementById('adresse');
+        const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+          componentRestrictions: { country: "fr" },
+          fields: ["address_components", "formatted_address", "geometry", "name"]
+        });
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace();
+          if (!place.address_components) return;
+          let postalCode = "";
+          let commune = "";
+          place.address_components.forEach(component => {
+            if (component.types.indexOf("postal_code") !== -1) {
+              postalCode = component.long_name;
+            }
+            if (component.types.indexOf("locality") !== -1) {
+              commune = component.long_name;
+            }
+          });
+          if (postalCode) { document.getElementById('code-postal').value = postalCode; }
+          if (commune) { document.getElementById('commune').value = commune; }
+        });
+      }
+      
+      document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
+        input.addEventListener('input', function() {
+          if (this.value.length === this.maxLength) {
+            const nextInput = inputs[index + 1];
+            if (nextInput) { nextInput.focus(); }
           }
         });
-        if (postalCode) { document.getElementById('code-postal').value = postalCode; }
-        if (commune) { document.getElementById('commune').value = commune; }
-      });
-    }
-    
-    document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
-      input.addEventListener('input', function() {
-        if (this.value.length === this.maxLength) {
-          const nextInput = inputs[index + 1];
-          if (nextInput) { nextInput.focus(); }
-        }
       });
     });
   </script>
