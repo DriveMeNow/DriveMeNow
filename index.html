@@ -126,7 +126,7 @@
       text-align: center;
       background: #222;
       color: #fff;
-      /* Champ NEPH n'est plus obligatoire */
+      /* NEPH n'est plus obligatoire */
     }
     /* Vue résumé */
     #summaryView { display: none; }
@@ -172,7 +172,7 @@
       text-align: center;
       font-size: 1em;
     }
-    /* Conteneur pour le bouton de navigation vers le contenu (C'est parti !) */
+    /* Conteneur pour le bouton de navigation ("C'est parti !") */
     #goBtnContainer { text-align: center; }
     /* Pour que le contenu de la page d'accueil ne soit pas caché par le bouton hamburger */
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
@@ -267,7 +267,7 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- La vue du formulaire -->
+      <!-- Conteneur du formulaire vierge -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
           <div class="info-section">
@@ -311,7 +311,7 @@
               <div class="info-field">
                 <label>Numéro d'inscription NEPH :</label>
                 <div class="neph-boxes">
-                  <!-- Ces champs NEPH ne sont plus obligatoires -->
+                  <!-- NEPH non obligatoire -->
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
@@ -343,9 +343,9 @@
           </div>
         </form>
       </div>
-      <!-- Vue résumé (affichée après Envoi) -->
+      <!-- Vue résumé (après Envoi) -->
       <div id="summaryView" class="summary">
-        <!-- Bouton Démarrer en haut de la vue résumé -->
+        <!-- Bouton Démarrer en haut -->
         <button id="startBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
         <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
         <p><label>Prénom :</label> <span id="sumPrenom" class="capitalized"></span></p>
@@ -361,7 +361,7 @@
         <p><label>Photo :</label><br>
           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
         </p>
-        <!-- Boutons placés dans cet ordre : C'est parti ! puis Modifier puis Nouveau formulaire -->
+        <!-- Boutons dans l'ordre : C'est parti !, Modifier, Nouveau formulaire -->
         <button id="cestPartiBtn" class="action-btn" style="display:none; margin-top:10px;">C'est parti !</button>
         <button class="btn edit" id="editBtn" style="display:none; margin-top:10px;">Modifier</button>
         <button class="btn" id="resetBtn" style="display:none; margin-top:10px;">Nouveau formulaire</button>
@@ -391,7 +391,7 @@
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
-
+    
     // Mise à jour de la visibilité du bouton hamburger
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
@@ -402,7 +402,7 @@
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
     
-    // Onglets Connexion/Inscription
+    // Onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -419,7 +419,7 @@
       registerFormContainer.classList.add('active');
       loginFormContainer.classList.remove('active');
     });
-
+    
     // Toggle mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
@@ -442,7 +442,7 @@
         setupTogglePassword(icon, document.getElementById(targetId));
       }
     });
-
+    
     // Soumission du formulaire d'inscription
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -463,13 +463,13 @@
       alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
-
+    
     // Soumission du formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // Ne réinitialise pas pour permettre la modification
+      // Ne pas réinitialiser le formulaire pour permettre modification
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
@@ -479,8 +479,8 @@
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
-
-    // Collecte des données du formulaire
+    
+    // Fonction pour collecter les données du formulaire
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -515,7 +515,11 @@
       document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
       document.getElementById('sumNeph').innerText = data.neph;
       document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo) document.getElementById('sumPhoto').src = data.photo;
+      if (data.photo) {
+        document.getElementById('sumPhoto').src = data.photo;
+      } else {
+        document.getElementById('sumPhoto').src = "";
+      }
     }
     
     // Soumission du formulaire candidat
@@ -535,22 +539,30 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier" : affiche le formulaire pré-rempli
+    // Bouton "Modifier" : affiche le formulaire pré-rempli (les valeurs restent)
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
-      // Laisser les valeurs dans le formulaire pour modification
+      document.getElementById('editBtn').style.display = 'none';
+      document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('formContainer').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire" : efface les données validées et réinitialise le formulaire
+    // Bouton "Nouveau formulaire" : réinitialise le formulaire et efface l'image prévisualisée
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
+      document.getElementById('editBtn').style.display = 'none';
+      document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('formContainer').style.display = 'block';
       document.getElementById('infoForm').reset();
+      // Effacer la prévisualisation de l'image
+      const photoPreview = document.getElementById('photoPreview');
+      photoPreview.src = "";
+      photoPreview.style.display = 'none';
+      document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Bouton "Démarrer" et "C'est parti !" : passage à la page de contenu
+    // Boutons "Démarrer" et "C'est parti !" pour passer à la page de contenu
     document.getElementById('startBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -560,7 +572,7 @@
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Bouton "Candidat" dans la sidebar
+    // Bouton "Candidat" dans la sidebar : affiche la zone "coverPage" avec soit le résumé, soit le formulaire vierge
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
@@ -571,7 +583,7 @@
         displaySummary(formData);
         document.getElementById('summaryView').style.display = 'block';
         document.getElementById('formContainer').style.display = 'none';
-        // Afficher les boutons dans la vue résumé
+        // Afficher tous les boutons dans la vue résumé
         document.getElementById('startBtn').style.display = 'block';
         document.getElementById('cestPartiBtn').style.display = 'block';
         document.getElementById('editBtn').style.display = 'block';
@@ -589,7 +601,7 @@
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Initialisation de l'autocomplete et prévisualisation de l'image
+    // Initialisation de l'autocomplete et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
@@ -603,7 +615,6 @@
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
               document.getElementById('photoPlaceholderText').style.display = 'none';
-              document.querySelector('.photo-placeholder').classList.add('loaded');
             }
             reader.readAsDataURL(file);
           }
