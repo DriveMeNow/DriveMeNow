@@ -156,15 +156,12 @@
       text-align: center;
       background: #222;
       color: #fff;
+      /* Supprimé l'attribut required */
     }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
-    /* Transformation automatique en majuscule pour certains champs */
-    .info-field input#nom,
-    .info-field input#prenom,
-    .info-field input#responsable {
-      text-transform: capitalize;
-    }
+    /* Transformation manuelle pour les majuscules dans la vue résumé */
+    .capitalized { text-transform: capitalize; }
     
     /* Sidebar */
     #menuButton {
@@ -343,18 +340,19 @@
             <div class="info-field">
               <label>Numéro d'inscription NEPH :</label>
               <div class="neph-boxes">
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" required></div>
+                <!-- Les champs NEPH ne sont plus obligatoires -->
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
               </div>
             </div>
             <div class="info-field">
@@ -373,28 +371,28 @@
           <button type="submit" class="btn">Envoyer</button>
         </div>
       </form>
-      <!-- Vue résumé : désormais le bouton "C'est parti !" est intégré ici -->
+      <!-- Vue résumé avec les boutons Modifier et Nouveau formulaire à la place de "C'est parti !" -->
       <div id="summaryView" class="summary">
-        <p><label>Nom :</label> <span id="sumNom"></span></p>
-        <p><label>Prénom :</label> <span id="sumPrenom"></span></p>
+        <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
+        <p><label>Prénom :</label> <span id="sumPrenom" class="capitalized"></span></p>
         <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
         <p><label>Adresse :</label> <span id="sumAdresse"></span></p>
         <p><label>Code postal :</label> <span id="sumCodePostal"></span></p>
         <p><label>Commune :</label> <span id="sumCommune"></span></p>
         <p><label>Téléphone :</label> <span id="sumTelephone"></span></p>
         <p><label>Email :</label> <span id="sumEmail"></span></p>
-        <p><label>Responsable :</label> <span id="sumResponsable"></span></p>
+        <p><label>Responsable :</label> <span id="sumResponsable" class="capitalized"></span></p>
         <p><label>NEPH :</label> <span id="sumNeph"></span></p>
         <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
         <p><label>Photo :</label><br>
           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
         </p>
-        <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
+        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
+        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
-      <!-- Nouveaux boutons (Modifier et Nouveau formulaire) placés sous la vue résumé -->
-      <div id="formButtons">
-        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:none;">Modifier</button>
-        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:none;">Nouveau formulaire</button>
+      <!-- Bouton "C'est parti !" déplacé à l'ancienne position des boutons Modifier / Nouveau formulaire -->
+      <div id="goBtnContainer">
+        <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
       </div>
     </div>
     <div id="contentPage">
@@ -417,6 +415,11 @@
   </div>
 
   <script>
+    // Fonction de capitalisation pour retranscrire les majuscules dans la vue résumé
+    function capitalize(str) {
+      return str.replace(/\b\w/g, c => c.toUpperCase());
+    }
+
     // Gestion du menu hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
@@ -498,19 +501,19 @@
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // Laisser le formulaire intact pour modification éventuelle
+      // On conserve le formulaire pour permettre modification
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
     document.getElementById('skipAuth').addEventListener('click', () => {
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // Laisser le formulaire intact
+      // On conserve le formulaire pour modification éventuelle
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
 
-    // Fonction pour collecter les données du formulaire
+    // Fonction pour collecter les données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -534,55 +537,62 @@
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Fonction pour afficher le résumé
+    // Fonction pour afficher le résumé avec transformation pour majuscules
     function displaySummary(data) {
-      document.getElementById('sumNom').innerText = data.nom;
-      document.getElementById('sumPrenom').innerText = data.prenom;
+      document.getElementById('sumNom').innerText = capitalize(data.nom);
+      document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
       document.getElementById('sumDateNaissance').innerText = data.dateNaissance;
       document.getElementById('sumAdresse').innerText = data.adresse;
       document.getElementById('sumCodePostal').innerText = data.codePostal;
       document.getElementById('sumCommune').innerText = data.commune;
       document.getElementById('sumTelephone').innerText = data.telephone;
       document.getElementById('sumEmail').innerText = data.email;
-      document.getElementById('sumResponsable').innerText = data.responsable;
+      document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
       document.getElementById('sumNeph').innerText = data.neph;
       document.getElementById('sumDateDebut').innerText = data.dateDebut;
       if (data.photo) document.getElementById('sumPhoto').src = data.photo;
     }
+    // Fonction de capitalisation (première lettre de chaque mot en majuscule)
+    function capitalize(str) {
+      return str.replace(/\b\w/g, char => char.toUpperCase());
+    }
+
     // Soumission du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
-      // Affichage du résumé sans réinitialiser le formulaire
+      // Masquer le formulaire et afficher le résumé
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
-      // Afficher la vue résumé et activer le bouton "C'est parti !"
       document.getElementById('summaryView').style.display = 'block';
-      document.getElementById('cestPartiBtn').style.display = 'block';
-      // Afficher les boutons "Modifier" et "Nouveau formulaire" dans leur nouveau conteneur
-      document.getElementById('formButtons').style.display = 'block';
+      document.getElementById('cestPartiBtn').style.display = 'none';
+      // Afficher les boutons "Modifier" et "Nouveau formulaire" dans summaryView
+      document.getElementById('editBtn').style.display = 'block';
+      document.getElementById('resetBtn').style.display = 'block';
       // Remonter tout en haut de la page
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Bouton "Modifier" : affiche le formulaire pré-rempli pour modification
+    // Bouton "Modifier" : afficher le formulaire pré-rempli (les données restent dans les champs)
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
-      document.getElementById('formButtons').style.display = 'none';
+      document.getElementById('editBtn').style.display = 'none';
+      document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
     });
 
-    // Bouton "Nouveau formulaire" : réinitialise le formulaire et supprime les données validées
+    // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
-      document.getElementById('formButtons').style.display = 'none';
+      document.getElementById('editBtn').style.display = 'none';
+      document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('infoForm').reset();
       document.getElementById('infoForm').style.display = 'block';
     });
 
-    // Boutons "Démarrer" et "C'est parti !" qui basculent vers la page de contenu
+    // Bouton "Démarrer" et "C'est parti !" qui basculent vers la page de contenu
     document.getElementById('startBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -595,7 +605,6 @@
     // Bouton "Candidat" dans la sidebar : affiche la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
-      // Afficher la zone coverPage et masquer la page de contenu
       document.getElementById('coverPage').style.display = 'block';
       document.getElementById('contentPage').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
@@ -606,14 +615,12 @@
         displaySummary(formData);
         summaryView.style.display = 'block';
         infoFormElem.style.display = 'none';
-        // Afficher le bouton "C'est parti !" et les boutons "Modifier" et "Nouveau formulaire"
+        // On affiche également le bouton "C'est parti !" (qui a été déplacé)
         document.getElementById('cestPartiBtn').style.display = 'block';
-        document.getElementById('formButtons').style.display = 'block';
       } else {
         summaryView.style.display = 'none';
         infoFormElem.style.display = 'block';
         document.getElementById('cestPartiBtn').style.display = 'none';
-        document.getElementById('formButtons').style.display = 'none';
       }
     });
 
