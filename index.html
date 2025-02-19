@@ -112,7 +112,7 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Dans la version d'origine, l'encadrement disparaît après le chargement */
+    /* Supprimer les pointillés une fois l'image chargée */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -123,8 +123,6 @@
     /* Masquer l'image si aucun src n'est défini */
     #photoPreview:not([src]) { display: none; }
     .photo-placeholder input[type="file"] {
-      -webkit-appearance: none;
-      appearance: none;
       position: absolute;
       width: 100%;
       height: 100%;
@@ -158,9 +156,11 @@
       text-align: center;
       background: #222;
       color: #fff;
+      /* Supprimé l'attribut required */
     }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
+    /* Transformation manuelle pour les majuscules dans la vue résumé */
     .capitalized { text-transform: capitalize; }
     
     /* Sidebar */
@@ -191,7 +191,9 @@
       z-index: 2500;
       padding-top: 60px;
     }
+    /* Affichage de la sidebar lorsqu'elle a la classe "active" */
     #sidebar.active { left: 0; }
+    
     #sidebar a {
       display: block;
       padding: 15px;
@@ -202,6 +204,7 @@
       text-align: center;
       font-size: 1em;
     }
+    /* Pour que le contenu de la page d'accueil ne soit pas caché par le bouton hamburger */
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -294,10 +297,82 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Ajout des boutons dans la vue résumé -->
+      <button id="startBtn" class="action-btn" style="display:none;">Démarrer</button>
+      <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
+        <div class="info-section">
+          <div class="candidate-info">
+            <div class="info-field">
+              <label for="nom">Nom du candidat :</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            </div>
+            <div class="info-field">
+              <label for="prenom">Prénom du candidat :</label>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+            </div>
+            <div class="info-field">
+              <label for="date-naissance">Date de naissance :</label>
+              <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
+            </div>
+            <div class="info-field">
+              <label for="adresse">Adresse :</label>
+              <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
+            </div>
+            <div class="info-field">
+              <label for="code-postal">Code postal :</label>
+              <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
+            </div>
+            <div class="info-field">
+              <label for="commune">Commune :</label>
+              <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
+            </div>
+            <div class="info-field">
+              <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
+              <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
+            </div>
+            <div class="info-field">
+              <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+              <input type="email" id="email" name="email" placeholder="Votre email" required>
+            </div>
+            <div class="info-field">
+              <label for="responsable">Responsable de la formation :</label>
+              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
+            </div>
+            <div class="info-field">
+              <label>Numéro d'inscription NEPH :</label>
+              <div class="neph-boxes">
+                <!-- Les champs NEPH ne sont plus obligatoires -->
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+              </div>
+            </div>
+            <div class="info-field">
+              <label for="date-debut">Date de début de formation :</label>
+              <input type="date" id="date-debut" name="date_debut" required>
+            </div>
+          </div>
+          <!-- Zone photo identique à l'original -->
+          <div class="photo-placeholder">
+            <span id="photoPlaceholderText">Ajouter une photo</span>
+            <img id="photoPreview" alt="Prévisualisation de la photo">
+            <input type="file" name="photo" accept="image/*" required>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <button type="submit" class="btn">Envoyer</button>
+        </div>
+      </form>
+      <!-- Vue résumé avec les boutons Modifier et Nouveau formulaire à la place de "C'est parti !" -->
       <div id="summaryView" class="summary">
-        <!-- Bouton "Démarrer" en haut -->
-        <button id="startBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
         <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
         <p><label>Prénom :</label> <span id="sumPrenom" class="capitalized"></span></p>
         <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
@@ -312,86 +387,12 @@
         <p><label>Photo :</label><br>
           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
         </p>
-        <!-- Bouton "C'est parti !" en dessous des infos -->
-        <button id="cestPartiBtn" class="action-btn" style="display:none; margin-top:10px;">C'est parti !</button>
-        <!-- Espace supplémentaire avant les boutons "Modifier" et "Nouveau formulaire" -->
-        <button class="btn edit" id="editBtn" style="max-width:200px; margin:30px auto 0 auto; display:block;">Modifier</button>
-        <button class="btn" id="resetBtn" style="max-width:200px; margin:30px auto 0 auto; display:block;">Nouveau formulaire</button>
+        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
+        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
-      <!-- Conteneur du formulaire vierge -->
-      <div id="formContainer">
-        <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
-          <div class="info-section">
-            <div class="candidate-info">
-              <div class="info-field">
-                <label for="nom">Nom du candidat :</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
-              </div>
-              <div class="info-field">
-                <label for="prenom">Prénom du candidat :</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
-              </div>
-              <div class="info-field">
-                <label for="date-naissance">Date de naissance :</label>
-                <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
-              </div>
-              <div class="info-field">
-                <label for="adresse">Adresse :</label>
-                <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
-              </div>
-              <div class="info-field">
-                <label for="code-postal">Code postal :</label>
-                <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
-              </div>
-              <div class="info-field">
-                <label for="commune">Commune :</label>
-                <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
-              </div>
-              <div class="info-field">
-                <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
-                <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
-              </div>
-              <div class="info-field">
-                <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-                <input type="email" id="email" name="email" placeholder="Votre email" required>
-              </div>
-              <div class="info-field">
-                <label for="responsable">Responsable de la formation :</label>
-                <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
-              </div>
-              <div class="info-field">
-                <label>Numéro d'inscription NEPH :</label>
-                <div class="neph-boxes">
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                </div>
-              </div>
-              <div class="info-field">
-                <label for="date-debut">Date de début de formation :</label>
-                <input type="date" id="date-debut" name="date_debut" required>
-              </div>
-            </div>
-            <!-- Zone photo identique à l'original -->
-            <div class="photo-placeholder">
-              <span id="photoPlaceholderText">Ajouter une photo</span>
-              <img id="photoPreview" alt="Prévisualisation de la photo">
-              <input type="file" name="photo" accept="image/*" required>
-            </div>
-          </div>
-          <div style="text-align:center;">
-            <button type="submit" class="btn">Envoyer</button>
-          </div>
-        </form>
+      <!-- Bouton "C'est parti !" déplacé à l'ancienne position des boutons Modifier / Nouveau formulaire -->
+      <div id="goBtnContainer">
+        <button id="cestPartiBtn" class="action-btn" style="display:none; margin:0 auto;">C'est parti !</button>
       </div>
     </div>
     <div id="contentPage">
@@ -412,13 +413,13 @@
     </div>
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
-  
+
   <script>
     // Fonction de capitalisation pour retranscrire les majuscules dans la vue résumé
     function capitalize(str) {
       return str.replace(/\b\w/g, c => c.toUpperCase());
     }
-    
+
     // Gestion du menu hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
@@ -450,7 +451,7 @@
       registerFormContainer.classList.add('active');
       loginFormContainer.classList.remove('active');
     });
-    
+
     // Fonction toggle pour afficher/masquer le mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
@@ -473,7 +474,7 @@
         setupTogglePassword(icon, document.getElementById(targetId));
       }
     });
-    
+
     // Soumission du formulaire d'inscription
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -494,22 +495,24 @@
       alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
-    
+
     // Soumission du formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
+      // On conserve le formulaire pour permettre modification
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
     document.getElementById('skipAuth').addEventListener('click', () => {
       document.getElementById('authPage').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
+      // On conserve le formulaire pour modification éventuelle
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
-    
+
     // Fonction pour collecter les données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
@@ -547,17 +550,13 @@
       document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
       document.getElementById('sumNeph').innerText = data.neph;
       document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo) {
-        document.getElementById('sumPhoto').src = data.photo;
-      } else {
-        document.getElementById('sumPhoto').src = "";
-      }
+      if (data.photo) document.getElementById('sumPhoto').src = data.photo;
     }
     // Fonction de capitalisation (première lettre de chaque mot en majuscule)
     function capitalize(str) {
-      return str.replace(/\b\w/g, c => c.toUpperCase());
+      return str.replace(/\b\w/g, char => char.toUpperCase());
     }
-    
+
     // Soumission du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -567,23 +566,23 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Afficher les boutons "Démarrer" et "C'est parti !", ainsi que "Modifier" et "Nouveau formulaire"
-      document.getElementById('startBtn').style.display = 'block';
-      document.getElementById('cestPartiBtn').style.display = 'block';
+      document.getElementById('cestPartiBtn').style.display = 'none';
+      // Afficher les boutons "Modifier" et "Nouveau formulaire" dans summaryView
       document.getElementById('editBtn').style.display = 'block';
       document.getElementById('resetBtn').style.display = 'block';
+      // Remonter tout en haut de la page
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
-    // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
+
+    // Bouton "Modifier" : afficher le formulaire pré-rempli (les données restent dans les champs)
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
       document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
     });
-    
-    // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire (et la prévisualisation)
+
+    // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
@@ -591,13 +590,9 @@
       document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('infoForm').reset();
       document.getElementById('infoForm').style.display = 'block';
-      const photoPreview = document.getElementById('photoPreview');
-      photoPreview.src = "";
-      photoPreview.style.display = 'none';
-      document.getElementById('photoPlaceholderText').style.display = 'block';
     });
-    
-    // Boutons "Démarrer" et "C'est parti !" pour basculer vers la page de contenu
+
+    // Bouton "Démarrer" et "C'est parti !" qui basculent vers la page de contenu
     document.getElementById('startBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -606,8 +601,8 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    
-    // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
+
+    // Bouton "Candidat" dans la sidebar : affiche la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
@@ -620,43 +615,45 @@
         displaySummary(formData);
         summaryView.style.display = 'block';
         infoFormElem.style.display = 'none';
-        document.getElementById('startBtn').style.display = 'block';
+        // On affiche également le bouton "C'est parti !" (qui a été déplacé)
         document.getElementById('cestPartiBtn').style.display = 'block';
-        document.getElementById('editBtn').style.display = 'block';
-        document.getElementById('resetBtn').style.display = 'block';
       } else {
         summaryView.style.display = 'none';
         infoFormElem.style.display = 'block';
-        document.getElementById('startBtn').style.display = 'none';
         document.getElementById('cestPartiBtn').style.display = 'none';
       }
     });
-    
+
     // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    
-    // Initialisation de l'autocomplétion et de la prévisualisation de l'image (aucune modification sur la partie photo)
-    const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
-    if (fileInput) {
-      fileInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            const photoPreview = document.getElementById('photoPreview');
-            photoPreview.src = e.target.result;
-            photoPreview.style.display = 'block';
-            document.getElementById('photoPlaceholderText').style.display = 'none';
+
+    // Initialisation de l'autocomplete et de la prévisualisation de l'image
+    window.addEventListener('load', () => {
+      initAutocomplete();
+      const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
+      if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const photoPreview = document.getElementById('photoPreview');
+              photoPreview.src = e.target.result;
+              photoPreview.style.display = 'block';
+              document.getElementById('photoPlaceholderText').style.display = 'none';
+              // Ajout de la classe "loaded" pour supprimer les pointillés
+              document.querySelector('.photo-placeholder').classList.add('loaded');
+            }
+            reader.readAsDataURL(file);
           }
-          reader.readAsDataURL(file);
-        }
-      });
-    }
-    
+        });
+      }
+    });
+
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
@@ -680,7 +677,7 @@
         if (commune) { document.getElementById('commune').value = commune; }
       });
     }
-    
+
     document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
