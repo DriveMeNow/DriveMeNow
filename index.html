@@ -194,6 +194,9 @@
       z-index: 2500;
       padding-top: 60px;
     }
+    /* Ajout de la règle pour afficher la sidebar lorsqu'elle a la classe active */
+    #sidebar.active { left: 0; }
+    
     #sidebar a {
       display: block;
       padding: 15px;
@@ -413,20 +416,16 @@
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
-      if (document.getElementById('mainContent').style.display === 'block') {
+      const mainContentStyle = window.getComputedStyle(document.getElementById('mainContent'));
+      if (mainContentStyle.display === 'block') {
         menuButton.style.display = 'flex';
       } else {
         menuButton.style.display = 'none';
       }
     }
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
-    // Conserver l'événement mouseleave avec un délai pour éviter une fermeture trop rapide
-    sidebar.addEventListener('mouseleave', () => {
-      setTimeout(() => {
-        sidebar.classList.remove('active');
-      }, 200);
-    });
-
+    sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
+    
     // Gestion des onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
