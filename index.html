@@ -551,7 +551,7 @@
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
-      // Afficher le résumé et conserver les données validées (sans réinitialiser le formulaire)
+      // Afficher le résumé sans réinitialiser le formulaire afin de conserver les données
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
@@ -567,7 +567,7 @@
       document.getElementById('startBtn').style.display = 'none';
       document.getElementById('cestPartiBtn').style.display = 'none';
     });
-    // Boutons "Démarrer" et "C'est parti !" (ces boutons passent directement à la page de contenu)
+    // Boutons "Démarrer" et "C'est parti !" qui basculent la vue vers la page de contenu
     document.getElementById('startBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -576,7 +576,7 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    // Bouton "Candidat" dans la sidebar : toujours afficher les données validées (résumé)
+    // Bouton "Candidat" dans la sidebar : afficher le résumé validé sans nécessiter de nouvelle saisie
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('contentPage').style.display = 'none';
