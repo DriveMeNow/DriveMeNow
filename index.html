@@ -112,7 +112,6 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Dans la version d'origine, l'encadrement disparaît après le chargement */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -120,7 +119,6 @@
       object-fit: contain;
       display: block;
     }
-    /* Masquer l'image si aucun src n'est défini */
     #photoPreview:not([src]) { display: none; }
     .photo-placeholder input[type="file"] {
       -webkit-appearance: none;
@@ -364,6 +362,7 @@
                 <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
               </div>
               <div class="info-field">
+                <!-- Modification ici : ajout d'une astérisque (*) -->
                 <label>Numéro d'inscription NEPH* :</label>
                 <div class="neph-boxes">
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
@@ -398,7 +397,7 @@
         </form>
         <!-- Texte d'information NEPH placé en bas du formulaire candidat -->
         <div class="neph-info">
-          * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. 
+          * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé.
           <a href="#inscriptionSection" class="en-savoir" style="color: #FFA500;">En savoir +</a>
         </div>
       </div>
@@ -412,7 +411,7 @@
       <div id="nephInfoReg">
         <h3>Le NEPH, qu’est-ce que c’est ?</h3>
         <p>
-          Le NEPH (Numéro d’Enregistrement Préfectoral Harmonisé) est un numéro de 12 chiffres indispensable pour passer le permis de conduire. Il est attribué après le dépôt de votre dossier à la préfecture et reste valable à vie.
+          Le NEPH (Numéro d’Enregistrement Préfectoral Harmonisé) est un numéro de 12 chiffres indispensable pour passer le permis de conduire. Il vous est attribué après le dépôt de votre dossier à la préfecture et reste valable à vie.
         </p>
         <p>
           <strong>Composition :</strong> 2 chiffres pour l’année, 2 pour le mois, 2 pour le département, 2 pour la préfecture et 4 pour l’ordre d'inscription.
@@ -598,7 +597,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier"
+    // Bouton "Modifier" : afficher le formulaire pré-rempli
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
@@ -606,7 +605,7 @@
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire"
+    // Bouton "Nouveau formulaire" : réinitialiser le formulaire
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
