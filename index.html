@@ -161,11 +161,25 @@
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
     
-    /* Lien "En savoir +" (en bleu) */
-    .en-savoir {
-      color: blue;
+    /* Texte d'information NEPH dans le formulaire vierge – à placer en bas */
+    .neph-info {
+      font-size: 0.9em;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .neph-info a {
+      color: #FFA500;
       text-decoration: underline;
       cursor: pointer;
+    }
+    
+    /* Bloc d'information NEPH dans l'onglet Inscription */
+    #nephInfoReg {
+      display: block;
+      margin-top: 15px;
+      padding: 10px;
+      background: #222;
+      font-size: 0.9em;
     }
     
     /* Sidebar */
@@ -277,9 +291,9 @@
         </div>
         <button type="submit" class="btn">S'inscrire</button>
         <!-- Bloc d'information NEPH dans l'onglet Inscription -->
-        <div id="nephInfo" style="display:none; margin-top:15px; padding:10px; background:#222; font-size:0.9em;">
+        <div id="nephInfoReg" style="margin-top:15px; padding:10px; background:#222; font-size:0.9em;">
           <h3 style="margin-bottom:10px;">Le NEPH</h3>
-          <p>Le NEPH (Numéro d’Enregistrement Préfectoral Harmonisé) est indispensable pour passer le permis de conduire. Ce numéro de 12 chiffres est délivré lors de votre inscription et se compose de :</p>
+          <p>Le NEPH (Numéro d’Enregistrement Préfectoral Harmonisé) est indispensable pour passer votre permis. Ce numéro de 12 chiffres est délivré sur demande lors de votre inscription et se compose de :</p>
           <ul style="margin-left:20px; list-style-type:disc;">
             <li>2 chiffres pour l'année d'inscription</li>
             <li>2 chiffres pour le mois</li>
@@ -287,7 +301,7 @@
             <li>2 chiffres pour la préfecture</li>
             <li>4 chiffres pour l'ordre d'inscription</li>
           </ul>
-          <p>Le NEPH vous est remis après traitement de votre dossier (entre 2 et 4 semaines). Conservez-le, il sera valable à vie.</p>
+          <p>Il vous est attribué entre 2 et 4 semaines après le dépôt de votre dossier.</p>
         </div>
       </form>
     </div>
@@ -312,36 +326,8 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Dans la vue résumé, ajout des deux nouveaux boutons -->
-      <div id="summaryView" class="summary">
-        <!-- Bouton "Démarrer" placé au-dessus du résumé -->
-        <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
-        <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
-        <p><label>Prénom :</label> <span id="sumPrenom" class="capitalized"></span></p>
-        <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
-        <p><label>Adresse :</label> <span id="sumAdresse"></span></p>
-        <p><label>Code postal :</label> <span id="sumCodePostal"></span></p>
-        <p><label>Commune :</label> <span id="sumCommune"></span></p>
-        <p><label>Téléphone :</label> <span id="sumTelephone"></span></p>
-        <p><label>Email :</label> <span id="sumEmail"></span></p>
-        <p><label>Responsable :</label> <span id="sumResponsable" class="capitalized"></span></p>
-        <!-- Modification : Ajout d'une astérisque dans le label NEPH -->
-        <p><label>Numéro d'inscription NEPH* :</label> <span id="sumNeph"></span></p>
-        <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
-        <p><label>Photo :</label><br>
-          <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
-        </p>
-        <!-- Bouton "Commencer" placé en dessous du résumé -->
-        <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
-        <!-- Les boutons existants "Modifier" et "Nouveau formulaire" restent inchangés -->
-        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
-        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
-        <!-- Texte en bas de la vue résumé pour NEPH -->
-        <p style="font-size:0.9em; text-align:center; margin-top:10px;">
-          *NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. 
-          <a href="#" id="linkEnSavoir" class="en-savoir">En savoir +</a>
-        </p>
-      </div>
+      <!-- Bouton "Démarrer" placé en haut de la vue résumé -->
+      <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
       <!-- Conteneur du formulaire vierge -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
@@ -417,7 +403,14 @@
             <button type="submit" class="btn">Envoyer</button>
           </div>
         </form>
+        <!-- Texte d'information NEPH placé en bas du formulaire vierge -->
+        <div class="neph-info">
+          * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. 
+          <a href="#nephInfoReg" class="en-savoir" style="color: #FFA500;">En savoir +</a>
+        </div>
       </div>
+      <!-- Bouton "Commencer" placé en dessous du conteneur du formulaire vierge -->
+      <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
     </div>
     <div id="contentPage">
       <section id="accueil" class="section-content">
@@ -678,7 +671,6 @@
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
               document.getElementById('photoPlaceholderText').style.display = 'none';
-              // Ici, on n'ajoute plus de classe "loaded" pour garder le comportement d'origine.
             }
             reader.readAsDataURL(file);
           }
@@ -719,14 +711,17 @@
       });
     });
     
-    // Ajout de l'événement sur le lien "En savoir +" pour afficher le bloc NEPH dans l'onglet Inscription
-    document.getElementById('linkEnSavoir').addEventListener('click', (e) => {
-      e.preventDefault();
-      // Passer à l'onglet Inscription
-      registerTab.click();
-      // Afficher le bloc d'information NEPH dans l'onglet Inscription
-      document.getElementById('nephInfo').style.display = 'block';
-    });
+    // Ajout de l'événement sur le lien "En savoir +"
+    // On s'assure ici que l'élément existe
+    const linkEnSavoir = document.querySelector('.en-savoir');
+    if(linkEnSavoir){
+      linkEnSavoir.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Redirige vers le bloc d'information NEPH dans l'onglet Inscription
+        registerTab.click();
+        document.getElementById('nephInfoReg').scrollIntoView({ behavior: 'smooth' });
+      });
+    }
   </script>
 </body>
 </html>
