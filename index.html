@@ -112,7 +112,6 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Dans la version d'origine, l'encadrement disparaît après le chargement */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -120,7 +119,6 @@
       object-fit: contain;
       display: block;
     }
-    /* Masquer l'image si aucun src n'est défini */
     #photoPreview:not([src]) { display: none; }
     .photo-placeholder input[type="file"] {
       -webkit-appearance: none;
@@ -175,7 +173,7 @@
       cursor: pointer;
     }
     
-    /* Bloc d'information NEPH dans l'onglet Inscription */
+    /* Bloc d'information NEPH dans la section Inscription (uniquement affiché via la sidebar) */
     #nephInfoReg {
       margin-top: 15px;
       padding: 10px;
@@ -224,7 +222,7 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
-    /* Nouvelle section Inscription (affichée uniquement lorsque l'utilisateur clique sur "Inscription" dans la sidebar) */
+    /* Nouvelle section Inscription dans le contenu principal */
     #inscriptionSection {
       display: none;
       padding: 20px;
@@ -458,7 +456,7 @@
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
     
-    // Gestion des onglets Connexion / Inscription (sur la page d'authentification)
+    // Gestion des onglets Connexion / Inscription (page d'authentification)
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -583,7 +581,7 @@
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
-    // Soumission du formulaire candidat (page vierge après authentification)
+    // Soumission du formulaire candidat (page vierge)
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
@@ -740,7 +738,7 @@
     if(linkEnSavoir){
       linkEnSavoir.addEventListener('click', (e) => {
         e.preventDefault();
-        // Passer à la section Inscription et défiler jusqu'au bloc d'information
+        // Simuler un clic sur l'onglet Inscription et défiler jusqu'à la section correspondante
         registerTab.click();
         document.getElementById('inscriptionSection').scrollIntoView({ behavior: 'smooth' });
       });
