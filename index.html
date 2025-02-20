@@ -112,7 +112,6 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Dans la version d'origine, l'encadrement disparaît après le chargement */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -120,7 +119,6 @@
       object-fit: contain;
       display: block;
     }
-    /* Masquer l'image si aucun src n'est défini */
     #photoPreview:not([src]) { display: none; }
     .photo-placeholder input[type="file"] {
       -webkit-appearance: none;
@@ -163,7 +161,7 @@
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
     
-    /* Texte d'information NEPH dans le formulaire vierge (placé en bas) */
+    /* Texte d'information NEPH dans le formulaire candidat (placé en bas) */
     .neph-info {
       font-size: 0.9em;
       text-align: center;
@@ -175,13 +173,13 @@
       cursor: pointer;
     }
     
-    /* Bloc d'information NEPH dans l'onglet Inscription */
+    /* Bloc d'information NEPH dans l'onglet Inscription (uniquement visible dans la section Inscription de la sidebar) */
     #nephInfoReg {
-      display: block;
       margin-top: 15px;
       padding: 10px;
       background: #222;
       font-size: 0.9em;
+      color: #fff;
     }
     
     /* Sidebar */
@@ -224,6 +222,11 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
+    /* Nouvelle section Inscription dans le contenu principal */
+    #inscriptionSection {
+      display: none;
+      padding: 20px;
+    }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
@@ -264,7 +267,7 @@
         <button type="submit" class="btn">Se connecter</button>
       </form>
     </div>
-    <!-- Formulaire d'inscription -->
+    <!-- Formulaire d'inscription (sur la page d'authentification) -->
     <div id="registerFormContainer" class="auth-form">
       <h2 style="text-align:center;">Inscription</h2>
       <form id="registerForm">
@@ -292,16 +295,7 @@
           <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
         </div>
         <button type="submit" class="btn">S'inscrire</button>
-        <!-- Bloc d'information NEPH dans l'onglet Inscription -->
-        <div id="nephInfoReg" style="margin-top:15px; padding:10px; background:#222; font-size:0.9em; color: #fff;">
-          <h3 style="margin-bottom:10px;">Le NEPH : Qu'est-ce que c'est ?</h3>
-          <p>Le NEPH (Numéro d’Enregistrement Préfectoral Harmonisé) est un numéro de 12 chiffres indispensable pour passer le permis de conduire. Il est attribué lors du dépôt de votre dossier d'inscription à la préfecture et reste valable à vie.</p>
-          <p><strong>Chiffres du NEPH :</strong> 2 chiffres pour l'année, 2 pour le mois, 2 pour le département, 2 pour la préfecture et 4 pour l'ordre d'inscription.</p>
-          <p><strong>Obtenir votre NEPH :</strong><br>
-          – Candidat libre : demandez-le en ligne sur le site de l’ANTS (gratuit).<br>
-          – Titulaire d’un permis : contactez votre ancienne auto-école ou le service de permis de votre département (avec une pièce d'identité).</p>
-          <p>Un délai de 2 à 4 semaines peut être nécessaire.</p>
-        </div>
+        <!-- Le bloc d'information NEPH dans le formulaire d'inscription de la page d'authentification n'est PAS affiché ici -->
       </form>
     </div>
     <!-- Bouton pour passer l’authentification -->
@@ -327,7 +321,7 @@
       </div>
       <!-- Bouton "Démarrer" placé en haut de la vue résumé -->
       <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
-      <!-- Conteneur du formulaire vierge -->
+      <!-- Conteneur du formulaire candidat (page vierge) -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
           <div class="info-section">
@@ -369,7 +363,6 @@
                 <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
               </div>
               <div class="info-field">
-                <!-- Ajout de l'astérisque sur le champ NEPH -->
                 <label>Numéro d'inscription NEPH* :</label>
                 <div class="neph-boxes">
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
@@ -405,12 +398,30 @@
         <!-- Texte d'information NEPH placé en bas du formulaire vierge -->
         <div class="neph-info">
           * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. 
-          <a href="#nephInfoReg" class="en-savoir" style="color: #FFA500;">En savoir +</a>
+          <a href="#inscriptionSection" class="en-savoir" style="color: #FFA500;">En savoir +</a>
         </div>
       </div>
       <!-- Bouton "Commencer" placé en dessous du conteneur du formulaire vierge -->
       <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
     </div>
+    
+    <!-- Section Inscription (affichée via la sidebar) -->
+    <div id="inscriptionSection" style="display:none; padding:20px;">
+      <h2>Inscription</h2>
+      <div id="nephInfoReg">
+        <h3>Le NEPH, qu’est-ce que c’est ?</h3>
+        <p>
+          Le NEPH (Numéro d’Enregistrement Préfectoral Harmonisé) est un numéro de 12 chiffres indispensable pour passer le permis de conduire. Il vous est attribué après le dépôt de votre dossier à la préfecture et reste valable à vie.
+        </p>
+        <p>
+          <strong>Composition :</strong> 2 chiffres pour l’année, 2 pour le mois, 2 pour le département, 2 pour la préfecture et 4 pour l’ordre d'inscription.
+        </p>
+        <p>
+          <strong>Obtention :</strong> Pour les candidats libres, la demande se fait en ligne sur le site de l’ANTS (gratuit). Pour les autres, contactez votre auto-école ou le service de permis de votre département (pièce d’identité requise). Le délai est de 2 à 4 semaines.
+        </p>
+      </div>
+    </div>
+    
     <div id="contentPage">
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
@@ -431,7 +442,7 @@
   </div>
   
   <script>
-    // Fonction de capitalisation pour retranscrire les majuscules dans la vue résumé
+    // Fonction de capitalisation
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
@@ -441,16 +452,12 @@
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
       const mainContentStyle = window.getComputedStyle(document.getElementById('mainContent'));
-      if (mainContentStyle.display === 'block') {
-        menuButton.style.display = 'flex';
-      } else {
-        menuButton.style.display = 'none';
-      }
+      menuButton.style.display = (mainContentStyle.display === 'block') ? 'flex' : 'none';
     }
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
     
-    // Gestion des onglets Connexion / Inscription
+    // Gestion des onglets Connexion / Inscription (page d'authentification)
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -491,7 +498,7 @@
       }
     });
     
-    // Soumission du formulaire d'inscription
+    // Soumission du formulaire d'inscription (authentification)
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -512,7 +519,7 @@
       loginTab.click();
     });
     
-    // Soumission du formulaire de connexion
+    // Soumission du formulaire de connexion (authentification)
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -551,7 +558,7 @@
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Fonction pour afficher le résumé avec transformation pour majuscules
+    // Fonction pour afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = capitalize(data.nom);
       document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
@@ -570,7 +577,7 @@
         document.getElementById('sumPhoto').src = "";
       }
     }
-    // Fonction de capitalisation (première lettre de chaque mot en majuscule)
+    // Fonction de capitalisation
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
@@ -580,11 +587,9 @@
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
-      // Masquer le formulaire et afficher le résumé
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Afficher les boutons "Démarrer" et "Commencer", ainsi que "Modifier" et "Nouveau formulaire"
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -592,7 +597,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
+    // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
@@ -600,7 +605,7 @@
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire (et la prévisualisation)
+    // Bouton "Nouveau formulaire"
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
@@ -614,21 +619,24 @@
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Boutons "Démarrer" et "Commencer" pour basculer vers la page d'accueil (contentPage)
+    // Boutons "Démarrer" et "Commencer" pour accéder à la page d'accueil
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
+      document.getElementById('inscriptionSection').style.display = 'none';
     });
     document.getElementById('commencerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
+      document.getElementById('inscriptionSection').style.display = 'none';
     });
     
-    // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
+    // Bouton "Candidat" dans la sidebar
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
       document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
       const summaryView = document.getElementById('summaryView');
       let validatedData = localStorage.getItem('validatedData');
@@ -649,14 +657,23 @@
       }
     });
     
+    // Bouton "Inscription" dans la sidebar
+    document.querySelector('a[href="#inscriptionSection"]').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'block';
+    });
+    
     // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Initialisation de l'autocomplétion et de la prévisualisation de l'image (aucune modification sur la partie photo)
+    // Initialisation de l'autocomplétion et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
@@ -710,24 +727,23 @@
       });
     });
     
-    // Ajout de l'événement sur le lien "En savoir +"
-    // On s'assure ici que l'élément existe
-    const linkEnSavoir = document.querySelector('.en-savoir');
-    if(linkEnSavoir){
-      linkEnSavoir.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Dans ce cas, le lien redirige vers le bloc d'information NEPH dans l'onglet Inscription
-        registerTab.click();
-        document.getElementById('nephInfoReg').scrollIntoView({ behavior: 'smooth' });
-      });
-    }
-    
-    // Fermeture automatique de la sidebar lors d'un clic sur un onglet (adapté à tous supports)
+    // Fermeture automatique de la sidebar lors d'un clic sur un lien
     document.querySelectorAll('#sidebar a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('active');
       });
     });
+    
+    // Ajout de l'événement sur le lien "En savoir +" dans le bloc NEPH du formulaire candidat
+    const linkEnSavoir = document.querySelector('.en-savoir');
+    if(linkEnSavoir){
+      linkEnSavoir.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Passer à la section Inscription
+        registerTab.click();
+        document.getElementById('inscriptionSection').scrollIntoView({ behavior: 'smooth' });
+      });
+    }
   </script>
 </body>
 </html>
