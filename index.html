@@ -163,6 +163,27 @@
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
     
+    /* Texte d'information NEPH dans le formulaire candidat (placé en bas) */
+    .neph-info {
+      font-size: 0.9em;
+      text-align: center;
+      margin-top: 15px;
+    }
+    .neph-info a {
+      color: #FFA500;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    
+    /* Bloc d'information NEPH dans la section Inscription (affiché via la sidebar) */
+    #nephInfoReg {
+      margin-top: 15px;
+      padding: 10px;
+      background: #222;
+      font-size: 0.9em;
+      color: #fff;
+    }
+    
     /* Sidebar */
     #menuButton {
       position: fixed;
@@ -203,6 +224,11 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
+    /* Nouvelle section Inscription dans le contenu principal */
+    #inscriptionSection {
+      display: none;
+      padding: 20px;
+    }
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
@@ -294,31 +320,9 @@
         <div class="title-line2">Candidat Libre au Permis B</div>
         <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Ajout des deux nouveaux boutons dans la vue résumé -->
-      <div id="summaryView" class="summary">
-        <!-- Bouton "Démarrer" placé au-dessus du résumé -->
-        <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
-        <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
-        <p><label>Prénom :</label> <span id="sumPrenom" class="capitalized"></span></p>
-        <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
-        <p><label>Adresse :</label> <span id="sumAdresse"></span></p>
-        <p><label>Code postal :</label> <span id="sumCodePostal"></span></p>
-        <p><label>Commune :</label> <span id="sumCommune"></span></p>
-        <p><label>Téléphone :</label> <span id="sumTelephone"></span></p>
-        <p><label>Email :</label> <span id="sumEmail"></span></p>
-        <p><label>Responsable :</label> <span id="sumResponsable" class="capitalized"></span></p>
-        <p><label>NEPH :</label> <span id="sumNeph"></span></p>
-        <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
-        <p><label>Photo :</label><br>
-          <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
-        </p>
-        <!-- Bouton "Commencer" placé en dessous du résumé -->
-        <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
-        <!-- Les boutons existants "Modifier" et "Nouveau formulaire" restent inchangés -->
-        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
-        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
-      </div>
-      <!-- Conteneur du formulaire vierge -->
+      <!-- Bouton "Démarrer" placé en haut de la vue résumé -->
+      <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
+      <!-- Conteneur du formulaire candidat (page vierge) -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
           <div class="info-section">
@@ -360,7 +364,7 @@
                 <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
               </div>
               <div class="info-field">
-                <label>Numéro d'inscription NEPH :</label>
+                <label>Numéro d'inscription NEPH* :</label>
                 <div class="neph-boxes">
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
@@ -392,8 +396,33 @@
             <button type="submit" class="btn">Envoyer</button>
           </div>
         </form>
+        <!-- Texte d'information NEPH placé en bas du formulaire candidat -->
+        <div class="neph-info">
+          * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. 
+          <a href="#inscriptionSection" class="en-savoir" style="color: #FFA500;">En savoir +</a>
+        </div>
+      </div>
+      <!-- Bouton "Commencer" placé en dessous du conteneur du formulaire candidat -->
+      <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
+    </div>
+    
+    <!-- Section Inscription (affichée uniquement via la sidebar) -->
+    <div id="inscriptionSection" style="display:none; padding:20px;">
+      <h2>Inscription</h2>
+      <div id="nephInfoReg">
+        <h3>Le NEPH, qu’est-ce que c’est ?</h3>
+        <p>
+          Le NEPH (Numéro d’Enregistrement Préfectoral Harmonisé) est un numéro de 12 chiffres indispensable pour passer le permis de conduire. Il est attribué après le dépôt de votre dossier à la préfecture et reste valable à vie.
+        </p>
+        <p>
+          <strong>Composition :</strong> 2 chiffres pour l’année, 2 pour le mois, 2 pour le département, 2 pour la préfecture et 4 pour l’ordre d'inscription.
+        </p>
+        <p>
+          <strong>Obtention :</strong> Pour les candidats libres, faites votre demande en ligne sur le site de l’ANTS (gratuit). Pour les autres, contactez votre auto-école ou le service de permis de votre département (pièce d’identité requise). Le délai d’obtention est généralement de 2 à 4 semaines.
+        </p>
       </div>
     </div>
+    
     <div id="contentPage">
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
@@ -414,9 +443,9 @@
   </div>
   
   <script>
-    // Fonction de capitalisation pour retranscrire les majuscules dans la vue résumé
+    // Fonction de capitalisation
     function capitalize(str) {
-      return str.replace(/\b\w/g, c => c.toUpperCase());
+      return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
     // Gestion du menu hamburger et de la sidebar
@@ -424,16 +453,12 @@
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
       const mainContentStyle = window.getComputedStyle(document.getElementById('mainContent'));
-      if (mainContentStyle.display === 'block') {
-        menuButton.style.display = 'flex';
-      } else {
-        menuButton.style.display = 'none';
-      }
+      menuButton.style.display = (mainContentStyle.display === 'block') ? 'flex' : 'none';
     }
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
     
-    // Gestion des onglets Connexion / Inscription
+    // Gestion des onglets Connexion / Inscription (page d'authentification)
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -474,7 +499,7 @@
       }
     });
     
-    // Soumission du formulaire d'inscription
+    // Soumission du formulaire d'inscription (page d'authentification)
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -495,7 +520,7 @@
       loginTab.click();
     });
     
-    // Soumission du formulaire de connexion
+    // Soumission du formulaire de connexion (page d'authentification)
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -534,7 +559,7 @@
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Fonction pour afficher le résumé avec transformation pour majuscules
+    // Fonction pour afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = capitalize(data.nom);
       document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
@@ -553,22 +578,19 @@
         document.getElementById('sumPhoto').src = "";
       }
     }
-    // Fonction de capitalisation (première lettre de chaque mot en majuscule)
+    // Fonction de capitalisation
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
-    // Soumission du formulaire candidat
+    // Soumission du formulaire candidat (page vierge)
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
       localStorage.setItem('validatedData', JSON.stringify(formData));
-      // Masquer le formulaire et afficher le résumé
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Afficher les boutons "Démarrer" et "Commencer", ainsi que "Modifier" et "Nouveau formulaire"
-      // On ajoute ici deux nouveaux boutons :
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -576,7 +598,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
+    // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
@@ -584,7 +606,7 @@
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire (et la prévisualisation)
+    // Bouton "Nouveau formulaire"
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
@@ -598,21 +620,24 @@
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Boutons "Démarrer" et "Commencer" pour basculer vers la page d'accueil (contentPage)
+    // Boutons "Démarrer" et "Commencer" pour accéder à la page d'accueil
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
+      document.getElementById('inscriptionSection').style.display = 'none';
     });
     document.getElementById('commencerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
+      document.getElementById('inscriptionSection').style.display = 'none';
     });
     
-    // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
+    // Bouton "Candidat" dans la sidebar
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
       document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
       const summaryView = document.getElementById('summaryView');
       let validatedData = localStorage.getItem('validatedData');
@@ -633,14 +658,23 @@
       }
     });
     
+    // Bouton "Inscription" dans la sidebar
+    document.querySelector('a[href="#inscriptionSection"]').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'block';
+    });
+    
     // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Initialisation de l'autocomplétion et de la prévisualisation de l'image (aucune modification sur la partie photo)
+    // Initialisation de l'autocomplétion et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
@@ -654,7 +688,6 @@
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
               document.getElementById('photoPlaceholderText').style.display = 'none';
-              // Dans cette version, la classe "loaded" n'est plus ajoutée pour que l'encadrement disparaisse comme dans l'original.
             }
             reader.readAsDataURL(file);
           }
@@ -694,11 +727,23 @@
         }
       });
     });
-document.querySelectorAll('#sidebar a').forEach(link => {
-  link.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-  });
-});
+    
+    // Fermeture automatique de la sidebar lors d'un clic sur un lien
+    document.querySelectorAll('#sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+      });
+    });
+    
+    // Lien "En savoir +" dans le bloc NEPH du formulaire candidat
+    const linkEnSavoir = document.querySelector('.en-savoir');
+    if(linkEnSavoir){
+      linkEnSavoir.addEventListener('click', (e) => {
+        e.preventDefault();
+        registerTab.click();
+        document.getElementById('inscriptionSection').scrollIntoView({ behavior: 'smooth' });
+      });
+    }
   </script>
 </body>
 </html>
