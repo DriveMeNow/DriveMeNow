@@ -173,7 +173,7 @@
       cursor: pointer;
     }
     
-    /* Bloc d'information NEPH dans la section Inscription (uniquement affiché via la sidebar) */
+    /* Bloc d'information NEPH dans la section Inscription (affiché via la sidebar) */
     #nephInfoReg {
       margin-top: 15px;
       padding: 10px;
@@ -394,13 +394,13 @@
             <button type="submit" class="btn">Envoyer</button>
           </div>
         </form>
-        <!-- Texte d'information NEPH placé en bas du formulaire vierge -->
+        <!-- Texte d'information NEPH placé en bas du formulaire candidat -->
         <div class="neph-info">
-          * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. 
+          * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé.
           <a href="#inscriptionSection" class="en-savoir" style="color: #FFA500;">En savoir +</a>
         </div>
       </div>
-      <!-- Bouton "Commencer" placé en dessous du conteneur du formulaire vierge -->
+      <!-- Bouton "Commencer" placé en dessous du conteneur du formulaire candidat -->
       <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
     </div>
     
@@ -738,7 +738,6 @@
     if(linkEnSavoir){
       linkEnSavoir.addEventListener('click', (e) => {
         e.preventDefault();
-        // Simuler un clic sur l'onglet Inscription et défiler jusqu'à la section correspondante
         registerTab.click();
         document.getElementById('inscriptionSection').scrollIntoView({ behavior: 'smooth' });
       });
