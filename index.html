@@ -201,6 +201,24 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
+    /* Section pédagogique pour l'inscription */
+    #inscriptionSection {
+      display: none;
+      padding: 20px;
+      padding-top: 60px;
+      max-width: 900px;
+      margin: 30px auto;
+      background: #111;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+    }
+    #inscriptionSection h2 { font-size: 2em; margin-bottom: 20px; color: #FFA500; }
+    #inscriptionSection h3 { font-size: 1.5em; margin-top: 20px; color: #FFA500; }
+    #inscriptionSection p,
+    #inscriptionSection li { font-size: 1em; margin-bottom: 10px; }
+    #inscriptionSection ul,
+    #inscriptionSection ol { margin-left: 20px; margin-bottom: 10px; }
+    
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
@@ -286,15 +304,16 @@
       <a href="#examenSection"><i class="fas fa-laptop"></i><br>Examen</a>
       <a href="#fabricationSection"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
+    
+    <!-- Section Candidat : Formulaire candidat et résumé -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
         <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
         <div class="title-line2">Candidat Libre au Permis B</div>
-        <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
       <!-- Bouton "Démarrer" placé en haut de la vue résumé -->
       <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
-      <!-- Conteneur du formulaire candidat (page vierge) -->
+      <!-- Conteneur du formulaire candidat -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
           <div class="info-section">
@@ -357,7 +376,7 @@
                 <input type="date" id="date-debut" name="date_debut" required>
               </div>
             </div>
-            <!-- Zone photo identique à l'original -->
+            <!-- Zone photo -->
             <div class="photo-placeholder">
               <span id="photoPlaceholderText">Ajouter une photo</span>
               <img id="photoPreview" alt="Prévisualisation de la photo">
@@ -367,11 +386,14 @@
           <div style="text-align:center;">
             <button type="submit" class="btn">Envoyer</button>
           </div>
-                <label>* NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. Obligatoire pour l'apprentissage de la conduite et pour passer les examens du permis de conduire.</label>
+          <label>* NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. Obligatoire pour l'apprentissage de la conduite et pour passer les examens du permis de conduire.</label>
         </form>
       </div>
     </div>
+    
+    <!-- Section de navigation de contenu -->
     <div id="contentPage">
+      <!-- Accueil -->
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
         <p style="text-align:center;">Progression Administrative :</p>
@@ -383,19 +405,166 @@
         <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
           <p><strong>Progression Formation Pratique</strong></p>
           <div class="progress-circle"><span>0%</span></div>
-          <p style="margin-top:10px;">Dernière compétence travaillé : 15/03/2025 - Changement de vitesse (En progression)
-Observations : Le régime moteur est bien respecté lors de la montée de vitesse, mais il est nécessaire de pratiquer davantage la descente de vitesse associée à la décélération et au freinage pour acquérir plus de fluidité mécanique.
-Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</p>
+          <p style="margin-top:10px;">Dernière compétence travaillée : 15/03/2025 - Changement de vitesse (En progression)
+Observations : Le régime moteur est bien respecté lors de la montée de vitesse, mais il est nécessaire de pratiquer davantage la descente associée à la décélération et au freinage pour une fluidité mécanique optimale.
+Prochaine leçon : Retravailler cette compétence et revoir le demi-tour.</p>
         </div>
       </section>
+      
+      <!-- Section pédagogique "Inscription" -->
+      <section id="inscriptionSection" class="section-content" style="display:none;">
+        <header>
+          <h2>Inscription</h2>
+        </header>
+        <article>
+          <h3>1. Introduction</h3>
+          <p>
+            Bienvenue dans ce livret d’apprentissage dédié aux candidats libres souhaitant obtenir leur permis de conduire. Ce guide vous accompagne étape par étape, depuis les démarches administratives jusqu’à l’obtention du permis.
+          </p>
+          <ul>
+            <li>Comprendre les prérequis et obligations de la formation.</li>
+            <li>Effectuer les démarches d’inscription via les plateformes officielles.</li>
+            <li>Suivre votre progression grâce à des outils d’évaluation.</li>
+            <li>Vous préparer efficacement pour l’examen.</li>
+          </ul>
+          <p><em>Conseil :</em> Consultez ce livret sur ordinateur ou tablette et imprimez-le pour le compléter manuellement si besoin.</p>
+        </article>
+        <article>
+          <h3>2. Informations Générales</h3>
+          <h4>2.1 Prérequis pour Débuter la Formation</h4>
+          <ul>
+            <li><strong>Âge :</strong> 17 ans ou plus pour l’examen pratique, 16 ans pour l’examen théorique.</li>
+            <li><strong>Attestation :</strong> Pour les candidats de moins de 21 ans, présenter l’ASSR2 ou l’ASR (ou une déclaration sur l’honneur en cas de perte).</li>
+            <li><strong>Résidence :</strong> Justifier d’attaches en France depuis au moins 6 mois.</li>
+            <li><strong>État de Santé :</strong> Un contrôle médical par un médecin agréé peut être requis.</li>
+          </ul>
+          <h4>2.2 Obligations et Rôles de l’Accompagnateur</h4>
+          <p>
+            L’accompagnateur (titulaire du permis B depuis au moins 5 ans et non rémunéré) doit veiller à la sécurité et à la bonne application des règles. Il doit notamment s’assurer que le candidat respecte les limitations de vitesse, être présent durant l’examen et signer la charte de l’accompagnateur.
+          </p>
+          <h4>2.3 Obligations concernant le Véhicule</h4>
+          <p>
+            Le véhicule utilisé doit être correctement assuré, afficher la mention « Apprentissage » et être équipé conformément aux normes en vigueur.
+          </p>
+          <h4>2.4 Règles de Circulation</h4>
+          <p>
+            Respectez le Code de la Route et assurez-vous d’avoir sur vous le livret d’apprentissage ou le récépissé de dépôt.
+          </p>
+        </article>
+        <article>
+          <h3>3. Démarches d’Inscription via Portails Officiels</h3>
+          <h4>3.1 Examen Théorique Général (ETG)</h4>
+          <ol>
+            <li>Créez un compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
+            <li>Fournissez les documents requis : pièce d’identité, justificatif de domicile, photo signature et attestation JDC si nécessaire.</li>
+            <li>Validez votre demande pour obtenir votre numéro NEPH.</li>
+          </ol>
+          <h4>3.2 Examen Pratique</h4>
+          <ol>
+            <li>Créez ou connectez-vous sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
+            <li>Réservez votre examen en sélectionnant l’option « Inscription en candidat libre ».</li>
+            <li>Fournissez les coordonnées de votre accompagnateur et planifiez l’examen.</li>
+          </ol>
+        </article>
+        <article>
+          <h3>4. Programme de Formation</h3>
+          <h4>4.1 Formation Théorique</h4>
+          <ul>
+            <li><strong>Supports pédagogiques :</strong> Manuels, applications et cours en ligne.</li>
+            <li><strong>Méthodes :</strong> Planifiez vos études, passez des examens blancs et échangez avec d’autres candidats.</li>
+            <li><strong>Gestion du stress :</strong> Pratiquez des techniques de relaxation avant vos sessions.</li>
+          </ul>
+          <h4>4.2 Formation Pratique</h4>
+          <p>
+            La formation pratique combine le suivi technique de vos sessions et une préparation globale.
+          </p>
+          <h5>Préparation Mentale et Physique</h5>
+          <ul>
+            <li>Fixez des objectifs et visualisez votre réussite.</li>
+            <li>Portez une tenue confortable et des chaussures adaptées.</li>
+          </ul>
+          <h5>Suivi et Évaluation</h5>
+          <p>
+            Enregistrez chaque session dans un tableau détaillé (date, durée, km, conditions, compétences et remarques).
+          </p>
+        </article>
+        <article>
+          <h3>5. Modalités du Permis en Candidat Libre</h3>
+          <ul>
+            <li><strong>Conditions :</strong> Au moins 17 ans pour s’inscrire au code et passer l’examen pratique dès 17 ans (depuis le 1er janvier 2024).</li>
+            <li><strong>Accessibilité :</strong> Une solution flexible et économique pour tous les candidats.</li>
+            <li><strong>Conduite accompagnée :</strong> Non disponible en candidat libre.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>6. Espace de Signature</h3>
+          <p>
+            <strong>Signature du Candidat :</strong> Je soussigné(e) [Nom, Prénom] atteste avoir suivi la session de conduite du [date] avec mon accompagnateur.
+          </p>
+          <p>
+            <strong>Signature de l’Accompagnateur :</strong> Je soussigné(e) [Nom, Prénom] certifie avoir supervisé cette session et validé les compétences abordées.
+          </p>
+          <p><em>Note :</em> Cette formalisation est essentielle pour assurer la traçabilité de votre progression.</p>
+        </article>
+        <article>
+          <h3>7. Annexes</h3>
+          <h4>Glossaire</h4>
+          <ul>
+            <li><strong>Accompagnateur :</strong> Titulaire du permis B depuis au moins 5 ans, chargé de superviser la formation.</li>
+            <li><strong>ANTS :</strong> Agence Nationale des Titres Sécurisés.</li>
+            <li><strong>NEPH :</strong> Numéro d’Enregistrement Préfectoral Harmonisé, attribué lors de l’inscription au permis.</li>
+            <li><strong>ASSR/ASR :</strong> Attestation de sécurité routière.</li>
+          </ul>
+          <h4>Contacts Utiles</h4>
+          <ul>
+            <li><strong>ANTS – Assistance :</strong> <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ants.gouv.fr</a></li>
+            <li><strong>Plateforme RdvPermis :</strong> <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">rdvpermis.fr</a></li>
+            <li><strong>Centres d’examen :</strong> Renseignez-vous auprès de votre mairie.</li>
+          </ul>
+          <h4>FAQ</h4>
+          <p>
+            <strong>Q :</strong> Quel est le nombre d’heures de conduite recommandé ?<br>
+            <strong>R :</strong> Environ 20 à 25 heures.
+          </p>
+          <p>
+            <strong>Q :</strong> Que faire en cas de perte de l’attestation scolaire ?<br>
+            <strong>R :</strong> Une déclaration sur l’honneur est acceptée.
+          </p>
+          <p>
+            <strong>Q :</strong> Comment vérifier la conformité de mon véhicule ?<br>
+            <strong>R :</strong> Consultez la liste des équipements obligatoires et vérifiez que le contrôle technique est à jour.
+          </p>
+        </article>
+        <article>
+          <h3>8. Conclusion</h3>
+          <p>
+            Félicitations pour votre engagement dans ce parcours ! Ce livret vous accompagnera tout au long de votre préparation et vous fournira les outils nécessaires pour réussir votre permis.
+          </p>
+          <ul>
+            <li>Respectez les prérequis et obligations.</li>
+            <li>Suivez attentivement les démarches d’inscription.</li>
+            <li>Organisez votre formation en vous appuyant sur les conseils et outils de suivi proposés.</li>
+            <li>Préparez-vous en maîtrisant les compétences requises.</li>
+            <li>Le candidat libre offre une solution flexible et économique.</li>
+          </ul>
+          <p>Restez motivé, entraînez-vous régulièrement, et bonne route !</p>
+        </article>
+      </section>
+      
+      <!-- Section Fabrication / Permis (optionnelle) -->
+      <section id="fabricationSection" class="section-content" style="display:none; padding:20px; padding-top:60px;">
+        <h2>Permis</h2>
+        <p>Contenu spécifique au permis peut être ajouté ici.</p>
+      </section>
+      
+      <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
     </div>
-    <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
   
   <script>
-    // Fonction de capitalisation pour retranscrire les majuscules dans la vue résumé
+    // Fonction de capitalisation
     function capitalize(str) {
-      return str.replace(/\b\w/g, c => c.toUpperCase());
+      return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
     // Gestion du menu hamburger et de la sidebar
@@ -403,11 +572,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
       const mainContentStyle = window.getComputedStyle(document.getElementById('mainContent'));
-      if (mainContentStyle.display === 'block') {
-        menuButton.style.display = 'flex';
-      } else {
-        menuButton.style.display = 'none';
-      }
+      menuButton.style.display = (mainContentStyle.display === 'block') ? 'flex' : 'none';
     }
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
@@ -430,7 +595,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       loginFormContainer.classList.remove('active');
     });
     
-    // Fonction toggle pour afficher/masquer le mot de passe
+    // Fonction toggle pour afficher/masquer les mots de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
         if (targetInput.type === "password") {
@@ -507,13 +672,15 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
         photo: document.getElementById('photoPreview').src
       };
     }
+    
     // Fonction pour formater la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Fonction pour afficher le résumé avec transformation pour majuscules
+    
+    // Fonction pour afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = capitalize(data.nom);
       document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
@@ -532,7 +699,8 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
         document.getElementById('sumPhoto').src = "";
       }
     }
-    // Fonction de capitalisation (première lettre de chaque mot en majuscule)
+    
+    // Fonction de capitalisation (première lettre de chaque mot)
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
@@ -554,7 +722,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
+    // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
@@ -562,7 +730,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire" : réinitialiser le formulaire (et la prévisualisation)
+    // Bouton "Nouveau formulaire"
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
@@ -576,7 +744,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Boutons "Démarrer" et "Commencer" pour accéder à la page d'accueil (contentPage)
+    // Boutons "Démarrer" et "Commencer" pour basculer vers la page d'accueil
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -588,7 +756,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       document.getElementById('inscriptionSection').style.display = 'none';
     });
     
-    // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
+    // Bouton "Candidat" dans la sidebar
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
@@ -613,7 +781,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       }
     });
     
-    // Bouton "Inscription" dans la sidebar : afficher la section d'inscription avec le contenu du livret
+    // Bouton "Inscription" dans la sidebar : afficher la section pédagogique
     document.querySelector('a[href="#inscriptionSection"]').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
@@ -621,7 +789,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       document.getElementById('inscriptionSection').style.display = 'block';
     });
     
-    // Bouton "Accueil" dans la sidebar : afficher la page d'accueil
+    // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
@@ -682,20 +850,13 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
         }
       });
     });
+    
     document.querySelectorAll('#sidebar a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('active');
       });
     });
-    
-    const linkEnSavoir = document.querySelector('.en-savoir');
-    if(linkEnSavoir){
-      linkEnSavoir.addEventListener('click', (e) => {
-        e.preventDefault();
-        registerTab.click();
-        document.getElementById('inscriptionSection').scrollIntoView({ behavior: 'smooth' });
-      });
-    }
   </script>
 </body>
 </html>
+
