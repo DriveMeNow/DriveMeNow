@@ -315,7 +315,7 @@
         <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
         <!-- Les boutons existants "Modifier" et "Nouveau formulaire" restent inchangés -->
         <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
-        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
+max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
       <!-- Conteneur du formulaire vierge -->
       <div id="formContainer">
@@ -584,16 +584,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire (et la prévisualisation)
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      localStorage.removeItem('validatedData');
-      document.getElementById('summaryView').style.display = 'none';
-      document.getElementById('editBtn').style.display = 'none';
-      document.getElementById('infoForm').style.display = 'block';
-      const photoPreview = document.getElementById('photoPreview');
-      photoPreview.src = "";
-      photoPreview.style.display = 'none';
-      document.getElementById('photoPlaceholderText').style.display = 'block';
+    //).style.display = 'block';
     });
     
     // Boutons "Démarrer" et "Commencer" pour basculer vers la page d'accueil (contentPage)
