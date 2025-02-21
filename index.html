@@ -13,8 +13,7 @@
     /* Réinitialisation globale */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
-    body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
-    
+    body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; } 
     /* Page d'authentification */
     #authPage {
       max-width: 400px;
@@ -80,7 +79,6 @@
       display: block;
       text-align: center;
     }
-    
     /* Formulaire candidat (page de garde) */
     .cover-page {
       max-width: 900px;
@@ -96,7 +94,6 @@
     form { width: 100%; }
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
-    
     /* Zone photo à taille fixe */
     .photo-placeholder {
       width: 200px;
@@ -162,7 +159,6 @@
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
-    
     /* Sidebar */
     #menuButton {
       position: fixed;
@@ -276,7 +272,6 @@
     <!-- Bouton pour passer l’authentification -->
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
-
   <!-- Page principale (après authentification) -->
   <div id="mainContent">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
@@ -416,7 +411,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
         </div>
       </section>
     </div>
-    </div>
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
   
@@ -425,7 +419,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
     function capitalize(str) {
       return str.replace(/\b\w/g, c => c.toUpperCase());
     }
-    
     // Gestion du menu hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
@@ -439,7 +432,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
     }
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
-    
     // Gestion des onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
@@ -457,7 +449,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       registerFormContainer.classList.add('active');
       loginFormContainer.classList.remove('active');
     });
-    
     // Fonction toggle pour afficher/masquer le mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
@@ -480,7 +471,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
         setupTogglePassword(icon, document.getElementById(targetId));
       }
     });
-    
     // Soumission du formulaire d'inscription
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -501,7 +491,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
-    
     // Soumission du formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -516,7 +505,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
-    
     // Fonction pour collecter les données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
@@ -564,7 +552,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
-    
     // Soumission du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -582,7 +569,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('resetBtn').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
     // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
@@ -590,7 +576,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
     });
-    
     // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire (et la prévisualisation)
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
@@ -604,7 +589,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       photoPreview.style.display = 'none';
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
-    
     // Boutons "Démarrer" et "Commencer" pour basculer vers la page d'accueil (contentPage)
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
@@ -614,7 +598,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    
     // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
@@ -638,14 +621,12 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
         document.getElementById('commencerBtn').style.display = 'none';
       }
     });
-    
     // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
-    
     // Initialisation de l'autocomplétion et de la prévisualisation de l'image (aucune modification sur la partie photo)
     window.addEventListener('load', () => {
       initAutocomplete();
@@ -666,8 +647,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
           }
         });
       }
-    });
-    
+    }); 
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
@@ -690,8 +670,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
         if (postalCode) { document.getElementById('code-postal').value = postalCode; }
         if (commune) { document.getElementById('commune').value = commune; }
       });
-    }
-    
+    }  
     document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
