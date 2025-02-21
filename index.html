@@ -292,11 +292,32 @@
       <div class="title-section">
         <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
         <div class="title-line2">Candidat Libre au Permis B</div>
-        <div class="subtitle">Votre guide complet pour réussir le permis B en candidat libre.</div>
       </div>
-      <!-- Bouton "Démarrer" placé en haut de la vue résumé -->
-      <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
-      <!-- Conteneur du formulaire candidat (page vierge) -->
+      <!-- Ajout des deux nouveaux boutons dans la vue résumé -->
+      <div id="summaryView" class="summary">
+        <!-- Bouton "Démarrer" placé au-dessus du résumé -->
+        <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
+        <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
+        <p><label>Prénom :</label> <span id="sumPrenom" class="capitalized"></span></p>
+        <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
+        <p><label>Adresse :</label> <span id="sumAdresse"></span></p>
+        <p><label>Code postal :</label> <span id="sumCodePostal"></span></p>
+        <p><label>Commune :</label> <span id="sumCommune"></span></p>
+        <p><label>Téléphone :</label> <span id="sumTelephone"></span></p>
+        <p><label>Email :</label> <span id="sumEmail"></span></p>
+        <p><label>Responsable :</label> <span id="sumResponsable" class="capitalized"></span></p>
+        <p><label>NEPH* :</label> <span id="sumNeph"></span></p>
+        <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
+        <p><label>Photo :</label><br>
+          <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
+        </p>
+        <!-- Bouton "Commencer" placé en dessous du résumé -->
+        <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
+        <!-- Les boutons existants "Modifier" et "Nouveau formulaire" restent inchangés -->
+        <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
+        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
+      </div>
+      <!-- Conteneur du formulaire vierge -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
           <div class="info-section">
@@ -378,13 +399,15 @@
         <p style="text-align:center;">Progression Administrative :</p>
         <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
           <p><strong>Progression Administrative</strong></p>
-          <div class="progress-circle"><span>75%</span></div>
+          <div class="progress-circle"><span>0%</span></div>
         </div>
         <p style="text-align:center; margin-top:20px;">Progression Formation Pratique :</p>
         <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
           <p><strong>Progression Formation Pratique</strong></p>
-          <div class="progress-circle"><span>50%</span></div>
-          <p style="margin-top:10px;">Dernière compétence : Changement de vitesse (En progression)</p>
+          <div class="progress-circle"><span>0%</span></div>
+          <p style="margin-top:10px;">Dernière compétence travaillé : 15/03/2025 - Changement de vitesse (En progression)
+Observations : Le régime moteur est bien respecter lors de la monté de vitesse mais il est nécessaire de pratiquer d’avantage la descente de vitesse associé à la décélération et au freinage pour acquérir plus de fluidité mécanique.
+Prochaine leçon : Retravailler la même compétence et voir en parallèle le demi-tour.</p>
         </div>
       </section>
     </div>
@@ -394,7 +417,7 @@
   <script>
     // Fonction de capitalisation pour retranscrire les majuscules dans la vue résumé
     function capitalize(str) {
-      return str.replace(/\b\w/g, char => char.toUpperCase());
+      return str.replace(/\b\w/g, c => c.toUpperCase());
     }
     
     // Gestion du menu hamburger et de la sidebar
@@ -546,6 +569,7 @@
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
       // Afficher les boutons "Démarrer" et "Commencer", ainsi que "Modifier" et "Nouveau formulaire"
+      // On ajoute ici deux nouveaux boutons :
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -561,7 +585,7 @@
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire" : réinitialiser le formulaire
+    // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire (et la prévisualisation)
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
@@ -575,16 +599,14 @@
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Boutons "Démarrer" et "Commencer" pour accéder à la page d'accueil (contentPage)
+    // Boutons "Démarrer" et "Commencer" pour basculer vers la page d'accueil (contentPage)
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      document.getElementById('inscriptionSection').style.display = 'none';
     });
     document.getElementById('commencerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      document.getElementById('inscriptionSection').style.display = 'none';
     });
     
     // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
@@ -592,7 +614,6 @@
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
       document.getElementById('contentPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
       const infoFormElem = document.getElementById('infoForm');
       const summaryView = document.getElementById('summaryView');
       let validatedData = localStorage.getItem('validatedData');
@@ -604,7 +625,6 @@
         document.getElementById('demarrerBtn').style.display = 'block';
         document.getElementById('commencerBtn').style.display = 'block';
         document.getElementById('editBtn').style.display = 'block';
-        document.getElementById('resetBtn').style.display = 'block';
       } else {
         summaryView.style.display = 'none';
         infoFormElem.style.display = 'block';
@@ -613,19 +633,10 @@
       }
     });
     
-    // Bouton "Inscription" dans la sidebar
-    document.querySelector('a[href="#inscriptionSection"]').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'block';
-    });
-    
     // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
     
@@ -643,6 +654,7 @@
               photoPreview.src = e.target.result;
               photoPreview.style.display = 'block';
               document.getElementById('photoPlaceholderText').style.display = 'none';
+              // Dans cette version, la classe "loaded" n'est plus ajoutée pour que l'encadrement disparaisse comme dans l'original.
             }
             reader.readAsDataURL(file);
           }
@@ -682,20 +694,11 @@
         }
       });
     });
-    document.querySelectorAll('#sidebar a').forEach(link => {
-      link.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-      });
-    });
-    
-    const linkEnSavoir = document.querySelector('.en-savoir');
-    if(linkEnSavoir){
-      linkEnSavoir.addEventListener('click', (e) => {
-        e.preventDefault();
-        registerTab.click();
-        document.getElementById('inscriptionSection').scrollIntoView({ behavior: 'smooth' });
-      });
-    }
+document.querySelectorAll('#sidebar a').forEach(link => {
+  link.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+  });
+});
   </script>
 </body>
 </html>
