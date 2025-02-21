@@ -338,7 +338,6 @@
                 <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
               </div>
               <div class="info-field">
-                <!-- Ajout de l'astérisque ici -->
                 <label>Numéro d'inscription NEPH* :</label>
                 <div class="neph-boxes">
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
@@ -371,16 +370,8 @@
             <button type="submit" class="btn">Envoyer</button>
           </div>
         </form>
-        <!-- Texte d'information NEPH placé en bas du formulaire candidat -->
-        <div class="neph-info">
-          * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé.
-          <a href="#inscriptionSection" class="en-savoir" style="color: #FFA500;">En savoir +</a>
-        </div>
       </div>
-      <!-- Bouton "Commencer" placé en dessous du conteneur du formulaire candidat -->
-      <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
     </div>
-    
     <div id="contentPage">
       <section id="accueil" class="section-content">
         <h2>Accueil</h2>
@@ -562,7 +553,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
+    // Bouton "Modifier" : afficher le formulaire pré-rempli
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
