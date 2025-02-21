@@ -569,12 +569,11 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Afficher les boutons "Démarrer" et "Commencer", ainsi que "Modifier" et "Nouveau formulaire"
+      // Afficher les boutons "Démarrer" et "Commencer", ainsi que "Modifier" "
       // On ajoute ici deux nouveaux boutons :
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
-      document.getElementById('resetBtn').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
@@ -582,7 +581,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
-      document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
     });
     
@@ -591,8 +589,6 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
-      document.getElementById('resetBtn').style.display = 'none';
-      document.getElementById('infoForm').reset();
       document.getElementById('infoForm').style.display = 'block';
       const photoPreview = document.getElementById('photoPreview');
       photoPreview.src = "";
