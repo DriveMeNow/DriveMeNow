@@ -13,7 +13,8 @@
     /* Réinitialisation globale */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
-    body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; } 
+    body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
+    
     /* Page d'authentification */
     #authPage {
       max-width: 400px;
@@ -79,6 +80,7 @@
       display: block;
       text-align: center;
     }
+    
     /* Formulaire candidat (page de garde) */
     .cover-page {
       max-width: 900px;
@@ -94,6 +96,7 @@
     form { width: 100%; }
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
+    
     /* Zone photo à taille fixe */
     .photo-placeholder {
       width: 200px;
@@ -159,6 +162,7 @@
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
+    
     /* Sidebar */
     #menuButton {
       position: fixed;
@@ -272,6 +276,7 @@
     <!-- Bouton pour passer l’authentification -->
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
+
   <!-- Page principale (après authentification) -->
   <div id="mainContent">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
@@ -301,7 +306,7 @@
         <p><label>Téléphone :</label> <span id="sumTelephone"></span></p>
         <p><label>Email :</label> <span id="sumEmail"></span></p>
         <p><label>Responsable :</label> <span id="sumResponsable" class="capitalized"></span></p>
-        <p><label>NEPH * :</label> <span id="sumNeph"></span></p>
+        <p><label>NEPH* :</label> <span id="sumNeph"></span></p>
         <p><label>Date de début :</label> <span id="sumDateDebut"></span></p>
         <p><label>Photo :</label><br>
           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
@@ -310,6 +315,7 @@
         <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
         <!-- Les boutons existants "Modifier" et "Nouveau formulaire" restent inchangés -->
         <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
+        <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
       <!-- Conteneur du formulaire vierge -->
       <div id="formContainer">
@@ -353,7 +359,7 @@
                 <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
               </div>
               <div class="info-field">
-                <label>Numéro d'inscription NEPH * :</label>
+                <label>Numéro d'inscription NEPH* :</label>
                 <div class="neph-boxes">
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
@@ -384,10 +390,6 @@
           <div style="text-align:center;">
             <button type="submit" class="btn">Envoyer</button>
           </div>
-          </div>
-                <label> * NEPH : Délivré sur demande, vous pourrez remplir ce champs lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. Obligatoire pour l'apprentissage de la conduite et du passage des examens du permis de conduire. Pour </label>
-          </div>
-          </div>
         </form>
       </div>
     </div>
@@ -404,9 +406,7 @@
           <p><strong>Progression Formation Pratique</strong></p>
           <div class="progress-circle"><span>0%</span></div>
           <p style="margin-top:10px;">Dernière compétence travaillé : 15/03/2025 - Changement de vitesse (En progression)
-        </div>
 Observations : Le régime moteur est bien respecter lors de la monté de vitesse mais il est nécessaire de pratiquer d’avantage la descente de vitesse associé à la décélération et au freinage pour acquérir plus de fluidité mécanique.
-        </div>
 Prochaine leçon : Retravailler la même compétence et voir en parallèle le demi-tour.</p>
         </div>
       </section>
@@ -419,6 +419,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
     function capitalize(str) {
       return str.replace(/\b\w/g, c => c.toUpperCase());
     }
+    
     // Gestion du menu hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
@@ -432,6 +433,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
     }
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
+    
     // Gestion des onglets Connexion / Inscription
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
@@ -449,6 +451,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       registerFormContainer.classList.add('active');
       loginFormContainer.classList.remove('active');
     });
+    
     // Fonction toggle pour afficher/masquer le mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
@@ -471,6 +474,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
         setupTogglePassword(icon, document.getElementById(targetId));
       }
     });
+    
     // Soumission du formulaire d'inscription
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -491,6 +495,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
       loginTab.click();
     });
+    
     // Soumission du formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -505,6 +510,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('summaryView').style.display = 'none';
       updateMenuVisibility();
     });
+    
     // Fonction pour collecter les données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
@@ -552,6 +558,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
+    
     // Soumission du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -569,6 +576,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('resetBtn').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+    
     // Bouton "Modifier" : afficher le formulaire pré-rempli (les valeurs restent dans les champs)
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
@@ -576,6 +584,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('resetBtn').style.display = 'none';
       document.getElementById('infoForm').style.display = 'block';
     });
+    
     // Bouton "Nouveau formulaire" : effacer les données validées et réinitialiser le formulaire (et la prévisualisation)
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
@@ -589,6 +598,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       photoPreview.style.display = 'none';
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
+    
     // Boutons "Démarrer" et "Commencer" pour basculer vers la page d'accueil (contentPage)
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
@@ -598,6 +608,7 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
+    
     // Bouton "Candidat" dans la sidebar : afficher la zone "coverPage" avec soit le résumé validé, soit le formulaire vierge
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
@@ -621,12 +632,14 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
         document.getElementById('commencerBtn').style.display = 'none';
       }
     });
+    
     // Bouton "Accueil" dans la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
     });
+    
     // Initialisation de l'autocomplétion et de la prévisualisation de l'image (aucune modification sur la partie photo)
     window.addEventListener('load', () => {
       initAutocomplete();
@@ -647,7 +660,8 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
           }
         });
       }
-    }); 
+    });
+    
     function initAutocomplete() {
       const addressInput = document.getElementById('adresse');
       const autocomplete = new google.maps.places.Autocomplete(addressInput, {
@@ -670,7 +684,8 @@ Prochaine leçon : Retravailler la même compétence et voir en parallèle le de
         if (postalCode) { document.getElementById('code-postal').value = postalCode; }
         if (commune) { document.getElementById('commune').value = commune; }
       });
-    }  
+    }
+    
     document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
       input.addEventListener('input', function() {
         if (this.value.length === this.maxLength) {
