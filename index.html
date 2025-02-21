@@ -97,7 +97,7 @@
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
     
-    /* Zone photo à taille fixe */
+    /* Zone photo */
     .photo-placeholder {
       width: 200px;
       height: 250px;
@@ -112,7 +112,6 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* Dans la version d'origine, l'encadrement disparaît après le chargement */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -120,7 +119,6 @@
       object-fit: contain;
       display: block;
     }
-    /* Masquer l'image si aucun src n'est défini */
     #photoPreview:not([src]) { display: none; }
     .photo-placeholder input[type="file"] {
       -webkit-appearance: none;
@@ -276,7 +274,7 @@
     <!-- Bouton pour passer l’authentification -->
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
-
+  
   <!-- Page principale (après authentification) -->
   <div id="mainContent">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
@@ -615,7 +613,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       }
     });
     
-    // Bouton "Inscription" dans la sidebar
+    // Bouton "Inscription" dans la sidebar : afficher la section d'inscription avec le contenu du livret
     document.querySelector('a[href="#inscriptionSection"]').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
@@ -623,7 +621,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       document.getElementById('inscriptionSection').style.display = 'block';
     });
     
-    // Bouton "Accueil" dans la sidebar
+    // Bouton "Accueil" dans la sidebar : afficher la page d'accueil
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
@@ -631,7 +629,7 @@ Prochaine leçon : Retravailler la même compétence et étudier le demi-tour.</
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Initialisation de l'autocomplétion et de la prévisualisation de l'image (aucune modification sur la partie photo)
+    // Initialisation de l'autocomplétion et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
