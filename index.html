@@ -15,7 +15,7 @@
     html, body { height: 100%; }
     body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
     
-    /* Page d'authentification */
+    /* --- Authentification --- */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -52,7 +52,6 @@
       background: #222;
       color: #fff;
     }
-    /* Champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
     .toggle-password {
@@ -63,11 +62,8 @@
       cursor: pointer;
       color: #FFA500;
     }
-    #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
-      top: 50px;
-      transform: translateY(-50%);
-    }
-    /* Boutons */
+    
+    /* --- Boutons --- */
     .btn, .action-btn {
       padding: 10px 20px;
       font-size: 1em;
@@ -81,7 +77,7 @@
       text-align: center;
     }
     
-    /* Formulaire candidat (page de garde) */
+    /* --- Formulaire candidat / Page de garde --- */
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -96,8 +92,6 @@
     form { width: 100%; }
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
-    
-    /* Zone photo */
     .photo-placeholder {
       width: 200px;
       height: 250px;
@@ -161,7 +155,7 @@
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
     
-    /* Sidebar */
+    /* --- Sidebar --- */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -200,15 +194,8 @@
       text-align: center;
       font-size: 1em;
     }
-    #contentPage { display: none; padding: 20px; padding-top: 60px; }
-    @media (max-width: 768px) {
-      .info-section { flex-direction: column; }
-      .photo-placeholder { width: 100%; }
-    }
-    .footer { text-align: center; margin-top: 20px; }
-    #mainContent { display: none; }
     
-    /* Styles pour le contenu pédagogique */
+    /* --- Section pédagogique --- */
     .section-content { padding: 20px 40px; }
     .section-content header { margin-bottom: 20px; }
     .section-content h2 { font-size: 2em; margin-bottom: 10px; }
@@ -221,7 +208,7 @@
     .toc a { color: #FFA500; text-decoration: none; }
     .toc a:hover { text-decoration: underline; }
     
-    /* Styles spécifiques pour le module de suivi */
+    /* --- Module Suivi des Sessions de Conduite --- */
     .suivi-container { background: #222; padding: 20px; border-radius: 8px; margin-top: 20px; }
     .suivi-container h2 { text-align: center; margin-bottom: 20px; }
     .suivi-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -234,6 +221,17 @@
     table.suivi-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
     table.suivi-table th, table.suivi-table td { border: 1px solid #FFA500; padding: 8px; text-align: center; }
     table.suivi-table th { background: #333; }
+    
+    /* --- ContentPage & Footer --- */
+    #contentPage { display: none; padding: 20px; padding-top: 60px; }
+    .footer { text-align: center; margin-top: 20px; }
+    #mainContent { display: none; }
+    
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .info-section { flex-direction: column; }
+      .photo-placeholder { width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -302,7 +300,7 @@
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
 
-  <!-- Page principale (après authentification) -->
+  <!-- Page principale -->
   <div id="mainContent">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
     <div id="sidebar">
@@ -311,14 +309,16 @@
       <a href="#inscriptionSection" id="inscriptionLink"><i class="fas fa-file-alt"></i><br>Inscription</a>
       <a href="#suiviSection" id="suiviLink"><i class="fas fa-traffic-light"></i><br>Suivi</a>
       <a href="#examenSection" id="examenLink"><i class="fas fa-laptop"></i><br>Examen</a>
+      <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
 
+    <!-- Zone d'informations candidat (formulaire et résumé) -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
         <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
         <div class="title-line2">Candidat Libre au Permis B</div>
       </div>
-      <!-- Formulaire candidat / Vue résumé (inchangé) -->
+      <!-- Vue résumé / Formulaire candidat -->
       <div id="summaryView" class="summary">
         <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
         <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
@@ -431,15 +431,19 @@
         </header>
         <article id="accueilProgression">
           <h3>Progression Administrative et Formation Pratique</h3>
-          <p>Suivez l'avancement de vos démarches administratives et de votre formation pratique grâce à des indicateurs visuels dynamiques.</p>
+          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
           <div style="display:flex; gap:20px; justify-content:center; margin-top:10px;">
             <div style="text-align:center;">
               <p>Administrative</p>
-              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;"><span id="adminProgress">0%</span></div>
+              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
+                <span id="adminProgress">0%</span>
+              </div>
             </div>
             <div style="text-align:center;">
               <p>Formation Pratique</p>
-              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;"><span id="pratiqueProgress">0%</span></div>
+              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
+                <span id="pratiqueProgress">0%</span>
+              </div>
             </div>
           </div>
         </article>
@@ -474,26 +478,26 @@
           <h4>Prérequis pour débuter</h4>
           <ul>
             <li>Âge requis : 17 ans ou plus pour l’examen pratique, 16 ans pour l’examen théorique.</li>
-            <li>Attestation de sécurité routière (ASSR/ASR) pour les candidats de moins de 21 ans ou déclaration sur l’honneur en cas de perte.</li>
+            <li>Attestation de sécurité routière (ASSR/ASR) ou déclaration sur l’honneur en cas de perte.</li>
             <li>Justification de résidence en France depuis au moins 6 mois.</li>
-            <li>Contrôle médical requis en cas de problème de santé.</li>
+            <li>Contrôle médical en cas de problème de santé.</li>
           </ul>
           <h4>Obligations de l’accompagnateur</h4>
-          <p>L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, exercer sans rémunération et veiller à la sécurité et à la discipline du candidat.</p>
+          <p>L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, exercer sans rémunération et veiller à la sécurité du candidat.</p>
         </article>
         <article id="demarchesInscription">
           <h3>Démarches d'Inscription</h3>
           <h4>Examen Théorique</h4>
           <ol>
-            <li>Créez un compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
-            <li>Fournissez les documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
-            <li>Validez votre demande pour obtenir votre numéro NEPH.</li>
+            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
+            <li>Fourniture des documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
+            <li>Validation de la demande pour obtenir votre numéro NEPH.</li>
           </ol>
           <h4>Examen Pratique</h4>
           <ol>
-            <li>Connectez-vous ou créez un compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
-            <li>Réservez votre examen en choisissant l’option « Inscription en candidat libre ».</li>
-            <li>Fournissez les coordonnées de votre accompagnateur et planifiez l’examen.</li>
+            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
+            <li>Réservation de l’examen en choisissant l’option « Inscription en candidat libre ».</li>
+            <li>Fourniture des coordonnées de l’accompagnateur et planification de l’examen.</li>
           </ol>
         </article>
       </section>
@@ -515,26 +519,26 @@
           <h4>Formation Théorique</h4>
           <ul>
             <li>Supports pédagogiques : manuels, cours en ligne, applications interactives.</li>
-            <li>Méthodes : planification, examens blancs et échanges entre candidats.</li>
+            <li>Méthodes : planification, examens blancs, échanges entre candidats.</li>
             <li>Gestion du stress : techniques de relaxation et préparation mentale.</li>
           </ul>
           <h4>Formation Pratique</h4>
           <ul>
             <li>Préparation mentale et physique.</li>
-            <li>Suivi technique de vos sessions de conduite.</li>
-            <li>Évaluation régulière des compétences acquises.</li>
+            <li>Suivi technique des sessions de conduite.</li>
+            <li>Évaluation régulière des compétences.</li>
           </ul>
           <h4>Exigences du Véhicule et Règles de Circulation</h4>
-          <p>Le véhicule doit respecter les normes d’assurance et de signalisation « Apprentissage ». Respectez scrupuleusement le Code de la Route.</p>
+          <p>Le véhicule doit être assuré, signalé « Apprentissage » et conforme aux normes. Respectez scrupuleusement le Code de la Route.</p>
         </article>
         <article id="espaceSignature">
           <h3>Espace de Signature</h3>
-          <p>Après chaque session de conduite, formalisez votre progression en faisant signer :</p>
+          <p>Après chaque session, formalisez votre progression avec :</p>
           <ul>
             <li><strong>Signature du Candidat :</strong> Attestation de suivi de la session.</li>
             <li><strong>Signature de l’Accompagnateur :</strong> Validation des compétences et supervision.</li>
           </ul>
-          <p>Cette formalisation est essentielle pour suivre votre progression.</p>
+          <p>Cette formalisation est essentielle pour suivre votre évolution.</p>
         </article>
         <article id="suiviSessions">
           <h3>Suivi des Sessions de Conduite</h3>
@@ -600,7 +604,7 @@
               
               <button type="button" onclick="ajouterSession()">Ajouter au Tableau</button>
             </form>
-            <!-- Tableau récapitulatif -->
+            <!-- Tableau de suivi -->
             <table class="suivi-table" id="suiviTable">
               <thead>
                 <tr>
@@ -638,9 +642,9 @@
         <article id="modalitesPermis">
           <h3>Modalités du Permis en Candidat Libre</h3>
           <ul>
-            <li><strong>Conditions :</strong> Vous devez avoir au moins 17 ans pour l’inscription et l’examen pratique.</li>
-            <li><strong>Accessibilité :</strong> Une solution flexible et économique, différente de l’auto-école traditionnelle.</li>
-            <li><strong>Différences :</strong> Les candidats libres n’ont pas accès à la conduite accompagnée.</li>
+            <li><strong>Conditions :</strong> 17 ans minimum pour l’inscription et l’examen pratique.</li>
+            <li><strong>Accessibilité :</strong> Option flexible et économique, différente de l’auto-école traditionnelle.</li>
+            <li><strong>Différences :</strong> Pas de conduite accompagnée pour les candidats libres.</li>
           </ul>
         </article>
         <article id="exempleJourJ">
@@ -658,15 +662,80 @@
         </article>
       </section>
       
-      <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
+      <!-- Section Permis -->
+      <section id="permisSection" class="section-content" style="display:none;">
+        <header>
+          <h2>Permis</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#resultatsExamen">Résultats d'Examen Pratique</a></li>
+              <li><a href="#fabricationTitre">Fabrication du Titre de Permis</a></li>
+            </ul>
+          </nav>
+        </header>
+        <article id="resultatsExamen">
+          <h3>Résultats d'Examen Pratique</h3>
+          <p>Découvrez comment interpréter vos résultats, comprendre la grille d’évaluation et identifier les points à améliorer pour réussir l’examen pratique.</p>
+        </article>
+        <article id="fabricationTitre">
+          <h3>Fabrication du Titre de Permis</h3>
+          <p>Apprenez le processus de fabrication de votre titre de permis de conduire, depuis la validation des épreuves jusqu’à la réception officielle de votre document.</p>
+        </article>
+      </section>
+      
+      <!-- Section Inscription (pédagogique) -->
+      <section id="inscriptionSection" class="section-content" style="display:none;">
+        <header>
+          <h2>Inscription</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#introductionInscription">Introduction</a></li>
+              <li><a href="#infosGenerales">Informations Générales</a></li>
+              <li><a href="#demarchesInscription">Démarches d'Inscription</a></li>
+            </ul>
+          </nav>
+        </header>
+        <article id="introductionInscription">
+          <h3>Introduction</h3>
+          <p>Ce livret vous guide dans toutes vos démarches d'inscription et de préparation. Suivez les instructions et conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
+        </article>
+        <article id="infosGenerales">
+          <h3>Informations Générales</h3>
+          <h4>Prérequis pour débuter</h4>
+          <ul>
+            <li>Âge requis : 17 ans ou plus pour l’examen pratique, 16 ans pour l’examen théorique.</li>
+            <li>Attestation de sécurité routière (ASSR/ASR) ou déclaration sur l’honneur en cas de perte.</li>
+            <li>Justification de résidence en France depuis au moins 6 mois.</li>
+            <li>Contrôle médical en cas de problème de santé.</li>
+          </ul>
+          <h4>Obligations de l’accompagnateur</h4>
+          <p>L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, exercer sans rémunération et veiller à la sécurité du candidat.</p>
+        </article>
+        <article id="demarchesInscription">
+          <h3>Démarches d'Inscription</h3>
+          <h4>Examen Théorique</h4>
+          <ol>
+            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
+            <li>Fourniture des documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
+            <li>Validation de la demande pour obtenir votre numéro NEPH.</li>
+          </ol>
+          <h4>Examen Pratique</h4>
+          <ol>
+            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
+            <li>Réservation de l’examen en choisissant l’option « Inscription en candidat libre ».</li>
+            <li>Fourniture des coordonnées de l’accompagnateur et planification de l’examen.</li>
+          </ol>
+        </article>
+      </section>
     </div>
+    <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
   
   <!-- Scripts -->
   <script>
     // Fonction de capitalisation
     function capitalize(str) {
-      return str.replace(/\b\w/g, char => char.toUpperCase());
+      return str.replace(/\b\w/g, c => c.toUpperCase());
     }
     
     // Gestion du menu hamburger et de la sidebar
@@ -679,25 +748,73 @@
     menuButton.addEventListener('click', () => sidebar.classList.toggle('active'));
     sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('active'));
     
-    // Gestion des onglets Connexion / Inscription
-    const loginTab = document.getElementById('loginTab');
-    const registerTab = document.getElementById('registerTab');
-    const loginFormContainer = document.getElementById('loginFormContainer');
-    const registerFormContainer = document.getElementById('registerFormContainer');
-    loginTab.addEventListener('click', () => {
-      loginTab.classList.add('active');
-      registerTab.classList.remove('active');
-      loginFormContainer.classList.add('active');
-      registerFormContainer.classList.remove('active');
-    });
-    registerTab.addEventListener('click', () => {
-      registerTab.classList.add('active');
-      loginTab.classList.remove('active');
-      registerFormContainer.classList.add('active');
-      loginFormContainer.classList.remove('active');
+    // Navigation via la sidebar
+    document.getElementById('coverPageBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      // Afficher la zone du formulaire candidat (coverPage)
+      document.getElementById('coverPage').style.display = 'block';
+      document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
+      document.getElementById('suiviSection').style.display = 'none';
+      document.getElementById('examenSection').style.display = 'none';
+      document.getElementById('permisSection').style.display = 'none';
     });
     
-    // Fonction toggle pour afficher/masquer le mot de passe
+    document.getElementById('accueilBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
+      document.getElementById('suiviSection').style.display = 'none';
+      document.getElementById('examenSection').style.display = 'none';
+      document.getElementById('permisSection').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+      // Afficher la section Accueil
+      showSection('accueilSection');
+    });
+    
+    document.getElementById('inscriptionLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+      hideAllSections();
+      document.getElementById('inscriptionSection').style.display = 'block';
+    });
+    
+    document.getElementById('suiviLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+      hideAllSections();
+      document.getElementById('suiviSection').style.display = 'block';
+    });
+    
+    document.getElementById('examenLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+      hideAllSections();
+      document.getElementById('examenSection').style.display = 'block';
+    });
+    
+    document.getElementById('permisLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+      hideAllSections();
+      document.getElementById('permisSection').style.display = 'block';
+    });
+    
+    function hideAllSections() {
+      document.getElementById('accueilSection').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
+      document.getElementById('suiviSection').style.display = 'none';
+      document.getElementById('examenSection').style.display = 'none';
+      if(document.getElementById('permisSection')){
+        document.getElementById('permisSection').style.display = 'none';
+      }
+    }
+    
+    // Gestion du toggle des mots de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
         if (targetInput.type === "password") {
@@ -720,7 +837,7 @@
       }
     });
     
-    // Soumission du formulaire d'inscription
+    // Formulaires d'inscription et de connexion
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -741,7 +858,6 @@
       loginTab.click();
     });
     
-    // Soumission du formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -756,7 +872,7 @@
       updateMenuVisibility();
     });
     
-    // Fonction pour collecter les données du formulaire candidat
+    // Collecte et affichage des données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -774,13 +890,11 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Fonction pour formater la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Fonction pour afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = capitalize(data.nom);
       document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
@@ -799,12 +913,13 @@
         document.getElementById('sumPhoto').src = "";
       }
     }
+    
     // Fonction de capitalisation
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
-    // Soumission du formulaire candidat
+    // Gestion du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
@@ -812,6 +927,7 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
+      // Afficher les boutons pour naviguer vers la page d'accueil
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -819,7 +935,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
@@ -827,7 +942,6 @@
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire"
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
@@ -841,75 +955,68 @@
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Boutons "Démarrer" et "Commencer" pour basculer vers la page d'accueil
+    // Boutons pour passer à la page d'accueil (contenu pédagogique)
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      document.getElementById('inscriptionSection').style.display = 'none';
+      // Masquer toute autre section pédagogique
+      hideAllSections();
+      document.getElementById('accueilSection').style.display = 'block';
     });
     document.getElementById('commencerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
+      hideAllSections();
+      document.getElementById('accueilSection').style.display = 'block';
+    });
+    
+    function hideAllSections() {
+      document.getElementById('accueilSection').style.display = 'none';
       document.getElementById('inscriptionSection').style.display = 'none';
-    });
+      document.getElementById('suiviSection').style.display = 'none';
+      document.getElementById('examenSection').style.display = 'none';
+      document.getElementById('permisSection').style.display = 'none';
+    }
     
-    // Bouton "Candidat" dans la sidebar
-    document.getElementById('coverPageBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('coverPage').style.display = 'block';
-      document.getElementById('contentPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
-      const infoFormElem = document.getElementById('infoForm');
-      const summaryView = document.getElementById('summaryView');
-      let validatedData = localStorage.getItem('validatedData');
-      if (validatedData) {
-        let formData = JSON.parse(validatedData);
-        displaySummary(formData);
-        summaryView.style.display = 'block';
-        infoFormElem.style.display = 'none';
-        document.getElementById('demarrerBtn').style.display = 'block';
-        document.getElementById('commencerBtn').style.display = 'block';
-        document.getElementById('editBtn').style.display = 'block';
-      } else {
-        summaryView.style.display = 'none';
-        infoFormElem.style.display = 'block';
-        document.getElementById('demarrerBtn').style.display = 'none';
-        document.getElementById('commencerBtn').style.display = 'none';
-      }
-    });
-    
-    // Bouton "Inscription" dans la sidebar
-    document.getElementById('inscriptionLink').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'block';
-    });
-    
-    // Bouton "Accueil" dans la sidebar
+    // Navigation dans le contenu pédagogique via la sidebar
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
+      hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('inscriptionSection').style.display = 'none';
+      document.getElementById('suiviSection').style.display = 'none';
+      document.getElementById('examenSection').style.display = 'none';
+      document.getElementById('permisSection').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
+      document.getElementById('accueilSection').style.display = 'block';
     });
-    
-    // Bouton "Suivi" dans la sidebar
+    document.getElementById('inscriptionLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      hideAllSections();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+      document.getElementById('inscriptionSection').style.display = 'block';
+    });
     document.getElementById('suiviLink').addEventListener('click', (e) => {
       e.preventDefault();
+      hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
       document.getElementById('suiviSection').style.display = 'block';
     });
-    
-    // Bouton "Examen" dans la sidebar
     document.getElementById('examenLink').addEventListener('click', (e) => {
       e.preventDefault();
+      hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
-      document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
       document.getElementById('examenSection').style.display = 'block';
+    });
+    document.getElementById('permisLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      hideAllSections();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'block';
+      document.getElementById('permisSection').style.display = 'block';
     });
     
     // Initialisation de l'autocomplétion et de la prévisualisation de l'image
@@ -974,7 +1081,6 @@
     
     // --- Module Suivi des Sessions de Conduite ---
     function ajouterSession() {
-      // Récupération des valeurs du formulaire de suivi
       const date = document.getElementById('dateSession').value;
       const lieu = document.getElementById('lieuSession').value;
       const trafic = document.getElementById('traficSession').value;
@@ -990,10 +1096,8 @@
         return;
       }
       
-      // Création d'une nouvelle ligne dans le tableau
       const tbody = document.getElementById('suiviTbody');
       const tr = document.createElement('tr');
-      
       tr.innerHTML = `
         <td>${date}</td>
         <td>${lieu}</td>
@@ -1005,28 +1109,17 @@
         <td>${remarques}</td>
         <td>${objectifs}</td>
       `;
-      
       tbody.appendChild(tr);
       
-      // Réinitialiser le formulaire
       document.getElementById('suiviForm').reset();
-      
-      // Mise à jour dynamique des indicateurs (exemple simple : calcul du pourcentage de sessions "Maîtrisé")
       mettreAJourIndicateurs();
     }
     
     function mettreAJourIndicateurs() {
-      // Exemple d'indicateur pour le suivi des compétences en formation pratique
-      // Ici, nous comptons simplement le nombre total de lignes du tableau
       const totalSessions = document.querySelectorAll('#suiviTbody tr').length;
-      // Pour l'exemple, on fixe une valeur cible (par exemple, 10 sessions)
-      const cible = 10;
+      const cible = 10; 
       const pourcentage = Math.min(Math.round((totalSessions / cible) * 100), 100);
-      
-      // Mise à jour d'un indicateur (ici, le cercle de Formation Pratique dans la section Accueil)
       document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
-      
-      // Vous pouvez ajouter d'autres mises à jour dynamiques selon vos besoins.
     }
   </script>
 </body>
