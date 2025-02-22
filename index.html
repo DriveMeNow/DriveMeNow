@@ -91,14 +91,24 @@
       max-width: 900px;
       background: #111;
       margin: 30px auto;
-      padding: 40px 40px 40px 60px; /* espace à gauche pour le bouton hamburger */
+      /* On ajoute un padding à gauche pour laisser de la place au bouton hamburger */
+      padding: 40px 40px 40px 60px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+      position: relative;
     }
-    .title-section { margin-bottom: 40px; }
-    .page-title { margin-left: 60px; }
-    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
-    .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
+    /* Titre de page placé à droite du bouton hamburger */
+    .page-title {
+      font-size: 2.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #FFA500;
+      margin-left: 60px;
+    }
+    /* Pour que le contenu commence en dessous du bouton hamburger */
+    #contentPage, .cover-page {
+      padding-top: 60px;
+    }
     form { width: 100%; }
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
@@ -206,9 +216,9 @@
     }
     /* Sections pédagogiques */
     .section-content { padding: 20px 40px; }
-    .section-content header { margin-bottom: 20px; }
-    .section-content h2 { font-size: 2em; margin-bottom: 10px; }
-    .section-content h3 { font-size: 1.6em; margin-bottom: 10px; color: #FFA500; }
+    .section-content header { margin-bottom: 20px; margin-left: 60px; }
+    .section-content h2 { font-size: 2.5em; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
+    .section-content h3 { font-size: 1.8em; margin-bottom: 10px; color: #FFA500; }
     .section-content h4 { font-size: 1.3em; margin-bottom: 8px; }
     .section-content article { margin-bottom: 20px; }
     .toc { margin-bottom: 20px; }
@@ -216,7 +226,7 @@
     .toc li { margin-bottom: 5px; }
     .toc a { color: #FFA500; text-decoration: none; }
     .toc a:hover { text-decoration: underline; }
-    /* Encadrement des zones de texte */
+    /* Encadrement des zones de contenu */
     .content-box {
       background: #000;
       border: 2px solid #FFA500;
@@ -238,7 +248,7 @@
     table.suivi-table th, table.suivi-table td { border: 1px solid #FFA500; padding: 8px; text-align: center; }
     table.suivi-table th { background: #000; color: #fff; }
     /* ContentPage & Footer */
-    #contentPage { display: none; padding: 20px; padding-top: 60px; }
+    #contentPage { display: none; padding: 20px 20px 20px 60px; }
     .footer { text-align: center; margin-top: 20px; background: #fff; color: #000; padding: 10px; }
     #mainContent { display: none; }
     /* Responsive */
@@ -325,14 +335,13 @@
       <a href="#examenSection" id="examenLink"><i class="fas fa-laptop"></i><br>Examen</a>
       <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
-    
+
+    <!-- Page du formulaire candidat (CANDIDAT) -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
-        <h1 class="page-title">LIVRET D'APPRENTISSAGE</h1>
-        <h2 class="page-title">Candidat Libre au Permis B</h2>
+        <h1 class="page-title" style="margin-left:60px;">CANDIDAT</h1>
       </div>
-      
-      <!-- Vue résumé (affichée après validation du formulaire candidat) -->
+      <!-- Vue résumé (après validation du formulaire candidat) -->
       <div id="summaryView" class="summary">
         <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
         <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
@@ -353,7 +362,6 @@
         <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
         <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
-      
       <!-- Formulaire candidat -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
@@ -439,7 +447,7 @@
       <!-- Section Accueil -->
       <section id="accueilSection" class="section-content">
         <header>
-          <h2>Accueil</h2>
+          <h2 class="page-title">ACCUEIL</h2>
           <nav class="toc">
             <ul>
               <li><a href="#accueilProgression">Progression & Indicateurs</a></li>
@@ -478,7 +486,7 @@
       <!-- Section Inscription -->
       <section id="inscriptionSection" class="section-content" style="display:none;">
         <header>
-          <h2>Inscription</h2>
+          <h2 class="page-title">INSCRIPTION</h2>
           <nav class="toc">
             <ul>
               <li><a href="#introductionInscription">Introduction</a></li>
@@ -523,7 +531,7 @@
       <!-- Section Suivi -->
       <section id="suiviSection" class="section-content" style="display:none;">
         <header>
-          <h2>Suivi</h2>
+          <h2 class="page-title">SUIVI</h2>
           <nav class="toc">
             <ul>
               <li><a href="#programmeFormation">Programme de Formation</a></li>
@@ -645,7 +653,7 @@
       <!-- Section Examen -->
       <section id="examenSection" class="section-content" style="display:none;">
         <header>
-          <h2>Examen</h2>
+          <h2 class="page-title">EXAMEN</h2>
           <nav class="toc">
             <ul>
               <li><a href="#modalitesPermis">Modalités du Permis</a></li>
@@ -680,7 +688,7 @@
       <!-- Section Permis -->
       <section id="permisSection" class="section-content" style="display:none;">
         <header>
-          <h2>Permis</h2>
+          <h2 class="page-title">PERMIS</h2>
           <nav class="toc">
             <ul>
               <li><a href="#resultatsExamen">Résultats d'Examen Pratique</a></li>
@@ -701,7 +709,7 @@
       <!-- Section Inscription (pédagogique) -->
       <section id="inscriptionSection" class="section-content" style="display:none;">
         <header>
-          <h2>Inscription</h2>
+          <h2 class="page-title">INSCRIPTION</h2>
           <nav class="toc">
             <ul>
               <li><a href="#introductionInscription">Introduction</a></li>
@@ -752,7 +760,7 @@
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
-    // Mise à jour du bouton hamburger
+    // Mise à jour du bouton hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -812,7 +820,7 @@
       document.getElementById('permisSection').style.display = 'none';
     }
     
-    // Gestion des onglets sur la page d'authentification
+    // Navigation sur la page d'authentification
     function switchAuthTab(tab) {
       const loginTab = document.getElementById('loginTab');
       const registerTab = document.getElementById('registerTab');
@@ -833,7 +841,7 @@
     document.getElementById('loginTab').addEventListener('click', () => switchAuthTab('login'));
     document.getElementById('registerTab').addEventListener('click', () => switchAuthTab('register'));
     
-    // Toggle des mots de passe
+    // Toggle pour les mots de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
         if (targetInput.type === "password") {
@@ -945,7 +953,7 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Affichage des boutons "Démarrer" et "Commencer", ainsi que "Modifier" et "Nouveau formulaire"
+      // Afficher les boutons "Démarrer" et "Commencer", ainsi que "Modifier" et "Nouveau formulaire"
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -1129,7 +1137,6 @@
         }
       });
     });
-    
     document.querySelectorAll('#sidebar a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('active');
