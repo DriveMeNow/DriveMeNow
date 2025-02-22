@@ -2,36 +2,50 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <!-- Pour une adaptation mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Google Font Montserrat pour une lecture moderne -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <!-- Google Maps API avec Places -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
+    :root {
+      --accent-color: #00BFFF;
+      --bg-dark: #111;
+      --text-light: #fff;
+      --text-muted: #ccc;
+    }
     /* Réinitialisation globale */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
-    body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
+    body { 
+      font-family: 'Montserrat', sans-serif; 
+      background-color: #000; 
+      color: var(--text-light); 
+      line-height: 1.6; 
+    }
     
     /* Page d'authentification */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
-      background: #111;
+      background: var(--bg-dark);
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
     }
-    #authPage h1 { font-size: 2em; color: #FFA500; }
-    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
+    #authPage h1 { font-size: 2em; color: var(--accent-color); }
+    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: var(--text-muted); }
     .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
     .auth-tabs button {
       flex: 1;
       padding: 10px;
-      background: #FFA500;
+      background: var(--accent-color);
       color: #000;
       border: none;
       cursor: pointer;
@@ -39,7 +53,7 @@
       border-radius: 8px;
       margin: 0 5px;
     }
-    .auth-tabs button.active { background: #f0ad4e; }
+    .auth-tabs button.active { background: #00A0E0; }
     .auth-form { display: none; text-align: left; }
     .auth-form.active { display: block; }
     .auth-field { margin-bottom: 15px; }
@@ -50,7 +64,7 @@
       border: 1px solid #555;
       border-radius: 4px;
       background: #222;
-      color: #fff;
+      color: var(--text-light);
     }
     
     /* Champs de mot de passe */
@@ -62,7 +76,7 @@
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      color: #FFA500;
+      color: var(--accent-color);
     }
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
@@ -76,7 +90,7 @@
       cursor: pointer;
       border: none;
       border-radius: 4px;
-      background-color: #FFA500;
+      background-color: var(--accent-color);
       color: #000;
       margin: 10px auto;
       display: block;
@@ -86,14 +100,20 @@
     /* Formulaire candidat (page de garde) */
     .cover-page {
       max-width: 900px;
-      background: #111;
+      background: var(--bg-dark);
       margin: 30px auto;
       padding: 40px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+      /* Ajout d'un padding gauche pour ne pas être masqué par le bouton hamburger */
+      padding-left: 60px;
     }
-    .title-section { margin-bottom: 40px; text-align: center; }
-    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
+    .title-section { margin-bottom: 40px; }
+    .title-section .page-title {
+      /* Positionné juste à droite du bouton hamburger */
+      margin-left: 60px;
+    }
+    .title-line1, .title-line2 { font-size: 2.2em; font-weight: 600; }
     .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
@@ -137,7 +157,7 @@
       border: 1px solid #555;
       border-radius: 4px;
       background: #222;
-      color: #fff;
+      color: var(--text-light);
       width: 100%;
     }
     input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
@@ -155,7 +175,7 @@
       border: none;
       text-align: center;
       background: #222;
-      color: #fff;
+      color: var(--text-light);
     }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
@@ -168,7 +188,7 @@
       left: 10px;
       width: 40px;
       height: 40px;
-      background: #FFA500;
+      background: var(--accent-color);
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -193,7 +213,7 @@
     #sidebar a {
       display: block;
       padding: 15px;
-      background: #FFA500;
+      background: var(--accent-color);
       color: #000;
       text-decoration: none;
       border-bottom: 1px solid #000;
@@ -205,13 +225,13 @@
     .section-content { padding: 20px 40px; }
     .section-content header { margin-bottom: 20px; }
     .section-content h2 { font-size: 2em; margin-bottom: 10px; }
-    .section-content h3 { font-size: 1.6em; margin-bottom: 10px; color: #FFA500; }
+    .section-content h3 { font-size: 1.6em; margin-bottom: 10px; color: var(--accent-color); }
     .section-content h4 { font-size: 1.3em; margin-bottom: 8px; }
     .section-content article { margin-bottom: 20px; }
     .toc { margin-bottom: 20px; }
     .toc ul { list-style: none; padding-left: 0; }
     .toc li { margin-bottom: 5px; }
-    .toc a { color: #FFA500; text-decoration: none; }
+    .toc a { color: var(--accent-color); text-decoration: none; }
     .toc a:hover { text-decoration: underline; }
     
     /* Module Suivi des Sessions de Conduite */
@@ -225,7 +245,7 @@
     .suivi-form button { grid-column: span 2; background-color: #4CAF50; color: #fff; padding: 10px; border: none; cursor: pointer; border-radius: 5px; transition: background 0.3s; }
     .suivi-form button:hover { background-color: #45a049; }
     table.suivi-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    table.suivi-table th, table.suivi-table td { border: 1px solid #FFA500; padding: 8px; text-align: center; }
+    table.suivi-table th, table.suivi-table td { border: 1px solid var(--accent-color); padding: 8px; text-align: center; }
     table.suivi-table th { background: #333; }
     
     /* ContentPage & Footer */
@@ -262,7 +282,7 @@
         <div class="auth-field password-container">
           <label for="loginPassword">Mot de passe :</label>
           <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
-          <small style="display:block; color:#ccc; margin-top:7px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
+          <small style="display:block; color:var(--text-muted); margin-top:7px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
           <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
         </div>
         <div class="auth-field">
@@ -292,7 +312,7 @@
           <label for="regPassword">Mot de passe :</label>
           <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required>
           <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
-          <small style="display:block; color:#ccc; margin-top:10px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
+          <small style="display:block; color:var(--text-muted); margin-top:10px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         </div>
         <div class="auth-field password-container">
           <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
@@ -321,8 +341,9 @@
     <!-- Zone d'informations candidat -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
-        <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
-        <div class="title-line2">Candidat Libre au Permis B</div>
+        <!-- Les titres sont déplacés à droite du bouton hamburger via la marge -->
+        <h1 class="page-title">LIVRET D'APPRENTISSAGE</h1>
+        <h2 class="page-title">Candidat Libre au Permis B</h2>
       </div>
       <!-- Vue résumé / Formulaire candidat -->
       <div id="summaryView" class="summary">
@@ -418,7 +439,9 @@
           <div style="text-align:center;">
             <button type="submit" class="btn">Envoyer</button>
           </div>
-          <label>* NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. Obligatoire pour l'apprentissage et les examens.</label>
+          <label style="display:block; text-align:center; margin-top:10px; font-size:0.9em;">
+            * NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. Obligatoire pour l'apprentissage et les examens.
+          </label>
         </form>
       </div>
     </div>
@@ -442,13 +465,13 @@
           <div style="display:flex; gap:20px; justify-content:center; margin-top:10px;">
             <div style="text-align:center;">
               <p>Administrative</p>
-              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
+              <div class="progress-circle" style="border:2px solid var(--accent-color); border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
                 <span id="adminProgress">0%</span>
               </div>
             </div>
             <div style="text-align:center;">
               <p>Formation Pratique</p>
-              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
+              <div class="progress-circle" style="border:2px solid var(--accent-color); border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
                 <span id="pratiqueProgress">0%</span>
               </div>
             </div>
@@ -457,7 +480,7 @@
         <article id="annexes">
           <h3>Annexes</h3>
           <ul>
-            <li><strong>Glossaire :</strong> Définitions des termes clés (Accompagnateur, NEPH, ASSR/ASR, etc.).</li>
+            <li><strong>Glossaire :</strong> Définitions clés (Accompagnateur, NEPH, ASSR/ASR, etc.).</li>
             <li><strong>Contacts Utiles :</strong> Liens vers ANTS, RdvPermis et autres ressources.</li>
             <li><strong>FAQ :</strong> Réponses aux questions fréquentes.</li>
           </ul>
@@ -496,13 +519,13 @@
           <h3>Démarches d'Inscription</h3>
           <h4>Examen Théorique</h4>
           <ol>
-            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
+            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:var(--accent-color);">ANTS</a>.</li>
             <li>Fourniture des documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
             <li>Validation de la demande pour obtenir votre numéro NEPH.</li>
           </ol>
           <h4>Examen Pratique</h4>
           <ol>
-            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
+            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:var(--accent-color);">RdvPermis</a>.</li>
             <li>Réservation de l’examen en choisissant l’option « Inscription en candidat libre ».</li>
             <li>Fourniture des coordonnées de l’accompagnateur et planification de l’examen.</li>
           </ol>
@@ -722,13 +745,13 @@
           <h3>Démarches d'Inscription</h3>
           <h4>Examen Théorique</h4>
           <ol>
-            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
+            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:var(--accent-color);">ANTS</a>.</li>
             <li>Fourniture des documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
             <li>Validation de la demande pour obtenir votre numéro NEPH.</li>
           </ol>
           <h4>Examen Pratique</h4>
           <ol>
-            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
+            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:var(--accent-color);">RdvPermis</a>.</li>
             <li>Réservation de l’examen en choisissant l’option « Inscription en candidat libre ».</li>
             <li>Fourniture des coordonnées de l’accompagnateur et planification de l’examen.</li>
           </ol>
@@ -738,14 +761,13 @@
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
   
-  <!-- Scripts -->
   <script>
     // Fonction de capitalisation
     function capitalize(str) {
       return str.replace(/\b\w/g, c => c.toUpperCase());
     }
     
-    // Mise à jour de l'affichage du bouton hamburger
+    // Mise à jour du bouton hamburger
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -762,7 +784,6 @@
       document.getElementById('contentPage').style.display = 'none';
       hideAllSections();
     });
-    
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       hideAllSections();
@@ -774,7 +795,6 @@
       document.getElementById('contentPage').style.display = 'block';
       document.getElementById('accueilSection').style.display = 'block';
     });
-    
     document.getElementById('inscriptionLink').addEventListener('click', (e) => {
       e.preventDefault();
       hideAllSections();
@@ -782,7 +802,6 @@
       document.getElementById('contentPage').style.display = 'block';
       document.getElementById('inscriptionSection').style.display = 'block';
     });
-    
     document.getElementById('suiviLink').addEventListener('click', (e) => {
       e.preventDefault();
       hideAllSections();
@@ -790,7 +809,6 @@
       document.getElementById('contentPage').style.display = 'block';
       document.getElementById('suiviSection').style.display = 'block';
     });
-    
     document.getElementById('examenLink').addEventListener('click', (e) => {
       e.preventDefault();
       hideAllSections();
@@ -798,7 +816,6 @@
       document.getElementById('contentPage').style.display = 'block';
       document.getElementById('examenSection').style.display = 'block';
     });
-    
     document.getElementById('permisLink').addEventListener('click', (e) => {
       e.preventDefault();
       hideAllSections();
@@ -806,7 +823,6 @@
       document.getElementById('contentPage').style.display = 'block';
       document.getElementById('permisSection').style.display = 'block';
     });
-    
     function hideAllSections() {
       document.getElementById('accueilSection').style.display = 'none';
       document.getElementById('inscriptionSection').style.display = 'none';
@@ -815,7 +831,7 @@
       document.getElementById('permisSection').style.display = 'none';
     }
     
-    // Gestion des onglets dans la page d'authentification
+    // Gestion des onglets sur la page d'authentification
     function switchAuthTab(tab) {
       const loginTab = document.getElementById('loginTab');
       const registerTab = document.getElementById('registerTab');
@@ -859,7 +875,7 @@
       }
     });
     
-    // Formulaires d'inscription et de connexion
+    // Formulaire d'inscription
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -880,6 +896,7 @@
       switchAuthTab('login');
     });
     
+    // Formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -936,7 +953,12 @@
       }
     }
     
-    // Gestion du formulaire candidat
+    // Capitalisation
+    function capitalize(str) {
+      return str.replace(/\b\w/g, char => char.toUpperCase());
+    }
+    
+    // Soumission du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = collectFormData();
@@ -944,6 +966,7 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
+      // Affichage des boutons supplémentaires
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -984,15 +1007,7 @@
       document.getElementById('accueilSection').style.display = 'block';
     });
     
-    function hideAllSections() {
-      document.getElementById('accueilSection').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
-      document.getElementById('suiviSection').style.display = 'none';
-      document.getElementById('examenSection').style.display = 'none';
-      document.getElementById('permisSection').style.display = 'none';
-    }
-    
-    // Navigation dans le contenu pédagogique via la sidebar
+    // Navigation dans le contenu pédagogique
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       hideAllSections();
@@ -1028,6 +1043,55 @@
       document.getElementById('contentPage').style.display = 'block';
       document.getElementById('permisSection').style.display = 'block';
     });
+    function hideAllSections() {
+      document.getElementById('accueilSection').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
+      document.getElementById('suiviSection').style.display = 'none';
+      document.getElementById('examenSection').style.display = 'none';
+      document.getElementById('permisSection').style.display = 'none';
+    }
+    
+    // Module Suivi des Sessions de Conduite
+    function ajouterSession() {
+      const date = document.getElementById('dateSession').value;
+      const lieu = document.getElementById('lieuSession').value;
+      const trafic = document.getElementById('traficSession').value;
+      const element = document.getElementById('elementSession').value;
+      const autoEval = document.getElementById('autoEvalSession').value;
+      const progression = document.getElementById('progressionSession').value;
+      const assistance = document.getElementById('assistanceSession').value;
+      const remarques = document.getElementById('remarquesSession').value;
+      const objectifs = document.getElementById('objectifsSession').value;
+      
+      if(!date) {
+        alert("Veuillez sélectionner une date.");
+        return;
+      }
+      
+      const tbody = document.getElementById('suiviTbody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${date}</td>
+        <td>${lieu}</td>
+        <td>${trafic}</td>
+        <td>${element}</td>
+        <td>${autoEval}</td>
+        <td>${progression}</td>
+        <td>${assistance}</td>
+        <td>${remarques}</td>
+        <td>${objectifs}</td>
+      `;
+      tbody.appendChild(tr);
+      document.getElementById('suiviForm').reset();
+      mettreAJourIndicateurs();
+    }
+    
+    function mettreAJourIndicateurs() {
+      const totalSessions = document.querySelectorAll('#suiviTbody tr').length;
+      const cible = 10;
+      const pourcentage = Math.min(Math.round((totalSessions / cible) * 100), 100);
+      document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
+    }
     
     // Initialisation de l'autocomplétion et de la prévisualisation de l'image
     window.addEventListener('load', () => {
@@ -1088,49 +1152,6 @@
         sidebar.classList.remove('active');
       });
     });
-    
-    // Module Suivi des Sessions de Conduite
-    function ajouterSession() {
-      const date = document.getElementById('dateSession').value;
-      const lieu = document.getElementById('lieuSession').value;
-      const trafic = document.getElementById('traficSession').value;
-      const element = document.getElementById('elementSession').value;
-      const autoEval = document.getElementById('autoEvalSession').value;
-      const progression = document.getElementById('progressionSession').value;
-      const assistance = document.getElementById('assistanceSession').value;
-      const remarques = document.getElementById('remarquesSession').value;
-      const objectifs = document.getElementById('objectifsSession').value;
-      
-      if(!date) {
-        alert("Veuillez sélectionner une date.");
-        return;
-      }
-      
-      const tbody = document.getElementById('suiviTbody');
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${date}</td>
-        <td>${lieu}</td>
-        <td>${trafic}</td>
-        <td>${element}</td>
-        <td>${autoEval}</td>
-        <td>${progression}</td>
-        <td>${assistance}</td>
-        <td>${remarques}</td>
-        <td>${objectifs}</td>
-      `;
-      tbody.appendChild(tr);
-      
-      document.getElementById('suiviForm').reset();
-      mettreAJourIndicateurs();
-    }
-    
-    function mettreAJourIndicateurs() {
-      const totalSessions = document.querySelectorAll('#suiviTbody tr').length;
-      const cible = 10;
-      const pourcentage = Math.min(Math.round((totalSessions / cible) * 100), 100);
-      document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
-    }
   </script>
 </body>
 </html>
