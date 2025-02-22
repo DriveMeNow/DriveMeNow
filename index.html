@@ -13,20 +13,13 @@
     /* Réinitialisation globale */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
-    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
-
-    /* Fond jaune pâle pour certains encadrements */
-    .fond-jaune { background-color: #fff9e6; padding: 20px; border-radius: 8px; }
-
-    /* Encadrement du texte avec fond noir (exemple d'utilisation) */
-    .monBlocNoir {
-      width: 80%;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: #000;
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #fff9e6; /* Fond jaune pâle */
       color: #fff;
+      line-height: 1.6;
     }
-
+    
     /* Page d'authentification */
     #authPage {
       max-width: 400px;
@@ -64,6 +57,7 @@
       background: #222;
       color: #fff;
     }
+    
     /* Champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
@@ -79,6 +73,7 @@
       top: 50px;
       transform: translateY(-50%);
     }
+    
     /* Boutons */
     .btn, .action-btn {
       padding: 10px 20px;
@@ -93,56 +88,8 @@
       text-align: center;
     }
     
-    /* Formulaire candidat (page de garde) */
-    .cover-page {
-      max-width: 900px;
-      background: #111;
-      margin: 30px auto;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
-      position: relative;
-    }
-    /* Titres de section */
-    .section-title {
-      font-size: 2em;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #000;  /* en noir */
-      background-color: #FFA500;
-      padding: 10px 20px;
-      border-radius: 4px;
-      position: absolute;
-      left: 60px;  /* à droite du bouton hamburger */
-      top: 10px;
-    }
-    /* Ajustement pour que le contenu commence sous le bouton hamburger */
-    #contentPage > section {
-      padding-top: 60px;
-    }
-    
-    /* Section de contenu générale */
-    #contentPage {
-      display: none;
-      padding: 20px;
-      padding-top: 60px;
-    }
-    
-    /* Styles spécifiques pour les sections du livret pédagogique */
-    section {
-      margin-bottom: 40px;
-    }
-    section h3 {
-      font-size: 1.6em;
-      font-weight: bold;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #FFA500;
-      padding-bottom: 5px;
-    }
-    section p {
-      margin-bottom: 15px;
-      text-align: justify;
-    }
+    /* Conteneur global pour le contenu après authentification */
+    #mainContent { display: none; }
     
     /* Sidebar */
     #menuButton {
@@ -183,17 +130,134 @@
       text-align: center;
       font-size: 1em;
     }
+    
+    /* Page principale – section d'encadrement */
+    .cover-page {
+      width: 90%;
+      max-width: 1200px;
+      background: #111;
+      margin: 20px auto;
+      padding: 40px 40px 40px 60px; /* Left padding pour laisser place au bouton hamburger */
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+      position: relative;
+    }
+    
+    /* Titres de section (placés en haut à gauche, à droite du bouton hamburger) */
+    .section-title {
+      font-size: 2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #000;
+      background-color: #FFA500;
+      padding: 10px 20px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    
+    /* Zones de contenu – chaque section du livret */
+    #contentPage {
+      display: none;
+      padding: 20px;
+      padding-top: 60px;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    section h3 {
+      font-size: 1.6em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #FFA500;
+      padding-bottom: 5px;
+    }
+    section p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+    
+    /* Encadrements en fond noir (les blocs de contenu) */
+    .monBlocNoir {
+      background-color: #000;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    
+    /* Section du formulaire candidat – déjà existant */
+    .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
+    .candidate-info { width: 100%; }
+    .photo-placeholder {
+      width: 200px;
+      height: 250px;
+      border: 2px dashed #555;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: #aaa;
+      font-size: 0.9em;
+      overflow: hidden;
+      margin: 20px auto 0 auto;
+    }
+    .photo-placeholder.loaded { border: none; }
+    .photo-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    #photoPreview:not([src]) { display: none; }
+    .photo-placeholder input[type="file"] {
+      -webkit-appearance: none;
+      appearance: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .info-field { margin-bottom: 15px; text-align: left; }
+    .info-field label { font-weight: bold; margin-right: 8px; }
+    .info-field input {
+      padding: 5px;
+      font-size: 1em;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: #222;
+      color: #fff;
+      width: 100%;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
+    .neph-boxes { display: flex; flex-direction: row; }
+    .neph-box {
+      width: 25px;
+      height: 25px;
+      border: 1px solid #777;
+      text-align: center;
+      line-height: 25px;
+      margin-right: 3px;
+    }
+    .neph-box input {
+      width: 100%;
+      border: none;
+      text-align: center;
+      background: #222;
+      color: #fff;
+    }
+    
+    /* Pied de page */
     .footer {
       text-align: center;
       margin-top: 20px;
       font-size: 0.9em;
     }
-    #mainContent { display: none; }
     
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
-      .section-title { left: 50px; font-size: 1.8em; }
+      .section-title { font-size: 1.8em; margin-left: 50px; }
     }
   </style>
 </head>
@@ -275,15 +339,14 @@
       <a href="#permisSection" id="permisBtn"><i class="fas fa-id-card"></i><br>PERMIS</a>
     </div>
     <div class="cover-page" id="coverPage">
-      <!-- Titres de section placés à droite du bouton hamburger -->
+      <!-- Titre de section principal, qui changera en fonction du lien sélectionné dans la sidebar -->
       <div class="section-title" id="sectionTitle">ACCUEIL</div>
-      
-      <!-- Zone de navigation dynamique pour afficher les différentes sections du livret -->
+      <!-- Conteneur du contenu pédagogique -->
       <div id="contentContainer">
         <!-- Section Accueil -->
-        <section id="accueil" class="monBlocNoir fond-jaune">
+        <section id="accueil" class="monBlocNoir">
           <h3>Progression & Indicateurs</h3>
-          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
+          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques qui se mettent à jour en temps réel.</p>
           <div style="display: flex; gap: 20px; justify-content: center;">
             <div style="text-align: center;">
               <div class="progress-circle" style="background: #FFA500; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
@@ -305,7 +368,7 @@
         </section>
         
         <!-- Section Inscription -->
-        <section id="inscriptionSection" class="monBlocNoir fond-jaune">
+        <section id="inscriptionSection" class="monBlocNoir">
           <h3>INSCRIPTION</h3>
           <article>
             <h4>Introduction</h4>
@@ -324,7 +387,7 @@
         </section>
         
         <!-- Section Suivi -->
-        <section id="suiviSection" class="monBlocNoir fond-jaune">
+        <section id="suiviSection" class="monBlocNoir">
           <h3>SUIVI</h3>
           <article>
             <h4>Programme de Formation</h4>
@@ -336,16 +399,15 @@
           </article>
           <article>
             <h4>Tableau de Suivi</h4>
-            <!-- Insertion du tableau interactif (voir le code suivant pour le formulaire de suivi) -->
             <div id="suiviTable">
-              <!-- Le code du tableau interactif peut être intégré ici ou via une inclusion dynamique -->
+              <!-- Intégration du tableau interactif ou inclusion dynamique -->
               <p><em>Tableau de suivi des sessions de conduite à venir...</em></p>
             </div>
           </article>
         </section>
         
         <!-- Section Examen -->
-        <section id="examenSection" class="monBlocNoir fond-jaune">
+        <section id="examenSection" class="monBlocNoir">
           <h3>EXAMEN</h3>
           <article>
             <h4>Modalités du Permis en Candidat Libre</h4>
@@ -362,7 +424,7 @@
         </section>
         
         <!-- Section Permis -->
-        <section id="permisSection" class="monBlocNoir fond-jaune">
+        <section id="permisSection" class="monBlocNoir">
           <h3>PERMIS</h3>
           <article>
             <h4>Résultats & Fabrication du Permis</h4>
@@ -375,9 +437,9 @@
   </div>
   
   <script>
-    // Fonction de capitalisation pour retranscrire les majuscules dans la vue résumé
+    // Fonction de capitalisation
     function capitalize(str) {
-      return str.replace(/\b\w/g, c => c.toUpperCase());
+      return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
     // Gestion du menu hamburger et de la sidebar
@@ -394,18 +456,11 @@
     document.querySelectorAll('#sidebar a').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        // Met à jour le titre de section en fonction du lien cliqué
         const targetId = link.getAttribute('href').substring(1);
+        // Met à jour le titre de section
         const sectionTitle = document.getElementById('sectionTitle');
-        if(targetId) {
-          // Pour "coverPageBtn", on affiche "CANDIDAT"
-          if(targetId === "") {
-            sectionTitle.innerText = "CANDIDAT";
-          } else {
-            sectionTitle.innerText = targetId.toUpperCase();
-          }
-        }
-        // Affiche la section correspondante et masque les autres
+        sectionTitle.innerText = (targetId === "") ? "CANDIDAT" : targetId.toUpperCase();
+        // Affiche la section correspondante
         document.querySelectorAll('#contentContainer section').forEach(sec => {
           sec.style.display = (sec.id === targetId) ? "block" : "none";
         });
@@ -413,7 +468,7 @@
       });
     });
     
-    // Gestion des onglets Connexion / Inscription de la page d'authentification
+    // Onglets Connexion / Inscription (page d'authentification)
     const loginTab = document.getElementById('loginTab');
     const registerTab = document.getElementById('registerTab');
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -431,7 +486,7 @@
       loginFormContainer.classList.remove('active');
     });
     
-    // Fonction toggle pour afficher/masquer le mot de passe
+    // Toggle mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
         if (targetInput.type === "password") {
@@ -454,7 +509,7 @@
       }
     });
     
-    // Soumission du formulaire d'inscription
+    // Formulaire d'inscription
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -475,7 +530,7 @@
       loginTab.click();
     });
     
-    // Soumission du formulaire de connexion
+    // Formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -490,7 +545,7 @@
       updateMenuVisibility();
     });
     
-    // Fonction pour collecter les données du formulaire candidat
+    // Collecte des données du formulaire candidat
     function collectFormData() {
       const nephInputs = document.querySelectorAll('.neph-box input');
       return {
@@ -508,13 +563,13 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Fonction pour formater la date
+    // Formater la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Fonction pour afficher le résumé avec transformation pour majuscules
+    // Afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = capitalize(data.nom);
       document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
@@ -533,7 +588,7 @@
         document.getElementById('sumPhoto').src = "";
       }
     }
-    // Fonction de capitalisation (première lettre de chaque mot en majuscule)
+    // Capitalisation
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
@@ -553,7 +608,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier" : afficher le formulaire pré-rempli
+    // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
@@ -561,7 +616,7 @@
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire" : réinitialiser le formulaire
+    // Bouton "Nouveau formulaire"
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
@@ -575,7 +630,7 @@
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Boutons "Démarrer" et "Commencer" pour passer à la page d'accueil
+    // Boutons "Démarrer" et "Commencer" (passer à la page d'accueil)
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -585,7 +640,7 @@
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Bouton "CANDIDAT" dans la sidebar : afficher le formulaire ou le résumé
+    // Bouton "CANDIDAT" dans la sidebar
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
@@ -616,7 +671,7 @@
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Initialisation de l'autocomplétion et de la prévisualisation de l'image
+    // Initialisation de l'autocomplétion et prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
