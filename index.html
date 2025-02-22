@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Google Font Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <!-- Google Maps API avec Places -->
@@ -13,14 +15,12 @@
     /* Réinitialisation globale */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
-    /* Le fond général est maintenant un jaune pâle, tout en gardant le texte blanc */
     body { 
-      font-family: Arial, sans-serif; 
-      background-color: #FFF9C4; /* jaune pâle */
+      font-family: 'Roboto', sans-serif; 
+      background-color: #FFF9C4; /* Fond jaune pâle */
       color: #fff; 
       line-height: 1.6; 
     }
-    
     /* Page d'authentification */
     #authPage {
       max-width: 400px;
@@ -86,28 +86,23 @@
       display: block;
       text-align: center;
     }
-    
     /* Formulaire candidat (page de garde) */
     .cover-page {
       max-width: 900px;
       background: #111;
       margin: 30px auto;
-      padding: 40px;
+      padding: 40px 40px 40px 60px; /* espace à gauche pour le bouton hamburger */
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
-      /* La marge à gauche permet de laisser de la place au bouton hamburger */
-      padding-left: 60px;
     }
     .title-section { margin-bottom: 40px; }
-    /* Les titres sur les pages internes seront affichés juste à côté du bouton hamburger */
     .page-title { margin-left: 60px; }
     .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
     .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
-    
-    /* Zone photo à taille fixe */
+    /* Zone photo */
     .photo-placeholder {
       width: 200px;
       height: 250px;
@@ -122,7 +117,6 @@
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
-    /* L'encadrement disparaît après le chargement, comme dans l'original */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -171,7 +165,6 @@
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
-    
     /* Sidebar */
     #menuButton {
       position: fixed;
@@ -211,7 +204,6 @@
       text-align: center;
       font-size: 1em;
     }
-    
     /* Sections pédagogiques */
     .section-content { padding: 20px 40px; }
     .section-content header { margin-bottom: 20px; }
@@ -224,7 +216,14 @@
     .toc li { margin-bottom: 5px; }
     .toc a { color: #FFA500; text-decoration: none; }
     .toc a:hover { text-decoration: underline; }
-    
+    /* Encadrement des zones de texte */
+    .content-box {
+      background: #000;
+      border: 2px solid #FFA500;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
     /* Module Suivi des Sessions */
     .suivi-container { background: #222; padding: 20px; border-radius: 8px; margin-top: 20px; }
     .suivi-container h2 { text-align: center; margin-bottom: 20px; color: #fff; }
@@ -238,12 +237,10 @@
     table.suivi-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
     table.suivi-table th, table.suivi-table td { border: 1px solid #FFA500; padding: 8px; text-align: center; }
     table.suivi-table th { background: #000; color: #fff; }
-    
     /* ContentPage & Footer */
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
-    .footer { text-align: center; margin-top: 20px; }
+    .footer { text-align: center; margin-top: 20px; background: #fff; color: #000; padding: 10px; }
     #mainContent { display: none; }
-    
     /* Responsive */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
@@ -328,12 +325,14 @@
       <a href="#examenSection" id="examenLink"><i class="fas fa-laptop"></i><br>Examen</a>
       <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
+    
     <div class="cover-page" id="coverPage">
       <div class="title-section">
         <h1 class="page-title">LIVRET D'APPRENTISSAGE</h1>
         <h2 class="page-title">Candidat Libre au Permis B</h2>
       </div>
-      <!-- Vue résumé -->
+      
+      <!-- Vue résumé (affichée après validation du formulaire candidat) -->
       <div id="summaryView" class="summary">
         <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
         <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
@@ -354,6 +353,7 @@
         <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
         <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
+      
       <!-- Formulaire candidat -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
@@ -447,9 +447,9 @@
             </ul>
           </nav>
         </header>
-        <article id="accueilProgression">
+        <div class="content-box" id="accueilProgression">
           <h3>Progression Administrative et Formation Pratique</h3>
-          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques qui se mettent à jour en temps réel.</p>
+          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
           <div style="display:flex; gap:20px; justify-content:center; margin-top:10px;">
             <div style="text-align:center;">
               <p>Administrative</p>
@@ -464,15 +464,15 @@
               </div>
             </div>
           </div>
-        </article>
-        <article id="annexes">
+        </div>
+        <div class="content-box" id="annexes">
           <h3>Annexes</h3>
           <ul>
             <li><strong>Glossaire :</strong> Définitions clés (Accompagnateur, NEPH, ASSR/ASR, etc.).</li>
             <li><strong>Contacts Utiles :</strong> Liens vers ANTS, RdvPermis et autres ressources.</li>
             <li><strong>FAQ :</strong> Réponses aux questions fréquentes.</li>
           </ul>
-        </article>
+        </div>
       </section>
       
       <!-- Section Inscription -->
@@ -487,11 +487,11 @@
             </ul>
           </nav>
         </header>
-        <article id="introductionInscription">
+        <div class="content-box" id="introductionInscription">
           <h3>Introduction</h3>
           <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez nos conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
-        </article>
-        <article id="infosGenerales">
+        </div>
+        <div class="content-box" id="infosGenerales">
           <h3>Informations Générales</h3>
           <h4>Prérequis pour débuter</h4>
           <ul>
@@ -502,8 +502,8 @@
           </ul>
           <h4>Obligations de l’accompagnateur</h4>
           <p>L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, exercer sans rémunération et veiller à la sécurité du candidat.</p>
-        </article>
-        <article id="demarchesInscription">
+        </div>
+        <div class="content-box" id="demarchesInscription">
           <h3>Démarches d'Inscription</h3>
           <h4>Examen Théorique</h4>
           <ol>
@@ -517,7 +517,7 @@
             <li>Réservation de l’examen en choisissant l’option « Inscription en candidat libre ».</li>
             <li>Fourniture des coordonnées de l’accompagnateur et planification de l’examen.</li>
           </ol>
-        </article>
+        </div>
       </section>
       
       <!-- Section Suivi -->
@@ -532,7 +532,7 @@
             </ul>
           </nav>
         </header>
-        <article id="programmeFormation">
+        <div class="content-box" id="programmeFormation">
           <h3>Programme de Formation</h3>
           <h4>Formation Théorique</h4>
           <ul>
@@ -547,16 +547,16 @@
           </ul>
           <h4>Exigences du Véhicule & Règles de Circulation</h4>
           <p>Le véhicule doit être assuré et signalé « Apprentissage ». Respectez scrupuleusement le Code de la Route.</p>
-        </article>
-        <article id="espaceSignature">
+        </div>
+        <div class="content-box" id="espaceSignature">
           <h3>Espace de Signature</h3>
           <p>Formalisez chaque session :</p>
           <ul>
             <li><strong>Signature du Candidat :</strong> Attestation de suivi de la session.</li>
-            <li><strong>Signature de l’Accompagnateur :</strong> Validation des compétences.</li>
+            <li><strong>Signature de l’Accompagnateur :</strong> Validation des compétences abordées.</li>
           </ul>
-        </article>
-        <article id="suiviSessions">
+        </div>
+        <div class="content-box" id="suiviSessions">
           <h3>Suivi des Sessions de Conduite</h3>
           <div class="suivi-container">
             <h2 id="suiviTitle" onclick="document.getElementById('suiviTable').scrollIntoView({behavior: 'smooth'});" style="cursor:pointer; border:2px solid #333; padding:10px; border-radius:8px; text-align:center;">Suivi des Sessions de Conduite</h2>
@@ -639,7 +639,7 @@
               </tbody>
             </table>
           </div>
-        </article>
+        </div>
       </section>
       
       <!-- Section Examen -->
@@ -654,15 +654,15 @@
             </ul>
           </nav>
         </header>
-        <article id="modalitesPermis">
+        <div class="content-box" id="modalitesPermis">
           <h3>Modalités du Permis en Candidat Libre</h3>
           <ul>
             <li><strong>Conditions :</strong> 17 ans minimum pour l’inscription et l’examen pratique.</li>
             <li><strong>Accessibilité :</strong> Option flexible et économique, différente de l’auto-école traditionnelle.</li>
             <li><strong>Différences :</strong> Pas de conduite accompagnée pour les candidats libres.</li>
           </ul>
-        </article>
-        <article id="exempleJourJ">
+        </div>
+        <div class="content-box" id="exempleJourJ">
           <h3>Exemple type du Jour J</h3>
           <ol>
             <li>Accueil et vérification des documents et du véhicule.</li>
@@ -670,11 +670,11 @@
             <li>Attribution des points via une grille d’évaluation (visuel CEPC intégré).</li>
             <li>Examen blanc pour se familiariser avec les conditions réelles.</li>
           </ol>
-        </article>
-        <article id="conclusionExamen">
+        </div>
+        <div class="content-box" id="conclusionExamen">
           <h3>Conclusion</h3>
           <p>Avant le Jour J, assurez-vous d'avoir tous les documents obligatoires, révisez les consignes et restez concentré pour réussir votre examen.</p>
-        </article>
+        </div>
       </section>
       
       <!-- Section Permis -->
@@ -688,14 +688,14 @@
             </ul>
           </nav>
         </header>
-        <article id="resultatsExamen">
+        <div class="content-box" id="resultatsExamen">
           <h3>Résultats d'Examen Pratique</h3>
           <p>Découvrez comment interpréter vos résultats et identifier les axes d’amélioration pour réussir l’examen pratique.</p>
-        </article>
-        <article id="fabricationTitre">
+        </div>
+        <div class="content-box" id="fabricationTitre">
           <h3>Fabrication du Titre de Permis</h3>
           <p>Apprenez le processus complet, de la validation des épreuves à la réception officielle de votre titre de permis de conduire.</p>
-        </article>
+        </div>
       </section>
       
       <!-- Section Inscription (pédagogique) -->
@@ -710,11 +710,11 @@
             </ul>
           </nav>
         </header>
-        <article id="introductionInscription">
+        <div class="content-box" id="introductionInscription">
           <h3>Introduction</h3>
           <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez nos conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
-        </article>
-        <article id="infosGenerales">
+        </div>
+        <div class="content-box" id="infosGenerales">
           <h3>Informations Générales</h3>
           <h4>Prérequis pour débuter</h4>
           <ul>
@@ -725,8 +725,8 @@
           </ul>
           <h4>Obligations de l’accompagnateur</h4>
           <p>L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, exercer sans rémunération et veiller à la sécurité du candidat.</p>
-        </article>
-        <article id="demarchesInscription">
+        </div>
+        <div class="content-box" id="demarchesInscription">
           <h3>Démarches d'Inscription</h3>
           <h4>Examen Théorique</h4>
           <ol>
@@ -740,7 +740,7 @@
             <li>Réservation de l’examen en choisissant l’option « Inscription en candidat libre ».</li>
             <li>Fourniture des coordonnées de l’accompagnateur et planification de l’examen.</li>
           </ol>
-        </article>
+        </div>
       </section>
     </div>
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
@@ -926,7 +926,7 @@
       document.getElementById('sumEmail').innerText = data.email;
       document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
       document.getElementById('sumNeph').innerText = data.neph;
-      document.getElementById('sumDateDebut').innerText = data.dateDebut || data.dateDebut; // pour compatibilité
+      document.getElementById('sumDateDebut').innerText = data.dateDebut;
       if (data.photo) {
         document.getElementById('sumPhoto').src = data.photo;
       } else {
@@ -945,7 +945,7 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Affichage des boutons supplémentaires
+      // Affichage des boutons "Démarrer" et "Commencer", ainsi que "Modifier" et "Nouveau formulaire"
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -986,7 +986,12 @@
       document.getElementById('accueilSection').style.display = 'block';
     });
     
-    // Navigation dans le contenu pédagogique
+    document.getElementById('coverPageBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'block';
+      document.getElementById('contentPage').style.display = 'none';
+      hideAllSections();
+    });
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
       hideAllSections();
@@ -1064,7 +1069,6 @@
       document.getElementById('suiviForm').reset();
       mettreAJourIndicateurs();
     }
-    
     function mettreAJourIndicateurs() {
       const totalSessions = document.querySelectorAll('#suiviTbody tr').length;
       const cible = 10;
