@@ -201,30 +201,39 @@
       font-size: 1em;
     }
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
-    
-    /* Section pédagogique "Inscription" */
-    #inscriptionSection {
-      display: none;
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 20px;
-      background: #111;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
-    }
-    #inscriptionSection header h2 { font-size: 2em; color: #FFA500; text-align: center; margin-bottom: 20px; }
-    #inscriptionSection article { margin-bottom: 20px; }
-    #inscriptionSection h3 { font-size: 1.5em; color: #FFA500; margin-bottom: 10px; }
-    #inscriptionSection h4, #inscriptionSection h5 { font-size: 1.2em; color: #FFA500; margin-top: 10px; }
-    #inscriptionSection p, #inscriptionSection li { font-size: 1em; margin-bottom: 10px; }
-    #inscriptionSection ul, #inscriptionSection ol { margin-left: 20px; margin-bottom: 10px; }
-    
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
     }
     .footer { text-align: center; margin-top: 20px; }
     #mainContent { display: none; }
+    
+    /* Styles pour le contenu pédagogique */
+    .section-content { padding: 20px 40px; }
+    .section-content header { margin-bottom: 20px; }
+    .section-content h2 { font-size: 2em; margin-bottom: 10px; }
+    .section-content h3 { font-size: 1.6em; margin-bottom: 10px; color: #FFA500; }
+    .section-content h4 { font-size: 1.3em; margin-bottom: 8px; }
+    .section-content article { margin-bottom: 20px; }
+    .toc { margin-bottom: 20px; }
+    .toc ul { list-style: none; padding-left: 0; }
+    .toc li { margin-bottom: 5px; }
+    .toc a { color: #FFA500; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    
+    /* Styles spécifiques pour le module de suivi */
+    .suivi-container { background: #222; padding: 20px; border-radius: 8px; margin-top: 20px; }
+    .suivi-container h2 { text-align: center; margin-bottom: 20px; }
+    .suivi-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .suivi-form label { font-weight: bold; }
+    .suivi-form input, 
+    .suivi-form select, 
+    .suivi-form textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+    .suivi-form button { grid-column: span 2; background-color: #4CAF50; color: #fff; padding: 10px; border: none; cursor: pointer; border-radius: 5px; transition: background 0.3s; }
+    .suivi-form button:hover { background-color: #45a049; }
+    table.suivi-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    table.suivi-table th, table.suivi-table td { border: 1px solid #FFA500; padding: 8px; text-align: center; }
+    table.suivi-table th { background: #333; }
   </style>
 </head>
 <body>
@@ -232,7 +241,7 @@
   <div id="authPage">
     <h1>DriveMeNow</h1>
     <p class="welcome-text">
-      Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis B en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.
+      Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis de conduire en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.
     </p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
@@ -292,29 +301,26 @@
     <!-- Bouton pour passer l’authentification -->
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
-  
+
   <!-- Page principale (après authentification) -->
   <div id="mainContent">
     <button id="menuButton"><i class="fas fa-bars"></i></button>
     <div id="sidebar">
       <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>Candidat</a>
-      <a href="#accueil" id="accueilBtn"><i class="fas fa-home"></i><br>Accueil</a>
+      <a href="#accueilSection" id="accueilBtn"><i class="fas fa-home"></i><br>Accueil</a>
       <a href="#inscriptionSection" id="inscriptionLink"><i class="fas fa-file-alt"></i><br>Inscription</a>
-      <a href="#suiviSection"><i class="fas fa-traffic-light"></i><br>Suivi</a>
-      <a href="#examenSection"><i class="fas fa-laptop"></i><br>Examen</a>
-      <a href="#fabricationSection"><i class="fas fa-id-card"></i><br>Permis</a>
+      <a href="#suiviSection" id="suiviLink"><i class="fas fa-traffic-light"></i><br>Suivi</a>
+      <a href="#examenSection" id="examenLink"><i class="fas fa-laptop"></i><br>Examen</a>
     </div>
-    
-    <!-- Section Candidat : Formulaire et résumé -->
+
     <div class="cover-page" id="coverPage">
       <div class="title-section">
         <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
         <div class="title-line2">Candidat Libre au Permis B</div>
       </div>
-      <!-- Bouton "Démarrer" placé en haut du résumé -->
-      <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
-      <!-- Vue résumé -->
+      <!-- Formulaire candidat / Vue résumé (inchangé) -->
       <div id="summaryView" class="summary">
+        <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
         <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
         <p><label>Prénom :</label> <span id="sumPrenom" class="capitalized"></span></p>
         <p><label>Date de naissance :</label> <span id="sumDateNaissance"></span></p>
@@ -329,12 +335,10 @@
         <p><label>Photo :</label><br>
           <img id="sumPhoto" style="max-width:150px; border:1px solid #ccc;">
         </p>
-        <!-- Bouton "Commencer" placé sous le résumé -->
         <button id="commencerBtn" class="action-btn" style="display:none; margin-top:10px;">Commencer</button>
         <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
         <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
-      <!-- Formulaire candidat -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
           <div class="info-section">
@@ -378,7 +382,6 @@
               <div class="info-field">
                 <label>Numéro d'inscription NEPH * :</label>
                 <div class="neph-boxes">
-                  <!-- 12 cases pour NEPH -->
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
                   <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
@@ -408,183 +411,258 @@
           <div style="text-align:center;">
             <button type="submit" class="btn">Envoyer</button>
           </div>
-          <label>* NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. Obligatoire pour l'apprentissage de la conduite et pour passer les examens du permis de conduire.</label>
+          <label>* NEPH : Délivré sur demande, vous pourrez remplir ce champ lorsque vous aurez obtenu votre Numéro d'Enregistrement Préfectoral Harmonisé. Obligatoire pour l'apprentissage et les examens.</label>
         </form>
       </div>
     </div>
     
-    <!-- Section de navigation du contenu -->
+    <!-- Section pédagogique -->
     <div id="contentPage">
-      <!-- Accueil -->
-      <section id="accueil" class="section-content">
-        <h2>Accueil</h2>
-        <p style="text-align:center;">Progression Administrative :</p>
-        <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
-          <p><strong>Progression Administrative</strong></p>
-          <div class="progress-circle"><span>75%</span></div>
-        </div>
-        <p style="text-align:center; margin-top:20px;">Progression Formation Pratique :</p>
-        <div style="background:#111; padding:20px; text-align:center; border:1px solid #FFA500; border-radius:4px; margin-bottom:20px; cursor:pointer;">
-          <p><strong>Progression Formation Pratique</strong></p>
-          <div class="progress-circle"><span>0%</span></div>
-          <p style="margin-top:10px;">
-            Dernière compétence travaillée : 15/03/2025 - Changement de vitesse (En progression)<br>
-            Observations : Le régime moteur est bien respecté lors de la montée, mais il est nécessaire de pratiquer davantage la descente pour une fluidité optimale.<br>
-            Prochaine leçon : Retravailler cette compétence et revoir le demi-tour.
-          </p>
-        </div>
+      <!-- Section Accueil -->
+      <section id="accueilSection" class="section-content">
+        <header>
+          <h2>Accueil</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#accueilProgression">Progression & Indicateurs</a></li>
+              <li><a href="#annexes">Annexes</a></li>
+            </ul>
+          </nav>
+        </header>
+        <article id="accueilProgression">
+          <h3>Progression Administrative et Formation Pratique</h3>
+          <p>Suivez l'avancement de vos démarches administratives et de votre formation pratique grâce à des indicateurs visuels dynamiques.</p>
+          <div style="display:flex; gap:20px; justify-content:center; margin-top:10px;">
+            <div style="text-align:center;">
+              <p>Administrative</p>
+              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;"><span id="adminProgress">0%</span></div>
+            </div>
+            <div style="text-align:center;">
+              <p>Formation Pratique</p>
+              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;"><span id="pratiqueProgress">0%</span></div>
+            </div>
+          </div>
+        </article>
+        <article id="annexes">
+          <h3>Annexes</h3>
+          <ul>
+            <li><strong>Glossaire :</strong> Définitions des termes clés (Accompagnateur, NEPH, ASSR/ASR, etc.).</li>
+            <li><strong>Contacts Utiles :</strong> Liens vers ANTS, RdvPermis et autres ressources.</li>
+            <li><strong>FAQ :</strong> Réponses aux questions fréquentes.</li>
+          </ul>
+        </article>
       </section>
       
-      <!-- Section pédagogique "Inscription" -->
+      <!-- Section Inscription -->
       <section id="inscriptionSection" class="section-content" style="display:none;">
         <header>
           <h2>Inscription</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#introductionInscription">Introduction</a></li>
+              <li><a href="#infosGenerales">Informations Générales</a></li>
+              <li><a href="#demarchesInscription">Démarches d'Inscription</a></li>
+            </ul>
+          </nav>
         </header>
-        <article>
+        <article id="introductionInscription">
           <h3>Introduction</h3>
-          <p>
-            Ce livret d’apprentissage est dédié aux candidats libres souhaitant obtenir leur permis de conduire. Il vous guide étape par étape, depuis les démarches administratives jusqu’à l’obtention du permis.
-          </p>
-          <ul>
-            <li>Comprendre les prérequis et obligations de la formation.</li>
-            <li>Effectuer les démarches d’inscription via les plateformes officielles.</li>
-            <li>Suivre votre progression grâce à des outils d’évaluation.</li>
-            <li>Vous préparer efficacement pour l’examen.</li>
-          </ul>
-          <p><em>Conseil :</em> Consultez ce livret sur ordinateur ou tablette, et imprimez-le pour le compléter manuellement si besoin.</p>
+          <p>Ce livret vous accompagne dans toutes vos démarches d'inscription et de préparation. Suivez les instructions et conseils pour optimiser votre préparation au permis de conduire.</p>
         </article>
-        <article>
+        <article id="infosGenerales">
           <h3>Informations Générales</h3>
-          <h4>Prérequis pour Débuter la Formation</h4>
+          <h4>Prérequis pour débuter</h4>
           <ul>
-            <li><strong>Âge :</strong> 17 ans ou plus pour l’examen pratique, 16 ans pour l’examen théorique.</li>
-            <li><strong>Attestation :</strong> Pour les candidats de moins de 21 ans, présenter l’ASSR2 ou l’ASR (ou une déclaration sur l’honneur en cas de perte).</li>
-            <li><strong>Résidence :</strong> Justifier d’attaches en France depuis au moins 6 mois.</li>
-            <li><strong>État de Santé :</strong> Un contrôle médical par un médecin agréé peut être requis.</li>
+            <li>Âge requis : 17 ans ou plus pour l’examen pratique, 16 ans pour l’examen théorique.</li>
+            <li>Attestation de sécurité routière (ASSR/ASR) pour les candidats de moins de 21 ans ou déclaration sur l’honneur en cas de perte.</li>
+            <li>Justification de résidence en France depuis au moins 6 mois.</li>
+            <li>Contrôle médical requis en cas de problème de santé.</li>
           </ul>
-          <h4>Obligations et Rôles de l’Accompagnateur</h4>
-          <p>
-            L’accompagnateur (titulaire du permis B depuis au moins 5 ans et non rémunéré) veille à la sécurité du candidat. Il s’assure que le candidat respecte les limitations, est présent durant l’examen et signe la charte.
-          </p>
-          <h4>Obligations concernant le Véhicule</h4>
-          <p>
-            Le véhicule doit être correctement assuré, afficher la mention « Apprentissage » et être équipé conformément aux normes.
-          </p>
-          <h4>Règles de Circulation</h4>
-          <p>
-            Respectez le Code de la Route et ayez sur vous le livret d’apprentissage ou le récépissé de dépôt.
-          </p>
+          <h4>Obligations de l’accompagnateur</h4>
+          <p>L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, exercer sans rémunération et veiller à la sécurité et à la discipline du candidat.</p>
         </article>
-        <article>
-          <h3>Démarches d’Inscription via Portails Officiels</h3>
-          <h4>Examen Théorique Général (ETG)</h4>
+        <article id="demarchesInscription">
+          <h3>Démarches d'Inscription</h3>
+          <h4>Examen Théorique</h4>
           <ol>
             <li>Créez un compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
-            <li>Fournissez les documents requis : pièce d’identité, justificatif de domicile, photo signature et attestation JDC (si nécessaire).</li>
+            <li>Fournissez les documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
             <li>Validez votre demande pour obtenir votre numéro NEPH.</li>
           </ol>
           <h4>Examen Pratique</h4>
           <ol>
-            <li>Créez ou connectez-vous sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
-            <li>Réservez votre examen en sélectionnant l’option « Inscription en candidat libre ».</li>
+            <li>Connectez-vous ou créez un compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
+            <li>Réservez votre examen en choisissant l’option « Inscription en candidat libre ».</li>
             <li>Fournissez les coordonnées de votre accompagnateur et planifiez l’examen.</li>
           </ol>
         </article>
-        <article>
+      </section>
+      
+      <!-- Section Suivi -->
+      <section id="suiviSection" class="section-content" style="display:none;">
+        <header>
+          <h2>Suivi</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#programmeFormation">Programme de Formation</a></li>
+              <li><a href="#espaceSignature">Espace de Signature</a></li>
+              <li><a href="#suiviSessions">Suivi des Sessions de Conduite</a></li>
+            </ul>
+          </nav>
+        </header>
+        <article id="programmeFormation">
           <h3>Programme de Formation</h3>
           <h4>Formation Théorique</h4>
           <ul>
-            <li><strong>Supports pédagogiques :</strong> Manuels, applications et cours en ligne.</li>
-            <li><strong>Méthodes :</strong> Planifiez vos études, passez des examens blancs et échangez avec d’autres candidats.</li>
-            <li><strong>Gestion du stress :</strong> Pratiquez des techniques de relaxation avant vos sessions.</li>
+            <li>Supports pédagogiques : manuels, cours en ligne, applications interactives.</li>
+            <li>Méthodes : planification, examens blancs et échanges entre candidats.</li>
+            <li>Gestion du stress : techniques de relaxation et préparation mentale.</li>
           </ul>
           <h4>Formation Pratique</h4>
-          <p>
-            La formation pratique combine un suivi technique et une préparation globale.
-          </p>
-          <h5>Préparation Mentale et Physique</h5>
           <ul>
-            <li>Fixez des objectifs et visualisez votre réussite.</li>
-            <li>Portez une tenue confortable et des chaussures adaptées.</li>
+            <li>Préparation mentale et physique.</li>
+            <li>Suivi technique de vos sessions de conduite.</li>
+            <li>Évaluation régulière des compétences acquises.</li>
           </ul>
-          <h5>Suivi et Évaluation</h5>
-          <p>
-            Notez chaque session dans un tableau détaillé (date, durée, km, conditions, compétences et remarques).
-          </p>
+          <h4>Exigences du Véhicule et Règles de Circulation</h4>
+          <p>Le véhicule doit respecter les normes d’assurance et de signalisation « Apprentissage ». Respectez scrupuleusement le Code de la Route.</p>
         </article>
-        <article>
-          <h3>Modalités du Permis en Candidat Libre</h3>
-          <ul>
-            <li><strong>Conditions :</strong> Au moins 17 ans pour s’inscrire au code et passer l’examen pratique dès 17 ans (depuis le 1er janvier 2024).</li>
-            <li><strong>Accessibilité :</strong> Une solution flexible et économique pour tous les candidats.</li>
-            <li><strong>Conduite accompagnée :</strong> Non disponible en candidat libre.</li>
-          </ul>
-        </article>
-        <article>
+        <article id="espaceSignature">
           <h3>Espace de Signature</h3>
-          <p>
-            <strong>Signature du Candidat :</strong> Je soussigné(e) [Nom, Prénom] atteste avoir suivi la session de conduite du [date] avec mon accompagnateur.
-          </p>
-          <p>
-            <strong>Signature de l’Accompagnateur :</strong> Je soussigné(e) [Nom, Prénom] certifie avoir supervisé cette session et validé les compétences abordées.
-          </p>
-          <p><em>Note :</em> Cette formalisation est essentielle pour la traçabilité de votre progression.</p>
+          <p>Après chaque session de conduite, formalisez votre progression en faisant signer :</p>
+          <ul>
+            <li><strong>Signature du Candidat :</strong> Attestation de suivi de la session.</li>
+            <li><strong>Signature de l’Accompagnateur :</strong> Validation des compétences et supervision.</li>
+          </ul>
+          <p>Cette formalisation est essentielle pour suivre votre progression.</p>
         </article>
-        <article>
-          <h3>Annexes</h3>
-          <h4>Glossaire</h4>
-          <ul>
-            <li><strong>Accompagnateur :</strong> Titulaire du permis B depuis au moins 5 ans, chargé de superviser la formation.</li>
-            <li><strong>ANTS :</strong> Agence Nationale des Titres Sécurisés.</li>
-            <li><strong>NEPH :</strong> Numéro d’Enregistrement Préfectoral Harmonisé, attribué lors de l’inscription au permis.</li>
-            <li><strong>ASSR/ASR :</strong> Attestation de sécurité routière.</li>
-          </ul>
-          <h4>Contacts Utiles</h4>
-          <ul>
-            <li><strong>ANTS – Assistance :</strong> <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ants.gouv.fr</a></li>
-            <li><strong>Plateforme RdvPermis :</strong> <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">rdvpermis.fr</a></li>
-            <li><strong>Centres d’examen :</strong> Renseignez-vous auprès de votre mairie.</li>
-          </ul>
-          <h4>FAQ</h4>
-          <p>
-            <strong>Q :</strong> Quel est le nombre d’heures de conduite recommandé ?<br>
-            <strong>R :</strong> Environ 20 à 25 heures.
-          </p>
-          <p>
-            <strong>Q :</strong> Que faire en cas de perte de l’attestation scolaire ?<br>
-            <strong>R :</strong> Une déclaration sur l’honneur est acceptée.
-          </p>
-          <p>
-            <strong>Q :</strong> Comment vérifier la conformité de mon véhicule ?<br>
-            <strong>R :</strong> Consultez la liste des équipements obligatoires et vérifiez que le contrôle technique est à jour.
-          </p>
-        </article>
-        <article>
-          <h3>Conclusion</h3>
-          <p>
-            Félicitations pour votre engagement dans ce parcours ! Ce livret vous accompagnera tout au long de votre préparation et vous fournira les outils nécessaires pour réussir votre permis.
-          </p>
-          <ul>
-            <li>Respectez les prérequis et obligations.</li>
-            <li>Suivez attentivement les démarches d’inscription.</li>
-            <li>Organisez votre formation en vous appuyant sur les conseils et outils de suivi proposés.</li>
-            <li>Préparez-vous en maîtrisant les compétences requises.</li>
-            <li>Le candidat libre offre une solution flexible et économique.</li>
-          </ul>
-          <p>Restez motivé, entraînez-vous régulièrement, et bonne route !</p>
+        <article id="suiviSessions">
+          <h3>Suivi des Sessions de Conduite</h3>
+          <div class="suivi-container">
+            <h2 onclick="document.getElementById('suiviTable').scrollIntoView({behavior: 'smooth'});" style="cursor:pointer; border:2px solid #333; padding:10px; border-radius:8px; text-align:center;">Suivi des Sessions de Conduite</h2>
+            <form class="suivi-form" id="suiviForm">
+              <label for="dateSession">Date :</label>
+              <input type="date" id="dateSession" required>
+              
+              <label for="lieuSession">Lieu :</label>
+              <select id="lieuSession">
+                <option value="Centre-ville">Centre-ville</option>
+                <option value="Route nationale">Route nationale</option>
+                <option value="Parking">Parking</option>
+                <option value="Zone rurale">Zone rurale</option>
+                <option value="Autoroute">Autoroute</option>
+                <option value="Chemin privé">Chemin privé</option>
+              </select>
+              
+              <label for="traficSession">Trafic :</label>
+              <select id="traficSession">
+                <option value="Faible">Faible</option>
+                <option value="Moyen">Moyen</option>
+                <option value="Dense">Dense</option>
+              </select>
+              
+              <label for="elementSession">Élément à Évaluer :</label>
+              <select id="elementSession">
+                <option value="Organes du véhicule">Organes du véhicule</option>
+                <option value="Vérifications extérieures">Vérifications extérieures</option>
+                <option value="Installation au poste">Installation au poste</option>
+                <option value="Démarrage et arrêt">Démarrage et arrêt</option>
+                <option value="Accélération / Freinage">Accélération / Freinage</option>
+                <option value="Manœuvre arrière et demi-tour">Manœuvre arrière et demi-tour</option>
+              </select>
+              
+              <label for="autoEvalSession">Auto-Évaluation :</label>
+              <select id="autoEvalSession">
+                <option value="En initiation">En initiation</option>
+                <option value="En progression">En progression</option>
+                <option value="Maîtrisé">Maîtrisé</option>
+              </select>
+              
+              <label for="progressionSession">Progression pédagogique :</label>
+              <select id="progressionSession">
+                <option value="En initiation">En initiation</option>
+                <option value="En progression">En progression</option>
+                <option value="Maîtrisé">Maîtrisé</option>
+              </select>
+              
+              <label for="assistanceSession">Assistance de l’accompagnateur :</label>
+              <select id="assistanceSession">
+                <option value="Fréquente">Fréquente</option>
+                <option value="Modérée">Modérée</option>
+                <option value="Légère">Légère</option>
+              </select>
+              
+              <label for="remarquesSession">Observations :</label>
+              <textarea id="remarquesSession"></textarea>
+              
+              <label for="objectifsSession">Objectifs :</label>
+              <textarea id="objectifsSession"></textarea>
+              
+              <button type="button" onclick="ajouterSession()">Ajouter au Tableau</button>
+            </form>
+            <!-- Tableau récapitulatif -->
+            <table class="suivi-table" id="suiviTable">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Lieu</th>
+                  <th>Trafic</th>
+                  <th>Élément évalué</th>
+                  <th>Auto-évaluation</th>
+                  <th>Progression</th>
+                  <th>Assistance</th>
+                  <th>Observations</th>
+                  <th>Objectifs</th>
+                </tr>
+              </thead>
+              <tbody id="suiviTbody">
+                <!-- Les lignes seront ajoutées dynamiquement -->
+              </tbody>
+            </table>
+          </div>
         </article>
       </section>
       
-      <!-- Section Fabrication / Permis (optionnelle) -->
-      <section id="fabricationSection" class="section-content" style="display:none; padding:20px; padding-top:60px;">
-        <h2>Permis</h2>
-        <p>Contenu spécifique au permis peut être ajouté ici.</p>
+      <!-- Section Examen -->
+      <section id="examenSection" class="section-content" style="display:none;">
+        <header>
+          <h2>Examen</h2>
+          <nav class="toc">
+            <ul>
+              <li><a href="#modalitesPermis">Modalités du Permis</a></li>
+              <li><a href="#exempleJourJ">Exemple type du Jour J</a></li>
+              <li><a href="#conclusionExamen">Conclusion</a></li>
+            </ul>
+          </nav>
+        </header>
+        <article id="modalitesPermis">
+          <h3>Modalités du Permis en Candidat Libre</h3>
+          <ul>
+            <li><strong>Conditions :</strong> Vous devez avoir au moins 17 ans pour l’inscription et l’examen pratique.</li>
+            <li><strong>Accessibilité :</strong> Une solution flexible et économique, différente de l’auto-école traditionnelle.</li>
+            <li><strong>Différences :</strong> Les candidats libres n’ont pas accès à la conduite accompagnée.</li>
+          </ul>
+        </article>
+        <article id="exempleJourJ">
+          <h3>Exemple type du Jour J</h3>
+          <ol>
+            <li>Accueil et vérification des documents et du véhicule.</li>
+            <li>Parcours de conduite d’environ 25 minutes sur divers types de routes.</li>
+            <li>Attribution des points via une grille d’évaluation (visuel CEPC intégré).</li>
+            <li>Examen blanc pour se familiariser avec les conditions réelles.</li>
+          </ol>
+        </article>
+        <article id="conclusionExamen">
+          <h3>Conclusion</h3>
+          <p>Avant le Jour J, assurez-vous d'avoir tous les documents obligatoires, révisez les consignes et restez concentré pour réussir votre examen.</p>
+        </article>
       </section>
       
       <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
     </div>
   </div>
   
+  <!-- Scripts -->
   <script>
     // Fonction de capitalisation
     function capitalize(str) {
@@ -721,7 +799,7 @@
         document.getElementById('sumPhoto').src = "";
       }
     }
-    // Fonction de capitalisation (première lettre de chaque mot)
+    // Fonction de capitalisation
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
@@ -734,7 +812,6 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Affichage des boutons "Démarrer", "Commencer", "Modifier" et "Nouveau formulaire"
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -801,7 +878,7 @@
       }
     });
     
-    // Bouton "Inscription" dans la sidebar : afficher la section pédagogique
+    // Bouton "Inscription" dans la sidebar
     document.getElementById('inscriptionLink').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'none';
@@ -815,6 +892,24 @@
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('inscriptionSection').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
+    });
+    
+    // Bouton "Suivi" dans la sidebar
+    document.getElementById('suiviLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('suiviSection').style.display = 'block';
+    });
+    
+    // Bouton "Examen" dans la sidebar
+    document.getElementById('examenLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('inscriptionSection').style.display = 'none';
+      document.getElementById('contentPage').style.display = 'none';
+      document.getElementById('examenSection').style.display = 'block';
     });
     
     // Initialisation de l'autocomplétion et de la prévisualisation de l'image
@@ -876,6 +971,63 @@
         sidebar.classList.remove('active');
       });
     });
+    
+    // --- Module Suivi des Sessions de Conduite ---
+    function ajouterSession() {
+      // Récupération des valeurs du formulaire de suivi
+      const date = document.getElementById('dateSession').value;
+      const lieu = document.getElementById('lieuSession').value;
+      const trafic = document.getElementById('traficSession').value;
+      const element = document.getElementById('elementSession').value;
+      const autoEval = document.getElementById('autoEvalSession').value;
+      const progression = document.getElementById('progressionSession').value;
+      const assistance = document.getElementById('assistanceSession').value;
+      const remarques = document.getElementById('remarquesSession').value;
+      const objectifs = document.getElementById('objectifsSession').value;
+      
+      if(!date) {
+        alert("Veuillez sélectionner une date.");
+        return;
+      }
+      
+      // Création d'une nouvelle ligne dans le tableau
+      const tbody = document.getElementById('suiviTbody');
+      const tr = document.createElement('tr');
+      
+      tr.innerHTML = `
+        <td>${date}</td>
+        <td>${lieu}</td>
+        <td>${trafic}</td>
+        <td>${element}</td>
+        <td>${autoEval}</td>
+        <td>${progression}</td>
+        <td>${assistance}</td>
+        <td>${remarques}</td>
+        <td>${objectifs}</td>
+      `;
+      
+      tbody.appendChild(tr);
+      
+      // Réinitialiser le formulaire
+      document.getElementById('suiviForm').reset();
+      
+      // Mise à jour dynamique des indicateurs (exemple simple : calcul du pourcentage de sessions "Maîtrisé")
+      mettreAJourIndicateurs();
+    }
+    
+    function mettreAJourIndicateurs() {
+      // Exemple d'indicateur pour le suivi des compétences en formation pratique
+      // Ici, nous comptons simplement le nombre total de lignes du tableau
+      const totalSessions = document.querySelectorAll('#suiviTbody tr').length;
+      // Pour l'exemple, on fixe une valeur cible (par exemple, 10 sessions)
+      const cible = 10;
+      const pourcentage = Math.min(Math.round((totalSessions / cible) * 100), 100);
+      
+      // Mise à jour d'un indicateur (ici, le cercle de Formation Pratique dans la section Accueil)
+      document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
+      
+      // Vous pouvez ajouter d'autres mises à jour dynamiques selon vos besoins.
+    }
   </script>
 </body>
 </html>
