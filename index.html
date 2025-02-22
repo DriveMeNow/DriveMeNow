@@ -116,8 +116,9 @@
       justify-content: center;
       transition: background-color 0.2s ease;
     }
+    /* Les icônes du menu hamburger seront en noir */
+    #menuButton i { font-size: 1.5em; color: #000000; }
     #menuButton:hover { background: darkorange; }
-    #menuButton i { font-size: 1.5em; color: var(--bg-secondary); }
     #sidebar {
       position: fixed;
       top: 0;
@@ -134,7 +135,8 @@
       display: block;
       padding: 15px;
       background: var(--accent);
-      color: var(--bg-secondary);
+      /* Texte en noir dans la sidebar */
+      color: #000000;
       text-decoration: none;
       border-bottom: 1px solid var(--bg-main);
       text-align: center;
@@ -156,16 +158,17 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       position: relative;
     }
+    /* Titres de section alignés à gauche et texte en noir */
     .section-title {
       font-size: 2em;
       font-weight: bold;
       text-transform: uppercase;
-      color: var(--bg-secondary);
+      color: #000000;
       background-color: var(--accent);
       padding: 10px 20px;
       border-radius: 4px;
       margin-bottom: 20px;
-      margin-left: 60px;
+      margin-left: 0;
     }
     #contentContainer { margin: 0 60px; }
     
@@ -257,12 +260,12 @@
       color: var(--text-main);
     }
     
-    /* Pied de page */
+    /* Pied de page avec texte en noir */
     .footer {
       text-align: center;
       margin-top: 20px;
       font-size: 0.9em;
-      color: var(--bg-secondary);
+      color: #000000;
       background-color: var(--accent);
       padding: 10px;
     }
