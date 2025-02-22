@@ -14,10 +14,9 @@
   <style>
     /* Variables CSS pour une gestion centralisée des couleurs et du style */
     :root {
-      --bg-main: #f5f5f5;        /* Fond général clair */
+      --bg-main: #000000;        /* Fond général noir */
       --bg-secondary: #ffffff;   /* Fonds des cartes et formulaires */
-      --accent: #2196f3;         /* Bleu dynamique pour les accents */
-      --alt-accent: #ff9800;     /* Orange chaleureux pour les survols et appels à l'action */
+      --accent: #ff9800;         /* Orange pour les titres de section, bandeau et accents */
       --text-main: #333333;      /* Texte principal en gris foncé */
       --text-muted: #777777;     /* Texte atténué */
       --border-color: #cccccc;   /* Bordures légères */
@@ -58,7 +57,7 @@
       margin: 0 5px;
       transition: background-color 0.2s ease;
     }
-    .auth-tabs button.active { background: var(--alt-accent); }
+    .auth-tabs button.active { background: darkorange; }
     .auth-form { display: none; text-align: left; }
     .auth-form.active { display: block; }
     .auth-field { margin-bottom: 15px; }
@@ -96,7 +95,7 @@
       transition: transform 0.2s ease, background-color 0.2s ease;
     }
     .btn:hover, .action-btn:hover {
-      background-color: var(--alt-accent);
+      background-color: darkorange;
       transform: scale(1.05);
     }
     
@@ -117,7 +116,7 @@
       justify-content: center;
       transition: background-color 0.2s ease;
     }
-    #menuButton:hover { background: var(--alt-accent); }
+    #menuButton:hover { background: darkorange; }
     #menuButton i { font-size: 1.5em; color: var(--bg-secondary); }
     #sidebar {
       position: fixed;
@@ -143,7 +142,7 @@
       transition: background-color 0.2s ease;
     }
     #sidebar a:hover {
-      background-color: var(--alt-accent);
+      background-color: darkorange;
     }
     
     /* Zone de contenu principale */
