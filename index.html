@@ -5,58 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Google Font Montserrat pour un look moderne -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <!-- Google Maps API avec Places -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
-    :root {
-      --bg-color: #FFF9C4;          /* Fond jaune pâle */
-      --container-bg: #FFF;          /* Fond des conteneurs */
-      --text-color: #212121;         /* Texte foncé */
-      --muted-text: #757575;
-      --accent-color: #FDD835;       /* Boutons et éléments interactifs en jaune vif */
-      --sidebar-bg: #0D47A1;         /* Sidebar en bleu profond */
-      --sidebar-text: #FFF;
-    }
-
     /* Réinitialisation globale */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
+    /* Le fond général est maintenant un jaune pâle, tout en gardant le texte blanc */
+    body { 
+      font-family: Arial, sans-serif; 
+      background-color: #FFF9C4; /* jaune pâle */
+      color: #fff; 
+      line-height: 1.6; 
     }
-
+    
     /* Page d'authentification */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
-      background: var(--container-bg);
+      background: #111;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(33,33,33,0.2);
+      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
     }
-    #authPage h1 { font-size: 2em; color: var(--accent-color); }
-    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: var(--muted-text); }
+    #authPage h1 { font-size: 2em; color: #FFA500; }
+    .welcome-text { margin-bottom: 20px; font-size: 0.95em; color: #ccc; }
     .auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
     .auth-tabs button {
       flex: 1;
       padding: 10px;
-      background: var(--accent-color);
-      color: var(--text-color);
+      background: #FFA500;
+      color: #000;
       border: none;
       cursor: pointer;
       font-size: 1em;
       border-radius: 8px;
       margin: 0 5px;
     }
-    .auth-tabs button.active { background: #FBC02D; }
+    .auth-tabs button.active { background: #f0ad4e; }
     .auth-form { display: none; text-align: left; }
     .auth-form.active { display: block; }
     .auth-field { margin-bottom: 15px; }
@@ -64,12 +53,11 @@
     .auth-field input {
       width: 100%;
       padding: 8px;
-      border: 1px solid #ccc;
+      border: 1px solid #555;
       border-radius: 4px;
-      background: #eee;
-      color: var(--text-color);
+      background: #222;
+      color: #fff;
     }
-
     /* Champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
@@ -79,13 +67,12 @@
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      color: var(--accent-color);
+      color: #FFA500;
     }
     #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
       top: 50px;
       transform: translateY(-50%);
     }
-
     /* Boutons */
     .btn, .action-btn {
       padding: 10px 20px;
@@ -93,46 +80,49 @@
       cursor: pointer;
       border: none;
       border-radius: 4px;
-      background-color: var(--accent-color);
-      color: var(--text-color);
+      background-color: #FFA500;
+      color: #000;
       margin: 10px auto;
       display: block;
       text-align: center;
     }
-
+    
     /* Formulaire candidat (page de garde) */
     .cover-page {
       max-width: 900px;
-      background: var(--container-bg);
+      background: #111;
       margin: 30px auto;
       padding: 40px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(33,33,33,0.2);
-      padding-left: 60px; /* Pour laisser de la place au bouton hamburger */
+      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+      /* La marge à gauche permet de laisser de la place au bouton hamburger */
+      padding-left: 60px;
     }
     .title-section { margin-bottom: 40px; }
-    .page-title { margin-left: 60px; } /* Titres à droite du bouton hamburger */
-    .title-line1, .title-line2 { font-size: 2.2em; font-weight: 600; text-align: center; }
+    /* Les titres sur les pages internes seront affichés juste à côté du bouton hamburger */
+    .page-title { margin-left: 60px; }
+    .title-line1, .title-line2 { font-size: 2.2em; font-weight: bold; text-align: center; }
     .subtitle { font-size: 1.2em; margin: 20px 0 40px; text-align: center; }
     form { width: 100%; }
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
-
-    /* Zone photo */
+    
+    /* Zone photo à taille fixe */
     .photo-placeholder {
       width: 200px;
       height: 250px;
-      border: 2px dashed #ccc;
+      border: 2px dashed #555;
       border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      color: var(--muted-text);
+      color: #aaa;
       font-size: 0.9em;
       overflow: hidden;
       margin: 20px auto 0 auto;
     }
+    /* L'encadrement disparaît après le chargement, comme dans l'original */
     .photo-placeholder.loaded { border: none; }
     .photo-placeholder img {
       width: 100%;
@@ -150,24 +140,23 @@
       opacity: 0;
       cursor: pointer;
     }
-
     .info-field { margin-bottom: 15px; text-align: left; }
     .info-field label { font-weight: bold; margin-right: 8px; }
     .info-field input {
       padding: 5px;
       font-size: 1em;
-      border: 1px solid #ccc;
+      border: 1px solid #555;
       border-radius: 4px;
-      background: #eee;
-      color: var(--text-color);
+      background: #222;
+      color: #fff;
       width: 100%;
     }
-    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.2) !important; }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) !important; }
     .neph-boxes { display: flex; flex-direction: row; }
     .neph-box {
       width: 25px;
       height: 25px;
-      border: 1px solid #999;
+      border: 1px solid #777;
       text-align: center;
       line-height: 25px;
       margin-right: 3px;
@@ -176,13 +165,13 @@
       width: 100%;
       border: none;
       text-align: center;
-      background: #eee;
-      color: var(--text-color);
+      background: #222;
+      color: #fff;
     }
     .summary { display: none; margin-bottom: 40px; text-align: left; }
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
-
+    
     /* Sidebar */
     #menuButton {
       position: fixed;
@@ -190,7 +179,7 @@
       left: 10px;
       width: 40px;
       height: 40px;
-      background: var(--accent-color);
+      background: #FFA500;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -199,14 +188,14 @@
       align-items: center;
       justify-content: center;
     }
-    #menuButton i { font-size: 1.5em; color: var(--text-color); }
+    #menuButton i { font-size: 1.5em; color: #000; }
     #sidebar {
       position: fixed;
       top: 0;
       left: -250px;
       width: 250px;
       height: 100%;
-      background: var(--sidebar-bg);
+      background: #000;
       transition: left 0.3s;
       z-index: 2500;
       padding-top: 60px;
@@ -215,10 +204,10 @@
     #sidebar a {
       display: block;
       padding: 15px;
-      background: var(--accent-color);
-      color: var(--text-color);
+      background: #FFA500;
+      color: #000;
       text-decoration: none;
-      border-bottom: 1px solid var(--sidebar-bg);
+      border-bottom: 1px solid #000;
       text-align: center;
       font-size: 1em;
     }
@@ -227,28 +216,28 @@
     .section-content { padding: 20px 40px; }
     .section-content header { margin-bottom: 20px; }
     .section-content h2 { font-size: 2em; margin-bottom: 10px; }
-    .section-content h3 { font-size: 1.6em; margin-bottom: 10px; color: var(--accent-color); }
+    .section-content h3 { font-size: 1.6em; margin-bottom: 10px; color: #FFA500; }
     .section-content h4 { font-size: 1.3em; margin-bottom: 8px; }
     .section-content article { margin-bottom: 20px; }
     .toc { margin-bottom: 20px; }
     .toc ul { list-style: none; padding-left: 0; }
     .toc li { margin-bottom: 5px; }
-    .toc a { color: var(--accent-color); text-decoration: none; }
+    .toc a { color: #FFA500; text-decoration: none; }
     .toc a:hover { text-decoration: underline; }
     
     /* Module Suivi des Sessions */
-    .suivi-container { background: #eee; padding: 20px; border-radius: 8px; margin-top: 20px; }
-    .suivi-container h2 { text-align: center; margin-bottom: 20px; color: var(--text-color); }
+    .suivi-container { background: #222; padding: 20px; border-radius: 8px; margin-top: 20px; }
+    .suivi-container h2 { text-align: center; margin-bottom: 20px; color: #fff; }
     .suivi-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .suivi-form label { font-weight: bold; color: var(--text-color); }
+    .suivi-form label { font-weight: bold; color: #fff; }
     .suivi-form input, 
     .suivi-form select, 
     .suivi-form textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
-    .suivi-form button { grid-column: span 2; background-color: #4CAF50; color: #fff; padding: 10px; border: none; cursor: pointer; border-radius: 5px; transition: background 0.3s; }
-    .suivi-form button:hover { background-color: #45a049; }
+    .suivi-form button { grid-column: span 2; background-color: #FFA500; color: #000; padding: 10px; border: none; cursor: pointer; border-radius: 5px; transition: background 0.3s; }
+    .suivi-form button:hover { background-color: #f0ad4e; }
     table.suivi-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    table.suivi-table th, table.suivi-table td { border: 1px solid var(--accent-color); padding: 8px; text-align: center; }
-    table.suivi-table th { background: #ddd; }
+    table.suivi-table th, table.suivi-table td { border: 1px solid #FFA500; padding: 8px; text-align: center; }
+    table.suivi-table th { background: #000; color: #fff; }
     
     /* ContentPage & Footer */
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
@@ -284,7 +273,7 @@
         <div class="auth-field password-container">
           <label for="loginPassword">Mot de passe :</label>
           <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
-          <small style="display:block; color:var(--muted-text); margin-top:7px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
+          <small style="display:block; color:#ccc; margin-top:7px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
           <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
         </div>
         <div class="auth-field">
@@ -314,7 +303,7 @@
           <label for="regPassword">Mot de passe :</label>
           <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required>
           <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
-          <small style="display:block; color:var(--muted-text); margin-top:10px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
+          <small style="display:block; color:#ccc; margin-top:10px;">Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         </div>
         <div class="auth-field password-container">
           <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
@@ -339,15 +328,12 @@
       <a href="#examenSection" id="examenLink"><i class="fas fa-laptop"></i><br>Examen</a>
       <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
-    
-    <!-- Zone d'informations candidat -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
-        <!-- Les titres sont décalés grâce à la marge -->
         <h1 class="page-title">LIVRET D'APPRENTISSAGE</h1>
         <h2 class="page-title">Candidat Libre au Permis B</h2>
       </div>
-      <!-- Vue résumé / Formulaire candidat -->
+      <!-- Vue résumé -->
       <div id="summaryView" class="summary">
         <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
         <p><label>Nom :</label> <span id="sumNom" class="capitalized"></span></p>
@@ -467,13 +453,13 @@
           <div style="display:flex; gap:20px; justify-content:center; margin-top:10px;">
             <div style="text-align:center;">
               <p>Administrative</p>
-              <div class="progress-circle" style="border:2px solid var(--accent-color); border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
+              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
                 <span id="adminProgress">0%</span>
               </div>
             </div>
             <div style="text-align:center;">
               <p>Formation Pratique</p>
-              <div class="progress-circle" style="border:2px solid var(--accent-color); border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
+              <div class="progress-circle" style="border:2px solid #FFA500; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
                 <span id="pratiqueProgress">0%</span>
               </div>
             </div>
@@ -503,7 +489,7 @@
         </header>
         <article id="introductionInscription">
           <h3>Introduction</h3>
-          <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez les conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
+          <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez nos conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
         </article>
         <article id="infosGenerales">
           <h3>Informations Générales</h3>
@@ -521,13 +507,13 @@
           <h3>Démarches d'Inscription</h3>
           <h4>Examen Théorique</h4>
           <ol>
-            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:var(--accent-color);">ANTS</a>.</li>
+            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
             <li>Fourniture des documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
             <li>Validation de la demande pour obtenir votre numéro NEPH.</li>
           </ol>
           <h4>Examen Pratique</h4>
           <ol>
-            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:var(--accent-color);">RdvPermis</a>.</li>
+            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
             <li>Réservation de l’examen en choisissant l’option « Inscription en candidat libre ».</li>
             <li>Fourniture des coordonnées de l’accompagnateur et planification de l’examen.</li>
           </ol>
@@ -551,31 +537,29 @@
           <h4>Formation Théorique</h4>
           <ul>
             <li>Supports pédagogiques : manuels, cours en ligne, applications interactives.</li>
-            <li>Méthodes : planification, examens blancs, échanges entre candidats.</li>
+            <li>Méthodes : planification régulière, examens blancs, échanges entre candidats.</li>
             <li>Gestion du stress : techniques de relaxation et préparation mentale.</li>
           </ul>
           <h4>Formation Pratique</h4>
           <ul>
             <li>Préparation mentale et physique.</li>
-            <li>Suivi technique des sessions de conduite.</li>
-            <li>Évaluation régulière des compétences.</li>
+            <li>Suivi technique et évaluation des sessions de conduite.</li>
           </ul>
-          <h4>Exigences du Véhicule et Règles de Circulation</h4>
-          <p>Le véhicule doit être assuré, signalé « Apprentissage » et conforme aux normes. Respectez scrupuleusement le Code de la Route.</p>
+          <h4>Exigences du Véhicule & Règles de Circulation</h4>
+          <p>Le véhicule doit être assuré et signalé « Apprentissage ». Respectez scrupuleusement le Code de la Route.</p>
         </article>
         <article id="espaceSignature">
           <h3>Espace de Signature</h3>
-          <p>Formalisez chaque session de conduite :</p>
+          <p>Formalisez chaque session :</p>
           <ul>
             <li><strong>Signature du Candidat :</strong> Attestation de suivi de la session.</li>
-            <li><strong>Signature de l’Accompagnateur :</strong> Validation des compétences et supervision.</li>
+            <li><strong>Signature de l’Accompagnateur :</strong> Validation des compétences.</li>
           </ul>
-          <p>Cette formalisation est essentielle pour suivre votre évolution.</p>
         </article>
         <article id="suiviSessions">
           <h3>Suivi des Sessions de Conduite</h3>
           <div class="suivi-container">
-            <h2 onclick="document.getElementById('suiviTable').scrollIntoView({behavior: 'smooth'});" style="cursor:pointer; border:2px solid #333; padding:10px; border-radius:8px; text-align:center;">Suivi des Sessions de Conduite</h2>
+            <h2 id="suiviTitle" onclick="document.getElementById('suiviTable').scrollIntoView({behavior: 'smooth'});" style="cursor:pointer; border:2px solid #333; padding:10px; border-radius:8px; text-align:center;">Suivi des Sessions de Conduite</h2>
             <form class="suivi-form" id="suiviForm">
               <label for="dateSession">Date :</label>
               <input type="date" id="dateSession" required>
@@ -728,7 +712,7 @@
         </header>
         <article id="introductionInscription">
           <h3>Introduction</h3>
-          <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez les conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
+          <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez nos conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
         </article>
         <article id="infosGenerales">
           <h3>Informations Générales</h3>
@@ -746,13 +730,13 @@
           <h3>Démarches d'Inscription</h3>
           <h4>Examen Théorique</h4>
           <ol>
-            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:var(--accent-color);">ANTS</a>.</li>
+            <li>Création de compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
             <li>Fourniture des documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
             <li>Validation de la demande pour obtenir votre numéro NEPH.</li>
           </ol>
           <h4>Examen Pratique</h4>
           <ol>
-            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:var(--accent-color);">RdvPermis</a>.</li>
+            <li>Connexion ou création de compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
             <li>Réservation de l’examen en choisissant l’option « Inscription en candidat libre ».</li>
             <li>Fourniture des coordonnées de l’accompagnateur et planification de l’examen.</li>
           </ol>
@@ -789,10 +773,6 @@
       e.preventDefault();
       hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
-      document.getElementById('suiviSection').style.display = 'none';
-      document.getElementById('examenSection').style.display = 'none';
-      document.getElementById('permisSection').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
       document.getElementById('accueilSection').style.display = 'block';
     });
@@ -946,7 +926,7 @@
       document.getElementById('sumEmail').innerText = data.email;
       document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
       document.getElementById('sumNeph').innerText = data.neph;
-      document.getElementById('sumDateDebut').innerText = data.dateDebut;
+      document.getElementById('sumDateDebut').innerText = data.dateDebut || data.dateDebut; // pour compatibilité
       if (data.photo) {
         document.getElementById('sumPhoto').src = data.photo;
       } else {
