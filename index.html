@@ -15,7 +15,7 @@
     html, body { height: 100%; }
     body { font-family: Arial, sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
     
-    /* --- Authentification --- */
+    /* Page d'authentification */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -52,6 +52,8 @@
       background: #222;
       color: #fff;
     }
+    
+    /* Champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
     .toggle-password {
@@ -62,8 +64,12 @@
       cursor: pointer;
       color: #FFA500;
     }
+    #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
+      top: 50px;
+      transform: translateY(-50%);
+    }
     
-    /* --- Boutons --- */
+    /* Boutons */
     .btn, .action-btn {
       padding: 10px 20px;
       font-size: 1em;
@@ -77,7 +83,7 @@
       text-align: center;
     }
     
-    /* --- Formulaire candidat / Page de garde --- */
+    /* Formulaire candidat (page de garde) */
     .cover-page {
       max-width: 900px;
       background: #111;
@@ -155,7 +161,7 @@
     .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
     
-    /* --- Sidebar --- */
+    /* Sidebar */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -195,7 +201,7 @@
       font-size: 1em;
     }
     
-    /* --- Section pédagogique --- */
+    /* Sections pédagogiques */
     .section-content { padding: 20px 40px; }
     .section-content header { margin-bottom: 20px; }
     .section-content h2 { font-size: 2em; margin-bottom: 10px; }
@@ -208,7 +214,7 @@
     .toc a { color: #FFA500; text-decoration: none; }
     .toc a:hover { text-decoration: underline; }
     
-    /* --- Module Suivi des Sessions de Conduite --- */
+    /* Module Suivi des Sessions de Conduite */
     .suivi-container { background: #222; padding: 20px; border-radius: 8px; margin-top: 20px; }
     .suivi-container h2 { text-align: center; margin-bottom: 20px; }
     .suivi-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -222,12 +228,12 @@
     table.suivi-table th, table.suivi-table td { border: 1px solid #FFA500; padding: 8px; text-align: center; }
     table.suivi-table th { background: #333; }
     
-    /* --- ContentPage & Footer --- */
+    /* ContentPage & Footer */
     #contentPage { display: none; padding: 20px; padding-top: 60px; }
     .footer { text-align: center; margin-top: 20px; }
     #mainContent { display: none; }
     
-    /* --- Responsive --- */
+    /* Responsive */
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
@@ -312,7 +318,7 @@
       <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
 
-    <!-- Zone d'informations candidat (formulaire et résumé) -->
+    <!-- Zone d'informations candidat -->
     <div class="cover-page" id="coverPage">
       <div class="title-section">
         <div class="title-line1">LIVRET D'APPRENTISSAGE</div>
@@ -339,6 +345,7 @@
         <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
         <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
+      <!-- Formulaire candidat -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
           <div class="info-section">
@@ -416,7 +423,7 @@
       </div>
     </div>
     
-    <!-- Section pédagogique -->
+    <!-- Contenu pédagogique -->
     <div id="contentPage">
       <!-- Section Accueil -->
       <section id="accueilSection" class="section-content">
@@ -431,7 +438,7 @@
         </header>
         <article id="accueilProgression">
           <h3>Progression Administrative et Formation Pratique</h3>
-          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
+          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques qui se mettent à jour en temps réel.</p>
           <div style="display:flex; gap:20px; justify-content:center; margin-top:10px;">
             <div style="text-align:center;">
               <p>Administrative</p>
@@ -471,7 +478,7 @@
         </header>
         <article id="introductionInscription">
           <h3>Introduction</h3>
-          <p>Ce livret vous accompagne dans toutes vos démarches d'inscription et de préparation. Suivez les instructions et conseils pour optimiser votre préparation au permis de conduire.</p>
+          <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez les conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
         </article>
         <article id="infosGenerales">
           <h3>Informations Générales</h3>
@@ -533,7 +540,7 @@
         </article>
         <article id="espaceSignature">
           <h3>Espace de Signature</h3>
-          <p>Après chaque session, formalisez votre progression avec :</p>
+          <p>Formalisez chaque session de conduite :</p>
           <ul>
             <li><strong>Signature du Candidat :</strong> Attestation de suivi de la session.</li>
             <li><strong>Signature de l’Accompagnateur :</strong> Validation des compétences et supervision.</li>
@@ -620,7 +627,7 @@
                 </tr>
               </thead>
               <tbody id="suiviTbody">
-                <!-- Les lignes seront ajoutées dynamiquement -->
+                <!-- Lignes ajoutées dynamiquement -->
               </tbody>
             </table>
           </div>
@@ -675,11 +682,11 @@
         </header>
         <article id="resultatsExamen">
           <h3>Résultats d'Examen Pratique</h3>
-          <p>Découvrez comment interpréter vos résultats, comprendre la grille d’évaluation et identifier les points à améliorer pour réussir l’examen pratique.</p>
+          <p>Découvrez comment interpréter vos résultats et identifier les axes d’amélioration pour réussir l’examen pratique.</p>
         </article>
         <article id="fabricationTitre">
           <h3>Fabrication du Titre de Permis</h3>
-          <p>Apprenez le processus de fabrication de votre titre de permis de conduire, depuis la validation des épreuves jusqu’à la réception officielle de votre document.</p>
+          <p>Apprenez le processus complet, de la validation des épreuves à la réception officielle de votre titre de permis de conduire.</p>
         </article>
       </section>
       
@@ -697,7 +704,7 @@
         </header>
         <article id="introductionInscription">
           <h3>Introduction</h3>
-          <p>Ce livret vous guide dans toutes vos démarches d'inscription et de préparation. Suivez les instructions et conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
+          <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez les conseils pour optimiser votre parcours vers l'obtention du permis de conduire.</p>
         </article>
         <article id="infosGenerales">
           <h3>Informations Générales</h3>
@@ -738,7 +745,7 @@
       return str.replace(/\b\w/g, c => c.toUpperCase());
     }
     
-    // Gestion du menu hamburger et de la sidebar
+    // Mise à jour de l'affichage du bouton hamburger
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -751,56 +758,52 @@
     // Navigation via la sidebar
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
-      // Afficher la zone du formulaire candidat (coverPage)
       document.getElementById('coverPage').style.display = 'block';
       document.getElementById('contentPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
-      document.getElementById('suiviSection').style.display = 'none';
-      document.getElementById('examenSection').style.display = 'none';
-      document.getElementById('permisSection').style.display = 'none';
+      hideAllSections();
     });
     
     document.getElementById('accueilBtn').addEventListener('click', (e) => {
       e.preventDefault();
+      hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('inscriptionSection').style.display = 'none';
       document.getElementById('suiviSection').style.display = 'none';
       document.getElementById('examenSection').style.display = 'none';
       document.getElementById('permisSection').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      // Afficher la section Accueil
-      showSection('accueilSection');
+      document.getElementById('accueilSection').style.display = 'block';
     });
     
     document.getElementById('inscriptionLink').addEventListener('click', (e) => {
       e.preventDefault();
+      hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      hideAllSections();
       document.getElementById('inscriptionSection').style.display = 'block';
     });
     
     document.getElementById('suiviLink').addEventListener('click', (e) => {
       e.preventDefault();
+      hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      hideAllSections();
       document.getElementById('suiviSection').style.display = 'block';
     });
     
     document.getElementById('examenLink').addEventListener('click', (e) => {
       e.preventDefault();
+      hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      hideAllSections();
       document.getElementById('examenSection').style.display = 'block';
     });
     
     document.getElementById('permisLink').addEventListener('click', (e) => {
       e.preventDefault();
+      hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      hideAllSections();
       document.getElementById('permisSection').style.display = 'block';
     });
     
@@ -809,12 +812,31 @@
       document.getElementById('inscriptionSection').style.display = 'none';
       document.getElementById('suiviSection').style.display = 'none';
       document.getElementById('examenSection').style.display = 'none';
-      if(document.getElementById('permisSection')){
-        document.getElementById('permisSection').style.display = 'none';
-      }
+      document.getElementById('permisSection').style.display = 'none';
     }
     
-    // Gestion du toggle des mots de passe
+    // Gestion des onglets dans la page d'authentification
+    function switchAuthTab(tab) {
+      const loginTab = document.getElementById('loginTab');
+      const registerTab = document.getElementById('registerTab');
+      const loginFormContainer = document.getElementById('loginFormContainer');
+      const registerFormContainer = document.getElementById('registerFormContainer');
+      if (tab === 'login') {
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+        loginFormContainer.classList.add('active');
+        registerFormContainer.classList.remove('active');
+      } else if (tab === 'register') {
+        registerTab.classList.add('active');
+        loginTab.classList.remove('active');
+        registerFormContainer.classList.add('active');
+        loginFormContainer.classList.remove('active');
+      }
+    }
+    document.getElementById('loginTab').addEventListener('click', () => switchAuthTab('login'));
+    document.getElementById('registerTab').addEventListener('click', () => switchAuthTab('register'));
+    
+    // Toggle des mots de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
         if (targetInput.type === "password") {
@@ -855,7 +877,7 @@
       const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
       localStorage.setItem('registeredUser', JSON.stringify({ email: regEmail, password: regPassword, code: oneTimeCode }));
       alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
-      loginTab.click();
+      switchAuthTab('login');
     });
     
     document.getElementById('loginForm').addEventListener('submit', (e) => {
@@ -914,11 +936,6 @@
       }
     }
     
-    // Fonction de capitalisation
-    function capitalize(str) {
-      return str.replace(/\b\w/g, char => char.toUpperCase());
-    }
-    
     // Gestion du formulaire candidat
     document.getElementById('infoForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -927,7 +944,6 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Afficher les boutons pour naviguer vers la page d'accueil
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -955,11 +971,9 @@
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Boutons pour passer à la page d'accueil (contenu pédagogique)
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
-      // Masquer toute autre section pédagogique
       hideAllSections();
       document.getElementById('accueilSection').style.display = 'block';
     });
@@ -983,10 +997,6 @@
       e.preventDefault();
       hideAllSections();
       document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('inscriptionSection').style.display = 'none';
-      document.getElementById('suiviSection').style.display = 'none';
-      document.getElementById('examenSection').style.display = 'none';
-      document.getElementById('permisSection').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
       document.getElementById('accueilSection').style.display = 'block';
     });
@@ -1079,7 +1089,7 @@
       });
     });
     
-    // --- Module Suivi des Sessions de Conduite ---
+    // Module Suivi des Sessions de Conduite
     function ajouterSession() {
       const date = document.getElementById('dateSession').value;
       const lieu = document.getElementById('lieuSession').value;
@@ -1117,7 +1127,7 @@
     
     function mettreAJourIndicateurs() {
       const totalSessions = document.querySelectorAll('#suiviTbody tr').length;
-      const cible = 10; 
+      const cible = 10;
       const pourcentage = Math.min(Math.round((totalSessions / cible) * 100), 100);
       document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
     }
