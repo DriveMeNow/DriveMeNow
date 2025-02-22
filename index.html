@@ -20,7 +20,7 @@
       line-height: 1.6;
     }
     
-    /* Page d'authentification */
+    /* --- Page d'authentification --- */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -57,8 +57,6 @@
       background: #222;
       color: #fff;
     }
-    
-    /* Champs de mot de passe */
     .password-container { position: relative; }
     .password-container input { padding-right: 30px; height: 40px; }
     .toggle-password {
@@ -69,12 +67,7 @@
       cursor: pointer;
       color: #FFA500;
     }
-    #registerForm .password-container .toggle-password[data-target="regPasswordConfirm"] {
-      top: 50px;
-      transform: translateY(-50%);
-    }
     
-    /* Boutons */
     .btn, .action-btn {
       padding: 10px 20px;
       font-size: 1em;
@@ -88,10 +81,7 @@
       text-align: center;
     }
     
-    /* Conteneur global pour le contenu après authentification */
-    #mainContent { display: none; }
-    
-    /* Sidebar */
+    /* --- Sidebar & Navigation --- */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -131,19 +121,17 @@
       font-size: 1em;
     }
     
-    /* Page principale – section d'encadrement */
+    /* --- Zone de contenu principale --- */
     .cover-page {
       width: 90%;
       max-width: 1200px;
       background: #111;
       margin: 20px auto;
-      padding: 40px 40px 40px 60px; /* Left padding pour laisser place au bouton hamburger */
+      padding: 40px 40px 40px 60px; /* padding-left pour laisser place au bouton hamburger */
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       position: relative;
     }
-    
-    /* Titres de section (placés en haut à gauche, à droite du bouton hamburger) */
     .section-title {
       font-size: 2em;
       font-weight: bold;
@@ -153,14 +141,12 @@
       padding: 10px 20px;
       border-radius: 4px;
       margin-bottom: 20px;
+      /* Positionné à gauche juste à côté du bouton hamburger */
+      margin-left: 60px;
     }
+    #contentContainer { margin: 0 60px; } /* alignement de texte identique sur toutes les sections */
     
-    /* Zones de contenu – chaque section du livret */
-    #contentPage {
-      display: none;
-      padding: 20px;
-      padding-top: 60px;
-    }
+    /* Sections de contenu */
     section {
       margin-bottom: 40px;
     }
@@ -176,7 +162,7 @@
       text-align: justify;
     }
     
-    /* Encadrements en fond noir (les blocs de contenu) */
+    /* Blocs d'encadrement en fond noir */
     .monBlocNoir {
       background-color: #000;
       padding: 20px;
@@ -184,7 +170,7 @@
       border-radius: 8px;
     }
     
-    /* Section du formulaire candidat – déjà existant */
+    /* Formulaire candidat (page de garde) */
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
     .photo-placeholder {
@@ -252,12 +238,15 @@
       text-align: center;
       margin-top: 20px;
       font-size: 0.9em;
+      color: #000;
+      background-color: #FFA500;
+      padding: 10px;
     }
     
     @media (max-width: 768px) {
-      .info-section { flex-direction: column; }
-      .photo-placeholder { width: 100%; }
-      .section-title { font-size: 1.8em; margin-left: 50px; }
+      .cover-page { padding: 20px 20px 20px 40px; }
+      .section-title { font-size: 1.8em; margin-left: 40px; }
+      #contentContainer { margin: 0 40px; }
     }
   </style>
 </head>
@@ -266,7 +255,7 @@
   <div id="authPage">
     <h1>DriveMeNow</h1>
     <p class="welcome-text">
-      Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis B en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.
+      Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis de conduire en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.
     </p>
     <div class="auth-tabs">
       <button id="loginTab" class="active">Connexion</button>
@@ -323,7 +312,6 @@
         <button type="submit" class="btn">S'inscrire</button>
       </form>
     </div>
-    <!-- Bouton pour passer l’authentification -->
     <button class="btn" id="skipAuth">Passer l’authentification</button>
   </div>
 
@@ -339,14 +327,14 @@
       <a href="#permisSection" id="permisBtn"><i class="fas fa-id-card"></i><br>PERMIS</a>
     </div>
     <div class="cover-page" id="coverPage">
-      <!-- Titre de section principal, qui changera en fonction du lien sélectionné dans la sidebar -->
+      <!-- Titre de section mis à jour dynamiquement -->
       <div class="section-title" id="sectionTitle">ACCUEIL</div>
       <!-- Conteneur du contenu pédagogique -->
       <div id="contentContainer">
         <!-- Section Accueil -->
-        <section id="accueil" class="monBlocNoir">
+        <section id="accueilSection" class="monBlocNoir">
           <h3>Progression & Indicateurs</h3>
-          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques qui se mettent à jour en temps réel.</p>
+          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
           <div style="display: flex; gap: 20px; justify-content: center;">
             <div style="text-align: center;">
               <div class="progress-circle" style="background: #FFA500; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
@@ -368,71 +356,207 @@
         </section>
         
         <!-- Section Inscription -->
-        <section id="inscriptionSection" class="monBlocNoir">
+        <section id="inscriptionSection" class="monBlocNoir" style="display: none;">
           <h3>INSCRIPTION</h3>
           <article>
             <h4>Introduction</h4>
-            <p>Ce livret d’apprentissage a pour objectif de vous accompagner dans toutes les étapes, depuis les démarches administratives jusqu’à l’obtention de votre permis de conduire.</p>
+            <p>Ce livret d’apprentissage vous accompagne dans toutes les étapes, depuis les démarches administratives jusqu’à l’obtention du permis de conduire.</p>
           </article>
           <article>
             <h4>Informations Générales</h4>
-            <p><strong>Prérequis :</strong> Assurez-vous de respecter les conditions d’âge, d’attestations et de résidence pour débuter votre formation.</p>
-            <p><strong>Obligations de l’accompagnateur :</strong> L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, exercer de manière bénévole et veiller à votre sécurité.</p>
+            <p><strong>Prérequis :</strong> Respectez les conditions d’âge, attestation et résidence.</p>
+            <p><strong>Obligations de l’accompagnateur :</strong> L’accompagnateur doit être titulaire du permis B depuis 5 ans, agir bénévolement et veiller à votre sécurité.</p>
           </article>
           <article>
             <h4>Démarches d’Inscription</h4>
-            <p><em>Examen Théorique :</em> Inscrivez-vous sur ANTS et validez votre demande pour obtenir votre NEPH.</p>
-            <p><em>Examen Pratique :</em> Réservez votre créneau sur RdvPermis en indiquant les coordonnées de votre accompagnateur.</p>
+            <p><em>Examen Théorique :</em> Inscrivez-vous sur ANTS pour obtenir votre NEPH.</p>
+            <p><em>Examen Pratique :</em> Réservez votre créneau sur RdvPermis en renseignant les coordonnées de votre accompagnateur.</p>
           </article>
         </section>
         
         <!-- Section Suivi -->
-        <section id="suiviSection" class="monBlocNoir">
+        <section id="suiviSection" class="monBlocNoir" style="display: none;">
           <h3>SUIVI</h3>
           <article>
             <h4>Programme de Formation</h4>
-            <p>Découvrez les supports pédagogiques, méthodes d’apprentissage et astuces pour gérer votre stress et progresser efficacement.</p>
+            <p>Accédez aux supports pédagogiques, méthodes d’apprentissage et conseils pour gérer votre stress et progresser efficacement.</p>
           </article>
           <article>
             <h4>Espace de Signature</h4>
-            <p>Formalisez chaque session de conduite grâce à un espace dédié pour les signatures du candidat et de l’accompagnateur.</p>
+            <p>Formalisez chaque session de conduite avec les signatures du candidat et de l’accompagnateur.</p>
           </article>
           <article>
             <h4>Tableau de Suivi</h4>
             <div id="suiviTable">
-              <!-- Intégration du tableau interactif ou inclusion dynamique -->
-              <p><em>Tableau de suivi des sessions de conduite à venir...</em></p>
+              <!-- Intégration du tableau interactif -->
+              <form>
+                <label>Date :</label>
+                <input type="date" id="date" required>
+                <label>Lieu :</label>
+                <select id="lieu">
+                  <option value="Centre-ville">Centre-ville</option>
+                  <option value="Route nationale">Route nationale</option>
+                  <option value="Parking">Parking</option>
+                  <option value="Zone rurale">Zone rurale</option>
+                  <option value="Autoroute">Autoroute</option>
+                  <option value="Chemin privé">Chemin privé</option>
+                </select>
+                <label>Trafic :</label>
+                <select id="trafic">
+                  <option value="Faible">Faible</option>
+                  <option value="Moyen">Moyen</option>
+                  <option value="Dense">Dense</option>
+                </select>
+                <label>Élément à évaluer :</label>
+                <select id="element">
+                  <optgroup label="Compétence 1">
+                    <option>Connaître les commandes du véhicule</option>
+                    <option>Vérifications intérieures/extérieures</option>
+                    <option>Entrée et sortie du véhicule</option>
+                    <option>Démarrer et s’arrêter</option>
+                    <option>Doser accélération et freinage</option>
+                    <option>Marche arrière et demi-tour</option>
+                  </optgroup>
+                </select>
+                <label>Auto-évaluation :</label>
+                <select id="autoEval">
+                  <option>En initiation</option>
+                  <option>En progression</option>
+                  <option>Maîtrisé</option>
+                </select>
+                <label>Progression pédagogique :</label>
+                <select id="progression">
+                  <option>En initiation</option>
+                  <option>En progression</option>
+                  <option>Maîtrisé</option>
+                </select>
+                <label>Assistance de l’accompagnateur :</label>
+                <select id="assistance">
+                  <option>Fréquente</option>
+                  <option>Modérée</option>
+                  <option>Légère</option>
+                </select>
+                <label>Observations / Remarques :</label>
+                <textarea id="remarques"></textarea>
+                <label>Objectifs pour la prochaine séance :</label>
+                <textarea id="objectifs"></textarea>
+                <button type="button" onclick="ajouterLigne()">Ajouter au Tableau</button>
+              </form>
+              <p id="suiviMessage"><em>Le tableau de suivi des sessions sera mis à jour dynamiquement.</em></p>
             </div>
           </article>
         </section>
         
         <!-- Section Examen -->
-        <section id="examenSection" class="monBlocNoir">
+        <section id="examenSection" class="monBlocNoir" style="display: none;">
           <h3>EXAMEN</h3>
           <article>
             <h4>Modalités du Permis en Candidat Libre</h4>
-            <p>Découvrez les conditions, l’accessibilité et les différences avec la formation en auto-école classique.</p>
+            <p>Découvrez les conditions, l’accessibilité et les différences par rapport à une auto-école traditionnelle.</p>
           </article>
           <article>
             <h4>Exemple du Jour J</h4>
-            <p>Préparez-vous grâce à un exemple type d’examen pratique, avec parcours, temps imparti et répartition des points.</p>
+            <p>Préparez-vous avec un exemple type d’examen pratique : parcours, durée et répartition des points.</p>
           </article>
           <article>
             <h4>Conclusion</h4>
-            <p>Retrouvez des conseils d’encouragement, des rappels des points clés et les documents indispensables pour le jour de l’examen.</p>
+            <p>Retrouvez des conseils d’encouragement et des rappels des points clés ainsi que la liste des documents indispensables pour le jour de l’examen.</p>
           </article>
         </section>
         
         <!-- Section Permis -->
-        <section id="permisSection" class="monBlocNoir">
+        <section id="permisSection" class="monBlocNoir" style="display: none;">
           <h3>PERMIS</h3>
           <article>
             <h4>Résultats & Fabrication du Permis</h4>
             <p>Consultez vos résultats d’examen pratique et découvrez comment obtenir et fabriquer votre titre de permis de conduire.</p>
           </article>
         </section>
+        
+        <!-- Section Candidat (Formulaire de saisie des informations personnelles) -->
+        <section id="candidatSection" class="monBlocNoir" style="display: none;">
+          <h3>CANDIDAT</h3>
+          <!-- Ici se trouve le formulaire candidat déjà existant -->
+          <div id="formContainer">
+            <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
+              <div class="info-section">
+                <div class="candidate-info">
+                  <div class="info-field">
+                    <label for="nom">Nom du candidat :</label>
+                    <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                  </div>
+                  <div class="info-field">
+                    <label for="prenom">Prénom du candidat :</label>
+                    <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                  </div>
+                  <div class="info-field">
+                    <label for="date-naissance">Date de naissance :</label>
+                    <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
+                  </div>
+                  <div class="info-field">
+                    <label for="adresse">Adresse :</label>
+                    <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
+                  </div>
+                  <div class="info-field">
+                    <label for="code-postal">Code postal :</label>
+                    <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
+                  </div>
+                  <div class="info-field">
+                    <label for="commune">Commune :</label>
+                    <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
+                  </div>
+                  <div class="info-field">
+                    <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
+                    <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
+                  </div>
+                  <div class="info-field">
+                    <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+                    <input type="email" id="email" name="email" placeholder="Votre email" required>
+                  </div>
+                  <div class="info-field">
+                    <label for="responsable">Responsable de la formation :</label>
+                    <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
+                  </div>
+                  <div class="info-field">
+                    <label>Numéro d'inscription NEPH * :</label>
+                    <div class="neph-boxes">
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                      <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                    </div>
+                  </div>
+                  <div class="info-field">
+                    <label for="date-debut">Date de début de formation :</label>
+                    <input type="date" id="date-debut" name="date_debut" required>
+                  </div>
+                </div>
+                <div class="photo-placeholder">
+                  <span id="photoPlaceholderText">Ajouter une photo</span>
+                  <img id="photoPreview" alt="Prévisualisation de la photo">
+                  <input type="file" name="photo" accept="image/*" required>
+                </div>
+              </div>
+              <div style="text-align:center;">
+                <button type="submit" class="btn">Envoyer</button>
+              </div>
+              <label style="display: block; margin-top: 10px; font-size: 0.9em; text-align: center;">
+                * NEPH : Délivré sur demande – à remplir une fois obtenu.
+              </label>
+            </form>
+          </div>
+        </section>
       </div>
     </div>
+    <div id="contentPage" style="display: none;"></div>
     <div class="footer">"Prenez le volant de votre avenir et conduisez vers la liberté"</div>
   </div>
   
@@ -442,7 +566,7 @@
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
-    // Gestion du menu hamburger et de la sidebar
+    // Mise à jour de la visibilité du bouton hamburger
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -456,13 +580,12 @@
     document.querySelectorAll('#sidebar a').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
         // Met à jour le titre de section
-        const sectionTitle = document.getElementById('sectionTitle');
-        sectionTitle.innerText = (targetId === "") ? "CANDIDAT" : targetId.toUpperCase();
-        // Affiche la section correspondante
+        const targetId = link.getAttribute('href').substring(1);
+        document.getElementById('sectionTitle').innerText = targetId.toUpperCase();
+        // Affiche la section correspondante et masque les autres
         document.querySelectorAll('#contentContainer section').forEach(sec => {
-          sec.style.display = (sec.id === targetId) ? "block" : "none";
+          sec.style.display = (sec.id === targetId + "Section") ? "block" : "none";
         });
         sidebar.classList.remove('active');
       });
@@ -486,7 +609,7 @@
       loginFormContainer.classList.remove('active');
     });
     
-    // Toggle mot de passe
+    // Toggle pour afficher/masquer le mot de passe
     function setupTogglePassword(toggleElement, targetInput) {
       toggleElement.addEventListener('click', () => {
         if (targetInput.type === "password") {
@@ -504,12 +627,10 @@
     setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'));
     document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
       const targetId = icon.getAttribute('data-target');
-      if (targetId) {
-        setupTogglePassword(icon, document.getElementById(targetId));
-      }
+      if (targetId) setupTogglePassword(icon, document.getElementById(targetId));
     });
     
-    // Formulaire d'inscription
+    // Soumission des formulaires d'inscription et de connexion
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const regEmail = document.getElementById('regEmail').value;
@@ -530,7 +651,6 @@
       loginTab.click();
     });
     
-    // Formulaire de connexion
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       document.getElementById('authPage').style.display = 'none';
@@ -563,13 +683,11 @@
         photo: document.getElementById('photoPreview').src
       };
     }
-    // Formater la date
     function formatDate(dateStr) {
       if (!dateStr) return "";
       const parts = dateStr.split("-");
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
-    // Afficher le résumé
     function displaySummary(data) {
       document.getElementById('sumNom').innerText = capitalize(data.nom);
       document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
@@ -582,12 +700,9 @@
       document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
       document.getElementById('sumNeph').innerText = data.neph;
       document.getElementById('sumDateDebut').innerText = data.dateDebut;
-      if (data.photo) {
-        document.getElementById('sumPhoto').src = data.photo;
-      } else {
-        document.getElementById('sumPhoto').src = "";
-      }
+      document.getElementById('sumPhoto').src = data.photo ? data.photo : "";
     }
+    
     // Capitalisation
     function capitalize(str) {
       return str.replace(/\b\w/g, char => char.toUpperCase());
@@ -601,6 +716,7 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
+      // Affichage des boutons d'action
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -608,7 +724,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Bouton "Modifier"
     document.getElementById('editBtn').addEventListener('click', () => {
       document.getElementById('summaryView').style.display = 'none';
       document.getElementById('editBtn').style.display = 'none';
@@ -616,7 +731,6 @@
       document.getElementById('infoForm').style.display = 'block';
     });
     
-    // Bouton "Nouveau formulaire"
     document.getElementById('resetBtn').addEventListener('click', () => {
       localStorage.removeItem('validatedData');
       document.getElementById('summaryView').style.display = 'none';
@@ -630,7 +744,6 @@
       document.getElementById('photoPlaceholderText').style.display = 'block';
     });
     
-    // Boutons "Démarrer" et "Commencer" (passer à la page d'accueil)
     document.getElementById('demarrerBtn').addEventListener('click', () => {
       document.getElementById('coverPage').style.display = 'none';
       document.getElementById('contentPage').style.display = 'block';
@@ -640,7 +753,7 @@
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Bouton "CANDIDAT" dans la sidebar
+    // Navigation pour le bouton "CANDIDAT" dans la sidebar (affiche le formulaire ou le résumé)
     document.getElementById('coverPageBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('coverPage').style.display = 'block';
@@ -671,7 +784,7 @@
       document.getElementById('contentPage').style.display = 'block';
     });
     
-    // Initialisation de l'autocomplétion et prévisualisation de l'image
+    // Initialisation de l'autocomplétion et de la prévisualisation de l'image
     window.addEventListener('load', () => {
       initAutocomplete();
       const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
