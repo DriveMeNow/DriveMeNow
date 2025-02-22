@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Google Font Roboto -->
+  <!-- Google Font Roboto (pour un style moderne et lisible) -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -17,7 +17,7 @@
     html, body { height: 100%; }
     body { 
       font-family: 'Roboto', sans-serif; 
-      background-color: #FFF9C4; /* Fond jaune pâle */
+      background-color: #FFF9C4; /* fond jaune pâle */
       color: #fff; 
       line-height: 1.6; 
     }
@@ -91,26 +91,32 @@
       max-width: 900px;
       background: #111;
       margin: 30px auto;
-      /* On ajoute un padding à gauche pour laisser de la place au bouton hamburger */
+      /* On ajoute un padding à gauche pour laisser la place au bouton hamburger */
       padding: 40px 40px 40px 60px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       position: relative;
     }
-    /* Titre de page placé à droite du bouton hamburger */
+    /* Titre de section global (pour les pages dans le ContentPage) */
     .page-title {
       font-size: 2.5em;
       font-weight: bold;
       text-transform: uppercase;
-      color: #FFA500;
-      margin-left: 60px;
+      color: #000;  /* Titres en noir */
+      margin-left: 50px;
+    }
+    /* Titre de la section CANDIDAT sur le formulaire */
+    .candidate-title {
+      font-size: 2.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #000;
+      margin: 20px 0 30px 50px;
     }
     /* Pour que le contenu commence en dessous du bouton hamburger */
-    #contentPage, .cover-page {
-      padding-top: 0px;
-    }
+    #contentPage, .cover-page { padding-top: 60px; }
     form { width: 100%; }
-    .info-section { display: flex; flex-direction: column; margin-bottom: 0px; }
+    .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
     /* Zone photo */
     .photo-placeholder {
@@ -172,16 +178,16 @@
       background: #222;
       color: #fff;
     }
-    .summary { display: none; margin-bottom: 5px; text-align: left; }
-    .summary p { margin-bottom: 5px; }
+    .summary { display: none; margin-bottom: 40px; text-align: left; }
+    .summary p { margin-bottom: 10px; }
     .capitalized { text-transform: capitalize; }
     /* Sidebar */
     #menuButton {
       position: fixed;
       top: 10px;
       left: 10px;
-      width: 5px;
-      height: 5px;
+      width: 40px;
+      height: 40px;
       background: #FFA500;
       border: none;
       border-radius: 8px;
@@ -215,9 +221,9 @@
       font-size: 1em;
     }
     /* Sections pédagogiques */
-    .section-content { padding: 20px 40px; }
-    .section-content header { margin-bottom: 20px; margin-left: 60px; }
-    .section-content h2 { font-size: 2.5em; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
+    .section-content { padding: 20px 40px 20px 60px; }
+    .section-content header { margin-bottom: 20px; margin-left: 50px; }
+    .section-content h2 { font-size: 2.5em; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; color: #000; }
     .section-content h3 { font-size: 1.8em; margin-bottom: 10px; color: #FFA500; }
     .section-content h4 { font-size: 1.3em; margin-bottom: 8px; }
     .section-content article { margin-bottom: 20px; }
@@ -255,6 +261,8 @@
     @media (max-width: 768px) {
       .info-section { flex-direction: column; }
       .photo-placeholder { width: 100%; }
+      .section-content { padding: 20px 10px; margin-left: 0; }
+      .page-title, .candidate-title { margin-left: 10px; }
     }
   </style>
 </head>
@@ -336,11 +344,12 @@
       <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>Permis</a>
     </div>
 
-    <!-- Page du formulaire candidat (CANDIDAT) -->
+    <!-- Page du formulaire candidat (section CANDIDAT) -->
     <div class="cover-page" id="coverPage">
-      <div class="title-section">
-        <h1 class="page-title" style="margin-left:60px;">CANDIDAT</h1>
-      </div>
+      <!-- Titre de section "CANDIDAT" placé au-dessus du formulaire -->
+      <header>
+        <h2 class="candidate-title">CANDIDAT</h2>
+      </header>
       <!-- Vue résumé (après validation du formulaire candidat) -->
       <div id="summaryView" class="summary">
         <button id="demarrerBtn" class="action-btn" style="display:none; margin-bottom:10px;">Démarrer</button>
@@ -362,7 +371,7 @@
         <button class="btn edit" id="editBtn" style="max-width:200px; margin:0 auto; display:block;">Modifier</button>
         <button class="btn" id="resetBtn" style="max-width:200px; margin:10px auto 0 auto; display:block;">Nouveau formulaire</button>
       </div>
-      <!-- Formulaire candidat -->
+      <!-- Conteneur du formulaire candidat -->
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
           <div class="info-section">
@@ -457,7 +466,7 @@
         </header>
         <div class="content-box" id="accueilProgression">
           <h3>Progression Administrative et Formation Pratique</h3>
-          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
+          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques qui se mettent à jour en temps réel.</p>
           <div style="display:flex; gap:20px; justify-content:center; margin-top:10px;">
             <div style="text-align:center;">
               <p>Administrative</p>
@@ -483,7 +492,7 @@
         </div>
       </section>
       
-      <!-- Section Inscription -->
+      <!-- Section Inscription pédagogique -->
       <section id="inscriptionSection" class="section-content" style="display:none;">
         <header>
           <h2 class="page-title">INSCRIPTION</h2>
@@ -706,7 +715,7 @@
         </div>
       </section>
       
-      <!-- Section Inscription (pédagogique) -->
+      <!-- Section Inscription pédagogique -->
       <section id="inscriptionSection" class="section-content" style="display:none;">
         <header>
           <h2 class="page-title">INSCRIPTION</h2>
@@ -760,7 +769,7 @@
       return str.replace(/\b\w/g, char => char.toUpperCase());
     }
     
-    // Mise à jour du bouton hamburger et de la sidebar
+    // Gestion du bouton hamburger et de la sidebar
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     function updateMenuVisibility() {
@@ -953,7 +962,6 @@
       document.getElementById('infoForm').style.display = 'none';
       displaySummary(formData);
       document.getElementById('summaryView').style.display = 'block';
-      // Afficher les boutons "Démarrer" et "Commencer", ainsi que "Modifier" et "Nouveau formulaire"
       document.getElementById('demarrerBtn').style.display = 'block';
       document.getElementById('commencerBtn').style.display = 'block';
       document.getElementById('editBtn').style.display = 'block';
@@ -1137,6 +1145,7 @@
         }
       });
     });
+    
     document.querySelectorAll('#sidebar a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('active');
