@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     /* Variables CSS */
     :root {
@@ -12,11 +23,14 @@
     }
 
     /* Réinitialisation */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; font-family: 'Poppins', sans-serif; background-color: var(--bg-main); color: var(--text-main); }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    html, body { height: 100%; background-color: var(--bg-main); color: var(--text-main); }
 
-    /* Boutons (transition orange pâle / orange vif) */
-    .btn, .action-btn {
+    /* ✅ Affichage correct dès le chargement */
+    #mainContent { display: block; }
+
+    /* ✅ Boutons : transition orange pâle / orange vif */
+    .btn {
       padding: 12px 24px;
       font-size: 1em;
       cursor: pointer;
@@ -29,12 +43,12 @@
       text-align: center;
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
-    .btn:hover, .action-btn:hover {
+    .btn:hover {
       background-color: var(--btn-hover);
       transform: scale(1.05);
     }
 
-    /* Sidebar avec boutons arrondis et espacés du bouton hamburger */
+    /* ✅ Sidebar avec boutons arrondis et espacés */
     #menuButton {
       position: fixed;
       top: 20px;
@@ -77,7 +91,7 @@
     }
     #sidebar a.active, #sidebar a:hover { background-color: var(--btn-hover); }
 
-    /* Contenu principal */
+    /* ✅ Encadrements blancs autour du contenu, qui deviennent orange au survol */
     .cover-page {
       width: 90%;
       max-width: 1200px;
@@ -101,8 +115,6 @@
       margin-bottom: 20px;
       box-sizing: border-box;
     }
-
-    /* Sections de contenu encadrées en blanc, avec effet orange au survol */
     .section-container {
       border: 2px solid white;
       padding: 20px;
@@ -114,18 +126,84 @@
       border-color: var(--accent);
     }
 
-    /* Sections affichées / masquées */
-    section { margin-bottom: 40px; display: none; }
+    /* ✅ Sections affichées / masquées */
+    section { display: none; }
     section.active { display: block; }
-    
-    /* Styles pour les slogans */
-    .section-slogan {
-      text-align: center;
-      font-style: italic;
-      margin-top: 20px;
-      color: var(--accent);
-      font-size: 1.1em;
-      font-weight: 600;
-    }
 
   </style>
+</head>
+<body>
+
+  <!-- ✅ Bouton Menu -->
+  <button id="menuButton"><i class="fas fa-bars"></i></button>
+  <div id="sidebar">
+    <a href="#accueilSection" class="sidebar-link active"><i class="fas fa-home"></i> Accueil</a>
+    <a href="#inscriptionSection" class="sidebar-link"><i class="fas fa-file-alt"></i> Inscription</a>
+    <a href="#suiviSection" class="sidebar-link"><i class="fas fa-traffic-light"></i> Suivi</a>
+    <a href="#examenSection" class="sidebar-link"><i class="fas fa-laptop"></i> Examen</a>
+    <a href="#permisSection" class="sidebar-link"><i class="fas fa-id-card"></i> Permis</a>
+    <a href="#candidatSection" class="sidebar-link"><i class="fas fa-user"></i> Candidat</a>
+  </div>
+
+  <!-- ✅ Contenu principal -->
+  <div class="cover-page">
+    <div class="section-title">Accueil</div>
+    
+    <section id="accueilSection" class="section-container active">
+      <h3>Bienvenue sur DRIVEMENOW</h3>
+      <p>Votre livret d'apprentissage en candidat libre.</p>
+    </section>
+
+    <section id="inscriptionSection" class="section-container">
+      <h3>INSCRIPTION</h3>
+      <p>Inscrivez-vous et commencez votre parcours vers le permis.</p>
+    </section>
+
+    <section id="suiviSection" class="section-container">
+      <h3>SUIVI</h3>
+      <p>Suivez vos progrès et validez vos compétences.</p>
+    </section>
+
+    <section id="examenSection" class="section-container">
+      <h3>EXAMEN</h3>
+      <p>Préparez-vous efficacement au grand jour.</p>
+    </section>
+
+    <section id="permisSection" class="section-container">
+      <h3>PERMIS</h3>
+      <p>Découvrez comment récupérer et utiliser votre permis.</p>
+    </section>
+
+    <section id="candidatSection" class="section-container">
+      <h3>CANDIDAT</h3>
+      <form>
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" placeholder="Votre nom" required>
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" placeholder="Votre prénom" required>
+        <button type="submit" class="btn">Valider</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    // ✅ Gestion du menu sidebar
+    document.getElementById("menuButton").addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("active");
+    });
+
+    // ✅ Gestion des sections et liens actifs
+    document.querySelectorAll(".sidebar-link").forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(".sidebar-link.active").classList.remove("active");
+        this.classList.add("active");
+        document.querySelector(".section-title").innerText = this.innerText;
+        document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+        document.querySelector(this.getAttribute("href")).classList.add("active");
+      });
+    });
+  </script>
+
+</body>
+</html>
