@@ -12,17 +12,19 @@
   <!-- Google Maps API avec Places -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
   <style>
-    /* Variables CSS pour une gestion centralisée des couleurs et du style */
+    /* Variables CSS */
     :root {
-      --bg-main: #000000;        /* Fond général noir */
-      --bg-secondary: #ffffff;   /* Fonds des cartes et formulaires */
-      --accent: #ff9800;         /* Orange pour les titres de section, bandeau et accents */
-      --text-main: #333333;      /* Texte principal en gris foncé */
-      --text-muted: #777777;     /* Texte atténué */
-      --border-color: #cccccc;   /* Bordures légères */
+      --bg-main: #000000;         /* Fond général noir */
+      --bg-secondary: #ffffff;    /* Fonds des cartes, formulaires et contenu */
+      --accent: #ff9800;          /* Orange utilisé pour encadrements et titres */
+      --text-main: #333333;       /* Texte principal (pour formulaires et contenu) */
+      --text-muted: #777777;      /* Texte atténué */
+      --border-color: #cccccc;    /* Bordures légères */
+      --btn-base: #2196F3;        /* Bleu pour boutons et sidebar */
+      --btn-hover: #ff9800;       /* Orange au survol pour boutons et sidebar */
     }
     
-    /* Réinitialisation globale */
+    /* Réinitialisation */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
     body {
@@ -32,7 +34,7 @@
       line-height: 1.6;
     }
     
-    /* Page d'authentification */
+    /* Page d'authentification (inchangée) */
     #authPage {
       max-width: 400px;
       margin: 20px auto;
@@ -81,13 +83,14 @@
       color: var(--accent);
     }
     
+    /* Boutons généraux : fond bleu, survol orange */
     .btn, .action-btn {
       padding: 12px 24px;
       font-size: 1em;
       cursor: pointer;
       border: none;
       border-radius: 4px;
-      background-color: var(--accent);
+      background-color: var(--btn-base);
       color: var(--bg-secondary);
       margin: 10px auto;
       display: block;
@@ -95,11 +98,11 @@
       transition: transform 0.2s ease, background-color 0.2s ease;
     }
     .btn:hover, .action-btn:hover {
-      background-color: darkorange;
+      background-color: var(--btn-hover);
       transform: scale(1.05);
     }
     
-    /* Sidebar & Navigation */
+    /* Bouton hamburger (ne change pas) */
     #menuButton {
       position: fixed;
       top: 10px;
@@ -116,9 +119,10 @@
       justify-content: center;
       transition: background-color 0.2s ease;
     }
-    /* Les icônes du menu hamburger seront en noir */
     #menuButton i { font-size: 1.5em; color: #000000; }
     #menuButton:hover { background: darkorange; }
+    
+    /* Sidebar : liens en bleu et survol en orange */
     #sidebar {
       position: fixed;
       top: 0;
@@ -134,8 +138,7 @@
     #sidebar a {
       display: block;
       padding: 15px;
-      background: var(--accent);
-      /* Texte en noir dans la sidebar */
+      background: var(--btn-base);
       color: #000000;
       text-decoration: none;
       border-bottom: 1px solid var(--bg-main);
@@ -144,21 +147,21 @@
       transition: background-color 0.2s ease;
     }
     #sidebar a:hover {
-      background-color: darkorange;
+      background-color: var(--btn-hover);
     }
     
-    /* Zone de contenu principale */
+    /* Conteneur principal adapté à tous supports */
     .cover-page {
       width: 90%;
       max-width: 1200px;
       background: var(--bg-secondary);
       margin: 20px auto;
-      padding: 40px 40px 40px 60px;
+      padding: 40px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       position: relative;
     }
-    /* Titres de section étirés et centrés */
+    /* Titres de section : étirés sur toute la largeur, centrés et inchangés */
     .section-title {
       width: 100%;
       text-align: center;
@@ -170,11 +173,23 @@
       padding: 10px 20px;
       border-radius: 4px;
       margin-bottom: 20px;
-      margin-left: 0;
-      margin-right: 0;
       box-sizing: border-box;
     }
-    #contentContainer { margin: 0 60px; }
+    /* Tous les contenus (sauf authentification) auront la même largeur que la zone des titres */
+    #contentContainer {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Blocs de contenu encadrés en orange */
+    .content-block {
+      border: 2px solid var(--accent);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      background: var(--bg-secondary);
+    }
     
     /* Sections de contenu */
     section {
@@ -192,14 +207,6 @@
       text-align: justify;
     }
     
-    /* Blocs d'encadrement */
-    .monBlocNoir {
-      background-color: var(--bg-secondary);
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
-    
     /* Formulaire candidat */
     .info-section { display: flex; flex-direction: column; margin-bottom: 40px; }
     .candidate-info { width: 100%; }
@@ -215,7 +222,7 @@
       color: var(--text-muted);
       font-size: 0.9em;
       overflow: hidden;
-      margin: 20px auto 0 auto;
+      margin: 20px auto 0;
       transition: border-color 0.2s ease;
     }
     .photo-placeholder.loaded { border: none; }
@@ -264,7 +271,7 @@
       color: var(--text-main);
     }
     
-    /* Pied de page avec texte en noir */
+    /* Pied de page : texte en noir, fond orange */
     .footer {
       text-align: center;
       margin-top: 20px;
@@ -274,10 +281,11 @@
       padding: 10px;
     }
     
+    /* Adaptation sur smartphone */
     @media (max-width: 768px) {
-      .cover-page { padding: 20px 20px 20px 40px; }
-      .section-title { font-size: 1.8em; margin-left: 40px; }
-      #contentContainer { margin: 0 40px; }
+      .cover-page { padding: 20px; }
+      .section-title { font-size: 1.8em; }
+      #contentContainer { padding: 0 20px; }
     }
   </style>
 </head>
@@ -360,27 +368,29 @@
     <div class="cover-page" id="coverPage">
       <div class="section-title" id="sectionTitle">ACCUEIL</div>
       <div id="contentContainer">
-        <!-- Section Accueil -->
+        <!-- Section Accueil découpée en deux blocs -->
         <section id="accueilSection" class="monBlocNoir">
-          <h3>Progression & Indicateurs</h3>
-          <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
-          <div style="display: flex; gap: 20px; justify-content: center;">
-            <div style="text-align: center;">
-              <div class="progress-circle" style="background: var(--accent); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
-                <span>75%</span>
+          <div class="content-block">
+            <h3>Progression & Indicateurs</h3>
+            <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+              <div style="text-align: center;">
+                <div class="progress-circle" style="background: var(--accent); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                  <span>75%</span>
+                </div>
+                <p>Administrative</p>
               </div>
-              <p>Administrative</p>
-            </div>
-            <div style="text-align: center;">
-              <div class="progress-circle" style="background: var(--accent); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
-                <span>50%</span>
+              <div style="text-align: center;">
+                <div class="progress-circle" style="background: var(--accent); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                  <span>50%</span>
+                </div>
+                <p>Formation Pratique</p>
               </div>
-              <p>Formation Pratique</p>
             </div>
           </div>
-          <div style="margin-top: 20px;">
+          <div class="content-block">
             <h3>Annexes</h3>
-            <p>Glossaire, Contacts Utiles, FAQ</p>
+            <p>Accédez facilement au glossaire, aux contacts utiles et à la FAQ pour toutes vos questions.</p>
           </div>
         </section>
         
@@ -501,7 +511,7 @@
           </article>
         </section>
         
-        <!-- Section Candidat (Formulaire de saisie des informations personnelles) -->
+        <!-- Section Candidat -->
         <section id="candidatSection" class="monBlocNoir" style="display: none;">
           <h3>CANDIDAT</h3>
           <div id="formContainer">
