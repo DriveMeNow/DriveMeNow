@@ -20,6 +20,7 @@
       --border-color: #cccccc;    /* Bordures légères */
       --btn-base: #FFCC80;        /* Orange pâle pour boutons et sidebar */
       --btn-hover: #FF9800;       /* Orange vif au survol pour boutons et sidebar */
+      --border-black: #000000;    /* Contour noir */
     }
 
     /* Réinitialisation */
@@ -34,7 +35,7 @@
       padding: 12px 24px;
       font-size: 1em;
       cursor: pointer;
-      border: none;
+      border: 2px solid var(--border-black);
       border-radius: 8px;
       background-color: var(--btn-base);
       color: var(--bg-main);
@@ -48,7 +49,7 @@
       transform: scale(1.05);
     }
 
-    /* ✅ Sidebar avec boutons arrondis et espacés */
+    /* ✅ Sidebar avec boutons arrondis, espacés et contour noir */
     #menuButton {
       position: fixed;
       top: 20px;
@@ -56,7 +57,7 @@
       width: 50px;
       height: 50px;
       background: var(--accent);
-      border: 2px solid #000;
+      border: 2px solid var(--border-black);
       border-radius: 8px;
       cursor: pointer;
       z-index: 3000;
@@ -86,12 +87,13 @@
       text-align: center;
       font-size: 1em;
       border-radius: 20px;
+      border: 2px solid var(--border-black);
       margin: 10px;
       transition: background-color 0.3s ease;
     }
     #sidebar a.active, #sidebar a:hover { background-color: var(--btn-hover); }
 
-    /* ✅ Encadrements blancs autour du contenu, qui deviennent orange au survol */
+    /* ✅ Encadrements blancs autour du contenu, qui deviennent noirs au survol */
     .cover-page {
       width: 90%;
       max-width: 1200px;
@@ -114,6 +116,7 @@
       border-radius: 4px;
       margin-bottom: 20px;
       box-sizing: border-box;
+      border: 2px solid var(--border-black);
     }
     .section-container {
       border: 2px solid white;
@@ -123,7 +126,7 @@
       transition: border-color 0.3s ease;
     }
     .section-container:hover {
-      border-color: var(--accent);
+      border-color: var(--border-black);
     }
 
     /* ✅ Sections affichées / masquées */
