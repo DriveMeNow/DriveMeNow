@@ -16,7 +16,7 @@
     html, body { height: 100%; }
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #fceec7; /* Fond jaune pâle */
+      background-color: #fff9e6; /* Fond jaune pâle */
       color: #fff;
       line-height: 1.6;
     }
@@ -47,7 +47,8 @@
     .auth-tabs button {
       flex: 1;
       padding: 10px;
-      background: #fcd97e; /* orange vif pâle */
+      /* Couleur de fond par défaut => #fceec7 */
+      background: #fceec7;
       color: #000;
       border: none;
       cursor: pointer;
@@ -58,7 +59,8 @@
     }
     .auth-tabs button.active,
     .auth-tabs button:hover {
-      background: #fcd97e;
+      /* Orange vif au survol / si actif => #FFA500 */
+      background: #FFA500;
     }
     .auth-form {
       display: none;
@@ -89,7 +91,6 @@
       margin-top: 7px;
       font-size: 0.8em;
     }
-
     .toggle-password {
       position: absolute;
       right: 10px;
@@ -98,22 +99,18 @@
       cursor: pointer;
       color: #FFA500;
     }
-
-    /* Boutons "Se connecter" / "S'inscrire" centrés */
+    
+    /* Centrage des boutons d'auth */
     .auth-form button.btn {
       display: block;
       margin: 15px auto 0 auto; /* centrage horizontal */
       text-align: center;
     }
 
-    /* Bouton "Passer l’authentification" */
-    #skipAuth {
-      margin-top: 20px;
-      display: block; 
-    }
-
     /* ========================
        BOUTONS GÉNÉRIQUES
+       (couleur par défaut = #fceec7)
+       (hover = orange vif #FFA500)
     =========================*/
     .btn {
       padding: 10px 20px;
@@ -121,15 +118,16 @@
       cursor: pointer;
       border: 1px solid transparent;
       border-radius: 8px;
-      background-color: #FFB84D;
+      background-color: #fceec7; /* Couleur par défaut */
       color: #000;
       margin: 10px auto;
       text-align: center;
       transition: background 0.3s, border 0.3s;
     }
     .btn:hover {
-      background-color: #FFA500;
+      background-color: #FFA500; /* Orange vif au survol */
       border: 1px solid #FFA500;
+      color: #000;
     }
 
     /* ========================
@@ -144,6 +142,8 @@
       left: 10px;
       width: 40px;
       height: 40px;
+      /* Pour respecter la charte, on le laisse en #FFA500 ou #fceec7 ?
+         On peut le laisser en #FFA500 pour le rendre plus visible */
       background: #FFA500;
       border-radius: 8px;
       cursor: pointer;
@@ -157,14 +157,14 @@
       color: #000;
     }
 
-    /* Sidebar couleur sable lumineux */
+    /* Sidebar => fond #fceec7 */
     #sidebar {
       position: fixed;
       top: 0;
       left: -250px;
       width: 250px;
       height: 100%;
-      background: #F4A460; /* Couleur sable lumineux */
+      background: #fceec7; /* Couleur sable / clair */
       transition: left 0.3s;
       z-index: 2500;
       padding-top: 60px;
@@ -173,10 +173,11 @@
     #sidebar.active {
       left: 0;
     }
+    /* Liens du sidebar => par défaut #fceec7, survol => #FFA500 */
     #sidebar a {
       display: block;
       padding: 15px;
-      background: #FFB84D;
+      background: #fceec7; /* même couleur que la sidebar */
       color: #000;
       text-decoration: none;
       border-bottom: 1px solid #000;
@@ -188,7 +189,8 @@
     }
     #sidebar a:hover,
     #sidebar a.active {
-      background: #FFA500;
+      background: #FFA500; /* orange vif sur hover / actif */
+      color: #000;
     }
 
     /* =========================
@@ -371,8 +373,6 @@
       margin-bottom: 8px;
       color: #FFA500;
     }
-
-    /* Encadrements pour les <article> => découpage sous-titres */
     .section-content article {
       background: #222;
       margin: 20px 0;
@@ -451,8 +451,8 @@
     }
     .suivi-form button {
       grid-column: span 2;
-      background-color: #4CAF50;
-      color: #fff;
+      background-color: #fceec7; /* Couleur par défaut */
+      color: #000;
       padding: 10px;
       border: none;
       cursor: pointer;
@@ -460,9 +460,11 @@
       transition: background 0.3s, border 0.3s;
     }
     .suivi-form button:hover {
-      background-color: #45a049;
+      background-color: #FFA500; /* orange vif */
       border: 2px solid #FFA500;
+      color: #000;
     }
+
     table.suivi-table {
       width: 100%;
       border-collapse: collapse;
@@ -591,7 +593,7 @@
   <!-- Bouton hamburger pour le menu latéral -->
   <button id="menuButton"><i class="fas fa-bars"></i></button>
   
-  <!-- Sidebar (couleur sable lumineux) -->
+  <!-- ========== Sidebar (fond #fceec7) ========== -->
   <div id="sidebar">
     <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>CANDIDAT</a>
     <a href="#accueilSection" id="accueilBtn"><i class="fas fa-home"></i><br>ACCUEIL</a>
@@ -988,19 +990,15 @@
    FONCTIONS COMMUNES
    ===================== */
 
-// Pour capitaliser les champs (nom, prénom, etc.)
+// Capitalise la 1ère lettre de chaque mot
 function capitalize(str) {
   return str.replace(/\b\w/g, char => char.toUpperCase());
 }
-
-// Masquer toutes les sections de contenu pédagogique
 function hideAllSections() {
   document.querySelectorAll('.section-content').forEach(sec => {
     sec.style.display = 'none';
   });
 }
-
-// Met à jour la visibilité du bouton hamburger
 function updateMenuVisibility() {
   const mainContentStyle = window.getComputedStyle(document.getElementById('mainContent'));
   const menuButton = document.getElementById('menuButton');
@@ -1023,7 +1021,6 @@ loginTab.addEventListener('click', () => {
   loginFormContainer.classList.add('active');
   registerFormContainer.classList.remove('active');
 });
-
 registerTab.addEventListener('click', () => {
   registerTab.classList.add('active');
   loginTab.classList.remove('active');
@@ -1046,21 +1043,18 @@ function setupTogglePassword(toggleElement, targetInput) {
   });
 }
 
-// Icone œil pour le champ Connexion
 const toggleLoginPassword = document.getElementById('toggleLoginPassword');
 setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'));
 
-// Icônes œil pour l'inscription
 document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
-  const targetId = icon.getAttribute('data-target') || icon.id.replace('toggle',''); 
-  // fallback si data-target n'est pas renseigné
+  const targetId = icon.getAttribute('data-target') || icon.id.replace('toggle','');
   const targetInput = document.getElementById(targetId);
   if (targetInput) {
     setupTogglePassword(icon, targetInput);
   }
 });
 
-// Formulaire d'inscription (compte)
+// Formulaire d'inscription
 document.getElementById('registerForm').addEventListener('submit', e => {
   e.preventDefault();
   const regPassword = document.getElementById('regPassword').value;
@@ -1076,7 +1070,7 @@ document.getElementById('registerForm').addEventListener('submit', e => {
     return;
   }
   
-  // Simulation d'envoi du code unique
+  // Code unique (simulation)
   const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
   localStorage.setItem('registeredUser', JSON.stringify({
     email: document.getElementById('regEmail').value,
@@ -1091,14 +1085,11 @@ document.getElementById('registerForm').addEventListener('submit', e => {
 // Formulaire de connexion
 document.getElementById('loginForm').addEventListener('submit', e => {
   e.preventDefault();
-  // On ne fait pas de validation stricte du code unique pour l'instant
   document.getElementById('authPage').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
-  
-  // On affiche directement la section candidat (formulaire)
+  // Affiche directement le formulaire candidat
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
-  
   updateMenuVisibility();
 });
 
@@ -1106,11 +1097,9 @@ document.getElementById('loginForm').addEventListener('submit', e => {
 document.getElementById('skipAuth').addEventListener('click', () => {
   document.getElementById('authPage').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
-  
-  // L'utilisateur est confronté directement au formulaire candidat
+  // Confrontation directe au formulaire
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
-  
   updateMenuVisibility();
 });
 
@@ -1125,12 +1114,11 @@ sidebar.addEventListener('mouseleave', () => {
   sidebar.classList.remove('active');
 });
 
-// Active link in sidebar
 document.querySelectorAll('#sidebar a').forEach(link => {
   link.addEventListener('click', function() {
     document.querySelectorAll('#sidebar a').forEach(el => el.classList.remove('active'));
     this.classList.add('active');
-    sidebar.classList.remove('active'); // refermer le menu
+    sidebar.classList.remove('active');
   });
 });
 
@@ -1139,10 +1127,10 @@ document.getElementById('coverPageBtn').addEventListener('click', e => {
   e.preventDefault();
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
-  hideAllSections(); 
+  hideAllSections();
 });
 
-// Accueil => affiche le contentPage + accueilSection
+// Accueil => contentPage + accueilSection
 document.getElementById('accueilBtn').addEventListener('click', e => {
   e.preventDefault();
   document.getElementById('candidatSection').style.display = 'none';
@@ -1151,7 +1139,7 @@ document.getElementById('accueilBtn').addEventListener('click', e => {
   document.getElementById('accueilSection').style.display = 'block';
 });
 
-// Inscription (côté livret) => inscriptionSection
+// Inscription => inscriptionSection
 document.getElementById('inscriptionLink').addEventListener('click', e => {
   e.preventDefault();
   document.getElementById('candidatSection').style.display = 'none';
@@ -1232,13 +1220,13 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   e.preventDefault();
   const formData = collectFormData();
   localStorage.setItem('validatedData', JSON.stringify(formData));
-  // On masque le formulaire
+  // Masquer le formulaire
   document.getElementById('infoForm').style.display = 'none';
-  // Affiche le résumé
+  // Afficher le résumé
   displaySummary(formData);
   document.getElementById('summaryView').style.display = 'block';
   
-  // On rend visibles les boutons (sauf "Commencer" qui n'existe plus)
+  // Montrer les boutons
   document.getElementById('editBtn').style.display = 'inline-block';
   document.getElementById('resetBtn').style.display = 'inline-block';
   document.getElementById('demarrerBtn').style.display = 'inline-block';
@@ -1246,38 +1234,34 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Bouton "Modifier" => réaffiche le formulaire
+// Modifier
 document.getElementById('editBtn').addEventListener('click', () => {
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('editBtn').style.display = 'none';
   document.getElementById('resetBtn').style.display = 'none';
   document.getElementById('demarrerBtn').style.display = 'none';
-  
   document.getElementById('infoForm').style.display = 'block';
 });
 
-// Bouton "Réinitialiser" => remise à zéro
+// Réinitialiser
 document.getElementById('resetBtn').addEventListener('click', () => {
   localStorage.removeItem('validatedData');
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('infoForm').reset();
   
-  // On masque les boutons
   document.getElementById('editBtn').style.display = 'none';
   document.getElementById('resetBtn').style.display = 'none';
   document.getElementById('demarrerBtn').style.display = 'none';
   
-  // Réafficher le formulaire
   document.getElementById('infoForm').style.display = 'block';
   
-  // Remettre l'image à vide
   const photoPreview = document.getElementById('photoPreview');
   photoPreview.src = "";
   photoPreview.style.display = 'none';
   document.getElementById('photoPlaceholderText').style.display = 'block';
 });
 
-// Bouton "Démarrer" => bascule vers le contenu pédagogique (accueil)
+// Démarrer => contenu pédagogique (accueil)
 document.getElementById('demarrerBtn').addEventListener('click', () => {
   document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('contentPage').style.display = 'block';
@@ -1359,23 +1343,18 @@ function ajouterSession() {
   `;
   tbody.appendChild(tr);
   
-  // Remettre à zéro le formulaire
+  // Reset form
   document.getElementById('suiviForm').reset();
-  
-  // Mettre à jour l'indicateur pratique
   mettreAJourIndicateurs();
 }
 
 function mettreAJourIndicateurs() {
   const totalSessions = document.querySelectorAll('#suiviTbody tr').length;
-  const cible = 10; // par exemple 10 sessions
+  const cible = 10;
   const pourcentage = Math.min(Math.round((totalSessions / cible) * 100), 100);
   document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
 }
 
-/* =====================
-   INITIALISATION
-   ===================== */
 window.addEventListener('load', () => {
   initAutocomplete();
   // Gestion de l'upload photo
