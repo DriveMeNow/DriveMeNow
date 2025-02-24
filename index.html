@@ -9,11 +9,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <!-- Google Maps API (Places) -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
-  
+
   <style>
-    /* Réinitialisation */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
+    /* ==== Réinitialisation ==== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       background-color: #fff9e6; /* Fond jaune pâle */
@@ -21,9 +27,9 @@
       line-height: 1.6;
     }
 
-    /* ========================
+    /* ============================
        PAGE AUTHENTIFICATION
-    =========================*/
+    ============================ */
     #authPage {
       max-width: 400px;
       margin: 40px auto;
@@ -33,7 +39,16 @@
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
     }
-    #authPage h1 { font-size: 2em; color: #FFA500; }
+    /* Logo remplaçant l'ancien titre */
+    #logoContainer {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #logoContainer img {
+      max-width: 100%;
+      height: auto;
+    }
+
     .welcome-text {
       margin-bottom: 20px;
       font-size: 0.95em;
@@ -47,8 +62,7 @@
     .auth-tabs button {
       flex: 1;
       padding: 10px;
-      /* Couleur de fond par défaut => #fceec7 */
-      background: #fceec7;
+      background: #fceec7; /* Couleur claire */
       color: #000;
       border: none;
       cursor: pointer;
@@ -59,8 +73,7 @@
     }
     .auth-tabs button.active,
     .auth-tabs button:hover {
-      /* Orange vif au survol / si actif => #FFA500 */
-      background: #FFA500;
+      background: #FFA500; /* orange vif au survol / état actif */
     }
     .auth-form {
       display: none;
@@ -71,7 +84,7 @@
     }
     .auth-field {
       margin-bottom: 15px;
-      position: relative; /* pour l'icône œil */
+      position: relative; /* pour placer l’icône œil */
     }
     .auth-field label {
       display: block;
@@ -91,6 +104,7 @@
       margin-top: 7px;
       font-size: 0.8em;
     }
+
     .toggle-password {
       position: absolute;
       right: 10px;
@@ -99,19 +113,24 @@
       cursor: pointer;
       color: #FFA500;
     }
-    
-    /* Centrage des boutons d'auth */
+
+    /* Centrage des boutons de la page d'authentification */
     .auth-form button.btn {
       display: block;
-      margin: 15px auto 0 auto; /* centrage horizontal */
+      margin: 15px auto 0 auto;
       text-align: center;
     }
-
-    /* ========================
+    /* Bouton "Passer l'authentification" */
+    #skipAuth {
+      margin-top: 20px;
+      display: block; 
+      background-color: #fceec7;
+      color: #000;
+    }
+    
+    /* =====================
        BOUTONS GÉNÉRIQUES
-       (couleur par défaut = #fceec7)
-       (hover = orange vif #FFA500)
-    =========================*/
+    ===================== */
     .btn {
       padding: 10px 20px;
       font-size: 1em;
@@ -125,14 +144,14 @@
       transition: background 0.3s, border 0.3s;
     }
     .btn:hover {
-      background-color: #FFA500; /* Orange vif au survol */
+      background-color: #FFA500; /* orange vif */
       border: 1px solid #FFA500;
       color: #000;
     }
 
-    /* ========================
+    /* ============================
        MAIN CONTENT & SIDEBAR
-    =========================*/
+    ============================ */
     #mainContent {
       display: none; /* caché avant la fin de l'authentification */
     }
@@ -142,8 +161,6 @@
       left: 10px;
       width: 40px;
       height: 40px;
-      /* Pour respecter la charte, on le laisse en #FFA500 ou #fceec7 ?
-         On peut le laisser en #FFA500 pour le rendre plus visible */
       background: #FFA500;
       border-radius: 8px;
       cursor: pointer;
@@ -157,14 +174,14 @@
       color: #000;
     }
 
-    /* Sidebar => fond #fceec7 */
+    /* Sidebar fond #fceec7 */
     #sidebar {
       position: fixed;
       top: 0;
       left: -250px;
       width: 250px;
       height: 100%;
-      background: #fceec7; /* Couleur sable / clair */
+      background: #fceec7;
       transition: left 0.3s;
       z-index: 2500;
       padding-top: 60px;
@@ -173,11 +190,10 @@
     #sidebar.active {
       left: 0;
     }
-    /* Liens du sidebar => par défaut #fceec7, survol => #FFA500 */
     #sidebar a {
       display: block;
       padding: 15px;
-      background: #fceec7; /* même couleur que la sidebar */
+      background: #fceec7; /* par défaut clair */
       color: #000;
       text-decoration: none;
       border-bottom: 1px solid #000;
@@ -189,13 +205,13 @@
     }
     #sidebar a:hover,
     #sidebar a.active {
-      background: #FFA500; /* orange vif sur hover / actif */
+      background: #FFA500; /* orange vif au survol / actif */
       color: #000;
     }
 
     /* =========================
        SECTION CANDIDAT (FORM)
-    ==========================*/
+    ========================= */
     #candidatSection {
       display: none;
       max-width: 1200px;
@@ -322,7 +338,7 @@
       color: #FFF;
     }
 
-    /* Boutons suite au résumé (plus de bouton "Commencer") */
+    /* Boutons suite au résumé */
     #editBtn, #resetBtn, #demarrerBtn {
       display: none;
       margin: 10px 5px;
@@ -330,36 +346,33 @@
 
     /* =========================
        CONTENU PÉDAGOGIQUE
-    ==========================*/
+       (sans encadrement global)
+    ========================= */
     #contentPage {
+      /* On retire le fond sombre, la bordure, etc.
+         juste un conteneur qui occupe l'espace */
       display: none;
-      padding: 20px;
-      padding-top: 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-      background: #111;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
     }
+
+    /* Chaque section a la même marge qu'en page candidat.
+       On supprime l'encadrement global, 
+       mais on conserve l'encadrement dans les <article> */
     .section-content {
+      max-width: 1200px;
+      margin: 40px auto; /* même marge haut/bas que la page candidat */
+      padding: 0 20px;   /* un peu de padding latéral */
       background: transparent;
-      padding: 20px 40px;
-      margin-bottom: 40px;
-      border-radius: 8px;
-      transition: border 0.3s;
-      border: 1px solid #fff;
     }
-    .section-content:hover {
-      border: 3px solid #FFA500;
-    }
+
     .section-content header {
       margin-bottom: 20px;
+      text-align: center;
     }
     .section-content h2 {
       font-size: 2em;
       margin-bottom: 10px;
-      text-align: center;
       color: #FFA500;
+      text-align: center;
     }
     .section-content h3 {
       font-size: 1.6em;
@@ -373,6 +386,8 @@
       margin-bottom: 8px;
       color: #FFA500;
     }
+
+    /* Articles : découpage avec fond sombre et encadrement */
     .section-content article {
       background: #222;
       margin: 20px 0;
@@ -403,7 +418,9 @@
       color: #fff;
     }
 
-    /* Module Suivi */
+    /* ===================
+       MODULE SUIVI
+    =================== */
     .suivi-container {
       background: #222;
       padding: 20px;
@@ -451,7 +468,7 @@
     }
     .suivi-form button {
       grid-column: span 2;
-      background-color: #fceec7; /* Couleur par défaut */
+      background-color: #fceec7;
       color: #000;
       padding: 10px;
       border: none;
@@ -460,11 +477,10 @@
       transition: background 0.3s, border 0.3s;
     }
     .suivi-form button:hover {
-      background-color: #FFA500; /* orange vif */
+      background-color: #FFA500;
       border: 2px solid #FFA500;
       color: #000;
     }
-
     table.suivi-table {
       width: 100%;
       border-collapse: collapse;
@@ -508,7 +524,7 @@
     /* Responsive */
     @media (max-width:768px) {
       .section-content {
-        padding: 20px 20px;
+        padding: 0 20px;
       }
       .suivi-form {
         grid-template-columns: 1fr;
@@ -520,12 +536,16 @@
 
 <!-- ========== Page d'authentification ========== -->
 <div id="authPage">
-  <h1>DriveMeNow</h1>
+  <!-- Remplacement du <h1> par le logo -->
+  <div id="logoContainer">
+    <img src="images/drivemenow_logo.png" alt="DriveMeNow">
+  </div>
+
   <p class="welcome-text">
     Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis de conduire en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.
   </p>
 
-  <!-- Onglets -->
+  <!-- Onglets de connexion/inscription -->
   <div class="auth-tabs">
     <button id="loginTab" class="active">Connexion</button>
     <button id="registerTab">Inscription</button>
@@ -592,8 +612,8 @@
 <div id="mainContent">
   <!-- Bouton hamburger pour le menu latéral -->
   <button id="menuButton"><i class="fas fa-bars"></i></button>
-  
-  <!-- ========== Sidebar (fond #fceec7) ========== -->
+
+  <!-- Sidebar -->
   <div id="sidebar">
     <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>CANDIDAT</a>
     <a href="#accueilSection" id="accueilBtn"><i class="fas fa-home"></i><br>ACCUEIL</a>
@@ -602,7 +622,7 @@
     <a href="#examenSection" id="examenLink"><i class="fas fa-laptop"></i><br>EXAMEN</a>
     <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>PERMIS</a>
   </div>
-  
+
   <!-- ========== Page Candidat (Formulaire) ========== -->
   <section id="candidatSection">
     <h2>CANDIDAT</h2>
@@ -684,7 +704,7 @@
         </label>
       </form>
     </div>
-    
+
     <!-- Récapitulatif candidat (après validation du formulaire) -->
     <div id="summaryView">
       <h2>Récapitulatif du Candidat</h2>
@@ -700,7 +720,7 @@
       <p>NEPH : <span id="sumNeph"></span></p>
       <p>Date de début de formation : <span id="sumDateDebut"></span></p>
       <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;">
-      
+
       <div style="text-align:center; margin-top:20px;">
         <button id="editBtn" class="btn">Modifier</button>
         <button id="resetBtn" class="btn">Réinitialiser</button>
@@ -708,7 +728,7 @@
       </div>
     </div>
   </section>
-  
+
   <!-- ========== Contenu pédagogique (Affiché via la sidebar) ========== -->
   <div id="contentPage">
     <!-- Section ACCUEIL -->
@@ -749,7 +769,7 @@
         </ul>
       </article>
     </section>
-    
+
     <!-- Section INSCRIPTION (Permis) -->
     <section id="inscriptionSection" class="section-content" style="display:none;">
       <header>
@@ -794,7 +814,7 @@
         </ol>
       </article>
     </section>
-    
+
     <!-- Section SUIVI -->
     <section id="suiviSection" class="section-content" style="display:none;">
       <header>
@@ -837,7 +857,6 @@
         <h3>Suivi des Sessions de Conduite</h3>
         <div class="suivi-container">
           <h2 onclick="document.getElementById('suiviTable').scrollIntoView({behavior:'smooth'});" style="cursor:pointer;">Suivi des Sessions de Conduite</h2>
-          
           <form class="suivi-form" id="suiviForm">
             <label for="dateSession">Date :</label>
             <input type="date" id="dateSession" required>
@@ -898,7 +917,6 @@
             
             <button type="button" onclick="ajouterSession()">Ajouter au Tableau</button>
           </form>
-          
           <table class="suivi-table" id="suiviTable">
             <thead>
               <tr>
@@ -920,7 +938,7 @@
         </div>
       </article>
     </section>
-    
+
     <!-- Section EXAMEN -->
     <section id="examenSection" class="section-content" style="display:none;">
       <header>
@@ -955,7 +973,7 @@
         <p>Avant le Jour J, assurez-vous d'avoir tous les documents obligatoires, révisez les consignes et restez concentré pour réussir votre examen.</p>
       </article>
     </section>
-    
+
     <!-- Section PERMIS -->
     <section id="permisSection" class="section-content" style="display:none;">
       <header>
@@ -988,17 +1006,23 @@
 <script>
 /* =====================
    FONCTIONS COMMUNES
-   ===================== */
+===================== */
 
 // Capitalise la 1ère lettre de chaque mot
 function capitalize(str) {
   return str.replace(/\b\w/g, char => char.toUpperCase());
 }
+// Masquer toutes les sections .section-content
 function hideAllSections() {
   document.querySelectorAll('.section-content').forEach(sec => {
     sec.style.display = 'none';
   });
 }
+// Forcer le scroll en haut de page
+function scrollTopPage() {
+  window.scrollTo(0, 0);
+}
+// Met à jour la visibilité du bouton hamburger
 function updateMenuVisibility() {
   const mainContentStyle = window.getComputedStyle(document.getElementById('mainContent'));
   const menuButton = document.getElementById('menuButton');
@@ -1009,12 +1033,13 @@ function updateMenuVisibility() {
 
 /* =====================
    AUTHENTIFICATION
-   ===================== */
+===================== */
 const loginTab = document.getElementById('loginTab');
 const registerTab = document.getElementById('registerTab');
 const loginFormContainer = document.getElementById('loginFormContainer');
 const registerFormContainer = document.getElementById('registerFormContainer');
 
+// Gestion des onglets
 loginTab.addEventListener('click', () => {
   loginTab.classList.add('active');
   registerTab.classList.remove('active');
@@ -1028,7 +1053,7 @@ registerTab.addEventListener('click', () => {
   loginFormContainer.classList.remove('active');
 });
 
-// Toggle affichage mot de passe
+// Toggle mot de passe
 function setupTogglePassword(toggleElement, targetInput) {
   toggleElement.addEventListener('click', () => {
     if (targetInput.type === "password") {
@@ -1042,7 +1067,6 @@ function setupTogglePassword(toggleElement, targetInput) {
     }
   });
 }
-
 const toggleLoginPassword = document.getElementById('toggleLoginPassword');
 setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'));
 
@@ -1060,7 +1084,7 @@ document.getElementById('registerForm').addEventListener('submit', e => {
   const regPassword = document.getElementById('regPassword').value;
   const regPasswordConfirm = document.getElementById('regPasswordConfirm').value;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
-  
+
   if (!passwordRegex.test(regPassword)) {
     alert("Le mot de passe doit contenir au moins 9 caractères, une majuscule, une minuscule et un chiffre.");
     return;
@@ -1069,7 +1093,7 @@ document.getElementById('registerForm').addEventListener('submit', e => {
     alert("Les mots de passe ne correspondent pas.");
     return;
   }
-  
+
   // Code unique (simulation)
   const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
   localStorage.setItem('registeredUser', JSON.stringify({
@@ -1077,7 +1101,7 @@ document.getElementById('registerForm').addEventListener('submit', e => {
     password: regPassword,
     code: oneTimeCode
   }));
-  
+
   alert("Un code à usage unique a été envoyé (simulation : " + oneTimeCode + ")");
   loginTab.click();
 });
@@ -1087,9 +1111,10 @@ document.getElementById('loginForm').addEventListener('submit', e => {
   e.preventDefault();
   document.getElementById('authPage').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
-  // Affiche directement le formulaire candidat
+  // Affiche la section candidat
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
+  scrollTopPage();
   updateMenuVisibility();
 });
 
@@ -1097,15 +1122,16 @@ document.getElementById('loginForm').addEventListener('submit', e => {
 document.getElementById('skipAuth').addEventListener('click', () => {
   document.getElementById('authPage').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
-  // Confrontation directe au formulaire
+  // Confrontation directe au formulaire candidat
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
+  scrollTopPage();
   updateMenuVisibility();
 });
 
 /* =====================
    SIDEBAR & NAVIGATION
-   ===================== */
+===================== */
 const sidebar = document.getElementById('sidebar');
 document.getElementById('menuButton').addEventListener('click', () => {
   sidebar.classList.toggle('active');
@@ -1115,69 +1141,79 @@ sidebar.addEventListener('mouseleave', () => {
 });
 
 document.querySelectorAll('#sidebar a').forEach(link => {
-  link.addEventListener('click', function() {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    // Retire la classe active à tous
     document.querySelectorAll('#sidebar a').forEach(el => el.classList.remove('active'));
+    // Ajoute la classe active au bouton cliqué
     this.classList.add('active');
+    // Ferme la sidebar
     sidebar.classList.remove('active');
   });
 });
 
-// Candidat => affiche la section candidat
+// Candidat => section candidat
 document.getElementById('coverPageBtn').addEventListener('click', e => {
   e.preventDefault();
+  hideAllSections();
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
-  hideAllSections();
+  scrollTopPage();
 });
 
-// Accueil => contentPage + accueilSection
+// Accueil => accueilSection
 document.getElementById('accueilBtn').addEventListener('click', e => {
   e.preventDefault();
-  document.getElementById('candidatSection').style.display = 'none';
-  document.getElementById('contentPage').style.display = 'block';
   hideAllSections();
+  document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('accueilSection').style.display = 'block';
+  document.getElementById('contentPage').style.display = 'block';
+  scrollTopPage();
 });
 
 // Inscription => inscriptionSection
 document.getElementById('inscriptionLink').addEventListener('click', e => {
   e.preventDefault();
-  document.getElementById('candidatSection').style.display = 'none';
-  document.getElementById('contentPage').style.display = 'block';
   hideAllSections();
+  document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('inscriptionSection').style.display = 'block';
+  document.getElementById('contentPage').style.display = 'block';
+  scrollTopPage();
 });
 
 // Suivi => suiviSection
 document.getElementById('suiviLink').addEventListener('click', e => {
   e.preventDefault();
-  document.getElementById('candidatSection').style.display = 'none';
-  document.getElementById('contentPage').style.display = 'block';
   hideAllSections();
+  document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('suiviSection').style.display = 'block';
+  document.getElementById('contentPage').style.display = 'block';
+  scrollTopPage();
 });
 
 // Examen => examenSection
 document.getElementById('examenLink').addEventListener('click', e => {
   e.preventDefault();
-  document.getElementById('candidatSection').style.display = 'none';
-  document.getElementById('contentPage').style.display = 'block';
   hideAllSections();
+  document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('examenSection').style.display = 'block';
+  document.getElementById('contentPage').style.display = 'block';
+  scrollTopPage();
 });
 
 // Permis => permisSection
 document.getElementById('permisLink').addEventListener('click', e => {
   e.preventDefault();
-  document.getElementById('candidatSection').style.display = 'none';
-  document.getElementById('contentPage').style.display = 'block';
   hideAllSections();
+  document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('permisSection').style.display = 'block';
+  document.getElementById('contentPage').style.display = 'block';
+  scrollTopPage();
 });
 
 /* =====================
    FORMULAIRE CANDIDAT
-   ===================== */
+===================== */
 function collectFormData() {
   const nephInputs = document.querySelectorAll('.neph-box input');
   return {
@@ -1225,16 +1261,16 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   // Afficher le résumé
   displaySummary(formData);
   document.getElementById('summaryView').style.display = 'block';
-  
-  // Montrer les boutons
+
+  // Montrer les boutons (Modifier, Réinitialiser, Démarrer)
   document.getElementById('editBtn').style.display = 'inline-block';
   document.getElementById('resetBtn').style.display = 'inline-block';
   document.getElementById('demarrerBtn').style.display = 'inline-block';
-  
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  scrollTopPage();
 });
 
-// Modifier
+// Bouton "Modifier" => Réaffiche le formulaire
 document.getElementById('editBtn').addEventListener('click', () => {
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('editBtn').style.display = 'none';
@@ -1243,39 +1279,40 @@ document.getElementById('editBtn').addEventListener('click', () => {
   document.getElementById('infoForm').style.display = 'block';
 });
 
-// Réinitialiser
+// Bouton "Réinitialiser" => Remise à zéro
 document.getElementById('resetBtn').addEventListener('click', () => {
   localStorage.removeItem('validatedData');
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('infoForm').reset();
-  
+
   document.getElementById('editBtn').style.display = 'none';
   document.getElementById('resetBtn').style.display = 'none';
   document.getElementById('demarrerBtn').style.display = 'none';
-  
+
   document.getElementById('infoForm').style.display = 'block';
-  
+
   const photoPreview = document.getElementById('photoPreview');
   photoPreview.src = "";
   photoPreview.style.display = 'none';
   document.getElementById('photoPlaceholderText').style.display = 'block';
 });
 
-// Démarrer => contenu pédagogique (accueil)
+// Bouton "Démarrer" => Bascule vers le contenu pédagogique (accueil)
 document.getElementById('demarrerBtn').addEventListener('click', () => {
   document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('contentPage').style.display = 'block';
   hideAllSections();
   document.getElementById('accueilSection').style.display = 'block';
+  scrollTopPage();
 });
 
 /* =====================
    AUTOCOMPLÉTION ADRESSE
-   ===================== */
+===================== */
 function initAutocomplete() {
   const addressInput = document.getElementById('adresse');
   if (!addressInput) return;
-  
+
   const autocomplete = new google.maps.places.Autocomplete(addressInput, {
     componentRestrictions: { country: "fr" },
     fields: ["address_components", "formatted_address", "geometry", "name"]
@@ -1300,7 +1337,7 @@ function initAutocomplete() {
 
 /* =====================
    NEPH BOX AUTOFOCUS
-   ===================== */
+===================== */
 document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
   input.addEventListener('input', function() {
     if (this.value.length === this.maxLength) {
@@ -1312,7 +1349,7 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
 
 /* =====================
    SUIVI DES SESSIONS
-   ===================== */
+===================== */
 function ajouterSession() {
   const date = document.getElementById('dateSession').value;
   const lieu = document.getElementById('lieuSession').value;
@@ -1323,7 +1360,7 @@ function ajouterSession() {
   const assistance = document.getElementById('assistanceSession').value;
   const remarques = document.getElementById('remarquesSession').value;
   const objectifs = document.getElementById('objectifsSession').value;
-  
+
   if (!date) {
     alert("Veuillez sélectionner une date.");
     return;
@@ -1342,8 +1379,8 @@ function ajouterSession() {
     <td>${objectifs}</td>
   `;
   tbody.appendChild(tr);
-  
-  // Reset form
+
+  // Réinitialiser le formulaire
   document.getElementById('suiviForm').reset();
   mettreAJourIndicateurs();
 }
@@ -1355,6 +1392,9 @@ function mettreAJourIndicateurs() {
   document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
 }
 
+/* =====================
+   INITIALISATION
+===================== */
 window.addEventListener('load', () => {
   initAutocomplete();
   // Gestion de l'upload photo
