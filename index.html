@@ -1088,7 +1088,7 @@ function initAutocomplete() {
     componentRestrictions: { country: "fr" },
     fields: ["address_components", "formatted_address", "geometry", "name"]
   });
-  autocomplete.addListener('place_changed', () => {
+  autocomplete.addEventListener('place_changed', () => {
     const place = autocomplete.getPlace();
     if (!place.address_components) return;
     let postalCode = "";
@@ -1138,7 +1138,8 @@ function ajouterSession() {
   }
   const tbody = document.getElementById('suiviTbody');
   const tr = document.createElement('tr');
-  tr.innerHTML = 
+  // ***** Correction avec template string *****
+  tr.innerHTML = `
     <td>${date}</td>
     <td>${lieu}</td>
     <td>${trafic}</td>
@@ -1148,7 +1149,7 @@ function ajouterSession() {
     <td>${assistance}</td>
     <td>${remarques}</td>
     <td>${objectifs}</td>
-  ;
+  `;
   tbody.appendChild(tr);
   document.getElementById('suiviForm').reset();
   mettreAJourIndicateurs();
