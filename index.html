@@ -46,8 +46,17 @@
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
     }
-
-    /* Lignes concernant #logoContainer ou un logo => supprimées */
+    /* Réintégration du logo dans un header */
+    #authPage header {
+      margin-bottom: 20px; /* petit espace sous le logo */
+    }
+    #logoContainer {
+      text-align: center;
+    }
+    #logoContainer img {
+      max-width: 200px;
+      height: auto;
+    }
 
     .welcome-text {
       margin-bottom: 20px;
@@ -528,7 +537,13 @@
 
 <!-- ========== Page d'authentification ========== -->
 <div id="authPage">
-  <!-- (Logo supprimé) -->
+  <header>
+    <!-- Logo -->
+    <div id="logoContainer">
+      <img src="mon_logo.png.png" alt="Mon Logo" style="max-width: 200px; height:auto;">  
+    </div>
+  </header>
+
   <p class="welcome-text">
     Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis de conduire en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.
   </p>
@@ -598,7 +613,7 @@
 
 <!-- ========== Contenu principal après authentification ========== -->
 <div id="mainContent">
-  <!-- Bouton hamburger (sans contour, plus de logo) -->
+  <!-- Bouton hamburger (sans contour) -->
   <button id="menuButton"><i class="fas fa-bars"></i></button>
 
   <!-- Sidebar -->
