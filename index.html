@@ -36,22 +36,19 @@
 
     /* ============================
        PAGE AUTHENTIFICATION
-       => plus de gros bloc noir
     ============================ */
     #authPage {
       max-width: 1200px;
       margin: 40px auto;
-      padding: 0 20px; /* On colle au style des autres pages */
-      background: transparent; /* plus de bloc noir */
+      padding: 0 20px;
+      background: transparent; 
     }
-    /* Titre aligné comme les autres */
     #authPage header h2 {
       font-size: 2em;
       margin-bottom: 20px;
       color: #FFA500;
       text-align: center;
     }
-    /* Logo DriveMeNow au-dessus du titre */ 
     #logoContainer {
       text-align: center;
       margin-bottom: 10px;
@@ -61,7 +58,6 @@
       height: auto;
     }
 
-    /* On place le contenu du formulaire d'authentification dans un bloc sombre */
     .auth-article {
       background: #222;
       border: 1px solid #444;
@@ -85,7 +81,7 @@
     .auth-tabs button {
       flex: 1;
       padding: 10px;
-      background: #fceec7; /* Couleur claire */
+      background: #fceec7;
       color: #000;
       border: none;
       cursor: pointer;
@@ -96,7 +92,7 @@
     }
     .auth-tabs button.active,
     .auth-tabs button:hover {
-      background: #FFA500; /* orange vif au survol/actif */
+      background: #FFA500; 
     }
     .auth-form {
       display: none;
@@ -107,7 +103,7 @@
     }
     .auth-field {
       margin-bottom: 15px;
-      position: relative; /* pour placer l’icône œil */
+      position: relative;
     }
     .auth-field label {
       display: block;
@@ -136,7 +132,6 @@
       color: #FFA500;
     }
 
-    /* Boutons */
     .auth-form button.btn {
       display: block;
       margin: 15px auto 0 auto;
@@ -189,11 +184,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Supprimer contour noir */
       border: none;
-      outline: none;
-    }
-    #menuButton:focus {
       outline: none;
     }
     #menuButton i {
@@ -201,7 +192,6 @@
       color: #000;
     }
 
-    /* Sidebar fond #fceec7 */
     #sidebar {
       position: fixed;
       top: 0;
@@ -220,7 +210,7 @@
     #sidebar a {
       display: block;
       padding: 15px;
-      background: #fceec7; /* par défaut */
+      background: #fceec7;
       color: #000;
       text-decoration: none;
       border-bottom: 1px solid #000;
@@ -238,13 +228,12 @@
 
     /* =========================
        SECTION CANDIDAT
-       => comme pages Accueil, etc.
     ========================= */
     #candidatSection {
       display: none;
       max-width: 1200px;
       margin: 40px auto; 
-      padding: 0 20px; /* comme les autres pages */
+      padding: 0 20px;
     }
     #candidatSection header h2 {
       font-size: 2em;
@@ -252,7 +241,6 @@
       color: #FFA500;
       text-align: center;
     }
-    /* On place le formulaire candidat dans un article sombre (comme l'accueil) */
     .candidate-article {
       background: #222;
       border: 1px solid #444;
@@ -288,6 +276,30 @@
     .info-field input:hover {
       border: 2px solid #FFA500;
     }
+
+    /* Aligner les 12 carrés NEPH sur une seule ligne */
+    .neph-boxes {
+      display: flex;
+      gap: 5px; /* espace entre chaque case */
+    }
+    .neph-box {
+      width: 25px;
+      height: 25px;
+      border: 1px solid #555;
+      text-align: center;
+      line-height: 25px;
+      background: #333;
+      border-radius: 4px;
+    }
+    .neph-box input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Centrer le texte "Ajouter une photo" */
     .photo-placeholder {
       width: 200px;
       height: 250px;
@@ -303,15 +315,16 @@
       margin: 20px auto 0 auto;
       transition: border 0.3s;
       border: 1px solid #fff;
+      text-align: center; 
     }
     .photo-placeholder:hover {
       border: 3px solid #FFA500;
     }
+
     #photoPreview:not([src]) {
       display: none;
     }
 
-    /* Récapitulatif du candidat */
     #summaryView {
       display: none;
       margin: 0 auto 40px auto;
@@ -338,7 +351,6 @@
 
     /* =========================
        CONTENU PÉDAGOGIQUE
-       (sans encadrement global)
     ========================= */
     #contentPage {
       display: none;
@@ -400,7 +412,9 @@
       color: #fff;
     }
 
-    /* Module suivi */
+    /* =========================
+       Module suivi
+    ========================= */
     .suivi-container {
       background: #222;
       padding: 20px;
@@ -475,7 +489,6 @@
     table.suivi-table th {
       background: #333;
     }
-
     .progress-circle {
       border: 2px solid #FFA500;
       border-radius: 50%;
@@ -490,7 +503,9 @@
       font-size: 1.1em;
     }
 
-    /* Footer */
+    /* =========================
+       Footer
+    ========================= */
     .footer {
       text-align: center;
       margin-top: 20px;
@@ -779,48 +794,51 @@
 
   <!-- ========== Contenu pédagogique ========== -->
   <div id="contentPage">
-    <!-- Section ACCUEIL -->
-    <section id="accueilSection" class="section-content" style="display:block;">
+    <!-- Section ACCUEIL (existe déjà) -->
+
+    <!-- Section INSCRIPTION (ajout minimal) -->
+    <section id="inscriptionSection" class="section-content" style="display:none;">
       <header>
-        <h2>ACCUEIL</h2>
-        <nav class="toc">
-          <ul>
-            <li><a href="#accueilProgression">Progression & Indicateurs</a></li>
-            <li><a href="#annexes">Annexes</a></li>
-          </ul>
-        </nav>
+        <h2>INSCRIPTION</h2>
       </header>
-      <article id="accueilProgression">
-        <h3>Progression Administrative et Formation Pratique</h3>
-        <p>Suivez l'avancement de vos démarches administratives et de votre formation grâce à des indicateurs visuels dynamiques.</p>
-        <div style="display:flex; gap:20px; justify-content:center; margin-top:10px;">
-          <div style="text-align:center;">
-            <p>Administrative</p>
-            <div class="progress-circle">
-              <span id="adminProgress">0%</span>
-            </div>
-          </div>
-          <div style="text-align:center;">
-            <p>Formation Pratique</p>
-            <div class="progress-circle">
-              <span id="pratiqueProgress">0%</span>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article id="annexes">
-        <h3>Annexes</h3>
-        <ul>
-          <li><strong>Glossaire :</strong> Définitions clés (Accompagnateur, NEPH, ASSR/ASR, etc.).</li>
-          <li><strong>Contacts Utiles :</strong> Liens vers ANTS, RdvPermis, etc.</li>
-          <li><strong>FAQ :</strong> Réponses aux questions fréquentes.</li>
-        </ul>
+      <article>
+        <h3>Contenu de la page Inscription</h3>
+        <p>Exemple de contenu pour la section Inscription...</p>
       </article>
     </section>
 
-    <!-- Section INSCRIPTION -->
-    <!-- ... Les autres sections inchangées, mêmes marges/padding ... -->
-    <!-- Section SUIVI, EXAMEN, PERMIS, etc. -->
+    <!-- Section SUIVI (ajout minimal) -->
+    <section id="suiviSection" class="section-content" style="display:none;">
+      <header>
+        <h2>SUIVI</h2>
+      </header>
+      <article>
+        <h3>Contenu de la page Suivi</h3>
+        <p>Exemple de contenu pour la section Suivi...</p>
+      </article>
+    </section>
+
+    <!-- Section EXAMEN (ajout minimal) -->
+    <section id="examenSection" class="section-content" style="display:none;">
+      <header>
+        <h2>EXAMEN</h2>
+      </header>
+      <article>
+        <h3>Contenu de la page Examen</h3>
+        <p>Exemple de contenu pour la section Examen...</p>
+      </article>
+    </section>
+
+    <!-- Section PERMIS (ajout minimal) -->
+    <section id="permisSection" class="section-content" style="display:none;">
+      <header>
+        <h2>PERMIS</h2>
+      </header>
+      <article>
+        <h3>Contenu de la page Permis</h3>
+        <p>Exemple de contenu pour la section Permis...</p>
+      </article>
+    </section>
   </div>
 </div>
 
@@ -857,7 +875,6 @@ function updateMenuVisibility() {
 ===================== */
 const sidebar = document.getElementById('sidebar');
 document.getElementById('menuButton').addEventListener('click', (e) => {
-  // Empêcher la propagation du clic pour ne pas fermer aussitôt la sidebar
   e.stopPropagation();
   sidebar.classList.toggle('active');
 });
@@ -941,11 +958,8 @@ document.getElementById('registerForm').addEventListener('submit', e => {
 // Form connexion
 document.getElementById('loginForm').addEventListener('submit', e => {
   e.preventDefault();
-  // On masque la page d'auth
   document.getElementById('authPage').style.display = 'none';
-  // On affiche mainContent
   document.getElementById('mainContent').style.display = 'block';
-  // On va direct sur la page Candidat
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
   scrollTopPage();
@@ -972,7 +986,7 @@ document.querySelectorAll('#sidebar a').forEach(link => {
     hideAllSections();
     document.getElementById('candidatSection').style.display = 'none';
     document.getElementById('contentPage').style.display = 'block';
-    // On bascule selon le bouton
+
     if (this.id === 'coverPageBtn') {
       document.getElementById('candidatSection').style.display = 'block';
       document.getElementById('contentPage').style.display = 'none';
@@ -1138,7 +1152,7 @@ function ajouterSession() {
   }
   const tbody = document.getElementById('suiviTbody');
   const tr = document.createElement('tr');
-  // ***** Correction avec template string *****
+  // Correction : utiliser un template string 
   tr.innerHTML = `
     <td>${date}</td>
     <td>${lieu}</td>
