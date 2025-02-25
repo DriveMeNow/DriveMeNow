@@ -51,7 +51,7 @@
       color: #FFA500;
       text-align: center;
     }
-    /* Logo DriveMeNow au-dessus du titre */ 
+    /* Logo DriveMeNow au-dessus du titre */
     #logoContainer {
       text-align: center;
       margin-bottom: 10px;
@@ -517,7 +517,7 @@
   <header>
     <!-- Logo -->
     <div id="logoContainer">
- <img src="mon_logo.png.png" alt="Mon Logo" style="max-width: 200px; height:auto;">  
+      <img src="mon_logo.png" alt="Mon Logo" style="max-width: 200px; height:auto;">
     </div>
     <!-- Titre aligné comme les autres pages -->
     <h2>AUTHENTIFICATION</h2>
@@ -856,12 +856,14 @@ function updateMenuVisibility() {
    SIDEBAR
 ===================== */
 const sidebar = document.getElementById('sidebar');
-document.getElementById('menuButton').addEventListener('click', () => {
+document.getElementById('menuButton').addEventListener('click', (e) => {
+  // Empêche le clic de remonter jusqu'à #mainContent
+  e.stopPropagation();
   sidebar.classList.toggle('active');
 });
-/* Fermer la sidebar quand on clique dans le contenu => #mainContent */
+
+// Fermer la sidebar quand on clique dans le contenu => #mainContent
 document.getElementById('mainContent').addEventListener('click', e => {
-  // Si la sidebar est ouverte (active), on la referme
   if (sidebar.classList.contains('active')) {
     sidebar.classList.remove('active');
   }
@@ -1182,4 +1184,4 @@ window.addEventListener('load', () => {
 });
 </script>
 </body>
-</html>
+  </html>
