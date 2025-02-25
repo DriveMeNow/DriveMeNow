@@ -517,7 +517,7 @@
   <header>
     <!-- Logo -->
     <div id="logoContainer">
- <img src="mon_logo.png.png" alt="Mon Logo" style="max-width: 200px; height:auto;">  
+      <img src="mon_logo.png.png" alt="Mon Logo" style="max-width: 200px; height:auto;">  
     </div>
     <!-- Titre aligné comme les autres pages -->
     <h2>AUTHENTIFICATION</h2>
@@ -856,12 +856,14 @@ function updateMenuVisibility() {
    SIDEBAR
 ===================== */
 const sidebar = document.getElementById('sidebar');
-document.getElementById('menuButton').addEventListener('click', () => {
+document.getElementById('menuButton').addEventListener('click', (e) => {
+  // Empêcher la propagation du clic pour ne pas fermer aussitôt la sidebar
+  e.stopPropagation();
   sidebar.classList.toggle('active');
 });
+
 /* Fermer la sidebar quand on clique dans le contenu => #mainContent */
 document.getElementById('mainContent').addEventListener('click', e => {
-  // Si la sidebar est ouverte (active), on la referme
   if (sidebar.classList.contains('active')) {
     sidebar.classList.remove('active');
   }
