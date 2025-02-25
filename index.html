@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Livret d'Apprentissage - Candidat Libre Permis B</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
   <!-- Google Maps API (Places) -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"></script>
+  <script
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"
+  ></script>
 
   <style>
     /* ==== Réinitialisation ==== */
@@ -39,15 +46,8 @@
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
     }
-    /* Logo remplaçant l'ancien titre */
-    #logoContainer {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    #logoContainer img {
-      max-width: 100%;
-      height: auto;
-    }
+
+    /* Lignes concernant #logoContainer ou un logo => supprimées */
 
     .welcome-text {
       margin-bottom: 20px;
@@ -104,7 +104,6 @@
       margin-top: 7px;
       font-size: 0.8em;
     }
-
     .toggle-password {
       position: absolute;
       right: 10px;
@@ -168,6 +167,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      border: none;
+      outline: none;
     }
     #menuButton i {
       font-size: 1.5em;
@@ -349,21 +350,15 @@
        (sans encadrement global)
     ========================= */
     #contentPage {
-      /* On retire le fond sombre, la bordure, etc.
-         juste un conteneur qui occupe l'espace */
       display: none;
     }
 
-    /* Chaque section a la même marge qu'en page candidat.
-       On supprime l'encadrement global, 
-       mais on conserve l'encadrement dans les <article> */
     .section-content {
       max-width: 1200px;
-      margin: 40px auto; /* même marge haut/bas que la page candidat */
-      padding: 0 20px;   /* un peu de padding latéral */
+      margin: 40px auto;
+      padding: 0 20px;
       background: transparent;
     }
-
     .section-content header {
       margin-bottom: 20px;
       text-align: center;
@@ -386,8 +381,6 @@
       margin-bottom: 8px;
       color: #FFA500;
     }
-
-    /* Articles : découpage avec fond sombre et encadrement */
     .section-content article {
       background: #222;
       margin: 20px 0;
@@ -399,7 +392,6 @@
       border-color: #FFA500;
     }
 
-    /* Table des matières */
     .toc ul {
       list-style: none;
       padding-left: 0;
@@ -536,16 +528,12 @@
 
 <!-- ========== Page d'authentification ========== -->
 <div id="authPage">
-  <!-- Remplacement du <h1> par le logo -->
-  <div id="logoContainer">
-    <img src="images/drivemenow_logo.png" alt="DriveMeNow">
-  </div>
-
+  <!-- (Logo supprimé) -->
   <p class="welcome-text">
     Bienvenue ! Rejoignez DriveMeNow pour accéder à votre guide complet et votre livret d'apprentissage personnalisé pour réussir le permis de conduire en candidat libre. Inscrivez-vous ou connectez-vous dès maintenant.
   </p>
 
-  <!-- Onglets de connexion/inscription -->
+  <!-- Onglets Connexion/Inscription -->
   <div class="auth-tabs">
     <button id="loginTab" class="active">Connexion</button>
     <button id="registerTab">Inscription</button>
@@ -557,47 +545,47 @@
     <form id="loginForm">
       <div class="auth-field">
         <label for="loginEmail">Email :</label>
-        <input type="email" id="loginEmail" name="loginEmail" placeholder="Votre email" required>
+        <input type="email" id="loginEmail" name="loginEmail" placeholder="Votre email" required />
       </div>
       <div class="auth-field">
         <label for="loginPassword">Mot de passe :</label>
-        <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required>
+        <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required />
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
       </div>
       <div class="auth-field">
         <label for="loginCode">Code à usage unique :</label>
-        <input type="text" id="loginCode" name="loginCode" placeholder="Code reçu par email" required>
+        <input type="text" id="loginCode" name="loginCode" placeholder="Code reçu par email" required />
       </div>
       <button type="submit" class="btn">Se connecter</button>
     </form>
   </div>
 
-  <!-- Formulaire d'inscription (compte / login) -->
+  <!-- Formulaire d'inscription -->
   <div id="registerFormContainer" class="auth-form">
     <h2 style="text-align:center;">Inscription</h2>
     <form id="registerForm">
       <div class="auth-field">
         <label for="regName">Nom :</label>
-        <input type="text" id="regName" name="regName" placeholder="Votre nom" style="text-transform: capitalize;" required>
+        <input type="text" id="regName" name="regName" placeholder="Votre nom" style="text-transform: capitalize;" required />
       </div>
       <div class="auth-field">
         <label for="regPrenom">Prénom :</label>
-        <input type="text" id="regPrenom" name="regPrenom" placeholder="Votre prénom" style="text-transform: capitalize;" required>
+        <input type="text" id="regPrenom" name="regPrenom" placeholder="Votre prénom" style="text-transform: capitalize;" required />
       </div>
       <div class="auth-field">
         <label for="regEmail">Email :</label>
-        <input type="email" id="regEmail" name="regEmail" placeholder="Votre email" required>
+        <input type="email" id="regEmail" name="regEmail" placeholder="Votre email" required />
       </div>
       <div class="auth-field">
         <label for="regPassword">Mot de passe :</label>
-        <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required>
+        <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required />
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
       </div>
       <div class="auth-field">
         <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
-        <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required>
+        <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required />
         <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
       </div>
       <button type="submit" class="btn">S'inscrire</button>
@@ -610,7 +598,7 @@
 
 <!-- ========== Contenu principal après authentification ========== -->
 <div id="mainContent">
-  <!-- Bouton hamburger pour le menu latéral -->
+  <!-- Bouton hamburger (sans contour, plus de logo) -->
   <button id="menuButton"><i class="fas fa-bars"></i></button>
 
   <!-- Sidebar -->
@@ -632,67 +620,68 @@
           <div class="candidate-info">
             <div class="info-field">
               <label for="nom">Nom du candidat :</label>
-              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
             </div>
             <div class="info-field">
               <label for="prenom">Prénom du candidat :</label>
-              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required />
             </div>
             <div class="info-field">
               <label for="date-naissance">Date de naissance :</label>
-              <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required>
+              <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required />
             </div>
             <div class="info-field">
               <label for="adresse">Adresse :</label>
-              <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required>
+              <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required />
             </div>
             <div class="info-field">
               <label for="code-postal">Code postal :</label>
-              <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required>
+              <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required />
             </div>
             <div class="info-field">
               <label for="commune">Commune :</label>
-              <input type="text" id="commune" name="commune" placeholder="Votre commune" required>
+              <input type="text" id="commune" name="commune" placeholder="Votre commune" required />
             </div>
             <div class="info-field">
               <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
-              <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required>
+              <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required />
             </div>
             <div class="info-field">
               <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-              <input type="email" id="email" name="email" placeholder="Votre email" required>
+              <input type="email" id="email" name="email" placeholder="Votre email" required />
             </div>
             <div class="info-field">
               <label for="responsable">Responsable de la formation :</label>
-              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required>
+              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required />
             </div>
             <div class="info-field">
               <label>Numéro d'inscription NEPH * :</label>
               <div class="neph-boxes">
                 <!-- 12 cases NEPH -->
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
-                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]"></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
               </div>
             </div>
             <div class="info-field">
               <label for="date-debut">Date de début de formation :</label>
-              <input type="date" id="date-debut" name="date_debut" required>
+              <input type="date" id="date-debut" name="date_debut" required />
             </div>
           </div>
+
           <div class="photo-placeholder">
             <span id="photoPlaceholderText">Ajouter une photo</span>
-            <img id="photoPreview" alt="Prévisualisation de la photo">
-            <input type="file" name="photo" accept="image/*" required>
+            <img id="photoPreview" alt="Prévisualisation de la photo" />
+            <input type="file" name="photo" accept="image/*" required />
           </div>
         </div>
         
@@ -719,7 +708,7 @@
       <p>Responsable : <span id="sumResponsable"></span></p>
       <p>NEPH : <span id="sumNeph"></span></p>
       <p>Date de début de formation : <span id="sumDateDebut"></span></p>
-      <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;">
+      <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;" />
 
       <div style="text-align:center; margin-top:20px;">
         <button id="editBtn" class="btn">Modifier</button>
@@ -1252,6 +1241,7 @@ function displaySummary(data) {
   document.getElementById('sumPhoto').src = data.photo ? data.photo : "";
 }
 
+// Soumission du formulaire candidat
 document.getElementById('infoForm').addEventListener('submit', e => {
   e.preventDefault();
   const formData = collectFormData();
@@ -1261,16 +1251,16 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   // Afficher le résumé
   displaySummary(formData);
   document.getElementById('summaryView').style.display = 'block';
-
+  
   // Montrer les boutons (Modifier, Réinitialiser, Démarrer)
   document.getElementById('editBtn').style.display = 'inline-block';
   document.getElementById('resetBtn').style.display = 'inline-block';
   document.getElementById('demarrerBtn').style.display = 'inline-block';
-
+  
   scrollTopPage();
 });
 
-// Bouton "Modifier" => Réaffiche le formulaire
+// Bouton "Modifier"
 document.getElementById('editBtn').addEventListener('click', () => {
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('editBtn').style.display = 'none';
@@ -1279,25 +1269,25 @@ document.getElementById('editBtn').addEventListener('click', () => {
   document.getElementById('infoForm').style.display = 'block';
 });
 
-// Bouton "Réinitialiser" => Remise à zéro
+// Bouton "Réinitialiser"
 document.getElementById('resetBtn').addEventListener('click', () => {
   localStorage.removeItem('validatedData');
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('infoForm').reset();
-
+  
   document.getElementById('editBtn').style.display = 'none';
   document.getElementById('resetBtn').style.display = 'none';
   document.getElementById('demarrerBtn').style.display = 'none';
-
+  
   document.getElementById('infoForm').style.display = 'block';
-
+  
   const photoPreview = document.getElementById('photoPreview');
   photoPreview.src = "";
   photoPreview.style.display = 'none';
   document.getElementById('photoPlaceholderText').style.display = 'block';
 });
 
-// Bouton "Démarrer" => Bascule vers le contenu pédagogique (accueil)
+// Bouton "Démarrer"
 document.getElementById('demarrerBtn').addEventListener('click', () => {
   document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('contentPage').style.display = 'block';
@@ -1312,12 +1302,11 @@ document.getElementById('demarrerBtn').addEventListener('click', () => {
 function initAutocomplete() {
   const addressInput = document.getElementById('adresse');
   if (!addressInput) return;
-
   const autocomplete = new google.maps.places.Autocomplete(addressInput, {
     componentRestrictions: { country: "fr" },
     fields: ["address_components", "formatted_address", "geometry", "name"]
   });
-  autocomplete.addListener('place_changed', () => {
+  autocomplete.addEventListener('place_changed', () => {
     const place = autocomplete.getPlace();
     if (!place.address_components) return;
     let postalCode = "";
@@ -1342,7 +1331,9 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
   input.addEventListener('input', function() {
     if (this.value.length === this.maxLength) {
       const nextInput = inputs[index + 1];
-      if (nextInput) nextInput.focus();
+      if (nextInput) {
+        nextInput.focus();
+      }
     }
   });
 });
