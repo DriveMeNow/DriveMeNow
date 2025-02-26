@@ -46,8 +46,9 @@
       box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       text-align: center;
     }
+    /* Réintégration du logo dans un header */
     #authPage header {
-      margin-bottom: 20px;
+      margin-bottom: 20px; /* petit espace sous le logo */
     }
     #logoContainer {
       text-align: center;
@@ -57,14 +58,11 @@
       height: auto;
     }
 
-    /* Bienvenue en gras */
     .welcome-text {
       margin-bottom: 20px;
       font-size: 0.95em;
       color: #ccc;
-      font-weight: bold; /* mise en gras */
     }
-
     .auth-tabs {
       display: flex;
       justify-content: center;
@@ -73,7 +71,7 @@
     .auth-tabs button {
       flex: 1;
       padding: 10px;
-      background: #fceec7;
+      background: #fceec7; /* Couleur claire */
       color: #000;
       border: none;
       cursor: pointer;
@@ -84,19 +82,18 @@
     }
     .auth-tabs button.active,
     .auth-tabs button:hover {
-      background: #FFA500;
+      background: #FFA500; /* orange vif au survol / état actif */
     }
     .auth-form {
       display: none;
       text-align: left;
-      position: relative; /* pour que le .toggle-password soit bien calé */
     }
     .auth-form.active {
       display: block;
     }
     .auth-field {
       margin-bottom: 15px;
-      position: relative; /* idem, pour positionner l’icône œil */
+      position: relative; /* pour placer l’icône œil */
     }
     .auth-field label {
       display: block;
@@ -125,14 +122,16 @@
       color: #FFA500;
     }
 
+    /* Centrage des boutons de la page d'authentification */
     .auth-form button.btn {
       display: block;
       margin: 15px auto 0 auto;
       text-align: center;
     }
+    /* Bouton "Passer l'authentification" */
     #skipAuth {
       margin-top: 20px;
-      display: block;
+      display: block; 
       background-color: #fceec7;
       color: #000;
     }
@@ -146,14 +145,14 @@
       cursor: pointer;
       border: 1px solid transparent;
       border-radius: 8px;
-      background-color: #fceec7;
+      background-color: #fceec7; /* Couleur par défaut */
       color: #000;
       margin: 10px auto;
       text-align: center;
       transition: background 0.3s, border 0.3s;
     }
     .btn:hover {
-      background-color: #FFA500;
+      background-color: #FFA500; /* orange vif */
       border: 1px solid #FFA500;
       color: #000;
     }
@@ -162,7 +161,7 @@
        MAIN CONTENT & SIDEBAR
     ============================ */
     #mainContent {
-      display: none;
+      display: none; /* caché avant la fin de l'authentification */
     }
     #menuButton {
       position: fixed;
@@ -185,6 +184,7 @@
       color: #000;
     }
 
+    /* Sidebar fond #fceec7 */
     #sidebar {
       position: fixed;
       top: 0;
@@ -203,7 +203,7 @@
     #sidebar a {
       display: block;
       padding: 15px;
-      background: #fceec7;
+      background: #fceec7; /* par défaut clair */
       color: #000;
       text-decoration: none;
       border-bottom: 1px solid #000;
@@ -215,41 +215,32 @@
     }
     #sidebar a:hover,
     #sidebar a.active {
-      background: #FFA500;
+      background: #FFA500; /* orange vif au survol / actif */
       color: #000;
     }
 
     /* =========================
-       SECTION CANDIDAT => style .section-content
+       SECTION CANDIDAT (FORM)
     ========================= */
-    /* Applique la même structure que Accueil ou Suivi */
-    #candidatSection.section-content {
+    #candidatSection {
       display: none;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #111;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
     }
-    /* Titre en noir (pages) */
-    .section-content h2 {
+    #candidatSection h2 {
       font-size: 2em;
-      margin-bottom: 10px;
-      color: #000; /* titres en noir */
+      margin-bottom: 20px;
+      color: #FFA500;
       text-align: center;
     }
-
-    /* On crée un article sombre pour le formulaire */
-    #candidatSection article {
-      background: #222;
-      margin: 20px 0;
-      padding: 15px;
-      border: 1px solid #444;
-      border-radius: 8px;
-    }
-    #candidatSection article:hover {
-      border-color: #FFA500;
-    }
-
     .info-section {
       display: flex;
       flex-direction: column;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
     .candidate-info { width: 100%; }
     .info-field {
@@ -272,6 +263,9 @@
     }
     .info-field input:hover {
       border: 2px solid #FFA500;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) !important;
     }
     .neph-boxes {
       display: flex;
@@ -296,6 +290,7 @@
       background: #222;
       color: #fff;
     }
+
     .photo-placeholder {
       width: 200px;
       height: 250px;
@@ -322,6 +317,7 @@
       display: block;
     }
     .photo-placeholder input[type="file"] {
+      appearance: none;
       position: absolute;
       width: 100%;
       height: 100%;
@@ -331,6 +327,8 @@
     #photoPreview:not([src]) {
       display: none;
     }
+
+    /* Récapitulatif du candidat */
     #summaryView {
       display: none;
       margin: 20px auto;
@@ -349,6 +347,8 @@
       margin: 5px 0;
       color: #FFF;
     }
+
+    /* Boutons suite au résumé */
     #editBtn, #resetBtn, #demarrerBtn {
       display: none;
       margin: 10px 5px;
@@ -356,37 +356,34 @@
 
     /* =========================
        CONTENU PÉDAGOGIQUE
+       (sans encadrement global)
     ========================= */
     #contentPage {
       display: none;
     }
+
     .section-content {
       max-width: 1200px;
       margin: 40px auto;
       padding: 0 20px;
       background: transparent;
     }
-
-    /* Sous-titres cliquables (toc) en noir, alignés à gauche */
-    .toc {
-      text-align: left; /* place la table des matières à gauche */
+    .section-content header {
+      margin-bottom: 20px;
+      text-align: center;
     }
-    .toc a {
-      color: #000; /* sous-titres cliquables en noir */
-      text-decoration: none;
-      transition: color 0.3s;
+    .section-content h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #FFA500;
+      text-align: center;
     }
-    .toc a:hover {
-      text-decoration: underline;
-      color: #FFA500; /* survol => orange vif */
-    }
-
     .section-content h3 {
       font-size: 1.6em;
       margin-bottom: 10px;
       border-bottom: 1px solid #FFA500;
       padding-bottom: 5px;
-      color: #fff; /* h3 (texte principal) reste blanc */
+      color: #fff;
     }
     .section-content h4 {
       font-size: 1.3em;
@@ -402,6 +399,24 @@
     }
     .section-content article:hover {
       border-color: #FFA500;
+    }
+
+    .toc ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 10px 0;
+    }
+    .toc li {
+      margin-bottom: 5px;
+    }
+    .toc a {
+      color: #FFA500;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .toc a:hover {
+      text-decoration: underline;
+      color: #fff;
     }
 
     /* ===================
@@ -482,6 +497,7 @@
       background: #333;
     }
 
+    /* Indicateurs de progression */
     .progress-circle {
       border: 2px solid #FFA500;
       border-radius: 50%;
@@ -606,120 +622,115 @@
     <a href="#accueilSection" id="accueilBtn"><i class="fas fa-home"></i><br>ACCUEIL</a>
     <a href="#inscriptionSection" id="inscriptionLink"><i class="fas fa-file-alt"></i><br>INSCRIPTION</a>
     <a href="#suiviSection" id="suiviLink"><i class="fas fa-traffic-light"></i><br>SUIVI</a>
-    <!-- Renommer le lien "EXAMEN" => "EXAMENS" -->
-    <a href="#examenSection" id="examenLink"><i class="fas fa-laptop"></i><br>EXAMENS</a>
+    <a href="#examenSection" id="examenLink"><i class="fas fa-laptop"></i><br>EXAMEN</a>
     <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>PERMIS</a>
   </div>
 
-  <!-- ========== Page Candidat (style comme Accueil) ========== -->
-  <section id="candidatSection" class="section-content" style="display:none;">
-    <header>
-      <h2>CANDIDAT</h2>
-    </header>
-    <article>
-      <div id="formContainer">
-        <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
-          <div class="info-section">
-            <div class="candidate-info">
-              <div class="info-field">
-                <label for="nom">Nom du candidat :</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
-              </div>
-              <div class="info-field">
-                <label for="prenom">Prénom du candidat :</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required />
-              </div>
-              <div class="info-field">
-                <label for="date-naissance">Date de naissance :</label>
-                <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required />
-              </div>
-              <div class="info-field">
-                <label for="adresse">Adresse :</label>
-                <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required />
-              </div>
-              <div class="info-field">
-                <label for="code-postal">Code postal :</label>
-                <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required />
-              </div>
-              <div class="info-field">
-                <label for="commune">Commune :</label>
-                <input type="text" id="commune" name="commune" placeholder="Votre commune" required />
-              </div>
-              <div class="info-field">
-                <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
-                <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required />
-              </div>
-              <div class="info-field">
-                <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-                <input type="email" id="email" name="email" placeholder="Votre email" required />
-              </div>
-              <div class="info-field">
-                <label for="responsable">Responsable de la formation :</label>
-                <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required />
-              </div>
-              <div class="info-field">
-                <label>Numéro d'inscription NEPH * :</label>
-                <div class="neph-boxes">
-                  <!-- 12 cases NEPH -->
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                </div>
-              </div>
-              <div class="info-field">
-                <label for="date-debut">Date de début de formation :</label>
-                <input type="date" id="date-debut" name="date_debut" required />
+  <!-- ========== Page Candidat (Formulaire) ========== -->
+  <section id="candidatSection">
+    <h2>CANDIDAT</h2>
+    <div id="formContainer">
+      <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
+        <div class="info-section">
+          <div class="candidate-info">
+            <div class="info-field">
+              <label for="nom">Nom du candidat :</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
+            </div>
+            <div class="info-field">
+              <label for="prenom">Prénom du candidat :</label>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required />
+            </div>
+            <div class="info-field">
+              <label for="date-naissance">Date de naissance :</label>
+              <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required />
+            </div>
+            <div class="info-field">
+              <label for="adresse">Adresse :</label>
+              <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required />
+            </div>
+            <div class="info-field">
+              <label for="code-postal">Code postal :</label>
+              <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required />
+            </div>
+            <div class="info-field">
+              <label for="commune">Commune :</label>
+              <input type="text" id="commune" name="commune" placeholder="Votre commune" required />
+            </div>
+            <div class="info-field">
+              <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
+              <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required />
+            </div>
+            <div class="info-field">
+              <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+              <input type="email" id="email" name="email" placeholder="Votre email" required />
+            </div>
+            <div class="info-field">
+              <label for="responsable">Responsable de la formation :</label>
+              <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required />
+            </div>
+            <div class="info-field">
+              <label>Numéro d'inscription NEPH * :</label>
+              <div class="neph-boxes">
+                <!-- 12 cases NEPH -->
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+                <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
               </div>
             </div>
-
-            <div class="photo-placeholder">
-              <span id="photoPlaceholderText">Ajouter une photo</span>
-              <img id="photoPreview" alt="Prévisualisation de la photo" />
-              <input type="file" name="photo" accept="image/*" required />
+            <div class="info-field">
+              <label for="date-debut">Date de début de formation :</label>
+              <input type="date" id="date-debut" name="date_debut" required />
             </div>
           </div>
-          
-          <div style="text-align:center;">
-            <button type="submit" class="btn">Envoyer</button>
+
+          <div class="photo-placeholder">
+            <span id="photoPlaceholderText">Ajouter une photo</span>
+            <img id="photoPreview" alt="Prévisualisation de la photo" />
+            <input type="file" name="photo" accept="image/*" required />
           </div>
-          <label style="display:block; margin-top:10px; font-size:0.9em; text-align:center; color:#ccc;">
-            * NEPH : Délivré sur demande – à remplir une fois obtenu.
-          </label>
-        </form>
-      </div>
-
-      <!-- Récapitulatif candidat (après validation du formulaire) -->
-      <div id="summaryView">
-        <h2>Récapitulatif du Candidat</h2>
-        <p>Nom : <span id="sumNom"></span></p>
-        <p>Prénom : <span id="sumPrenom"></span></p>
-        <p>Date de naissance : <span id="sumDateNaissance"></span></p>
-        <p>Adresse : <span id="sumAdresse"></span></p>
-        <p>Code postal : <span id="sumCodePostal"></span></p>
-        <p>Commune : <span id="sumCommune"></span></p>
-        <p>Téléphone : <span id="sumTelephone"></span></p>
-        <p>Email : <span id="sumEmail"></span></p>
-        <p>Responsable : <span id="sumResponsable"></span></p>
-        <p>NEPH : <span id="sumNeph"></span></p>
-        <p>Date de début de formation : <span id="sumDateDebut"></span></p>
-        <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;" />
-
-        <div style="text-align:center; margin-top:20px;">
-          <button id="editBtn" class="btn">Modifier</button>
-          <button id="resetBtn" class="btn">Réinitialiser</button>
-          <button id="demarrerBtn" class="btn">Démarrer</button>
         </div>
+        
+        <div style="text-align:center;">
+          <button type="submit" class="btn">Envoyer</button>
+        </div>
+        <label style="display:block; margin-top:10px; font-size:0.9em; text-align:center; color:#ccc;">
+          * NEPH : Délivré sur demande – à remplir une fois obtenu.
+        </label>
+      </form>
+    </div>
+
+    <!-- Récapitulatif candidat (après validation du formulaire) -->
+    <div id="summaryView">
+      <h2>Récapitulatif du Candidat</h2>
+      <p>Nom : <span id="sumNom"></span></p>
+      <p>Prénom : <span id="sumPrenom"></span></p>
+      <p>Date de naissance : <span id="sumDateNaissance"></span></p>
+      <p>Adresse : <span id="sumAdresse"></span></p>
+      <p>Code postal : <span id="sumCodePostal"></span></p>
+      <p>Commune : <span id="sumCommune"></span></p>
+      <p>Téléphone : <span id="sumTelephone"></span></p>
+      <p>Email : <span id="sumEmail"></span></p>
+      <p>Responsable : <span id="sumResponsable"></span></p>
+      <p>NEPH : <span id="sumNeph"></span></p>
+      <p>Date de début de formation : <span id="sumDateDebut"></span></p>
+      <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;" />
+
+      <div style="text-align:center; margin-top:20px;">
+        <button id="editBtn" class="btn">Modifier</button>
+        <button id="resetBtn" class="btn">Réinitialiser</button>
+        <button id="demarrerBtn" class="btn">Démarrer</button>
       </div>
-    </article>
+    </div>
   </section>
 
   <!-- ========== Contenu pédagogique (Affiché via la sidebar) ========== -->
@@ -932,10 +943,10 @@
       </article>
     </section>
 
-    <!-- Section EXAMENS -->
+    <!-- Section EXAMEN -->
     <section id="examenSection" class="section-content" style="display:none;">
       <header>
-        <h2>EXAMENS</h2>
+        <h2>EXAMEN</h2>
         <nav class="toc">
           <ul>
             <li><a href="#modalitesPermis">Modalités du Permis</a></li>
@@ -1184,7 +1195,7 @@ document.getElementById('suiviLink').addEventListener('click', e => {
   scrollTopPage();
 });
 
-// Examens => examenSection
+// Examen => examenSection
 document.getElementById('examenLink').addEventListener('click', e => {
   e.preventDefault();
   hideAllSections();
@@ -1207,12 +1218,6 @@ document.getElementById('permisLink').addEventListener('click', e => {
 /* =====================
    FORMULAIRE CANDIDAT
 ===================== */
-function formatDate(dateStr) {
-  if (!dateStr) return "";
-  const parts = dateStr.split("-");
-  return parts[2] + "/" + parts[1] + "/" + parts[0];
-}
-
 function collectFormData() {
   const nephInputs = document.querySelectorAll('.neph-box input');
   return {
@@ -1229,6 +1234,11 @@ function collectFormData() {
     neph: Array.from(nephInputs).map(input => input.value).join(''),
     photo: document.getElementById('photoPreview').src
   };
+}
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const parts = dateStr.split("-");
+  return parts[2] + "/" + parts[1] + "/" + parts[0];
 }
 
 function displaySummary(data) {
@@ -1257,7 +1267,7 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   displaySummary(formData);
   document.getElementById('summaryView').style.display = 'block';
   
-  // Montrer les boutons
+  // Montrer les boutons (Modifier, Réinitialiser, Démarrer)
   document.getElementById('editBtn').style.display = 'inline-block';
   document.getElementById('resetBtn').style.display = 'inline-block';
   document.getElementById('demarrerBtn').style.display = 'inline-block';
@@ -1336,7 +1346,9 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
   input.addEventListener('input', function() {
     if (this.value.length === this.maxLength) {
       const nextInput = inputs[index + 1];
-      if (nextInput) nextInput.focus();
+      if (nextInput) {
+        nextInput.focus();
+      }
     }
   });
 });
