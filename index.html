@@ -14,7 +14,7 @@
   <script
     async
     defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"
+    src="https://maps.googleapis.com/maps/api/js?key=VOTRE_CLE_API&libraries=places"
   ></script>
 
   <style>
@@ -221,14 +221,14 @@
     /* =========================
        SECTION CANDIDAT
     ========================= */
-    #candidatSection.section-content {
-      display: none;
-    }
     .section-content h2 {
       font-size: 2em;
       margin-bottom: 10px;
       color: #000; /* Titre en noir */
       text-align: center;
+    }
+    #candidatSection.section-content {
+      display: none;
     }
     #candidatSection article {
       background: #222;
@@ -291,6 +291,7 @@
       background: #222;
       color: #fff;
     }
+
     .photo-placeholder {
       width: 200px;
       height: 250px;
@@ -316,13 +317,12 @@
       object-fit: contain;
       display: block;
     }
-    /* Rendre le fichier cliquable et au-dessus */
     .photo-placeholder input[type="file"] {
       position: absolute;
       width: 100%;
       height: 100%;
       opacity: 0;
-      z-index: 2; /* s'assurer que c'est cliquable */
+      z-index: 2;
       cursor: pointer;
     }
     #photoPreview:not([src]) {
@@ -479,7 +479,6 @@
     table.suivi-table th {
       background: #333;
     }
-
     .progress-circle {
       border: 2px solid #FFA500;
       border-radius: 50%;
@@ -590,7 +589,7 @@
   <button class="btn" id="skipAuth">Passer l’authentification</button>
 </div>
 
-<!-- ========== Contenu principal après authentification ========== -->
+<!-- ========== Contenu principal ========== -->
 <div id="mainContent">
   <button id="menuButton"><i class="fas fa-bars"></i></button>
 
@@ -672,7 +671,6 @@
                 <input type="date" id="date-debut" name="date_debut" required />
               </div>
             </div>
-            <!-- Photo cliquable -->
             <div class="photo-placeholder">
               <span id="photoPlaceholderText">Ajouter une photo</span>
               <img id="photoPreview" alt="Prévisualisation de la photo" />
@@ -716,7 +714,7 @@
 
   <!-- ========== Contenu pédagogique ========== -->
   <div id="contentPage">
-    <!-- Section ACCUEIL -->
+    <!-- SECTION ACCUEIL -->
     <section id="accueilSection" class="section-content" style="display:block;">
       <header>
         <h2>ACCUEIL</h2>
@@ -755,12 +753,233 @@
       </article>
     </section>
 
-    <!-- ... [Inscription, Suivi, Examens, Permis - inchangés] ... -->
-    
+    <!-- SECTION INSCRIPTION -->
+    <section id="inscriptionSection" class="section-content" style="display:none;">
+      <header>
+        <h2>INSCRIPTION</h2>
+        <nav class="toc">
+          <ul>
+            <li><a href="#introductionInscription">Introduction</a></li>
+            <li><a href="#infosGenerales">Informations Générales</a></li>
+            <li><a href="#demarchesInscription">Démarches d'Inscription</a></li>
+          </ul>
+        </nav>
+      </header>
+      <article id="introductionInscription">
+        <h3>Introduction</h3>
+        <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez les instructions pour optimiser votre parcours vers le permis de conduire.</p>
+      </article>
+      <article id="infosGenerales">
+        <h3>Informations Générales</h3>
+        <h4>Prérequis pour débuter</h4>
+        <ul>
+          <li>Âge requis : 17 ans ou plus pour l’examen pratique, 16 ans pour l’examen théorique.</li>
+          <li>Attestation de sécurité routière (ASSR/ASR) ou déclaration sur l’honneur.</li>
+          <li>Justification de résidence en France depuis au moins 6 mois.</li>
+          <li>Contrôle médical en cas de problème de santé.</li>
+        </ul>
+        <h4>Obligations de l’accompagnateur</h4>
+        <p>L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, agir bénévolement et veiller à votre sécurité.</p>
+      </article>
+      <article id="demarchesInscription">
+        <h3>Démarches d'Inscription</h3>
+        <h4>Examen Théorique</h4>
+        <ol>
+          <li>Créez un compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
+          <li>Fournissez les documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
+          <li>Validez votre demande pour obtenir votre numéro NEPH.</li>
+        </ol>
+        <h4>Examen Pratique</h4>
+        <ol>
+          <li>Connectez-vous ou créez un compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
+          <li>Réservez votre examen en choisissant l’option « Inscription en candidat libre ».</li>
+          <li>Fournissez les coordonnées de votre accompagnateur et planifiez l’examen.</li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- SECTION SUIVI -->
+    <section id="suiviSection" class="section-content" style="display:none;">
+      <header>
+        <h2>SUIVI</h2>
+        <nav class="toc">
+          <ul>
+            <li><a href="#programmeFormation">Programme de Formation</a></li>
+            <li><a href="#espaceSignature">Espace de Signature</a></li>
+            <li><a href="#suiviSessions">Suivi des Sessions</a></li>
+          </ul>
+        </nav>
+      </header>
+      <article id="programmeFormation">
+        <h3>Programme de Formation</h3>
+        <h4>Formation Théorique</h4>
+        <ul>
+          <li>Supports pédagogiques : manuels, cours en ligne, applications interactives.</li>
+          <li>Méthodes : planification, examens blancs, échanges entre candidats.</li>
+          <li>Gestion du stress : techniques de relaxation et préparation mentale.</li>
+        </ul>
+        <h4>Formation Pratique</h4>
+        <ul>
+          <li>Préparation mentale et physique.</li>
+          <li>Suivi technique des sessions de conduite.</li>
+          <li>Évaluation régulière des compétences.</li>
+        </ul>
+        <h4>Exigences du Véhicule et Règles de Circulation</h4>
+        <p>Le véhicule doit être assuré, signalé « Apprentissage » et conforme aux normes. Respectez le Code de la Route.</p>
+      </article>
+      <article id="espaceSignature">
+        <h3>Espace de Signature</h3>
+        <p>Après chaque session, formalisez votre progression :</p>
+        <ul>
+          <li><strong>Signature du Candidat :</strong> Attestation de suivi de la session.</li>
+          <li><strong>Signature de l’Accompagnateur :</strong> Validation des compétences.</li>
+        </ul>
+        <p>Cette formalisation est essentielle pour suivre votre évolution.</p>
+      </article>
+      <article id="suiviSessions">
+        <h3>Suivi des Sessions de Conduite</h3>
+        <div class="suivi-container">
+          <h2 onclick="document.getElementById('suiviTable').scrollIntoView({behavior:'smooth'});" style="cursor:pointer;">Suivi des Sessions de Conduite</h2>
+          <form class="suivi-form" id="suiviForm">
+            <label for="dateSession">Date :</label>
+            <input type="date" id="dateSession" required>
+            
+            <label for="lieuSession">Lieu :</label>
+            <select id="lieuSession">
+              <option value="Centre-ville">Centre-ville</option>
+              <option value="Route nationale">Route nationale</option>
+              <option value="Parking">Parking</option>
+              <option value="Zone rurale">Zone rurale</option>
+              <option value="Autoroute">Autoroute</option>
+              <option value="Chemin privé">Chemin privé</option>
+            </select>
+            
+            <label for="traficSession">Trafic :</label>
+            <select id="traficSession">
+              <option value="Faible">Faible</option>
+              <option value="Moyen">Moyen</option>
+              <option value="Dense">Dense</option>
+            </select>
+            
+            <label for="elementSession">Élément à évaluer :</label>
+            <select id="elementSession">
+              <option>Organes du véhicule</option>
+              <option>Vérifications extérieures</option>
+              <option>Installation au poste</option>
+              <option>Démarrage et arrêt</option>
+              <option>Accélération / Freinage</option>
+              <option>Marche arrière et demi-tour</option>
+            </select>
+            
+            <label for="autoEvalSession">Auto-évaluation :</label>
+            <select id="autoEvalSession">
+              <option>En initiation</option>
+              <option>En progression</option>
+              <option>Maîtrisé</option>
+            </select>
+            
+            <label for="progressionSession">Progression pédagogique :</label>
+            <select id="progressionSession">
+              <option>En initiation</option>
+              <option>En progression</option>
+              <option>Maîtrisé</option>
+            </select>
+            
+            <label for="assistanceSession">Assistance :</label>
+            <select id="assistanceSession">
+              <option>Fréquente</option>
+              <option>Modérée</option>
+              <option>Légère</option>
+            </select>
+            
+            <label for="remarquesSession">Observations :</label>
+            <textarea id="remarquesSession"></textarea>
+            
+            <label for="objectifsSession">Objectifs :</label>
+            <textarea id="objectifsSession"></textarea>
+            
+            <button type="button" onclick="ajouterSession()">Ajouter au Tableau</button>
+          </form>
+          <table class="suivi-table" id="suiviTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Lieu</th>
+                <th>Trafic</th>
+                <th>Élément évalué</th>
+                <th>Auto-évaluation</th>
+                <th>Progression</th>
+                <th>Assistance</th>
+                <th>Observations</th>
+                <th>Objectifs</th>
+              </tr>
+            </thead>
+            <tbody id="suiviTbody">
+              <!-- Lignes ajoutées dynamiquement -->
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <!-- SECTION EXAMENS -->
+    <section id="examenSection" class="section-content" style="display:none;">
+      <header>
+        <h2>EXAMENS</h2>
+        <nav class="toc">
+          <ul>
+            <li><a href="#modalitesPermis">Modalités du Permis</a></li>
+            <li><a href="#exempleJourJ">Exemple du Jour J</a></li>
+            <li><a href="#conclusionExamen">Conclusion</a></li>
+          </ul>
+        </nav>
+      </header>
+      <article id="modalitesPermis">
+        <h3>Modalités du Permis en Candidat Libre</h3>
+        <ul>
+          <li><strong>Conditions :</strong> 17 ans minimum pour l’inscription et l’examen pratique.</li>
+          <li><strong>Accessibilité :</strong> Option flexible et économique, distincte de l’auto-école traditionnelle.</li>
+          <li><strong>Différences :</strong> Pas de conduite accompagnée pour les candidats libres.</li>
+        </ul>
+      </article>
+      <article id="exempleJourJ">
+        <h3>Exemple du Jour J</h3>
+        <ol>
+          <li>Accueil et vérification des documents et du véhicule.</li>
+          <li>Parcours de conduite d’environ 25 minutes sur divers types de routes.</li>
+          <li>Attribution des points via une grille d’évaluation (visuel CEPC intégré).</li>
+          <li>Examen blanc pour se familiariser avec les conditions réelles.</li>
+        </ol>
+      </article>
+      <article id="conclusionExamen">
+        <h3>Conclusion</h3>
+        <p>Avant le Jour J, assurez-vous d'avoir tous les documents obligatoires, révisez les consignes et restez concentré pour réussir votre examen.</p>
+      </article>
+    </section>
+
+    <!-- SECTION PERMIS -->
+    <section id="permisSection" class="section-content" style="display:none;">
+      <header>
+        <h2>PERMIS</h2>
+        <nav class="toc">
+          <ul>
+            <li><a href="#resultatsExamen">Résultats d'Examen Pratique</a></li>
+            <li><a href="#fabricationTitre">Fabrication du Titre</a></li>
+          </ul>
+        </nav>
+      </header>
+      <article id="resultatsExamen">
+        <h3>Résultats d'Examen Pratique</h3>
+        <p>Interprétez vos résultats grâce à une grille d’évaluation détaillée et identifiez les axes d’amélioration.</p>
+      </article>
+      <article id="fabricationTitre">
+        <h3>Fabrication du Titre</h3>
+        <p>Découvrez le processus de fabrication de votre permis, depuis la validation des épreuves jusqu’à la réception officielle.</p>
+      </article>
+    </section>
   </div>
 </div>
 
-<!-- Footer -->
 <div class="footer">
   "Prenez le volant de votre avenir et conduisez vers la liberté"
 </div>
@@ -788,12 +1007,15 @@ function updateMenuVisibility() {
   }
 }
 
-/* AUTHENTIFICATION */
+/* =====================
+   AUTHENTIFICATION
+===================== */
 const loginTab = document.getElementById('loginTab');
 const registerTab = document.getElementById('registerTab');
 const loginFormContainer = document.getElementById('loginFormContainer');
 const registerFormContainer = document.getElementById('registerFormContainer');
 
+// Tabs
 loginTab.addEventListener('click', () => {
   loginTab.classList.add('active');
   registerTab.classList.remove('active');
@@ -827,7 +1049,9 @@ setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'
 document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
   const targetId = icon.getAttribute('data-target') || icon.id.replace('toggle','');
   const targetInput = document.getElementById(targetId);
-  if (targetInput) setupTogglePassword(icon, targetInput);
+  if (targetInput) {
+    setupTogglePassword(icon, targetInput);
+  }
 });
 
 // Form inscription
@@ -845,6 +1069,7 @@ document.getElementById('registerForm').addEventListener('submit', e => {
     alert("Les mots de passe ne correspondent pas.");
     return;
   }
+  // Simulation d'un code unique
   const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
   localStorage.setItem('registeredUser', JSON.stringify({
     email: document.getElementById('regEmail').value,
@@ -860,7 +1085,6 @@ document.getElementById('loginForm').addEventListener('submit', e => {
   e.preventDefault();
   document.getElementById('authPage').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
-  // Affiche la section candidat
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
   scrollTopPage();
@@ -876,7 +1100,9 @@ document.getElementById('skipAuth').addEventListener('click', () => {
   updateMenuVisibility();
 });
 
-/* SIDEBAR & NAVIGATION */
+/* =====================
+   SIDEBAR & NAVIGATION
+===================== */
 const sidebar = document.getElementById('sidebar');
 document.getElementById('menuButton').addEventListener('click', () => {
   sidebar.classList.toggle('active');
@@ -894,7 +1120,7 @@ document.querySelectorAll('#sidebar a').forEach(link => {
   });
 });
 
-// Navigation par boutons
+// Boutons
 document.getElementById('coverPageBtn').addEventListener('click', e => {
   e.preventDefault();
   hideAllSections();
@@ -943,7 +1169,9 @@ document.getElementById('permisLink').addEventListener('click', e => {
   scrollTopPage();
 });
 
-/* FORMULAIRE CANDIDAT */
+/* =====================
+   FORMULAIRE CANDIDAT
+===================== */
 function formatDate(dateStr) {
   if (!dateStr) return "";
   const parts = dateStr.split("-");
@@ -981,7 +1209,6 @@ function displaySummary(data) {
   document.getElementById('sumPhoto').src = data.photo ? data.photo : "";
 }
 
-// Validation du formulaire
 document.getElementById('infoForm').addEventListener('submit', e => {
   e.preventDefault();
   const formData = collectFormData();
@@ -1029,16 +1256,17 @@ document.getElementById('demarrerBtn').addEventListener('click', () => {
   scrollTopPage();
 });
 
-/* AUTOCOMPLÉTION ADRESSE */
+/* =====================
+   AUTOCOMPLÉTION ADRESSE
+===================== */
 function initAutocomplete() {
   const addressInput = document.getElementById('adresse');
   if (!addressInput) return;
-
-  /* IMPORTANT: On utilise addListener('place_changed', ...) */
   const autocomplete = new google.maps.places.Autocomplete(addressInput, {
     componentRestrictions: { country: "fr" },
     fields: ["address_components", "formatted_address", "geometry", "name"]
   });
+  /* On utilise addListener('place_changed', ...) */
   autocomplete.addListener('place_changed', () => {
     const place = autocomplete.getPlace();
     if (!place.address_components) return;
@@ -1060,7 +1288,9 @@ function initAutocomplete() {
   });
 }
 
-/* NEPH BOX AUTOFOCUS */
+/* =====================
+   NEPH BOX AUTOFOCUS
+===================== */
 document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
   input.addEventListener('input', () => {
     if (input.value.length === input.maxLength) {
@@ -1070,7 +1300,9 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
   });
 });
 
-/* SUIVI DES SESSIONS */
+/* =====================
+   SUIVI DES SESSIONS
+===================== */
 function ajouterSession() {
   const date = document.getElementById('dateSession').value;
   const lieu = document.getElementById('lieuSession').value;
@@ -1110,10 +1342,12 @@ function mettreAJourIndicateurs() {
   document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
 }
 
-/* INITIALISATION */
+/* =====================
+   INITIALISATION
+===================== */
 window.addEventListener('load', () => {
   initAutocomplete();
-
+  // Gestion de l'upload photo
   const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
   if (fileInput) {
     fileInput.addEventListener('change', e => {
