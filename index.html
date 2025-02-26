@@ -95,7 +95,7 @@
     }
     .auth-field {
       margin-bottom: 15px;
-      position: relative; /* Permet la position absolute de l’icône */
+      position: relative;
     }
     .auth-field label {
       display: block;
@@ -227,6 +227,13 @@
       color: #000; /* Titre en noir */
       text-align: center;
     }
+    .section-content h3 {
+      font-size: 1.6em;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #FFA500;
+      padding-bottom: 5px;
+      color: #fff;
+    }
     #candidatSection.section-content {
       display: none;
     }
@@ -241,12 +248,6 @@
       border-color: #FFA500;
     }
 
-    .info-section {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 20px;
-    }
-    .candidate-info { width: 100%; }
     .info-field {
       margin-bottom: 15px;
       text-align: left;
@@ -268,6 +269,8 @@
     .info-field input:hover {
       border: 2px solid #FFA500;
     }
+
+    /* NEPH boxes */
     .neph-boxes {
       display: flex;
       flex-direction: row;
@@ -292,6 +295,31 @@
       color: #fff;
     }
 
+    /* Récapitulatif */
+    #summaryView {
+      display: none;
+      margin: 20px auto;
+      max-width: 600px;
+      background: #222;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #999;
+    }
+    #summaryView h2 {
+      text-align: center;
+      color: #FFA500;
+      margin-bottom: 10px;
+    }
+    #summaryView p {
+      margin: 5px 0;
+      color: #FFF;
+    }
+    #editBtn, #resetBtn, #demarrerBtn {
+      display: none;
+      margin: 10px 5px;
+    }
+
+    /* Photo */
     .photo-placeholder {
       width: 200px;
       height: 250px;
@@ -304,7 +332,7 @@
       color: #aaa;
       font-size: 0.9em;
       overflow: hidden;
-      margin: 20px auto 0 auto;
+      margin: 20px auto;
       transition: border 0.3s;
       border: 1px solid #fff;
     }
@@ -329,43 +357,12 @@
       display: none;
     }
 
-    #summaryView {
-      display: none;
-      margin: 20px auto;
-      max-width: 600px;
-      background: #222;
-      padding: 20px;
-      border-radius: 8px;
-      border: 1px solid #999;
-    }
-    #summaryView h2 {
-      text-align: center;
-      color: #FFA500;
-      margin-bottom: 10px;
-    }
-    #summaryView p {
-      margin: 5px 0;
-      color: #FFF;
-    }
-    #editBtn, #resetBtn, #demarrerBtn {
-      display: none;
-      margin: 10px 5px;
-    }
-
     /* =========================
        CONTENU PÉDAGOGIQUE
     ========================= */
     #contentPage {
       display: none;
     }
-    .section-content {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-      background: transparent;
-    }
-
-    /* Sous-titres cliquables (toc) en noir, alignés à gauche */
     .toc {
       text-align: left;
     }
@@ -379,24 +376,10 @@
       color: #FFA500;
     }
 
-    .section-content h3 {
-      font-size: 1.6em;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #FFA500;
-      padding-bottom: 5px;
-      color: #fff;
-    }
     .section-content h4 {
       font-size: 1.3em;
       margin-bottom: 8px;
       color: #FFA500;
-    }
-    .section-content article {
-      background: #222;
-      margin: 20px 0;
-      padding: 15px;
-      border: 1px solid #444;
-      border-radius: 8px;
     }
     .section-content article:hover {
       border-color: #FFA500;
@@ -577,10 +560,11 @@
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
       </div>
-      <!-- Correction ICI : on ajoute un <small> caché pour garder la même hauteur -->
+      <!-- Petit correctif d'alignement de l'icône "œil" : -->
       <div class="auth-field">
         <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
         <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required />
+        <!-- On ajoute un petit <small> caché pour conserver la même hauteur que l'autre champ -->
         <small style="visibility:hidden;">(Alignement)</small>
         <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
       </div>
@@ -604,114 +588,134 @@
     <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>PERMIS</a>
   </div>
 
-  <!-- ========== Page Candidat ========== -->
+  <!-- ========== Page Candidat (Utilise la même structure que "ACCUEIL") ========== -->
   <section id="candidatSection" class="section-content" style="display:none;">
     <header>
       <h2>CANDIDAT</h2>
+      <nav class="toc">
+        <ul>
+          <li><a href="#coordonnees">Coordonnées</a></li>
+          <li><a href="#infosCandidat">Informations Candidat</a></li>
+          <li><a href="#photoCandidat">Photo</a></li>
+        </ul>
+      </nav>
     </header>
-    <article>
-      <div id="formContainer">
-        <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
-          <div class="info-section">
-            <div class="candidate-info">
-              <div class="info-field">
-                <label for="nom">Nom du candidat :</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
-              </div>
-              <div class="info-field">
-                <label for="prenom">Prénom du candidat :</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required />
-              </div>
-              <div class="info-field">
-                <label for="date-naissance">Date de naissance :</label>
-                <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required />
-              </div>
-              <div class="info-field">
-                <label for="adresse">Adresse :</label>
-                <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required />
-              </div>
-              <div class="info-field">
-                <label for="code-postal">Code postal :</label>
-                <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required />
-              </div>
-              <div class="info-field">
-                <label for="commune">Commune :</label>
-                <input type="text" id="commune" name="commune" placeholder="Votre commune" required />
-              </div>
-              <div class="info-field">
-                <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
-                <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required />
-              </div>
-              <div class="info-field">
-                <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-                <input type="email" id="email" name="email" placeholder="Votre email" required />
-              </div>
-              <div class="info-field">
-                <label for="responsable">Responsable de la formation :</label>
-                <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required />
-              </div>
-              <div class="info-field">
-                <label>Numéro d'inscription NEPH * :</label>
-                <div class="neph-boxes">
-                  <!-- 12 cases NEPH -->
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                  <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
-                </div>
-              </div>
-              <div class="info-field">
-                <label for="date-debut">Date de début de formation :</label>
-                <input type="date" id="date-debut" name="date_debut" required />
-              </div>
-            </div>
-            <div class="photo-placeholder">
-              <span id="photoPlaceholderText">Ajouter une photo</span>
-              <img id="photoPreview" alt="Prévisualisation de la photo" />
-              <input type="file" name="photo" accept="image/*" required />
-            </div>
-          </div>
-          
-          <div style="text-align:center;">
-            <button type="submit" class="btn">Envoyer</button>
-          </div>
-          <label style="display:block; margin-top:10px; font-size:0.9em; text-align:center; color:#ccc;">
-            * NEPH : Délivré sur demande – à remplir une fois obtenu.
-          </label>
-        </form>
-      </div>
 
-      <!-- Récapitulatif candidat -->
-      <div id="summaryView">
-        <h2>Récapitulatif du Candidat</h2>
-        <p>Nom : <span id="sumNom"></span></p>
-        <p>Prénom : <span id="sumPrenom"></span></p>
-        <p>Date de naissance : <span id="sumDateNaissance"></span></p>
-        <p>Adresse : <span id="sumAdresse"></span></p>
-        <p>Code postal : <span id="sumCodePostal"></span></p>
-        <p>Commune : <span id="sumCommune"></span></p>
-        <p>Téléphone : <span id="sumTelephone"></span></p>
-        <p>Email : <span id="sumEmail"></span></p>
-        <p>Responsable : <span id="sumResponsable"></span></p>
-        <p>NEPH : <span id="sumNeph"></span></p>
-        <p>Date de début de formation : <span id="sumDateDebut"></span></p>
-        <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;" />
+    <!-- Premier bloc : Coordonnées -->
+    <article id="coordonnees">
+      <h3>Coordonnées</h3>
+      <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
+        <div style="margin-bottom:20px;">
+          <!-- Zone 1 -->
+          <div class="info-field">
+            <label for="nom">Nom du candidat :</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
+          </div>
+          <div class="info-field">
+            <label for="prenom">Prénom du candidat :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required />
+          </div>
+          <div class="info-field">
+            <label for="date-naissance">Date de naissance :</label>
+            <input type="date" id="date-naissance" name="date_naissance" max="2008-12-31" required />
+          </div>
+          <div class="info-field">
+            <label for="adresse">Adresse :</label>
+            <input type="search" id="adresse" name="adresse" placeholder="Votre adresse" required />
+          </div>
+          <div class="info-field">
+            <label for="code-postal">Code postal :</label>
+            <input type="text" id="code-postal" name="code_postal" placeholder="Code postal" required />
+          </div>
+          <div class="info-field">
+            <label for="commune">Commune :</label>
+            <input type="text" id="commune" name="commune" placeholder="Votre commune" required />
+          </div>
+          <div class="info-field">
+            <label for="telephone"><i class="fas fa-phone"></i> Téléphone :</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro" required />
+          </div>
+          <div class="info-field">
+            <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+            <input type="email" id="email" name="email" placeholder="Votre email" required />
+          </div>
+          <div class="info-field">
+            <label for="responsable">Responsable de la formation :</label>
+            <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required />
+          </div>
+        </div>
+
+        <!-- Deuxième bloc : Informations Candidat -->
+        <article id="infosCandidat">
+          <h3>Informations Candidat</h3>
+          <!-- Zone 2 -->
+          <div class="info-field">
+            <label for="date-debut">Date de début de formation :</label>
+            <input type="date" id="date-debut" name="date_debut" required />
+          </div>
+          <div class="info-field">
+            <label>Numéro d'inscription NEPH * :</label>
+            <div class="neph-boxes">
+              <!-- 12 cases NEPH -->
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+              <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
+            </div>
+          </div>
+        </article>
 
         <div style="text-align:center; margin-top:20px;">
-          <button id="editBtn" class="btn">Modifier</button>
-          <button id="resetBtn" class="btn">Réinitialiser</button>
-          <button id="demarrerBtn" class="btn">Démarrer</button>
+          <button type="submit" class="btn">Envoyer</button>
         </div>
+        <label style="display:block; margin-top:10px; font-size:0.9em; text-align:center; color:#ccc;">
+          * NEPH : Délivré sur demande – à remplir une fois obtenu.
+        </label>
+      </form>
+    </article>
+
+    <!-- Photo du candidat, hors du formulaire -->
+    <article id="photoCandidat">
+      <h3>Photo</h3>
+      <div class="photo-placeholder">
+        <span id="photoPlaceholderText">Ajouter une photo</span>
+        <img id="photoPreview" alt="Prévisualisation de la photo" />
+        <!-- Input "required" techniquement ignoré par le submit du formulaire, 
+             mais laissé ici si vous gérez la validation autrement en JS -->
+        <input type="file" name="photo" accept="image/*" required />
       </div>
     </article>
+
+    <!-- Récapitulatif candidat -->
+    <div id="summaryView">
+      <h2>Récapitulatif du Candidat</h2>
+      <p>Nom : <span id="sumNom"></span></p>
+      <p>Prénom : <span id="sumPrenom"></span></p>
+      <p>Date de naissance : <span id="sumDateNaissance"></span></p>
+      <p>Adresse : <span id="sumAdresse"></span></p>
+      <p>Code postal : <span id="sumCodePostal"></span></p>
+      <p>Commune : <span id="sumCommune"></span></p>
+      <p>Téléphone : <span id="sumTelephone"></span></p>
+      <p>Email : <span id="sumEmail"></span></p>
+      <p>Responsable : <span id="sumResponsable"></span></p>
+      <p>NEPH : <span id="sumNeph"></span></p>
+      <p>Date de début de formation : <span id="sumDateDebut"></span></p>
+      <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;" />
+
+      <div style="text-align:center; margin-top:20px;">
+        <button id="editBtn" class="btn">Modifier</button>
+        <button id="resetBtn" class="btn">Réinitialiser</button>
+        <button id="demarrerBtn" class="btn">Démarrer</button>
+      </div>
+    </div>
   </section>
 
   <!-- ========== Contenu pédagogique ========== -->
@@ -1268,7 +1272,6 @@ function initAutocomplete() {
     componentRestrictions: { country: "fr" },
     fields: ["address_components", "formatted_address", "geometry", "name"]
   });
-  /* On utilise addListener('place_changed', ...) */
   autocomplete.addListener('place_changed', () => {
     const place = autocomplete.getPlace();
     if (!place.address_components) return;
