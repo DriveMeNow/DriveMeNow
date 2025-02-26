@@ -1,87 +1,58 @@
 // server.js
-require('dotenv').config(); // Pour charger les variables d'environnement depuis un fichier .env (optionnel)
+require('dotenv').config(); // Pour charger les variables d'environnement depuis un fichier .env
 const express = require('express');
-const axios = require('axios');
+const bodyParser = require('body-parser');
+const sgMail = require('@sendgrid/mail');
 
 const app = express();
+app.use(bodyParser.json());
 
-// Middleware pour parser les requêtes JSON
-app.use(express.json());
+// Définissez votre clé API SendGrid dans les variables d'environnement
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Port d'écoute
+// Endpoint pour envoyer le code OTP
+app.post('/send-otp', async (req, res) => {
+  const { email, otp } = req.body; // Le client doit envoyer l'email et le code OTP généré
+  
+  if (!email || !otp) {
+    return res.status(400).json({ success: false, message: 'Email et OTP sont requis.' });
+  }
+  
+  // Préparez l'e-mail
+  const msg = {
+    to: email, // L'e-mail du destinataire
+    from: 'candidatlibre.assistance@gmail.com', // L'adresse vérifiée dans SendGrid (vérifiez votre configuration SendGrid)
+    subject: 'Votre code à usage unique',
+    text: `Bonjour,
+
+Voici votre code à usage unique : ${otp}
+
+Utilisez ce code pour finaliser votre authentification sur DriveMeNow.
+
+Cordialement,
+L’équipe DriveMeNow`,
+    html: `<p>Bonjour,</p>
+<p>Voici votre code à usage unique : <strong>${otp}</strong></p>
+<p>Utilisez ce code pour finaliser votre authentification sur <strong>DriveMeNow</strong>.</p>
+<p>Cordialement,<br>L’équipe DriveMeNow</p>`
+  };
+
+  try {
+    await sgMail.send(msg);
+    res.json({ success: true, message: 'E-mail envoyé avec succès.' });
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'e-mail :", error);
+    res.status(500).json({ success: false, message: "Erreur lors de l'envoi de l'e-mail." });
+  }
+});
+
+// Exemple d'endpoint de test pour l'envoi d'OTP
+app.post('/test-otp', (req, res) => {
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  res.json({ otp });
+});
+
 const PORT = process.env.PORT || 3000;
-
-// Votre clé secrète reCAPTCHA (à stocker en variable d'environnement)
-const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY || 'VOTRE_CLÉ_SECRÈTE_ICI'; // Remplacez par votre clé secrète
-
-// Endpoint pour valider le token reCAPTCHA
-app.post('/verify-recaptcha', async (req, res) => {
-  try {
-    // Récupérer le token envoyé par le client
-    const { recaptchaToken } = req.body;
-    if (!recaptchaToken) {
-      return res.status(400).json({ success: false, message: "Token manquant" });
-    }
-
-    // Construire le corps de la requête pour créer une évaluation
-    const requestBody = {
-      event: {
-        token: recaptchaToken,
-        expectedAction: "LOGIN",  // Doit correspondre à l'action utilisée côté client
-        siteKey: "6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x"
-      }
-    };
-
-    // URL de l'API reCAPTCHA Enterprise
-    const url = `https://recaptchaenterprise.googleapis.com/v1/projects/drivemenow-450218/assessments?key=${RECAPTCHA_SECRET_KEY}`;
-
-    // Envoyer la requête POST à l'API
-    const response = await axios.post(url, requestBody);
-    const assessment = response.data;
-
-    // Vérifier l'action et le score (score > 0.5 par exemple)
-    if (assessment.tokenProperties && assessment.tokenProperties.action === "LOGIN" &&
-        assessment.riskAnalysis && assessment.riskAnalysis.score > 0.5) {
-      res.json({ success: true, message: "reCAPTCHA validé.", assessment });
-    } else {
-      res.status(403).json({ success: false, message: "Échec de la validation reCAPTCHA.", assessment });
-    }
-  } catch (error) {
-    console.error("Erreur lors de la validation reCAPTCHA :", error.response ? error.response.data : error.message);
-    res.status(500).json({ success: false, message: "Erreur serveur lors de la validation reCAPTCHA." });
-  }
-});
-
-// Exemple d'endpoint d'authentification qui utilise la vérification reCAPTCHA
-app.post('/login', async (req, res) => {
-  // Supposons que le client envoie : email, password, recaptchaToken, etc.
-  const { email, password, recaptchaToken } = req.body;
-  // 1. Vérifier le reCAPTCHA avant de continuer l'authentification
-  try {
-    const recaptchaResponse = await axios.post(
-      `https://recaptchaenterprise.googleapis.com/v1/projects/drivemenow-450218/assessments?key=${RECAPTCHA_SECRET_KEY}`,
-      {
-        event: {
-          token: recaptchaToken,
-          expectedAction: "LOGIN",
-          siteKey: "6Le6T9QqAAAAAF1KrhvuqcUsk9u6qxxG9OSRaE1x"
-        }
-      }
-    );
-    const assessment = recaptchaResponse.data;
-    if (!(assessment.tokenProperties && assessment.tokenProperties.action === "LOGIN" &&
-         assessment.riskAnalysis && assessment.riskAnalysis.score > 0.5)) {
-      return res.status(403).json({ success: false, message: "reCAPTCHA non validé." });
-    }
-  } catch (error) {
-    return res.status(500).json({ success: false, message: "Erreur lors de la vérification reCAPTCHA." });
-  }
-
-  // 2. Poursuivre la logique d'authentification (vérification email/mot de passe dans la base de données)
-  // ...
-  res.json({ success: true, message: "Authentification réussie." });
-});
-
 app.listen(PORT, () => {
   console.log(`Serveur en écoute sur le port ${PORT}`);
 });
