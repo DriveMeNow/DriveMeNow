@@ -14,7 +14,7 @@
   <script
     async
     defer
-    src="https://maps.googleapis.com/maps/api/js?key=VOTRE_CLE_API&libraries=places"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSV-dmqFiZe4Y7B_UmD4iDJpjIYJzWGIc&libraries=places"
   ></script>
 
   <style>
@@ -227,15 +227,9 @@
       color: #000; /* Titre en noir */
       text-align: center;
     }
-    /* On rend #candidatSection similaire aux autres pages : .section-content */
     #candidatSection.section-content {
       display: none;
     }
-    #candidatSection {
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    /* On place le formulaire + récap dans des articles au fond #222 */
     #candidatSection article {
       background: #222;
       margin: 20px 0;
@@ -337,7 +331,8 @@
 
     #summaryView {
       display: none;
-      margin: 20px 0;
+      margin: 20px auto;
+      max-width: 600px;
       background: #222;
       padding: 20px;
       border-radius: 8px;
@@ -524,9 +519,8 @@
 <!-- ========== Page d'authentification ========== -->
 <div id="authPage">
   <header>
-    <!-- Logo -->
     <div id="logoContainer">
-      <img src="mon_logo.png.png" alt="Mon Logo" style="max-width: 200px; height:auto;">  
+      <img src="mon_logo.png.png" alt="Mon Logo" style="max-width: 200px; height:auto;">
     </div>
   </header>
 
@@ -595,12 +589,10 @@
   <button class="btn" id="skipAuth">Passer l’authentification</button>
 </div>
 
-<!-- ========== Contenu principal après authentification ========== -->
+<!-- ========== Contenu principal ========== -->
 <div id="mainContent">
-  <!-- Bouton hamburger (sans contour) -->
   <button id="menuButton"><i class="fas fa-bars"></i></button>
 
-  <!-- Sidebar -->
   <div id="sidebar">
     <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>CANDIDAT</a>
     <a href="#accueilSection" id="accueilBtn"><i class="fas fa-home"></i><br>ACCUEIL</a>
@@ -615,7 +607,6 @@
     <header>
       <h2>CANDIDAT</h2>
     </header>
-    <!-- Article avec fond #222 pour le formulaire -->
     <article>
       <div id="formContainer">
         <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
@@ -695,36 +686,35 @@
           </label>
         </form>
       </div>
-    </article>
 
-    <!-- Récapitulatif candidat (harmonisé) -->
-    <article id="summaryView">
-      <h2>Récapitulatif du Candidat</h2>
-      <p>Nom : <span id="sumNom"></span></p>
-      <p>Prénom : <span id="sumPrenom"></span></p>
-      <p>Date de naissance : <span id="sumDateNaissance"></span></p>
-      <p>Adresse : <span id="sumAdresse"></span></p>
-      <p>Code postal : <span id="sumCodePostal"></span></p>
-      <p>Commune : <span id="sumCommune"></span></p>
-      <p>Téléphone : <span id="sumTelephone"></span></p>
-      <p>Email : <span id="sumEmail"></span></p>
-      <p>Responsable : <span id="sumResponsable"></span></p>
-      <p>NEPH : <span id="sumNeph"></span></p>
-      <p>Date de début de formation : <span id="sumDateDebut"></span></p>
-      <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;" />
+      <!-- Récapitulatif candidat -->
+      <div id="summaryView">
+        <h2>Récapitulatif du Candidat</h2>
+        <p>Nom : <span id="sumNom"></span></p>
+        <p>Prénom : <span id="sumPrenom"></span></p>
+        <p>Date de naissance : <span id="sumDateNaissance"></span></p>
+        <p>Adresse : <span id="sumAdresse"></span></p>
+        <p>Code postal : <span id="sumCodePostal"></span></p>
+        <p>Commune : <span id="sumCommune"></span></p>
+        <p>Téléphone : <span id="sumTelephone"></span></p>
+        <p>Email : <span id="sumEmail"></span></p>
+        <p>Responsable : <span id="sumResponsable"></span></p>
+        <p>NEPH : <span id="sumNeph"></span></p>
+        <p>Date de début de formation : <span id="sumDateDebut"></span></p>
+        <img id="sumPhoto" alt="Photo" style="max-width:200px; margin-top:10px;" />
 
-      <div style="text-align:center; margin-top:20px;">
-        <button id="editBtn" class="btn">Modifier</button>
-        <button id="resetBtn" class="btn">Réinitialiser</button>
-        <button id="demarrerBtn" class="btn">Démarrer</button>
+        <div style="text-align:center; margin-top:20px;">
+          <button id="editBtn" class="btn">Modifier</button>
+          <button id="resetBtn" class="btn">Réinitialiser</button>
+          <button id="demarrerBtn" class="btn">Démarrer</button>
+        </div>
       </div>
     </article>
   </section>
 
-  <!-- ========== Contenu pédagogique (Accueuil, Inscription, Suivi, Examens, Permis) ========== -->
+  <!-- ========== Contenu pédagogique ========== -->
   <div id="contentPage">
-    <!-- ... TOUTES LES AUTRES SECTIONS COMPLETES (Accueil, Inscription, Suivi, Examens, Permis) ... -->
-    <!-- Section ACCUEIL -->
+    <!-- SECTION ACCUEIL -->
     <section id="accueilSection" class="section-content" style="display:block;">
       <header>
         <h2>ACCUEIL</h2>
@@ -763,7 +753,7 @@
       </article>
     </section>
 
-    <!-- Section INSCRIPTION -->
+    <!-- SECTION INSCRIPTION -->
     <section id="inscriptionSection" class="section-content" style="display:none;">
       <header>
         <h2>INSCRIPTION</h2>
@@ -808,7 +798,7 @@
       </article>
     </section>
 
-    <!-- Section SUIVI -->
+    <!-- SECTION SUIVI -->
     <section id="suiviSection" class="section-content" style="display:none;">
       <header>
         <h2>SUIVI</h2>
@@ -990,7 +980,6 @@
   </div>
 </div>
 
-<!-- Footer -->
 <div class="footer">
   "Prenez le volant de votre avenir et conduisez vers la liberté"
 </div>
@@ -1026,7 +1015,7 @@ const registerTab = document.getElementById('registerTab');
 const loginFormContainer = document.getElementById('loginFormContainer');
 const registerFormContainer = document.getElementById('registerFormContainer');
 
-// Gestion des onglets
+// Tabs
 loginTab.addEventListener('click', () => {
   loginTab.classList.add('active');
   registerTab.classList.remove('active');
@@ -1060,7 +1049,9 @@ setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'
 document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
   const targetId = icon.getAttribute('data-target') || icon.id.replace('toggle','');
   const targetInput = document.getElementById(targetId);
-  if (targetInput) setupTogglePassword(icon, targetInput);
+  if (targetInput) {
+    setupTogglePassword(icon, targetInput);
+  }
 });
 
 // Form inscription
@@ -1078,7 +1069,7 @@ document.getElementById('registerForm').addEventListener('submit', e => {
     alert("Les mots de passe ne correspondent pas.");
     return;
   }
-  // Simulation code unique
+  // Simulation d'un code unique
   const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
   localStorage.setItem('registeredUser', JSON.stringify({
     email: document.getElementById('regEmail').value,
@@ -1094,7 +1085,6 @@ document.getElementById('loginForm').addEventListener('submit', e => {
   e.preventDefault();
   document.getElementById('authPage').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
-  // Affiche la section candidat
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
   scrollTopPage();
@@ -1130,7 +1120,7 @@ document.querySelectorAll('#sidebar a').forEach(link => {
   });
 });
 
-// Navigation
+// Boutons
 document.getElementById('coverPageBtn').addEventListener('click', e => {
   e.preventDefault();
   hideAllSections();
@@ -1276,11 +1266,14 @@ function initAutocomplete() {
     componentRestrictions: { country: "fr" },
     fields: ["address_components", "formatted_address", "geometry", "name"]
   });
+  /* On utilise addListener('place_changed', ...) */
   autocomplete.addListener('place_changed', () => {
     const place = autocomplete.getPlace();
     if (!place.address_components) return;
+
     let postalCode = "";
     let commune = "";
+
     place.address_components.forEach(component => {
       if (component.types.includes("postal_code")) {
         postalCode = component.long_name;
@@ -1289,6 +1282,7 @@ function initAutocomplete() {
         commune = component.long_name;
       }
     });
+
     if (postalCode) document.getElementById('code-postal').value = postalCode;
     if (commune) document.getElementById('commune').value = commune;
   });
@@ -1349,10 +1343,11 @@ function mettreAJourIndicateurs() {
 }
 
 /* =====================
-   INIT
+   INITIALISATION
 ===================== */
 window.addEventListener('load', () => {
   initAutocomplete();
+  // Gestion de l'upload photo
   const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
   if (fileInput) {
     fileInput.addEventListener('change', e => {
