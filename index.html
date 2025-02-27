@@ -307,6 +307,7 @@
     }
     .toc a:hover {
       color: #FFA500;
+      text-decoration: underline;
     }
     .toc a.active {
       color: #FFA500;
@@ -564,6 +565,7 @@
       <div class="auth-field">
         <label for="loginPassword">Mot de passe :</label>
         <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required />
+        <small style="visibility:hidden;">(Alignement)</small>
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
       </div>
@@ -594,6 +596,7 @@
       <div class="auth-field">
         <label for="regPassword">Mot de passe :</label>
         <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required />
+         <small style="visibility:hidden;">(Alignement)</small>
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
       </div>
