@@ -346,14 +346,10 @@
       border-radius: 8px;
       border: 1px solid #999;
     }
-    /* même style H3 que "Informations Candidat" */
-    #summaryView h3 {
-      font-size: 1.6em;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #FFA500;
-      padding-bottom: 5px;
-      color: #fff;
+    #summaryView h2 {
       text-align: center;
+      color: #FFA500;
+      margin-bottom: 10px;
     }
     #summaryView p {
       margin: 5px 0;
@@ -563,7 +559,7 @@
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
       </div>
-      <!-- Petit <small> caché pour alignement -->
+      <!-- Correction ICI : on ajoute un <small> caché pour garder la même hauteur -->
       <div class="auth-field">
         <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
         <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required />
@@ -590,24 +586,24 @@
     <a href="#permisSection" id="permisLink"><i class="fas fa-id-card"></i><br>PERMIS</a>
   </div>
 
-  <!-- ========== Page Candidat ========== -->
+  <!-- ========== Page Candidat (modifiée) ========== -->
   <section id="candidatSection" class="section-content" style="display:none;">
     <header>
       <h2>CANDIDAT</h2>
-      <!-- Supprimons "Coordonnées" / "Photo" pour ne laisser que "Informations Candidat" -->
       <nav class="toc">
         <ul>
-          <!-- Un seul lien : renvoie soit au formulaire (si non validé), soit au récap. -->
-          <li><a href="#" id="infosLink">Informations Candidat</a></li>
+          <li><a href="#coordonnees">Coordonnées</a></li>
+          <li><a href="#infosCandidat">Informations Candidat</a></li>
+          <li><a href="#photoCandidat">Photo</a></li>
         </ul>
       </nav>
     </header>
 
-    <article>
-      <h3>Coordonnées & Informations Candidat</h3>
-      <!-- Formulaire unique -->
+    <!-- ARTICLE 1 : Coordonnées -->
+    <article id="coordonnees">
+      <h3>Coordonnées</h3>
       <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
-        <!-- =========== COORDONNÉES =========== -->
+        <!-- Zone 1 -->
         <div class="info-field">
           <label for="nom">Nom du candidat :</label>
           <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
@@ -644,8 +640,12 @@
           <label for="responsable">Responsable de la formation :</label>
           <input type="text" id="responsable" name="responsable" placeholder="Nom du responsable" required />
         </div>
+    </article>
 
-        <!-- =========== INFORMATIONS CANDIDAT =========== -->
+    <!-- ARTICLE 2 : Informations Candidat -->
+    <article id="infosCandidat">
+      <h3>Informations Candidat</h3>
+      <!-- Zone 2 (toujours dans le même formulaire) -->
         <div class="info-field">
           <label for="date-debut">Date de début de formation :</label>
           <input type="date" id="date-debut" name="date_debut" required />
@@ -668,14 +668,6 @@
             <div class="neph-box"><input type="text" name="neph[]" maxlength="1" pattern="[0-9]" /></div>
           </div>
         </div>
-
-        <!-- Encadrement de la photo, juste avant le bouton Envoyer -->
-        <div class="photo-placeholder">
-          <span id="photoPlaceholderText">Ajouter une photo</span>
-          <img id="photoPreview" alt="Prévisualisation de la photo" />
-          <input type="file" name="photo" accept="image/*" required />
-        </div>
-
         <div style="text-align:center;">
           <button type="submit" class="btn">Envoyer</button>
         </div>
@@ -684,10 +676,20 @@
         </label>
       </form>
     </article>
-    
+
+    <!-- ARTICLE 3 : Photo, hors du formulaire -->
+    <article id="photoCandidat">
+      <h3>Photo</h3>
+      <div class="photo-placeholder">
+        <span id="photoPlaceholderText">Ajouter une photo</span>
+        <img id="photoPreview" alt="Prévisualisation de la photo" />
+        <input type="file" name="photo" accept="image/*" required />
+      </div>
+    </article>
+
     <!-- Récapitulatif candidat -->
     <div id="summaryView">
-      <h3>Récapitulatif du Candidat</h3>
+      <h2>Récapitulatif du Candidat</h2>
       <p>Nom : <span id="sumNom"></span></p>
       <p>Prénom : <span id="sumPrenom"></span></p>
       <p>Date de naissance : <span id="sumDateNaissance"></span></p>
@@ -1206,12 +1208,11 @@ function displaySummary(data) {
   document.getElementById('sumPhoto').src = data.photo ? data.photo : "";
 }
 
-/* Soumission du formulaire */
 document.getElementById('infoForm').addEventListener('submit', e => {
   e.preventDefault();
   const formData = collectFormData();
   localStorage.setItem('validatedData', JSON.stringify(formData));
-  // Masquer le formulaire et afficher le résumé
+  // On masque le formulaire et on affiche le résumé
   document.getElementById('infoForm').style.display = 'none';
   displaySummary(formData);
   document.getElementById('summaryView').style.display = 'block';
@@ -1222,7 +1223,6 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   scrollTopPage();
 });
 
-/* Bouton "Modifier" */
 document.getElementById('editBtn').addEventListener('click', () => {
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('infoForm').style.display = 'block';
@@ -1231,7 +1231,6 @@ document.getElementById('editBtn').addEventListener('click', () => {
   document.getElementById('demarrerBtn').style.display = 'none';
 });
 
-/* Bouton "Réinitialiser" */
 document.getElementById('resetBtn').addEventListener('click', () => {
   localStorage.removeItem('validatedData');
   document.getElementById('summaryView').style.display = 'none';
@@ -1249,35 +1248,11 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('photoPlaceholderText').style.display = 'block';
 });
 
-/* Bouton "Démarrer" */
 document.getElementById('demarrerBtn').addEventListener('click', () => {
   document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('contentPage').style.display = 'block';
   hideAllSections();
   document.getElementById('accueilSection').style.display = 'block';
-  scrollTopPage();
-});
-
-/* Lien unique "Informations Candidat" => renvoie formulaire ou récap */
-document.getElementById('infosLink').addEventListener('click', e => {
-  e.preventDefault();
-  hideAllSections();
-  document.getElementById('candidatSection').style.display = 'block';
-  document.getElementById('contentPage').style.display = 'none';
-
-  const validatedData = localStorage.getItem('validatedData');
-  if (validatedData) {
-    // Affiche le récap
-    document.getElementById('infoForm').style.display = 'none';
-    document.getElementById('summaryView').style.display = 'block';
-    document.getElementById('editBtn').style.display = 'inline-block';
-    document.getElementById('resetBtn').style.display = 'inline-block';
-    document.getElementById('demarrerBtn').style.display = 'inline-block';
-  } else {
-    // Affiche le formulaire
-    document.getElementById('infoForm').style.display = 'block';
-    document.getElementById('summaryView').style.display = 'none';
-  }
   scrollTopPage();
 });
 
