@@ -38,7 +38,9 @@
        PAGE AUTHENTIFICATION
     ============================ */
     #authPage {
-      max-width: 400px;
+      /* Pour laisser voir le fond clair à gauche et à droite */
+      width: 80%;
+      max-width: 600px;
       margin: 40px auto;
       background: #111;
       padding: 20px;
@@ -88,7 +90,7 @@
     .auth-form {
       display: none;
       text-align: left;
-      position: relative;
+      position: relative; /* Permet la position absolute de l’icône */
     }
     .auth-form.active {
       display: block;
@@ -203,8 +205,7 @@
       display: block;
       padding: 15px;
       background: #fceec7;
-      /* Couleur du texte et icône en noir */
-      color: #000; 
+      color: #000; /* texte en noir */
       text-decoration: none;
       border-bottom: 1px solid #000;
       text-align: center;
@@ -216,7 +217,7 @@
     #sidebar a:hover,
     #sidebar a.active {
       background: #FFA500;
-      color: #000; /* reste en noir même si hover/actif */
+      color: #000; /* reste en noir */
     }
 
     /* =========================
@@ -251,9 +252,6 @@
       border-bottom: 1px solid #FFA500;
       padding-bottom: 5px;
       color: #fff;
-    }
-    #candidatSection.section-content {
-      display: none;
     }
 
     .info-field {
@@ -301,6 +299,20 @@
       color: #fff;
     }
 
+    /* Liens .toc en gris foncé par défaut */
+    .toc a {
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .toc a:hover {
+      color: #FFA500;
+    }
+    .toc a.active {
+      color: #FFA500;
+      text-decoration: underline;
+    }
+
     .photo-placeholder {
       width: 200px;
       height: 250px;
@@ -338,7 +350,7 @@
       display: none;
     }
 
-    /* Récapitulatif candidat */
+    /* Récapitulatif */
     #summaryView {
       display: none;
       margin: 20px auto;
@@ -356,34 +368,24 @@
       color: #fff;
       text-align: center;
     }
-    #sumPhoto {
-      display: block;
-      margin: 0 auto;
-    }
     #summaryView p {
       margin: 5px 0;
       color: #FFF;
+    }
+    #sumPhoto {
+      display: block;
+      margin: 0 auto;
     }
     #editBtn, #resetBtn, #demarrerBtn {
       display: none;
       margin: 10px 5px;
     }
 
-    /* Liens .toc non actifs en gris foncé #666 */
-    .toc a {
-      color: #666; 
-      text-decoration: none;
-      transition: color 0.3s;
+    /* PAGE “DOCUMENTS OBLIGATOIRES” MASQUÉ TANT QUE FORMULAIRE PAS ENVOYÉ */
+    #docsObligContainer {
+      display: none; /* on le révèle après validation du 1er formulaire */
     }
-    .toc a:hover {
-      color: #FFA500; 
-    }
-    .toc a.active {
-      color: #FFA500; 
-      text-decoration: underline;
-    }
-
-    /* SECTION FICHIERS AJOUTÉS */
+    /* Prévisualisation de fichiers */
     .file-preview-list {
       margin-top: 10px;
     }
@@ -627,13 +629,15 @@
       <h2>CANDIDAT</h2>
       <nav class="toc">
         <ul>
+          <!-- Lien 1 : Récap ou Form principal -->
           <li><a href="#" id="summaryLink">Coordonnées et informations Candidat</a></li>
+          <!-- Lien 2 : Documents Obligatoires (uniquement après validation 1er form) -->
           <li><a href="#" id="docsLink">Documents obligatoires</a></li>
         </ul>
       </nav>
     </header>
 
-    <!-- 1) RÉCAPITULATIF -->
+    <!-- Récapitulatif -->
     <div id="summaryView">
       <h3>Coordonnées et informations Candidat</h3>
       <p>Nom : <span id="sumNom"></span></p>
@@ -656,11 +660,10 @@
       </div>
     </div>
 
-    <!-- 2) FORMULAIRE -->
-    <article id="docObligatoires">
-      <h3>Documents Obligatoires</h3>
+    <!-- Formulaire principal (Coordonnées et informations Candidat) -->
+    <article id="infoFormContainer">
+      <h3>Coordonnées et informations Candidat</h3>
       <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
-        <!-- Coordonnées & Informations Candidat -->
         <div class="info-field">
           <label for="nom">Nom du candidat :</label>
           <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
@@ -726,15 +729,6 @@
           <input type="file" name="photo" accept="image/*" required />
         </div>
 
-        <!-- Ajout multiple de fichiers / prévisualisation -->
-        <div class="info-field">
-          <label for="filesInput">Ajouter des fichiers :</label>
-          <input type="file" id="filesInput" multiple />
-        </div>
-        <div class="file-preview-list" id="filePreviewList">
-          <!-- Prévisualisations dynamiques ici -->
-        </div>
-
         <div style="text-align:center;">
           <button type="submit" class="btn">Envoyer</button>
         </div>
@@ -742,6 +736,18 @@
           * NEPH : Délivré sur demande – à remplir une fois obtenu.
         </label>
       </form>
+    </article>
+
+    <!-- Documents Obligatoires (masqué tant que le formulaire principal n'est pas validé) -->
+    <article id="docsObligContainer">
+      <h3>Documents Obligatoires</h3>
+      <div class="info-field">
+        <label for="filesInput">Ajouter des fichiers :</label>
+        <input type="file" id="filesInput" multiple />
+      </div>
+      <div class="file-preview-list" id="filePreviewList">
+        <!-- Prévisualisations dynamiques ici -->
+      </div>
     </article>
 
   </section>
@@ -1028,7 +1034,6 @@ function capitalize(str) {
 function hideAllSections() {
   document.querySelectorAll('.section-content').forEach(sec => {
     sec.style.display = 'none';
-    // On retire l'active sur tous les liens .toc a de la page masquée
     sec.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
   });
 }
@@ -1147,10 +1152,7 @@ sidebar.addEventListener('mouseleave', () => {
   sidebar.classList.remove('active');
 });
 
-/** 
- * Active le 1er lien .toc de la section spécifiée
- * (sert pour "accueilSection", "suiviSection", etc.)
- */
+/* Active le 1er lien .toc de la section */
 function activateFirstTocLink(sectionId) {
   const section = document.querySelector(sectionId);
   if (!section) return;
@@ -1160,15 +1162,11 @@ function activateFirstTocLink(sectionId) {
   }
 }
 
-// Au clic sur un lien du sidebar => enlever .active partout, activer le lien cliqué
 document.querySelectorAll('#sidebar a').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
-    // Retire la classe active de tous les liens
     document.querySelectorAll('#sidebar a').forEach(el => el.classList.remove('active'));
-    // Active le lien cliqué
     this.classList.add('active');
-    // On masque la sidebar
     sidebar.classList.remove('active');
   });
 });
@@ -1231,6 +1229,9 @@ document.getElementById('permisLink').addEventListener('click', e => {
 /* =====================
    FORMULAIRE CANDIDAT
 ===================== */
+const infoFormContainer = document.getElementById('infoFormContainer');
+const docsObligContainer = document.getElementById('docsObligContainer');
+
 function formatDate(dateStr) {
   if (!dateStr) return "";
   const parts = dateStr.split("-");
@@ -1265,38 +1266,38 @@ function displaySummary(data) {
   document.getElementById('sumResponsable').innerText = capitalize(data.responsable);
   document.getElementById('sumNeph').innerText = data.neph;
   document.getElementById('sumDateDebut').innerText = data.dateDebut;
-  document.getElementById('sumPhoto').src = data.photo ? data.photo : "";
+  document.getElementById('sumPhoto').src = data.photo || "";
 }
 
-/* Soumission du formulaire */
 document.getElementById('infoForm').addEventListener('submit', e => {
   e.preventDefault();
-  // On remonte la page
-  scrollTopPage();
+  scrollTopPage(); // remonter en haut
   const formData = collectFormData();
   localStorage.setItem('validatedData', JSON.stringify(formData));
-  // Masquer le formulaire et afficher le récap
-  document.getElementById('infoForm').style.display = 'none';
+
+  // Masquer le formulaire, afficher le récap
+  infoFormContainer.style.display = 'none';
   displaySummary(formData);
   document.getElementById('summaryView').style.display = 'block';
   
   document.getElementById('editBtn').style.display = 'inline-block';
   document.getElementById('resetBtn').style.display = 'inline-block';
   document.getElementById('demarrerBtn').style.display = 'inline-block';
+
+  // Révèle la section "Documents obligatoires" (si on clique sur le lien)
+  // => docsObligContainer
 });
 
-/* Bouton "Modifier" */
 document.getElementById('editBtn').addEventListener('click', () => {
   document.getElementById('summaryView').style.display = 'none';
-  document.getElementById('infoForm').style.display = 'block';
+  infoFormContainer.style.display = 'block';
   document.getElementById('editBtn').style.display = 'none';
   document.getElementById('resetBtn').style.display = 'none';
   document.getElementById('demarrerBtn').style.display = 'none';
 });
 
-/* Bouton "Réinitialiser" */
 document.getElementById('resetBtn').addEventListener('click', () => {
-  if(!confirm("Voulez-vous vraiment réinitialiser le formulaire et vos données ?")) return;
+  if(!confirm("Voulez-vous vraiment réinitialiser ?")) return;
   localStorage.removeItem('validatedData');
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('infoForm').reset();
@@ -1310,31 +1311,28 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   photoPreview.style.display = 'none';
   document.getElementById('photoPlaceholderText').style.display = 'block';
 
-  // On vide la liste de fichiers
-  filePreviewList.innerHTML = "";
-  localStorage.removeItem('addedFiles');
-  document.getElementById('infoForm').style.display = 'block';
+  // Masque "Documents obligatoires"
+  docsObligContainer.style.display = 'none';
+
+  infoFormContainer.style.display = 'block';
 });
 
-/* Bouton "Démarrer" */
 document.getElementById('demarrerBtn').addEventListener('click', () => {
-  // On va sur la page ACCUEIL
   document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('contentPage').style.display = 'block';
   hideAllSections();
   document.getElementById('accueilSection').style.display = 'block';
   scrollTopPage();
-  // Active le bouton ACCUEIL 
   document.querySelectorAll('#sidebar a').forEach(el => el.classList.remove('active'));
   document.getElementById('accueilBtn').classList.add('active');
-  // On active le premier lien de la page ACCUEIL
   activateFirstTocLink('#accueilSection');
 });
 
-/* =====================
-   Liens "Coordonnées et informations Candidat" / "Documents obligatoires"
-===================== */
-document.getElementById('summaryLink').addEventListener('click', e => {
+/* Liens "Coordonnées et informations Candidat" / "Documents obligatoires" */
+const summaryLink = document.getElementById('summaryLink');
+const docsLink = document.getElementById('docsLink');
+
+summaryLink.addEventListener('click', e => {
   e.preventDefault();
   hideAllSections();
   document.getElementById('candidatSection').style.display = 'block';
@@ -1345,29 +1343,41 @@ document.getElementById('summaryLink').addEventListener('click', e => {
   if (validatedData) {
     // Affiche le récap
     document.getElementById('summaryView').style.display = 'block';
-    document.getElementById('infoForm').style.display = 'none';
+    infoFormContainer.style.display = 'none';
     document.getElementById('editBtn').style.display = 'inline-block';
     document.getElementById('resetBtn').style.display = 'inline-block';
     document.getElementById('demarrerBtn').style.display = 'inline-block';
-    e.target.classList.add('active');
   } else {
     // Affiche le form
     document.getElementById('summaryView').style.display = 'none';
-    document.getElementById('infoForm').style.display = 'block';
-    e.target.classList.add('active');
+    infoFormContainer.style.display = 'block';
   }
+  docsObligContainer.style.display = 'none'; // on masque
+  summaryLink.classList.add('active');
+  docsLink.classList.remove('active');
 });
 
-document.getElementById('docsLink').addEventListener('click', e => {
+docsLink.addEventListener('click', e => {
   e.preventDefault();
   hideAllSections();
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
   scrollTopPage();
-  // Affiche directement l'article "Documents Obligatoires" (le formulaire)
+  const validatedData = localStorage.getItem('validatedData');
+  if (!validatedData) {
+    alert("Veuillez d'abord remplir et envoyer le formulaire principal.");
+    // On rétablit la vue "form principal"
+    document.getElementById('summaryView').style.display = 'none';
+    infoFormContainer.style.display = 'block';
+    docsObligContainer.style.display = 'none';
+    return;
+  }
+  summaryLink.classList.remove('active');
+  docsLink.classList.add('active');
+  // On masque le summaryView et le form principal, on affiche docs
   document.getElementById('summaryView').style.display = 'none';
-  document.getElementById('infoForm').style.display = 'block';
-  e.target.classList.add('active');
+  infoFormContainer.style.display = 'none';
+  docsObligContainer.style.display = 'block';
 });
 
 /* =====================
@@ -1414,55 +1424,11 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
 });
 
 /* =====================
-   AJOUT / SUPPRESSION DE FICHIERS 
+   GESTION FICHIERS (Documents obligatoires)
 ===================== */
 const filesInput = document.getElementById('filesInput');
 const filePreviewList = document.getElementById('filePreviewList');
 let addedFiles = JSON.parse(localStorage.getItem('addedFiles') || '[]');
-
-// Affiche la liste de fichiers déjà sauvegardés
-window.addEventListener('load', () => {
-  initAutocomplete();
-  displaySavedFiles();
-  // Gestion de l'upload photo
-  const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
-  if (photoInput) {
-    photoInput.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-          const photoPreview = document.getElementById('photoPreview');
-          photoPreview.src = evt.target.result;
-          photoPreview.style.display = 'block';
-          document.getElementById('photoPlaceholderText').style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-});
-
-filesInput.addEventListener('change', e => {
-  const files = Array.from(e.target.files);
-  if(!files.length) return;
-  // On ajoute chaque fichier
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      const base64Data = evt.target.result;
-      addedFiles.push({
-        name: file.name,
-        type: file.type,
-        data: base64Data
-      });
-      localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
-      displaySavedFiles();
-    };
-    reader.readAsDataURL(file);
-  });
-  filesInput.value = ""; // reset input
-});
 
 function displaySavedFiles(){
   filePreviewList.innerHTML = "";
@@ -1470,19 +1436,16 @@ function displaySavedFiles(){
     const fileItem = document.createElement('div');
     fileItem.classList.add('file-preview-item');
 
-    // On affiche une icône ou une mini-apercu
-    let previewContent = `<img src="`;
-    // Si c'est image, on peut l'afficher
-    if (fileObj.type.startsWith('image/')) {
-      previewContent += fileObj.data;
+    let preview = `<img src="`;
+    // si c'est image
+    if(fileObj.type.startsWith('image/')){
+      preview += fileObj.data;
     } else {
-      // Fichier PDF ou autre => on peut mettre un icône
-      previewContent += "https://cdn-icons-png.flaticon.com/512/337/337946.png";
+      preview += "https://cdn-icons-png.flaticon.com/512/337/337946.png";
     }
-    previewContent += `" alt="file" />`;
-    
+    preview += `" alt="file" />`;
     fileItem.innerHTML = `
-      ${previewContent}
+      ${preview}
       <span class="filename">${fileObj.name}</span>
       <div class="file-preview-icons">
         <i class="fas fa-pencil-alt" data-index="${index}" title="Modifier"></i>
@@ -1493,19 +1456,38 @@ function displaySavedFiles(){
   });
 }
 
-// Au clic sur l'icône "pencil" => on modifie le fichier
+function initDocuments() {
+  displaySavedFiles();
+}
+filesInput?.addEventListener('change', e => {
+  const files = Array.from(e.target.files);
+  if(!files.length) return;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(evt){
+      addedFiles.push({
+        name: file.name,
+        type: file.type,
+        data: evt.target.result
+      });
+      localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
+      displaySavedFiles();
+    };
+    reader.readAsDataURL(file);
+  });
+  filesInput.value="";
+});
 filePreviewList.addEventListener('click', e => {
   if(e.target.classList.contains('fa-pencil-alt')){
     const index = e.target.dataset.index;
     if(index==null) return;
-    // On ouvre un input type="file" invisible pour remplacer ce fichier
     const hiddenInput = document.createElement('input');
-    hiddenInput.type = 'file';
-    hiddenInput.onchange = (evt) => {
-      const newFile = evt.target.files[0];
+    hiddenInput.type='file';
+    hiddenInput.onchange = (ev) => {
+      const newFile = ev.target.files[0];
       if(newFile){
-        const reader = new FileReader();
-        reader.onload = function(rEvt){
+        const r = new FileReader();
+        r.onload = function(rEvt){
           addedFiles[index] = {
             name: newFile.name,
             type: newFile.type,
@@ -1513,17 +1495,15 @@ filePreviewList.addEventListener('click', e => {
           };
           localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
           displaySavedFiles();
-        };
-        reader.readAsDataURL(newFile);
+        }
+        r.readAsDataURL(newFile);
       }
     };
     hiddenInput.click();
-  }
-  // Au clic sur poubelle => on supprime
-  else if(e.target.classList.contains('fa-trash')){
+  }else if(e.target.classList.contains('fa-trash')){
     const index = e.target.dataset.index;
     if(index==null) return;
-    if(!confirm("Voulez-vous vraiment supprimer ce fichier ?")) return;
+    if(!confirm("Supprimer ce fichier ?")) return;
     addedFiles.splice(index,1);
     localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
     displaySavedFiles();
@@ -1571,6 +1551,31 @@ function mettreAJourIndicateurs() {
   const pourcentage = Math.min(Math.round((totalSessions / cible) * 100), 100);
   document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
 }
+
+/* =====================
+   INITIALISATION
+===================== */
+window.addEventListener('load', () => {
+  initAutocomplete();
+  initDocuments();
+  // Prévisualisation de la photo du candidat
+  const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
+  if (photoInput) {
+    photoInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const photoPreview = document.getElementById('photoPreview');
+          photoPreview.src = evt.target.result;
+          photoPreview.style.display = 'block';
+          document.getElementById('photoPlaceholderText').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+});
 </script>
 </body>
 </html>
