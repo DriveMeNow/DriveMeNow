@@ -38,7 +38,6 @@
        PAGE AUTHENTIFICATION
     ============================ */
     #authPage {
-      /* Pour laisser voir le fond clair à gauche et à droite */
       width: 80%;
       max-width: 600px;
       margin: 40px auto;
@@ -63,7 +62,7 @@
       margin-bottom: 20px;
       font-size: 0.95em;
       color: #ccc;
-      font-weight: bold; /* Mise en gras */
+      font-weight: bold;
     }
 
     .auth-tabs {
@@ -90,14 +89,14 @@
     .auth-form {
       display: none;
       text-align: left;
-      position: relative; /* Permet la position absolute de l’icône */
+      position: relative;
     }
     .auth-form.active {
       display: block;
     }
     .auth-field {
       margin-bottom: 15px;
-      position: relative;
+      position: relative; /* pour positionner l’icône “œil” */
     }
     .auth-field label {
       display: block;
@@ -106,6 +105,7 @@
     .auth-field input {
       width: 100%;
       padding: 8px;
+      padding-right: 35px; /* Espace pour icône “œil” sur mobiles */
       border: 1px solid #555;
       border-radius: 4px;
       background: #222;
@@ -205,7 +205,7 @@
       display: block;
       padding: 15px;
       background: #fceec7;
-      color: #000; /* texte en noir */
+      color: #000; /* en noir */
       text-decoration: none;
       border-bottom: 1px solid #000;
       text-align: center;
@@ -217,7 +217,7 @@
     #sidebar a:hover,
     #sidebar a.active {
       background: #FFA500;
-      color: #000; /* reste en noir */
+      color: #000;
     }
 
     /* =========================
@@ -239,11 +239,10 @@
     .section-content article:hover {
       border-color: #FFA500;
     }
-
     .section-content h2 {
       font-size: 2em;
       margin-bottom: 10px;
-      color: #000; /* Titre en noir */
+      color: #000;
       text-align: center;
     }
     .section-content h3 {
@@ -254,56 +253,11 @@
       color: #fff;
     }
 
-    .info-field {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-    .info-field label {
-      font-weight: bold;
-      margin-right: 8px;
-    }
-    .info-field input {
-      padding: 5px;
-      font-size: 1em;
-      border: 1px solid #555;
-      border-radius: 4px;
-      background: #222;
-      color: #fff;
-      width: 100%;
-      transition: border 0.3s;
-    }
-    .info-field input:hover {
-      border: 2px solid #FFA500;
-    }
-    .neph-boxes {
-      display: flex;
-      flex-direction: row;
-    }
-    .neph-box {
-      width: 25px;
-      height: 25px;
-      border: 1px solid #777;
-      text-align: center;
-      line-height: 25px;
-      margin-right: 3px;
-      transition: border 0.3s;
-    }
-    .neph-box:hover {
-      border: 2px solid #FFA500;
-    }
-    .neph-box input {
-      width: 100%;
-      border: none;
-      text-align: center;
-      background: #222;
-      color: #fff;
-    }
-
-    /* Liens .toc en gris foncé par défaut */
+    /* Liens .toc => gris inactif / orange souligné actif */
     .toc a {
       color: #666;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: color 0.3s, text-decoration 0.3s;
     }
     .toc a:hover {
       color: #FFA500;
@@ -311,6 +265,15 @@
     .toc a.active {
       color: #FFA500;
       text-decoration: underline;
+    }
+
+    /* Ajuster marges pour listes (puces/numéros) */
+    .section-content ul,
+    .section-content ol {
+      margin: 10px 20px; /* Espace par rapport aux bords */
+    }
+    .section-content li {
+      margin-bottom: 5px; /* espace vertical */
     }
 
     .photo-placeholder {
@@ -381,11 +344,23 @@
       margin: 10px 5px;
     }
 
-    /* PAGE “DOCUMENTS OBLIGATOIRES” MASQUÉ TANT QUE FORMULAIRE PAS ENVOYÉ */
+    /* Bloc Documents Obligatoires (séparé du récap) */
     #docsObligContainer {
-      display: none; /* on le révèle après validation du 1er formulaire */
+      display: none;
+      margin: 20px auto;
+      max-width: 600px;
+      background: #222;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 15px;
     }
-    /* Prévisualisation de fichiers */
+    #docsObligContainer h3 {
+      font-size: 1.4em;
+      color: #FFA500;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #FFA500;
+      padding-bottom: 5px;
+    }
     .file-preview-list {
       margin-top: 10px;
     }
@@ -398,16 +373,16 @@
       padding: 4px 8px;
       background: #333;
     }
-    .file-preview-item img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-      margin-right: 8px;
-    }
+    /* Tronquer le nom de fichier pour laisser place aux icônes */
     .file-preview-item span.filename {
+      display: inline-block;
       color: #fff;
-      flex: 1;
+      flex: 1 1 auto;
       margin-right: 8px;
+      max-width: 50%; /* Ajuster si besoin */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .file-preview-icons {
       display: flex;
@@ -485,20 +460,31 @@
       border: 2px solid #FFA500;
       color: #000;
     }
+
+    /* ========== Table "Suivi des sessions" en mode responsive ========== */
     table.suivi-table {
-      width: 100%;
-      border-collapse: collapse;
       margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+      display: block;           /* Force un block pour scroll horizontal */
+      overflow-x: auto;         /* Ajoute scroll en cas de colonnes trop larges */
     }
-    table.suivi-table th, table.suivi-table td {
+    table.suivi-table thead {
+      background: #333;
+      display: table-header-group;
+    }
+    table.suivi-table tbody {
+      display: table-row-group;
+    }
+    table.suivi-table th,
+    table.suivi-table td {
+      padding: 8px 10px;
       border: 1px solid #FFA500;
-      padding: 8px;
       text-align: center;
       color: #fff;
+      white-space: nowrap; /* Evite le retour à la ligne auto */
     }
-    table.suivi-table th {
-      background: #333;
-    }
+
     .progress-circle {
       border: 2px solid #FFA500;
       border-radius: 50%;
@@ -525,11 +511,11 @@
 
     /* Responsive */
     @media (max-width:768px) {
-      .section-content {
-        padding: 0 20px;
+      .auth-field input {
+        padding-right: 40px; /* un peu plus de place pour l'icône sur mobile */
       }
       .suivi-form {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Le form du suivi en 1 colonne sur mobile */
       }
     }
   </style>
@@ -553,7 +539,7 @@
     <button id="registerTab">Inscription</button>
   </div>
 
-  <!-- Formulaire de connexion -->
+  <!-- Form Connexion -->
   <div id="loginFormContainer" class="auth-form active">
     <h2 style="text-align:center;">Connexion</h2>
     <form id="loginForm">
@@ -565,7 +551,7 @@
         <label for="loginPassword">Mot de passe :</label>
         <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required />
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
-        <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
+        <i class="fas fa-eye toggle-password" data-target="loginPassword"></i>
       </div>
       <div class="auth-field">
         <label for="loginCode">Code à usage unique :</label>
@@ -575,7 +561,7 @@
     </form>
   </div>
 
-  <!-- Formulaire d'inscription -->
+  <!-- Form Inscription -->
   <div id="registerFormContainer" class="auth-form">
     <h2 style="text-align:center;">Inscription</h2>
     <form id="registerForm">
@@ -614,6 +600,7 @@
 <div id="mainContent">
   <button id="menuButton"><i class="fas fa-bars"></i></button>
 
+  <!-- ========== Sidebar (non modifié) ========== -->
   <div id="sidebar">
     <a href="#" id="coverPageBtn"><i class="fas fa-user"></i><br>CANDIDAT</a>
     <a href="#accueilSection" id="accueilBtn"><i class="fas fa-home"></i><br>ACCUEIL</a>
@@ -629,9 +616,7 @@
       <h2>CANDIDAT</h2>
       <nav class="toc">
         <ul>
-          <!-- Lien 1 : Récap ou Form principal -->
           <li><a href="#" id="summaryLink">Coordonnées et informations Candidat</a></li>
-          <!-- Lien 2 : Documents Obligatoires (uniquement après validation 1er form) -->
           <li><a href="#" id="docsLink">Documents obligatoires</a></li>
         </ul>
       </nav>
@@ -660,7 +645,28 @@
       </div>
     </div>
 
-    <!-- Formulaire principal (Coordonnées et informations Candidat) -->
+    <!-- ========== Documents Obligatoires (séparé du récap) ========== -->
+    <article id="docsObligContainer">
+      <h3>Documents Obligatoires</h3>
+      <div class="info-field">
+        <label for="filesInput" 
+          title="Pièce d’identité, Justificatif de domicile, ASSR, Permis accompagnateur, Attestation JDC (Journée Défense et Citoyenneté), Charte de l’accompagnateur, attestation d'assurance véhicule spécial permis..."
+        >
+          Ajouter : PI, Justificatif de Dom...
+        </label>
+        <input
+          type="file"
+          id="filesInput"
+          multiple
+          title="Pièce d’identité, Justificatif de domicile, ASSR, Permis accompagnateur, Attestation JDC (Journée Défense et Citoyenneté), Charte de l’accompagnateur, attestation d'assurance véhicule spécial permis..."
+        />
+      </div>
+      <div class="file-preview-list" id="filePreviewList">
+        <!-- Prévisualisations dynamiques -->
+      </div>
+    </article>
+
+    <!-- Formulaire principal (Coordonnées & infos) -->
     <article id="infoFormContainer">
       <h3>Coordonnées et informations Candidat</h3>
       <form id="infoForm" action="#" method="post" enctype="multipart/form-data">
@@ -737,24 +743,11 @@
         </label>
       </form>
     </article>
-
-    <!-- Documents Obligatoires (masqué tant que le formulaire principal n'est pas validé) -->
-    <article id="docsObligContainer">
-      <h3>Documents Obligatoires</h3>
-      <div class="info-field">
-        <label for="filesInput">Ajouter des fichiers :</label>
-        <input type="file" id="filesInput" multiple />
-      </div>
-      <div class="file-preview-list" id="filePreviewList">
-        <!-- Prévisualisations dynamiques ici -->
-      </div>
-    </article>
-
   </section>
 
   <!-- ========== Contenu pédagogique ========== -->
   <div id="contentPage">
-    <!-- SECTION ACCUEIL -->
+    <!-- SECTION ACCUEIL (déjà visible au chargement) -->
     <section id="accueilSection" class="section-content" style="display:block;">
       <header>
         <h2>ACCUEIL</h2>
@@ -1071,28 +1064,24 @@ registerTab.addEventListener('click', () => {
 });
 
 // Toggle mot de passe
-function setupTogglePassword(toggleElement, targetInput) {
-  toggleElement.addEventListener('click', () => {
+function setupTogglePassword(iconElement, targetID) {
+  iconElement.addEventListener('click', () => {
+    const targetInput = document.getElementById(targetID);
+    if (!targetInput) return;
     if (targetInput.type === "password") {
       targetInput.type = "text";
-      toggleElement.classList.remove('fa-eye');
-      toggleElement.classList.add('fa-eye-slash');
+      iconElement.classList.remove('fa-eye');
+      iconElement.classList.add('fa-eye-slash');
     } else {
       targetInput.type = "password";
-      toggleElement.classList.remove('fa-eye-slash');
-      toggleElement.classList.add('fa-eye');
+      iconElement.classList.remove('fa-eye-slash');
+      iconElement.classList.add('fa-eye');
     }
   });
 }
-const toggleLoginPassword = document.getElementById('toggleLoginPassword');
-setupTogglePassword(toggleLoginPassword, document.getElementById('loginPassword'));
-
-document.querySelectorAll('.auth-form .toggle-password').forEach(icon => {
+document.querySelectorAll('.toggle-password').forEach(icon => {
   const targetId = icon.getAttribute('data-target') || icon.id.replace('toggle','');
-  const targetInput = document.getElementById(targetId);
-  if (targetInput) {
-    setupTogglePassword(icon, targetInput);
-  }
+  setupTogglePassword(icon, targetId);
 });
 
 // Form inscription
@@ -1110,7 +1099,7 @@ document.getElementById('registerForm').addEventListener('submit', e => {
     alert("Les mots de passe ne correspondent pas.");
     return;
   }
-  // Simulation d'un code unique
+  // Simulation code unique
   const oneTimeCode = Math.floor(100000 + Math.random() * 900000).toString();
   localStorage.setItem('registeredUser', JSON.stringify({
     email: document.getElementById('regEmail').value,
@@ -1131,6 +1120,7 @@ document.getElementById('loginForm').addEventListener('submit', e => {
   scrollTopPage();
   updateMenuVisibility();
 });
+
 // skipAuth
 document.getElementById('skipAuth').addEventListener('click', () => {
   document.getElementById('authPage').style.display = 'none';
@@ -1152,7 +1142,6 @@ sidebar.addEventListener('mouseleave', () => {
   sidebar.classList.remove('active');
 });
 
-/* Active le 1er lien .toc de la section */
 function activateFirstTocLink(sectionId) {
   const section = document.querySelector(sectionId);
   if (!section) return;
@@ -1161,7 +1150,6 @@ function activateFirstTocLink(sectionId) {
     firstLink.classList.add('active');
   }
 }
-
 document.querySelectorAll('#sidebar a').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
@@ -1171,7 +1159,7 @@ document.querySelectorAll('#sidebar a').forEach(link => {
   });
 });
 
-// Boutons
+// Sidebar buttons
 document.getElementById('coverPageBtn').addEventListener('click', e => {
   e.preventDefault();
   hideAllSections();
@@ -1230,6 +1218,7 @@ document.getElementById('permisLink').addEventListener('click', e => {
    FORMULAIRE CANDIDAT
 ===================== */
 const infoFormContainer = document.getElementById('infoFormContainer');
+const summaryView = document.getElementById('summaryView');
 const docsObligContainer = document.getElementById('docsObligContainer');
 
 function formatDate(dateStr) {
@@ -1269,54 +1258,52 @@ function displaySummary(data) {
   document.getElementById('sumPhoto').src = data.photo || "";
 }
 
+/* Soumission form principal */
 document.getElementById('infoForm').addEventListener('submit', e => {
   e.preventDefault();
-  scrollTopPage(); // remonter en haut
+  scrollTopPage();
   const formData = collectFormData();
   localStorage.setItem('validatedData', JSON.stringify(formData));
-
-  // Masquer le formulaire, afficher le récap
+  // Masquer form, afficher récap
   infoFormContainer.style.display = 'none';
   displaySummary(formData);
-  document.getElementById('summaryView').style.display = 'block';
-  
+  summaryView.style.display = 'block';
+
+  // Afficher Documents Obligatoires
+  docsObligContainer.style.display = 'block';
+
   document.getElementById('editBtn').style.display = 'inline-block';
   document.getElementById('resetBtn').style.display = 'inline-block';
   document.getElementById('demarrerBtn').style.display = 'inline-block';
-
-  // Révèle la section "Documents obligatoires" (si on clique sur le lien)
-  // => docsObligContainer
 });
 
+/* Boutons recap */
 document.getElementById('editBtn').addEventListener('click', () => {
-  document.getElementById('summaryView').style.display = 'none';
+  summaryView.style.display = 'none';
+  docsObligContainer.style.display = 'none';
   infoFormContainer.style.display = 'block';
   document.getElementById('editBtn').style.display = 'none';
   document.getElementById('resetBtn').style.display = 'none';
   document.getElementById('demarrerBtn').style.display = 'none';
 });
-
 document.getElementById('resetBtn').addEventListener('click', () => {
   if(!confirm("Voulez-vous vraiment réinitialiser ?")) return;
   localStorage.removeItem('validatedData');
-  document.getElementById('summaryView').style.display = 'none';
+  summaryView.style.display = 'none';
+  docsObligContainer.style.display = 'none';
   document.getElementById('infoForm').reset();
-  
+
   document.getElementById('editBtn').style.display = 'none';
   document.getElementById('resetBtn').style.display = 'none';
   document.getElementById('demarrerBtn').style.display = 'none';
-  
+
   const photoPreview = document.getElementById('photoPreview');
   photoPreview.src = "";
   photoPreview.style.display = 'none';
   document.getElementById('photoPlaceholderText').style.display = 'block';
 
-  // Masque "Documents obligatoires"
-  docsObligContainer.style.display = 'none';
-
   infoFormContainer.style.display = 'block';
 });
-
 document.getElementById('demarrerBtn').addEventListener('click', () => {
   document.getElementById('candidatSection').style.display = 'none';
   document.getElementById('contentPage').style.display = 'block';
@@ -1341,18 +1328,17 @@ summaryLink.addEventListener('click', e => {
 
   const validatedData = localStorage.getItem('validatedData');
   if (validatedData) {
-    // Affiche le récap
-    document.getElementById('summaryView').style.display = 'block';
+    summaryView.style.display = 'block';
+    docsObligContainer.style.display = 'block';
     infoFormContainer.style.display = 'none';
     document.getElementById('editBtn').style.display = 'inline-block';
     document.getElementById('resetBtn').style.display = 'inline-block';
     document.getElementById('demarrerBtn').style.display = 'inline-block';
   } else {
-    // Affiche le form
-    document.getElementById('summaryView').style.display = 'none';
+    summaryView.style.display = 'none';
+    docsObligContainer.style.display = 'none';
     infoFormContainer.style.display = 'block';
   }
-  docsObligContainer.style.display = 'none'; // on masque
   summaryLink.classList.add('active');
   docsLink.classList.remove('active');
 });
@@ -1364,20 +1350,18 @@ docsLink.addEventListener('click', e => {
   document.getElementById('contentPage').style.display = 'none';
   scrollTopPage();
   const validatedData = localStorage.getItem('validatedData');
-  if (!validatedData) {
+  if(!validatedData){
     alert("Veuillez d'abord remplir et envoyer le formulaire principal.");
-    // On rétablit la vue "form principal"
-    document.getElementById('summaryView').style.display = 'none';
-    infoFormContainer.style.display = 'block';
+    summaryView.style.display = 'none';
     docsObligContainer.style.display = 'none';
+    infoFormContainer.style.display = 'block';
     return;
   }
-  summaryLink.classList.remove('active');
-  docsLink.classList.add('active');
-  // On masque le summaryView et le form principal, on affiche docs
-  document.getElementById('summaryView').style.display = 'none';
+  summaryView.style.display = 'none';
   infoFormContainer.style.display = 'none';
   docsObligContainer.style.display = 'block';
+  docsLink.classList.add('active');
+  summaryLink.classList.remove('active');
 });
 
 /* =====================
@@ -1424,7 +1408,7 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
 });
 
 /* =====================
-   GESTION FICHIERS (Documents obligatoires)
+   GESTION FICHIERS
 ===================== */
 const filesInput = document.getElementById('filesInput');
 const filePreviewList = document.getElementById('filePreviewList');
@@ -1437,16 +1421,16 @@ function displaySavedFiles(){
     fileItem.classList.add('file-preview-item');
 
     let preview = `<img src="`;
-    // si c'est image
     if(fileObj.type.startsWith('image/')){
       preview += fileObj.data;
     } else {
       preview += "https://cdn-icons-png.flaticon.com/512/337/337946.png";
     }
     preview += `" alt="file" />`;
+
     fileItem.innerHTML = `
       ${preview}
-      <span class="filename">${fileObj.name}</span>
+      <span class="filename" title="${fileObj.name}">${fileObj.name}</span>
       <div class="file-preview-icons">
         <i class="fas fa-pencil-alt" data-index="${index}" title="Modifier"></i>
         <i class="fas fa-trash" data-index="${index}" title="Supprimer"></i>
@@ -1455,40 +1439,42 @@ function displaySavedFiles(){
     filePreviewList.appendChild(fileItem);
   });
 }
-
 function initDocuments() {
   displaySavedFiles();
 }
-filesInput?.addEventListener('change', e => {
-  const files = Array.from(e.target.files);
-  if(!files.length) return;
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = function(evt){
-      addedFiles.push({
-        name: file.name,
-        type: file.type,
-        data: evt.target.result
-      });
-      localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
-      displaySavedFiles();
-    };
-    reader.readAsDataURL(file);
+if(filesInput){
+  filesInput.addEventListener('change', e => {
+    const files = Array.from(e.target.files);
+    if(!files.length) return;
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function(evt){
+        addedFiles.push({
+          name: file.name,
+          type: file.type,
+          data: evt.target.result
+        });
+        localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
+        displaySavedFiles();
+      };
+      reader.readAsDataURL(file);
+    });
+    filesInput.value="";
   });
-  filesInput.value="";
-});
+}
+
 filePreviewList.addEventListener('click', e => {
   if(e.target.classList.contains('fa-pencil-alt')){
-    const index = e.target.dataset.index;
-    if(index==null) return;
-    const hiddenInput = document.createElement('input');
-    hiddenInput.type='file';
-    hiddenInput.onchange = (ev) => {
+    const idx = e.target.dataset.index;
+    if(idx==null)return;
+    const fileReplace = document.createElement('input');
+    fileReplace.type='file';
+    fileReplace.onchange = ev => {
       const newFile = ev.target.files[0];
       if(newFile){
         const r = new FileReader();
         r.onload = function(rEvt){
-          addedFiles[index] = {
+          addedFiles[idx] = {
             name: newFile.name,
             type: newFile.type,
             data: rEvt.target.result
@@ -1499,12 +1485,12 @@ filePreviewList.addEventListener('click', e => {
         r.readAsDataURL(newFile);
       }
     };
-    hiddenInput.click();
-  }else if(e.target.classList.contains('fa-trash')){
-    const index = e.target.dataset.index;
-    if(index==null) return;
+    fileReplace.click();
+  } else if(e.target.classList.contains('fa-trash')){
+    const idx = e.target.dataset.index;
+    if(idx==null)return;
     if(!confirm("Supprimer ce fichier ?")) return;
-    addedFiles.splice(index,1);
+    addedFiles.splice(idx,1);
     localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
     displaySavedFiles();
   }
@@ -1558,7 +1544,7 @@ function mettreAJourIndicateurs() {
 window.addEventListener('load', () => {
   initAutocomplete();
   initDocuments();
-  // Prévisualisation de la photo du candidat
+  // Gestion de la photo
   const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
   if (photoInput) {
     photoInput.addEventListener('change', e => {
