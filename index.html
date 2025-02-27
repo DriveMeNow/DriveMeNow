@@ -38,7 +38,6 @@
        PAGE AUTHENTIFICATION
     ============================ */
     #authPage {
-      /* Pour laisser voir le fond clair à gauche et à droite */
       width: 80%;
       max-width: 600px;
       margin: 40px auto;
@@ -95,17 +94,20 @@
     .auth-form.active {
       display: block;
     }
+
     .auth-field {
       margin-bottom: 15px;
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
     .auth-field label {
-      display: block;
       margin-bottom: 5px;
     }
     .auth-field input {
       width: 100%;
       padding: 8px;
+      padding-right: 2.5em; /* pour l'icône œil */
       border: 1px solid #555;
       border-radius: 4px;
       background: #222;
@@ -124,6 +126,7 @@
       transform: translateY(-50%);
       cursor: pointer;
       color: #FFA500;
+      font-size: 1em;
     }
 
     .auth-form button.btn {
@@ -137,7 +140,17 @@
       background-color: #fceec7;
       color: #000;
     }
-    
+
+    /* Responsive correction pour l’icône œil sur mobile */
+    @media (max-width: 600px) {
+      .auth-field input {
+        padding-right: 3em; /* un peu plus large sur mobile */
+      }
+      .toggle-password {
+        right: 15px;
+      }
+    }
+
     /* =====================
        BOUTONS GÉNÉRIQUES
     ===================== */
@@ -299,7 +312,6 @@
       color: #fff;
     }
 
-    /* Liens .toc en gris foncé par défaut */
     .toc a {
       color: #666;
       text-decoration: none;
@@ -307,7 +319,6 @@
     }
     .toc a:hover {
       color: #FFA500;
-      text-decoration: underline;
     }
     .toc a.active {
       color: #FFA500;
@@ -382,9 +393,14 @@
       margin: 10px 5px;
     }
 
-    /* PAGE “DOCUMENTS OBLIGATOIRES” MASQUÉ TANT QUE FORMULAIRE PAS ENVOYÉ */
+    /* PAGE “DOCUMENTS OBLIGATOIRES” */
     #docsObligContainer {
-      display: none; /* on le révèle après validation du 1er formulaire */
+      display: none; /* on le dévoilera après validation du 1er formulaire */
+      margin-top: 20px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 15px;
+      background: #333;
     }
     /* Prévisualisation de fichiers */
     .file-preview-list {
@@ -397,7 +413,7 @@
       border: 1px solid #444;
       border-radius: 4px;
       padding: 4px 8px;
-      background: #333;
+      background: #222; /* Contraste pour l'arrière-plan */
     }
     .file-preview-item img {
       width: 40px;
@@ -409,6 +425,7 @@
       color: #fff;
       flex: 1;
       margin-right: 8px;
+      word-break: break-all; /* Au cas où le nom du fichier est très long */
     }
     .file-preview-icons {
       display: flex;
@@ -524,7 +541,7 @@
       padding: 10px;
     }
 
-    /* Responsive */
+    /* Responsive général */
     @media (max-width:768px) {
       .section-content {
         padding: 0 20px;
@@ -565,7 +582,6 @@
       <div class="auth-field">
         <label for="loginPassword">Mot de passe :</label>
         <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required />
-        <small style="visibility:hidden;">(Alignement)</small>
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
       </div>
@@ -596,7 +612,6 @@
       <div class="auth-field">
         <label for="regPassword">Mot de passe :</label>
         <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required />
-         <small style="visibility:hidden;">(Alignement)</small>
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
       </div>
@@ -1287,8 +1302,8 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   document.getElementById('resetBtn').style.display = 'inline-block';
   document.getElementById('demarrerBtn').style.display = 'inline-block';
 
-  // Révèle la section "Documents obligatoires" (si on clique sur le lien)
-  // => docsObligContainer
+  // === Apparition automatique de la section Documents obligatoires ===
+  docsObligContainer.style.display = 'block';
 });
 
 document.getElementById('editBtn').addEventListener('click', () => {
@@ -1427,7 +1442,7 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
 });
 
 /* =====================
-   GESTION FICHIERS (Documents obligatoires)
+   GESTION FICHIERS
 ===================== */
 const filesInput = document.getElementById('filesInput');
 const filePreviewList = document.getElementById('filePreviewList');
@@ -1440,11 +1455,11 @@ function displaySavedFiles(){
     fileItem.classList.add('file-preview-item');
 
     let preview = `<img src="`;
-    // si c'est image
+    // si c'est une image
     if(fileObj.type.startsWith('image/')){
       preview += fileObj.data;
     } else {
-      preview += "https://cdn-icons-png.flaticon.com/512/337/337946.png";
+      preview += "https://cdn-icons-png.flaticon.com/512/337/337946.png"; // icône par défaut
     }
     preview += `" alt="file" />`;
     fileItem.innerHTML = `
@@ -1503,7 +1518,7 @@ filePreviewList.addEventListener('click', e => {
       }
     };
     hiddenInput.click();
-  }else if(e.target.classList.contains('fa-trash')){
+  } else if(e.target.classList.contains('fa-trash')){
     const index = e.target.dataset.index;
     if(index==null) return;
     if(!confirm("Supprimer ce fichier ?")) return;
