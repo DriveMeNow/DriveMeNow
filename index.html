@@ -88,7 +88,7 @@
     .auth-form {
       display: none;
       text-align: left;
-      position: relative; /* Permet la position absolute de l’icône */
+      position: relative;
     }
     .auth-form.active {
       display: block;
@@ -203,7 +203,8 @@
       display: block;
       padding: 15px;
       background: #fceec7;
-      color: #FFA500; /* liens en orange par défaut */
+      /* Couleur du texte et icône en noir */
+      color: #000; 
       text-decoration: none;
       border-bottom: 1px solid #000;
       text-align: center;
@@ -212,11 +213,10 @@
       margin: 5px 10px;
       transition: background 0.3s, color 0.3s;
     }
-    /* Sur hover ou si actif => orange vif #FF7F00 (ou proche) */
     #sidebar a:hover,
     #sidebar a.active {
       background: #FFA500;
-      color: #FF7F00; 
+      color: #000; /* reste en noir même si hover/actif */
     }
 
     /* =========================
@@ -358,7 +358,7 @@
     }
     #sumPhoto {
       display: block;
-      margin: 0 auto; /* centrage photo */
+      margin: 0 auto;
     }
     #summaryView p {
       margin: 5px 0;
@@ -367,6 +367,57 @@
     #editBtn, #resetBtn, #demarrerBtn {
       display: none;
       margin: 10px 5px;
+    }
+
+    /* Liens .toc non actifs en gris foncé #666 */
+    .toc a {
+      color: #666; 
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .toc a:hover {
+      color: #FFA500; 
+    }
+    .toc a.active {
+      color: #FFA500; 
+      text-decoration: underline;
+    }
+
+    /* SECTION FICHIERS AJOUTÉS */
+    .file-preview-list {
+      margin-top: 10px;
+    }
+    .file-preview-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 4px 8px;
+      background: #333;
+    }
+    .file-preview-item img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-right: 8px;
+    }
+    .file-preview-item span.filename {
+      color: #fff;
+      flex: 1;
+      margin-right: 8px;
+    }
+    .file-preview-icons {
+      display: flex;
+      gap: 10px;
+    }
+    .file-preview-icons i {
+      color: #FFA500;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .file-preview-icons i:hover {
+      color: #f00;
     }
 
     /* ===================
@@ -460,20 +511,6 @@
       font-size: 1.1em;
     }
 
-    /* ======== Table des matières (liens .toc) ======== */
-    .toc a {
-      color: #FFA500; /* Orange par défaut */
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .toc a:hover {
-      color: #FF7F00; /* Orange vif sur hover */
-    }
-    .toc a.active {
-      color: #FF7F00; /* Orange vif si actif */
-      text-decoration: underline;
-    }
-
     /* Footer */
     .footer {
       text-align: center;
@@ -558,7 +595,6 @@
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
         <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
       </div>
-      <!-- Petit <small> caché pour alignement -->
       <div class="auth-field">
         <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
         <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required />
@@ -591,9 +627,7 @@
       <h2>CANDIDAT</h2>
       <nav class="toc">
         <ul>
-          <!-- Lien 1 : Récap ou Form -->
           <li><a href="#" id="summaryLink">Coordonnées et informations Candidat</a></li>
-          <!-- Lien 2 : Formulaire -->
           <li><a href="#" id="docsLink">Documents obligatoires</a></li>
         </ul>
       </nav>
@@ -690,6 +724,15 @@
           <span id="photoPlaceholderText">Ajouter une photo</span>
           <img id="photoPreview" alt="Prévisualisation de la photo" />
           <input type="file" name="photo" accept="image/*" required />
+        </div>
+
+        <!-- Ajout multiple de fichiers / prévisualisation -->
+        <div class="info-field">
+          <label for="filesInput">Ajouter des fichiers :</label>
+          <input type="file" id="filesInput" multiple />
+        </div>
+        <div class="file-preview-list" id="filePreviewList">
+          <!-- Prévisualisations dynamiques ici -->
         </div>
 
         <div style="text-align:center;">
@@ -1137,7 +1180,6 @@ document.getElementById('coverPageBtn').addEventListener('click', e => {
   document.getElementById('candidatSection').style.display = 'block';
   document.getElementById('contentPage').style.display = 'none';
   scrollTopPage();
-  // Activer le premier lien (summaryLink) ou docLink si on le souhaite
   activateFirstTocLink('#candidatSection');
 });
 document.getElementById('accueilBtn').addEventListener('click', e => {
@@ -1229,6 +1271,8 @@ function displaySummary(data) {
 /* Soumission du formulaire */
 document.getElementById('infoForm').addEventListener('submit', e => {
   e.preventDefault();
+  // On remonte la page
+  scrollTopPage();
   const formData = collectFormData();
   localStorage.setItem('validatedData', JSON.stringify(formData));
   // Masquer le formulaire et afficher le récap
@@ -1239,7 +1283,6 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   document.getElementById('editBtn').style.display = 'inline-block';
   document.getElementById('resetBtn').style.display = 'inline-block';
   document.getElementById('demarrerBtn').style.display = 'inline-block';
-  scrollTopPage();
 });
 
 /* Bouton "Modifier" */
@@ -1253,6 +1296,7 @@ document.getElementById('editBtn').addEventListener('click', () => {
 
 /* Bouton "Réinitialiser" */
 document.getElementById('resetBtn').addEventListener('click', () => {
+  if(!confirm("Voulez-vous vraiment réinitialiser le formulaire et vos données ?")) return;
   localStorage.removeItem('validatedData');
   document.getElementById('summaryView').style.display = 'none';
   document.getElementById('infoForm').reset();
@@ -1261,12 +1305,15 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('resetBtn').style.display = 'none';
   document.getElementById('demarrerBtn').style.display = 'none';
   
-  document.getElementById('infoForm').style.display = 'block';
-  
   const photoPreview = document.getElementById('photoPreview');
   photoPreview.src = "";
   photoPreview.style.display = 'none';
   document.getElementById('photoPlaceholderText').style.display = 'block';
+
+  // On vide la liste de fichiers
+  filePreviewList.innerHTML = "";
+  localStorage.removeItem('addedFiles');
+  document.getElementById('infoForm').style.display = 'block';
 });
 
 /* Bouton "Démarrer" */
@@ -1277,7 +1324,7 @@ document.getElementById('demarrerBtn').addEventListener('click', () => {
   hideAllSections();
   document.getElementById('accueilSection').style.display = 'block';
   scrollTopPage();
-  // Active le bouton ACCUEIL en orange
+  // Active le bouton ACCUEIL 
   document.querySelectorAll('#sidebar a').forEach(el => el.classList.remove('active'));
   document.getElementById('accueilBtn').classList.add('active');
   // On active le premier lien de la page ACCUEIL
@@ -1302,7 +1349,6 @@ document.getElementById('summaryLink').addEventListener('click', e => {
     document.getElementById('editBtn').style.display = 'inline-block';
     document.getElementById('resetBtn').style.display = 'inline-block';
     document.getElementById('demarrerBtn').style.display = 'inline-block';
-    // Active lui-même
     e.target.classList.add('active');
   } else {
     // Affiche le form
@@ -1368,6 +1414,123 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
 });
 
 /* =====================
+   AJOUT / SUPPRESSION DE FICHIERS 
+===================== */
+const filesInput = document.getElementById('filesInput');
+const filePreviewList = document.getElementById('filePreviewList');
+let addedFiles = JSON.parse(localStorage.getItem('addedFiles') || '[]');
+
+// Affiche la liste de fichiers déjà sauvegardés
+window.addEventListener('load', () => {
+  initAutocomplete();
+  displaySavedFiles();
+  // Gestion de l'upload photo
+  const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
+  if (photoInput) {
+    photoInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const photoPreview = document.getElementById('photoPreview');
+          photoPreview.src = evt.target.result;
+          photoPreview.style.display = 'block';
+          document.getElementById('photoPlaceholderText').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+});
+
+filesInput.addEventListener('change', e => {
+  const files = Array.from(e.target.files);
+  if(!files.length) return;
+  // On ajoute chaque fichier
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const base64Data = evt.target.result;
+      addedFiles.push({
+        name: file.name,
+        type: file.type,
+        data: base64Data
+      });
+      localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
+      displaySavedFiles();
+    };
+    reader.readAsDataURL(file);
+  });
+  filesInput.value = ""; // reset input
+});
+
+function displaySavedFiles(){
+  filePreviewList.innerHTML = "";
+  addedFiles.forEach((fileObj, index) => {
+    const fileItem = document.createElement('div');
+    fileItem.classList.add('file-preview-item');
+
+    // On affiche une icône ou une mini-apercu
+    let previewContent = `<img src="`;
+    // Si c'est image, on peut l'afficher
+    if (fileObj.type.startsWith('image/')) {
+      previewContent += fileObj.data;
+    } else {
+      // Fichier PDF ou autre => on peut mettre un icône
+      previewContent += "https://cdn-icons-png.flaticon.com/512/337/337946.png";
+    }
+    previewContent += `" alt="file" />`;
+    
+    fileItem.innerHTML = `
+      ${previewContent}
+      <span class="filename">${fileObj.name}</span>
+      <div class="file-preview-icons">
+        <i class="fas fa-pencil-alt" data-index="${index}" title="Modifier"></i>
+        <i class="fas fa-trash" data-index="${index}" title="Supprimer"></i>
+      </div>
+    `;
+    filePreviewList.appendChild(fileItem);
+  });
+}
+
+// Au clic sur l'icône "pencil" => on modifie le fichier
+filePreviewList.addEventListener('click', e => {
+  if(e.target.classList.contains('fa-pencil-alt')){
+    const index = e.target.dataset.index;
+    if(index==null) return;
+    // On ouvre un input type="file" invisible pour remplacer ce fichier
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'file';
+    hiddenInput.onchange = (evt) => {
+      const newFile = evt.target.files[0];
+      if(newFile){
+        const reader = new FileReader();
+        reader.onload = function(rEvt){
+          addedFiles[index] = {
+            name: newFile.name,
+            type: newFile.type,
+            data: rEvt.target.result
+          };
+          localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
+          displaySavedFiles();
+        };
+        reader.readAsDataURL(newFile);
+      }
+    };
+    hiddenInput.click();
+  }
+  // Au clic sur poubelle => on supprime
+  else if(e.target.classList.contains('fa-trash')){
+    const index = e.target.dataset.index;
+    if(index==null) return;
+    if(!confirm("Voulez-vous vraiment supprimer ce fichier ?")) return;
+    addedFiles.splice(index,1);
+    localStorage.setItem('addedFiles', JSON.stringify(addedFiles));
+    displaySavedFiles();
+  }
+});
+
+/* =====================
    SUIVI DES SESSIONS
 ===================== */
 function ajouterSession() {
@@ -1408,30 +1571,6 @@ function mettreAJourIndicateurs() {
   const pourcentage = Math.min(Math.round((totalSessions / cible) * 100), 100);
   document.getElementById('pratiqueProgress').innerText = pourcentage + "%";
 }
-
-/* =====================
-   INITIALISATION
-===================== */
-window.addEventListener('load', () => {
-  initAutocomplete();
-  // Gestion de l'upload photo
-  const fileInput = document.querySelector('.photo-placeholder input[type="file"]');
-  if (fileInput) {
-    fileInput.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-          const photoPreview = document.getElementById('photoPreview');
-          photoPreview.src = evt.target.result;
-          photoPreview.style.display = 'block';
-          document.getElementById('photoPlaceholderText').style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-});
 </script>
 </body>
 </html>
