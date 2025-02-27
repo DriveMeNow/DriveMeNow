@@ -62,7 +62,7 @@
       margin-bottom: 20px;
       font-size: 0.95em;
       color: #ccc;
-      font-weight: bold; /* Mise en gras */
+      font-weight: bold; 
     }
 
     .auth-tabs {
@@ -89,14 +89,14 @@
     .auth-form {
       display: none;
       text-align: left;
-      position: relative; 
+      position: relative;
     }
     .auth-form.active {
       display: block;
     }
     .auth-field {
       margin-bottom: 15px;
-      position: relative;
+      position: relative; 
     }
     .auth-field label {
       display: block;
@@ -200,28 +200,23 @@
     #sidebar.active {
       left: 0;
     }
-    /* Lien inactif: gris (#666), actif: orange + souligné */
     #sidebar a {
       display: block;
       padding: 15px;
       background: #fceec7;
-      color: #666;
+      color: #000; 
       text-decoration: none;
       border-bottom: 1px solid #000;
       text-align: center;
       font-size: 1em;
       border-radius: 8px;
       margin: 5px 10px;
-      transition: background 0.3s, color 0.3s, text-decoration 0.3s;
+      transition: background 0.3s, color 0.3s;
     }
-    #sidebar a:hover {
-      background: #FFA500;
-      color: #000;
-    }
+    #sidebar a:hover,
     #sidebar a.active {
       background: #FFA500;
       color: #000;
-      text-decoration: underline;
     }
 
     /* =========================
@@ -247,7 +242,7 @@
     .section-content h2 {
       font-size: 2em;
       margin-bottom: 10px;
-      color: #000; /* Titre en noir */
+      color: #000; 
       text-align: center;
     }
     .section-content h3 {
@@ -257,8 +252,9 @@
       padding-bottom: 5px;
       color: #fff;
     }
+    /* Liens .toc inactifs: gris, actifs: orange + souligné */
     .toc a {
-      color: #666;
+      color: #666; 
       text-decoration: none;
       transition: color 0.3s, text-decoration 0.3s;
     }
@@ -307,7 +303,7 @@
       display: none;
     }
 
-    /* Récapitulatif + bloc "Documents Obligatoires" juste dessous */
+    /* Récapitulatif */
     #summaryView {
       display: none;
       margin: 20px auto;
@@ -338,42 +334,31 @@
       margin: 10px 5px;
     }
 
-    /* Documents obligatoires dans le récap */
+    /* Encadrement "Documents Obligatoires" dans le récap */
     #docsObligContainer {
-      margin-top: 15px;
+      display: none; 
+      margin-top: 20px;
       background: #222;
       border: 1px solid #444;
       border-radius: 8px;
-      padding: 10px;
+      padding: 15px;
     }
-    #docsObligContainer h4 {
-      font-size: 1.3em;
-      color: #FFA500;
-      margin-bottom: 8px;
+    #docsObligContainer h3 {
+      font-size: 1.4em;
       border-bottom: 1px solid #FFA500;
       padding-bottom: 5px;
+      margin-bottom: 10px;
+      color: #FFA500;
     }
-
-    .info-field label[for="filesInput"] {
-      color: #fff;
-      font-weight: bold;
-      margin-right: 6px;
+    .info-field #filesInput {
+      cursor: pointer; 
     }
-    /* Remplacement du texte normal par "Ajouter : PI, Justificatif de Dom..." */
+    /* Remplacer "Sélect. fichiers..." par "Ajouter : PI, Justificatif de Dom..." + message bulle */
     #filesInput {
-      color: #fff; 
-      cursor: pointer;
-    }
-    #filesInput::before {
-      content: "Ajouter : PI, Justificatif de Dom... ";
       color: #fff;
     }
     #filesInput::-webkit-file-upload-button {
-      /* On cache le bouton du navigateur pour personnaliser le label */
-      display: none;
-    }
-    #filesInput[title] {
-      /* Survolez = message bulle */
+      display: none; /* on cache le bouton par défaut */
     }
 
     .file-preview-list {
@@ -555,7 +540,7 @@
         <label for="loginPassword">Mot de passe :</label>
         <input type="password" id="loginPassword" name="loginPassword" placeholder="Votre mot de passe" required />
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
-        <!-- Icon "œil" pour ce champ -->
+        <!-- Icône "œil" -->
         <i class="fas fa-eye toggle-password" data-target="loginPassword"></i>
       </div>
       <div class="auth-field">
@@ -586,14 +571,14 @@
         <label for="regPassword">Mot de passe :</label>
         <input type="password" id="regPassword" name="regPassword" placeholder="Votre mot de passe" required />
         <small>Min. 9 caractères, 1 majuscule, 1 minuscule, 1 chiffre</small>
-        <!-- Icon "œil" pour ce champ -->
+        <!-- Icône "œil" -->
         <i class="fas fa-eye toggle-password" data-target="regPassword"></i>
       </div>
       <div class="auth-field">
         <label for="regPasswordConfirm">Confirmer le mot de passe :</label>
         <input type="password" id="regPasswordConfirm" name="regPasswordConfirm" placeholder="Confirmez votre mot de passe" required />
         <small style="visibility:hidden;">(Alignement)</small>
-        <!-- Icon "œil" pour ce champ -->
+        <!-- Icône "œil" -->
         <i class="fas fa-eye toggle-password" data-target="regPasswordConfirm"></i>
       </div>
       <button type="submit" class="btn">S'inscrire</button>
@@ -628,7 +613,7 @@
       </nav>
     </header>
 
-    <!-- Récapitulatif + Documents obligatoires juste en dessous -->
+    <!-- Récapitulatif -->
     <div id="summaryView">
       <h3>Coordonnées et informations Candidat</h3>
       <p>Nom : <span id="sumNom"></span></p>
@@ -650,19 +635,19 @@
         <button id="demarrerBtn" class="btn">Démarrer</button>
       </div>
 
-      <!-- L'encadrement "Documents Obligatoires" en dessous du récap -->
+      <!-- Nouveau encadrement "Documents Obligatoires" sous le récap -->
       <article id="docsObligContainer" style="margin-top:20px;">
-        <h4>Documents Obligatoires</h4>
+        <h3>Documents Obligatoires</h3>
         <div class="info-field">
-          <!-- title pour le message bulle, le input aura un label custom -->
-          <label for="filesInput" title="Pièce d’identité, Justificatif de domicile, ASSR, Permis accompagnateur, Attestation JDC, Charte de l’accompagnateur, attestation d’assurance...">
+          <label for="filesInput" title="Pièce d’identité, Justificatif de domicile, ASSR, Permis accompagnateur, Attestation JDC (Journée Défense et Citoyenneté), Charte de l’accompagnateur, attestation d'assurance véhicule spécial permis...">
             Fichiers :
           </label>
+          <!-- Input file => "Ajouter : PI..." + tooltip -->
           <input
             type="file"
             id="filesInput"
             multiple
-            title="Pièce d’identité, Justificatif de domicile, ASSR, Permis accompagnateur, Attestation JDC, Charte de l’accompagnateur, attestation d’assurance..."
+            title="Pièce d’identité, Justificatif de domicile, ASSR, Permis accompagnateur, Attestation JDC (Journée Défense et Citoyenneté), Charte de l’accompagnateur, attestation d'assurance véhicule spécial permis..."
           />
         </div>
         <div class="file-preview-list" id="filePreviewList">
@@ -748,12 +733,11 @@
         </label>
       </form>
     </article>
-
   </section>
 
   <!-- ========== Contenu pédagogique ========== -->
   <div id="contentPage">
-    <!-- ... AUTRES PAGES (Accueil, Suivi, Examens, Permis) inchangées ... -->
+    <!-- SECTION ACCUEIL -->
     <section id="accueilSection" class="section-content" style="display:block;">
       <header>
         <h2>ACCUEIL</h2>
@@ -791,7 +775,52 @@
         </ul>
       </article>
     </section>
-    <!-- ... INSCRIPTION, SUIVI, EXAMENS, PERMIS ... (inchangés) -->
+
+    <!-- SECTION INSCRIPTION, SUIVI, EXAMENS, PERMIS ... inchangés -->
+    <section id="inscriptionSection" class="section-content" style="display:none;">
+      <header>
+        <h2>INSCRIPTION</h2>
+        <nav class="toc">
+          <ul>
+            <li><a href="#introductionInscription">Introduction</a></li>
+            <li><a href="#infosGenerales">Informations Générales</a></li>
+            <li><a href="#demarchesInscription">Démarches d'Inscription</a></li>
+          </ul>
+        </nav>
+      </header>
+      <article id="introductionInscription">
+        <h3>Introduction</h3>
+        <p>Ce livret vous guide dans vos démarches d'inscription et de préparation. Suivez les instructions pour optimiser votre parcours vers le permis de conduire.</p>
+      </article>
+      <article id="infosGenerales">
+        <h3>Informations Générales</h3>
+        <h4>Prérequis pour débuter</h4>
+        <ul>
+          <li>Âge requis : 17 ans ou plus pour l’examen pratique, 16 ans pour l’examen théorique.</li>
+          <li>Attestation de sécurité routière (ASSR/ASR) ou déclaration sur l’honneur.</li>
+          <li>Justification de résidence en France depuis au moins 6 mois.</li>
+          <li>Contrôle médical en cas de problème de santé.</li>
+        </ul>
+        <h4>Obligations de l’accompagnateur</h4>
+        <p>L’accompagnateur doit être titulaire du permis B depuis au moins 5 ans, agir bénévolement et veiller à votre sécurité.</p>
+      </article>
+      <article id="demarchesInscription">
+        <h3>Démarches d'Inscription</h3>
+        <h4>Examen Théorique</h4>
+        <ol>
+          <li>Créez un compte sur <a href="https://ants.gouv.fr" target="_blank" style="color:#FFA500;">ANTS</a>.</li>
+          <li>Fournissez les documents requis (pièce d’identité, justificatif de domicile, photo, attestation JDC).</li>
+          <li>Validez votre demande pour obtenir votre numéro NEPH.</li>
+        </ol>
+        <h4>Examen Pratique</h4>
+        <ol>
+          <li>Connectez-vous ou créez un compte sur <a href="https://rdvpermis.fr" target="_blank" style="color:#FFA500;">RdvPermis</a>.</li>
+          <li>Réservez votre examen en choisissant l’option « Inscription en candidat libre ».</li>
+          <li>Fournissez les coordonnées de votre accompagnateur et planifiez l’examen.</li>
+        </ol>
+      </article>
+    </section>
+    <!-- ... SUIVI, EXAMENS, PERMIS ... -->
   </div>
 </div>
 
@@ -845,7 +874,7 @@ registerTab.addEventListener('click', () => {
   loginFormContainer.classList.remove('active');
 });
 
-// Toggle password
+// Toggle mot de passe
 function setupTogglePassword(iconElement, targetID) {
   iconElement.addEventListener('click', () => {
     const targetInput = document.getElementById(targetID);
@@ -861,11 +890,9 @@ function setupTogglePassword(iconElement, targetID) {
     }
   });
 }
-
-// Paramétrage pour chaque .toggle-password
 document.querySelectorAll('.toggle-password').forEach(icon => {
-  const targetID = icon.getAttribute('data-target');
-  setupTogglePassword(icon, targetID);
+  const targetId = icon.getAttribute('data-target') || icon.id.replace('toggle','');
+  setupTogglePassword(icon, targetId);
 });
 
 // Form inscription
@@ -903,7 +930,6 @@ document.getElementById('loginForm').addEventListener('submit', e => {
   scrollTopPage();
   updateMenuVisibility();
 });
-
 // skipAuth
 document.getElementById('skipAuth').addEventListener('click', () => {
   document.getElementById('authPage').style.display = 'none';
@@ -933,8 +959,6 @@ function activateFirstTocLink(sectionId) {
     firstLink.classList.add('active');
   }
 }
-
-// Navigation
 document.querySelectorAll('#sidebar a').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
@@ -944,6 +968,7 @@ document.querySelectorAll('#sidebar a').forEach(link => {
   });
 });
 
+// Sidebar buttons
 document.getElementById('coverPageBtn').addEventListener('click', e => {
   e.preventDefault();
   hideAllSections();
@@ -1028,7 +1053,6 @@ function collectFormData() {
     photo: document.getElementById('photoPreview').src
   };
 }
-
 function displaySummary(data) {
   document.getElementById('sumNom').innerText = capitalize(data.nom);
   document.getElementById('sumPrenom').innerText = capitalize(data.prenom);
@@ -1044,7 +1068,7 @@ function displaySummary(data) {
   document.getElementById('sumPhoto').src = data.photo || "";
 }
 
-// Validation du formulaire principal
+// Soumission du formulaire principal
 document.getElementById('infoForm').addEventListener('submit', e => {
   e.preventDefault();
   scrollTopPage(); 
@@ -1055,7 +1079,7 @@ document.getElementById('infoForm').addEventListener('submit', e => {
   displaySummary(formData);
   summaryView.style.display = 'block';
 
-  // On affiche le bloc "Documents Obligatoires" directement dans le summaryView 
+  // On affiche le bloc "Documents Obligatoires" dans le récap
   docsObligContainer.style.display = 'block';
 
   document.getElementById('editBtn').style.display = 'inline-block';
@@ -1107,9 +1131,7 @@ document.getElementById('demarrerBtn').addEventListener('click', () => {
   activateFirstTocLink('#accueilSection');
 });
 
-/* =====================
-   Liens "Coordonnées et informations Candidat" / "Documents obligatoires"
-===================== */
+/* Liens "Coordonnées et informations Candidat" / "Documents obligatoires" */
 const summaryLink = document.getElementById('summaryLink');
 const docsLink = document.getElementById('docsLink');
 
@@ -1129,7 +1151,7 @@ summaryLink.addEventListener('click', e => {
     document.getElementById('resetBtn').style.display = 'inline-block';
     document.getElementById('demarrerBtn').style.display = 'inline-block';
   } else {
-    // Formulaire non validé => on montre le form, on masque docOblig
+    // formulaire non validé => on montre le form
     summaryView.style.display = 'none';
     infoFormContainer.style.display = 'block';
     docsObligContainer.style.display = 'none';
@@ -1145,10 +1167,9 @@ docsLink.addEventListener('click', e => {
   document.getElementById('contentPage').style.display = 'none';
   scrollTopPage();
 
-  // On ne montre docsObligContainer que si le form principal a été validé
   const validatedData = localStorage.getItem('validatedData');
   if (!validatedData) {
-    alert("Veuillez d'abord remplir et valider le formulaire principal.");
+    alert("Veuillez d'abord remplir et envoyer le formulaire principal.");
     summaryView.style.display = 'none';
     infoFormContainer.style.display = 'block';
     docsObligContainer.style.display = 'none';
@@ -1206,14 +1227,13 @@ document.querySelectorAll('.neph-box input').forEach((input, index, inputs) => {
 });
 
 /* =====================
-   GESTION DES FICHIERS
+   GESTION FICHIERS
 ===================== */
 const filesInput = document.getElementById('filesInput');
 const filePreviewList = document.getElementById('filePreviewList');
 let addedFiles = JSON.parse(localStorage.getItem('addedFiles') || '[]');
 
-// Affiche la liste existante
-function displaySavedFiles() {
+function displaySavedFiles(){
   filePreviewList.innerHTML = "";
   addedFiles.forEach((fileObj, index) => {
     const fileItem = document.createElement('div');
@@ -1237,7 +1257,6 @@ function displaySavedFiles() {
     filePreviewList.appendChild(fileItem);
   });
 }
-
 function initDocuments() {
   displaySavedFiles();
 }
@@ -1261,8 +1280,6 @@ if(filesInput){
     filesInput.value="";
   });
 }
-
-// Icônes "Modifier" / "Supprimer"
 filePreviewList.addEventListener('click', e => {
   if(e.target.classList.contains('fa-pencil-alt')){
     const idx = e.target.dataset.index;
@@ -1344,7 +1361,7 @@ function mettreAJourIndicateurs() {
 window.addEventListener('load', () => {
   initAutocomplete();
   initDocuments();
-  // Prévisualisation de la photo
+  // Gestion photo
   const photoInput = document.querySelector('.photo-placeholder input[type="file"]');
   if (photoInput) {
     photoInput.addEventListener('change', e => {
