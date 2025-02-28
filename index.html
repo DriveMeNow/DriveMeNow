@@ -116,7 +116,7 @@
     .auth-field small {
       display: block;
       color: #ccc;
-      margin-top: 7px;
+      margin-top: 7px; /* Valeur par défaut */
       font-size: 0.8em;
     }
     .toggle-password {
@@ -129,6 +129,21 @@
       font-size: 1em;
     }
 
+    /* Ajustement pour mobile : on augmente l’espace
+       au-dessus du petit texte pour éviter que l’icône
+       ne se superpose */
+    @media (max-width: 600px) {
+      .auth-field input {
+        padding-right: 3em; /* un peu plus large sur mobile */
+      }
+      .toggle-password {
+        right: 15px;
+      }
+      .auth-field small {
+        margin-top: 15px; /* Légèrement plus grand pour décaler le texte */
+      }
+    }
+
     .auth-form button.btn {
       display: block;
       margin: 15px auto 0 auto;
@@ -139,16 +154,6 @@
       display: block;
       background-color: #fceec7;
       color: #000;
-    }
-
-    /* Responsive correction pour l’icône œil sur mobile */
-    @media (max-width: 600px) {
-      .auth-field input {
-        padding-right: 3em; /* un peu plus large sur mobile */
-      }
-      .toggle-password {
-        right: 15px;
-      }
     }
 
     /* =====================
