@@ -1,45 +1,93 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DriveMeNow</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <div class="logo">🚗</div>
-        <h1>DriveMeNow</h1>
-    </header>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+    color: white;
+    text-align: center;
+}
 
-    <section class="banner">
-        <img src="route.jpg" alt="Route en virage de nuit">
-        <p>Accompagner les candidats dans la gestion et la réalisation de leurs démarches administratives et dans leur apprentissage de la conduite en vue d'obtenir le permis de conduire.</p>
-    </section>
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    padding: 15px;
+}
 
-    <section class="modules">
-        <div class="module c1">C1</div>
-        <div class="module c2">C2</div>
-        <div class="module c3">C3</div>
-        <div class="module c4">C4</div>
-    </section>
+.logo {
+    font-size: 24px;
+    margin-right: 10px;
+}
 
-    <button class="videos-btn">Voir nos vidéos</button>
+.banner img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
 
-    <section class="gallery">
-        <img src="car1.jpg" alt="Voiture auto-école">
-        <img src="car2.jpg" alt="Auto-école devant un bâtiment">
-        <img src="fun.jpg" alt="Apprentis en formation">
-    </section>
+.banner p {
+    padding: 15px;
+    font-size: 14px;
+}
 
-    <nav class="menu">
-        <a href="#">Accueil</a>
-        <a href="#">Code</a>
-        <a href="#">Conduite</a>
-        <a href="#">Tarifs</a>
-        <a href="#">Plus</a>
-    </nav>
+.modules {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+.module {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.c1 { background-color: #00CED1; }
+.c2 { background-color: #FF1493; }
+.c3 { background-color: #ADFF2F; }
+.c4 { background-color: #FFA500; }
+
+.videos-btn {
+    background-color: #FF8C00;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    background-color: black;
+    padding: 10px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
